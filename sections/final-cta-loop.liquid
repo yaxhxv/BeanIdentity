@@ -1,0 +1,152 @@
+{% comment %}
+  SECTION: FINAL CTA LOOP
+  - Positioned before the footer.
+  - Loops users back into the core funnel (Quiz or Shop).
+{% endcomment %}
+
+{%- style -%}
+  #FinalCTA-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: 12rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(var(--color-foreground), 0.05);
+  }
+
+  .final-cta__wrapper {
+    max-width: 90rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .final-cta__headline {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.2rem, 8vw, 6.4rem);
+    font-weight: 800;
+    line-height: 1.1;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 2rem 0;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+  }
+
+  .final-cta__subline {
+    font-size: 2rem;
+    color: {{ section.settings.text_color }};
+    opacity: 0.8;
+    margin: 0 0 5rem 0;
+    line-height: 1.6;
+  }
+
+  .final-cta__buttons {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  .final-cta__button {
+    display: inline-block;
+    padding: 2rem 5rem;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+  }
+
+  .final-cta__button--primary {
+    background: {{ section.settings.primary_btn_bg }};
+    color: {{ section.settings.primary_btn_text }};
+  }
+
+  .final-cta__button--secondary {
+    background: transparent;
+    color: {{ section.settings.text_color }};
+    border: 2px solid {{ section.settings.text_color }};
+  }
+
+  .final-cta__button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  @media screen and (max-width: 749px) {
+    #FinalCTA-{{ section.id }} {
+      padding: 8rem 0;
+    }
+    .final-cta__button {
+      width: 100%;
+    }
+  }
+{%- endstyle -%}
+
+<div id="FinalCTA-{{ section.id }}" class="final-cta-section">
+  <div class="final-cta__wrapper">
+    {%- if section.settings.headline != blank -%}
+      <h2 class="final-cta__headline">{{ section.settings.headline }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subline != blank -%}
+      <p class="final-cta__subline">{{ section.settings.subline }}</p>
+    {%- endif -%}
+    
+    <div class="final-cta__buttons">
+      <a href="/pages/which-bean-are-you" class="final-cta__button final-cta__button--primary">
+        Find Your Bean
+      </a>
+      <a href="/collections/all" class="final-cta__button final-cta__button--secondary">
+        Explore Beans
+      </a>
+    </div>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Final CTA Loop",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Still haven't found your soul-bean?"
+    },
+    {
+      "type": "textarea",
+      "id": "subline",
+      "label": "Subline",
+      "default": "Take the identity quiz again or browse the universe of all five beans."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_bg",
+      "label": "Primary Button Background",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "primary_btn_text",
+      "label": "Primary Button Text",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Final CTA Loop"
+    }
+  ]
+}
+{% endschema %}

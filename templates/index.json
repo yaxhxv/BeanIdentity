@@ -1,0 +1,318 @@
+{
+  "sections": {
+    "hero_banner_clean_NxXFFK": {
+      "type": "hero-banner-clean",
+      "blocks": {
+        "slide_t83Cix": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/c71vxsc5hegbuebo1xn8.webp",
+            "image_m": "shopify://shop_images/j0gzjnobkywhn5kb1i7o.webp",
+            "headline": "Insert Brand Tagline Here",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find Your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop All Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_ryDiLg": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/Bean_I_3.webp",
+            "image_m": "shopify://shop_images/personality_1.webp",
+            "headline": "Insert Brand Tagline Here",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find Your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop All Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_h7miCW": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/ve6gux28jgisnjr93r6v.webp",
+            "image_m": "shopify://shop_images/lf3jun3jqhpmlzhgcjwr.webp",
+            "headline": "Insert Brand Tagline Here",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find Your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop All Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_TCRdPB": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_d": "shopify://shop_images/Bean_I_1.png",
+            "link": "shopify://collections/all"
+          }
+        }
+      },
+      "block_order": [
+        "slide_t83Cix",
+        "slide_ryDiLg",
+        "slide_h7miCW",
+        "slide_TCRdPB"
+      ],
+      "name": "Clean Hero (Auto-Play)",
+      "settings": {
+        "section_width": "full-width",
+        "desktop_ratio": "56.25%",
+        "mobile_ratio": "125%",
+        "content_alignment": "center",
+        "text_color": "#ffffff",
+        "overlay_opacity": 30,
+        "speed": 5,
+        "show_dots": true,
+        "bg_color": "#f4f4f4"
+      }
+    },
+    "quiz_entry_prompt_hp": {
+      "type": "quiz-entry-prompt",
+      "settings": {
+        "headline": "Not sure who you are?",
+        "subline": "Meet the archetype that fits your soul and wear your identity with pride.",
+        "button_label": "Take the Quiz",
+        "bg_color": "#f9f9f9",
+        "text_color": "#121212",
+        "button_bg": "#121212",
+        "button_text": "#ffffff"
+      }
+    },
+    "beanagram_stories_hp": {
+      "type": "beanagram-stories",
+      "blocks": {
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "handle": "alex_driven",
+            "bean_type": "coffee",
+            "story": "Finding my bean identity changed how I express myself every day. It's more than apparel, it's a personality statement."
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "handle": "sara_heat",
+            "bean_type": "chilli",
+            "story": "I stopped trying to fit in. Now I choose honesty over approval. That's when I realised I'm a Chilli Bean."
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "handle": "neo_zen",
+            "bean_type": "green",
+            "story": "Being quiet never meant being empty. I relate to being a Green Bean - mindful and grounded."
+          }
+        }
+      },
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3"
+      ],
+      "settings": {
+        "title": "Beanagram Community",
+        "subtitle": "Meet the real people wearing their true identities.",
+        "cta_label": "Share Your Bean Story",
+        "bg_color": "#ffffff",
+        "text_color": "#121212"
+      }
+    },
+    "collection_slider_yzYUYt": {
+      "type": "collection-slider",
+      "blocks": {
+        "collection_CRabzi": { "type": "collection", "settings": { "image": "shopify://shop_images/D5C7EF8A-B9B6-4FEC-B725-44D38D1BC3E3.png", "title": "Jelly Bean", "url": "shopify://collections/jelly-bean", "aspect_ratio": "100" } },
+        "collection_4UbjXx": { "type": "collection", "settings": { "image": "shopify://shop_images/0C5C916D-3FDA-4D91-B677-FAE7FF78D727.png", "title": "Green Bean", "url": "shopify://collections/green-bean", "aspect_ratio": "100" } },
+        "collection_3ijtVA": { "type": "collection", "settings": { "image": "shopify://shop_images/878F49BF-A84F-4DB0-AFD7-873B3FA95B96.png", "title": "Chilli bean", "url": "shopify://collections/chilli-bean", "aspect_ratio": "100" } },
+        "collection_fjXjjV": { "type": "collection", "settings": { "image": "shopify://shop_images/69C0C504-64E5-4346-96A8-2D7D234015A2.webp", "title": "Coffee Bean", "url": "shopify://collections/coffee-bean", "aspect_ratio": "100" } },
+        "collection_eqkVDU": { "type": "collection", "settings": { "image": "shopify://shop_images/C3A37D2D-2BFC-4EBC-8413-75F36868BE05.png", "title": "Vanilla Bean", "url": "shopify://collections/vanilla-bean", "aspect_ratio": "100" } }
+      },
+      "block_order": ["collection_CRabzi", "collection_4UbjXx", "collection_3ijtVA", "collection_fjXjjV", "collection_eqkVDU"],
+      "name": "Bean Collection Slider",
+      "settings": {
+        "title": "Shop by Beans",
+        "subtitle": "Discover the latest trends",
+        "enable_autoplay": true,
+        "autoplay_speed": 3,
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "heading_size": 22,
+        "pt": 16,
+        "pb": 0
+      }
+    },
+    "scrolling_marquee_hp": {
+      "type": "scrolling-marquee",
+      "blocks": {
+        "bean_1": { "type": "bean", "settings": { "text": "Coffee Bean", "link": "/collections/coffee-bean" } },
+        "bean_2": { "type": "bean", "settings": { "text": "Chilli Bean", "link": "/collections/chilli-bean" } },
+        "bean_3": { "type": "bean", "settings": { "text": "Vanilla Bean", "link": "/collections/vanilla-bean" } },
+        "bean_4": { "type": "bean", "settings": { "text": "Jelly Bean", "link": "/collections/jelly-bean" } },
+        "bean_5": { "type": "bean", "settings": { "text": "Green Bean", "link": "/collections/green-bean" } }
+      },
+      "block_order": ["bean_1", "bean_2", "bean_3", "bean_4", "bean_5"],
+      "settings": {
+        "bg_color": "#121212",
+        "text_color": "#ffffff",
+        "separator": "·",
+        "speed": 30,
+        "font_size": 24,
+        "font_size_mobile": 16,
+        "padding_v": 20,
+        "pause_on_hover": true
+      }
+    },
+    "most_popular_products_fJfFYg": {
+      "type": "most-popular-products",
+      "blocks": {
+        "product_hLUbxF": { "type": "product", "settings": { "product": "the-bold-bean-acid-washed-oversized-tee" } },
+        "product_3AzRWL": { "type": "product", "settings": { "product": "curious-bean-acid-washed-oversized-tee" } },
+        "product_nxRBnx": { "type": "product", "settings": { "product": "the-overthinker-bean-oversized" } },
+        "product_VcHghL": { "type": "product", "settings": { "product": "the-calm-bean-mindset-edition-acid-washed-oversized-tee" } }
+      },
+      "block_order": ["product_hLUbxF", "product_3AzRWL", "product_nxRBnx", "product_VcHghL"],
+      "name": "Most Popular Products",
+      "settings": {
+        "title": "Our Best sellers",
+        "description": "The pieces our community keeps coming back to.",
+        "heading_size": 32,
+        "layout_mode": "carousel",
+        "mobile_cols": "2",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "identity_copy_hp": {
+      "type": "identity-copy",
+      "settings": {
+        "headline": "Express Every Bean of Your Personality.",
+        "subline": "India's first personality-driven apparel brand. Find the archetype that speaks your language and wear your identity with pride.",
+        "bg_color": "#ffffff",
+        "text_color": "#121212",
+        "alignment": "center",
+        "content_width": 1000,
+        "headline_size_desktop": 6,
+        "headline_size_mobile": 3.5,
+        "subline_size_desktop": 1.8,
+        "subline_size_mobile": 1.6,
+        "padding_top": 120,
+        "padding_bottom": 120
+      }
+    },
+    "final_cta_loop_hp": {
+      "type": "final-cta-loop",
+      "settings": {
+        "headline": "Still haven't found your soul-bean?",
+        "subline": "Take the identity quiz again or browse the universe of all five beans.",
+        "bg_color": "#121212",
+        "text_color": "#ffffff",
+        "primary_btn_bg": "#ffffff",
+        "primary_btn_text": "#121212"
+      }
+    },
+    "image_with_text_zep9A9": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_gAC97a": { "type": "heading", "settings": { "heading": "Every bean grows differently. Every one belongs.", "heading_size": "h2" } },
+        "text_3RjMVh": { "type": "text", "settings": { "text": "<p>Beans grow differently over time, reflecting individual energy, mood, and story. Choose the bean that represents you as we turn it into wearable art.</p>", "text_style": "body" } },
+        "button_3DCq64": { "type": "button", "settings": { "button_label": "Read Our Story", "button_link": "shopify://pages/contact", "button_style_secondary": true } }
+      },
+      "block_order": ["heading_gAC97a", "text_3RjMVh", "button_3DCq64"],
+      "name": "Image with Text 1",
+      "settings": { "image": "shopify://shop_images/6c3c9237-cef4-4407-87b9-f7d6efe28b79.png", "height": "adapt", "desktop_image_width": "medium", "layout": "text_first", "padding_top": 36, "padding_bottom": 16 }
+    },
+    "collection_showcase_tabs_nQm96R": {
+      "type": "collection-showcase-tabs",
+      "blocks": {
+        "tab_4aKGTe": { "type": "tab", "settings": { "tab_label": "", "collection": "green-bean", "limit": 8 } },
+        "tab_ajdcBE": { "type": "tab", "settings": { "tab_label": "Coffee Bean", "collection": "coffee-bean", "limit": 8 } }
+      },
+      "block_order": ["tab_4aKGTe", "tab_ajdcBE"],
+      "name": "Collection Showcase Tabs",
+      "settings": { "heading": "Our BEANS Collection", "heading_align": "center", "bg_color": "#ffffff", "text_color": "#000000", "products_per_row": 4, "padding_top": 8, "padding_bottom": 36, "page_width": "1600" }
+    },
+    "image_with_text_nFqPww": {
+      "type": "image-with-text",
+      "blocks": {
+        "heading_zjgiXN": { "type": "heading", "settings": { "heading": "Every bean grows differently. Every one belongs.", "heading_size": "h2" } },
+        "text_kBLwcQ": { "type": "text", "settings": { "text": "<p>Some people are bold. Some are gentle. Some are still becoming.<br/>We celebrate every stage of growth by turning identity into something you can wear.</p>", "text_style": "body" } },
+        "button_FhyCVi": { "type": "button", "settings": { "button_label": "Read Our Story", "button_link": "", "button_style_secondary": true } }
+      },
+      "block_order": ["heading_zjgiXN", "text_kBLwcQ", "button_FhyCVi"],
+      "disabled": true,
+      "name": "Image with Text 2",
+      "settings": { "image": "shopify://shop_images/f94c8058-5cf6-40b7-bde4-387358ae8b68.jpg", "height": "adapt", "desktop_image_width": "medium", "layout": "image_first", "padding_top": 36, "padding_bottom": 36 }
+    },
+    "slideshow_6AdwP4": {
+      "type": "slideshow",
+      "blocks": {
+        "slide_br6zhC": { "type": "slide", "settings": { "image": "shopify://shop_images/personality_2.webp", "image_overlay_opacity": 0, "show_text_box": false, "box_align": "middle-center", "text_alignment": "center", "text_alignment_mobile": "center" } }
+      },
+      "block_order": ["slide_br6zhC"],
+      "name": "Slideshow 1",
+      "settings": { "layout": "full_bleed", "slide_height": "adapt_image", "slider_visual": "dots", "auto_rotate": true, "change_slides_speed": 5, "image_behavior": "none", "show_text_below": false }
+    },
+    "most_popular_products_a43Rtk": {
+      "type": "most-popular-products",
+      "blocks": {
+        "product_cDAdNi": { "type": "product", "settings": { "product": "unisex-oversized-classic-t-shirt-7" } },
+        "product_QTAdBy": { "type": "product", "settings": { "product": "unisex-classic-crew-t-shirt" } },
+        "product_mQhht9": { "type": "product", "settings": { "product": "unisex-oversized-classic-t-shirt-8" } },
+        "product_UBKqTd": { "type": "product", "settings": { "product": "unisex-oversized-classic-t-shirt" } }
+      },
+      "block_order": ["product_cDAdNi", "product_QTAdBy", "product_mQhht9", "product_UBKqTd"],
+      "name": "Most Popular Products 2",
+      "settings": { "title": "Most Popular", "description": "The pieces our community keeps coming back to.", "heading_size": 32, "layout_mode": "grid", "mobile_cols": "2", "bg_color": "#ffffff", "text_color": "#1a1a1a", "padding_top": 60, "padding_bottom": 60 }
+    },
+    "testiomonial_carousel_YUn4CV": {
+      "type": "testiomonial-carousel",
+      "blocks": {
+        "testimonial_V3fxem": { "type": "testimonial", "settings": { "rating": 5, "quote": "“I Was Always the Quiet One... Maybe that’s why I relate to being a Green Bean", "author": "Sanjay Iyer", "verified": true } },
+        "testimonial_E4bNW4": { "type": "testimonial", "settings": { "rating": 5, "quote": "I Booked the Ticket Anyway... I guess I’m an Vannilla Bean.", "author": "Edwin", "verified": true } },
+        "testimonial_kFG3Pb": { "type": "testimonial", "settings": { "rating": 5, "quote": "“I Stopped Trying to Fit In”... That’s when I realised I’m a Chilli Bean.", "author": "Sunith", "verified": true } }
+      },
+      "block_order": ["testimonial_V3fxem", "testimonial_E4bNW4", "testimonial_kFG3Pb"],
+      "name": "Original Testimonials",
+      "settings": { "title": "Beanagram", "subtitle": "The Bean Stories", "title_size": 40, "autoplay": true, "autoplay_speed": 3, "bg_color": "#ffffff", "text_color": "#121212", "pt": 18, "pb": 15 }
+    },
+    "featured_blog_bhD3VW": {
+      "type": "featured-blog",
+      "name": "Blog Posts",
+      "settings": {
+        "blog": "news",
+        "post_limit": 3,
+        "heading": "Blog posts",
+        "columns_desktop": 3,
+        "show_view_all": true,
+        "show_image": true,
+        "show_date": true,
+        "padding_top": 36,
+        "padding_bottom": 36
+      }
+    }
+  },
+  "order": [
+    "hero_banner_clean_NxXFFK",
+    "quiz_entry_prompt_hp",
+    "beanagram_stories_hp",
+    "collection_slider_yzYUYt",
+    "scrolling_marquee_hp",
+    "most_popular_products_fJfFYg",
+    "identity_copy_hp",
+    "final_cta_loop_hp",
+    "image_with_text_zep9A9",
+    "collection_showcase_tabs_nQm96R",
+    "image_with_text_nFqPww",
+    "slideshow_6AdwP4",
+    "most_popular_products_a43Rtk",
+    "testiomonial_carousel_YUn4CV",
+    "featured_blog_bhD3VW"
+  ]
+}

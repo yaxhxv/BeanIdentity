@@ -1,0 +1,175 @@
+BEAN IDENTITY
+End-to-End User Flow Diagram 
+
+01 ENTRY POINT
+User lands on Homepage (Source: Instagram / Ads / Direct / Organic)
+
+
+02 HERO DECISION POINT (PRIMARY SPLIT)
+User sees Identity messaging, "Find Your Bean" CTA, and "Explore Beans" CTA
+Decision Path A: Click Find Your Bean (Primary Path)
+Decision Path B: Click Explore Beans
+Decision Path C: Scroll Down
+
+03 PRIMARY PATH (QUIZ-DRIVEN)
+Find Your Bean → Quiz Page
+
+User answers 5 questions
+
+Quiz Result Assigned
+
+Result Page (Bean identity, Personality traits, Emotional copy)
+CTA: Shop this Bean
+A1: Shop This Bean
+A2: Share Result
+A3: Explore Other Beans
+
+A1 → SHOP PATH
+Bean Personality Page
+
+User reads identity content
+
+Scroll to Product Grid
+
+Select Product
+
+Product Page → Add to Cart
+
+
+Checkout → Order Complete
+
+
+A2 → SHARE PATH
+Share Result
+↓
+Instagram Story / Social Share
+   ↓  
+
+New Users Enter Funnel
+
+A3 → EXPLORE OTHER BEANS
+Explore Beans
+↓
+[ Shop by Bean / Bean Pages ]
+   ↓  
+
+Repeat discovery loop
+
+04 SECONDARY PATH (SCROLL USERS)
+C → User Scrolls Homepage
+   ↓  
+
+
+SECTION FLOW
+1. Quiz Entry Section
+Prompt:
+“Not sure who you are?”
+CTA → Start Quiz
+  ↓  
+
+
+(If clicked → go to Primary Path)
+
+2. Community Stories (Beanagram)
+User sees:
+Real people + identities
+  ↓  
+
+
+Builds trust
+
+3. Shop by Bean
+User manually selects a Bean
+   ↓  
+
+[ Bean Personality Page ]
+   ↓  
+
+Same flow as primary shopping path
+
+4. Featured Products
+User sees products directly
+   ↓  
+
+Decision:
+C1 → Click Product
+C2 → Continue Scrolling
+
+C1 → DIRECT PRODUCT PATH
+Product Click
+↓
+Product Page
+↓
+Add to Cart → Checkout
+(Note: Lower emotional connection vs quiz path)
+
+5. Our Story
+User understands brand philosophy
+   ↓  
+
+Emotional connection increases
+
+6. Final CTA
+User prompted again:
+Find Your Bean
+Explore Beans
+  ↓  
+
+
+Loops back into funnel
+
+05 GLOBAL CONVERSION TRIGGERS
+
+Popup (Email Capture)
+Trigger:
+Exit intent (desktop)
+60% scroll (mobile)
+  ↓  
+
+
+User Action:
+P1 → Enter Email
+P2 → Close
+
+P1 → EMAIL CAPTURE FLOW
+Enter Email
+↓
+Discount / incentive applied
+   ↓  
+
+Continue journey
+
+Sticky CTA (Always Visible)
+“Find Your Bean”
+   ↓  
+
+At any point → user can enter quiz
+
+06 LOOPING BEHAVIOR (IMPORTANT)
+Users may loop between:
+Quiz → Bean → Products
+Bean → Other Beans
+Products → Back to Identity
+System must support:
+→ Non-linear exploration
+→ Re-entry into quiz at any time
+
+07 EXIT POINTS
+User exits at:
+Homepage (no interaction)
+Quiz incomplete
+Product page bounce
+Cart abandonment
+
+08 SUCCESS PATH SUMMARY
+Ideal journey:
+Homepage
+→ Find Your Bean
+→ Quiz
+→ Result
+→ Bean Page
+→ Product
+→ Checkout
+
+
+

@@ -1,0 +1,403 @@
+{%- style -%}
+  .quiz-container {
+    max-width: 800px;
+    margin: 60px auto;
+    padding: 40px 20px;
+    text-align: center;
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+  }
+
+  .quiz-progress {
+    width: 100%;
+    height: 4px;
+    background: #f0f0f0;
+    margin-bottom: 40px;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .quiz-progress-bar {
+    height: 100%;
+    background: #121212;
+    width: 0%;
+    transition: width 0.4s ease;
+  }
+
+  .quiz-step {
+    display: none;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  .quiz-step.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .quiz-heading {
+    font-size: 3.2rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .quiz-subheading {
+    font-size: 1.8rem;
+    opacity: 0.7;
+    margin-bottom: 40px;
+  }
+
+  .quiz-question-title {
+    font-size: 2.8rem;
+    font-weight: 600;
+    margin-bottom: 30px;
+  }
+
+  .quiz-options {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+
+  .quiz-option {
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.8rem;
+    transition: all 0.3s ease;
+    background: transparent;
+    text-align: left;
+  }
+
+  .quiz-option:hover {
+    background: #f9f9f9;
+    border-color: #121212;
+  }
+
+  .quiz-button {
+    display: inline-block;
+    padding: 20px 40px;
+    background: #121212;
+    color: #ffffff;
+    border: none;
+    font-size: 1.8rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: opacity 0.3s ease;
+  }
+
+  .quiz-button:hover {
+    opacity: 0.9;
+  }
+
+  /* Results Section */
+  .quiz-result-card {
+    padding: 40px;
+    border: 1px solid #121212;
+    border-radius: 4px;
+  }
+
+  .quiz-result-mascot {
+    width: 120px;
+    height: 120px;
+    margin: 0 auto 20px;
+    background: #f4f4f4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .quiz-result-mascot svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .quiz-result-name {
+    font-size: 4.8rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+  }
+
+  .quiz-result-trait-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    list-style: none;
+    padding: 0;
+    margin-bottom: 30px;
+  }
+
+  .quiz-result-trait {
+    padding: 6px 14px;
+    background: #f4f4f4;
+    border-radius: 20px;
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+
+  .quiz-result-description {
+    font-size: 1.8rem;
+    line-height: 1.6;
+    margin-bottom: 40px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  @media screen and (max-width: 749px) {
+    .quiz-heading { font-size: 2.6rem; }
+    .quiz-question-title { font-size: 2.22rem; }
+    .quiz-result-name { font-size: 3.2rem; }
+  }
+{%- endstyle -%}
+
+<div id="Quiz-{{ section.id }}" class="quiz-container" data-section-id="{{ section.id }}">
+  <div class="quiz-progress">
+    <div class="quiz-progress-bar" id="QuizProgress"></div>
+  </div>
+
+  {%- comment -%} WELCOME STEP {%- endcomment -%}
+  <div class="quiz-step active" id="Step-Welcome">
+    <h1 class="quiz-heading">{{ section.settings.heading }}</h1>
+    <p class="quiz-subheading">{{ section.settings.subheading }}</p>
+    <button class="quiz-button" data-next="Question-1">Start Quiz</button>
+  </div>
+
+  {%- comment -%} QUESTIONS (Template for 5 questions) {%- endcomment -%}
+  <div class="quiz-step" id="Step-Question-1" data-step="1">
+    <h2 class="quiz-question-title">What's your ideal morning routine?</h2>
+    <div class="quiz-options">
+      <button class="quiz-option" data-score="coffee">Double-shot espresso and ready to conquer.</button>
+      <button class="quiz-option" data-score="vanilla">A calm stretch and a warm herbal tea.</button>
+      <button class="quiz-option" data-score="chilli">Morning workout or something high-energy.</button>
+      <button class="quiz-option" data-score="jelly">A colorful breakfast and a playlist of bops.</button>
+      <button class="quiz-option" data-score="green">A fresh smoothie and mindful journaling.</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="Step-Question-2" data-step="2">
+    <h2 class="quiz-question-title">How do you approach a new challenge?</h2>
+    <div class="quiz-options">
+      <button class="quiz-option" data-score="chilli">Head-on, with intensity and passion.</button>
+      <button class="quiz-option" data-score="coffee">With a structured plan and sharp focus.</button>
+      <button class="quiz-option" data-score="vanilla">Steadily, with patience and grace.</button>
+      <button class="quiz-option" data-score="green">Thoughtfully, considering the long-term impact.</button>
+      <button class="quiz-option" data-score="jelly">With a smile and some creative chaos.</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="Step-Question-3" data-step="3">
+    <h2 class="quiz-question-title">Your favorite weekend vibe?</h2>
+    <div class="quiz-options">
+      <button class="quiz-option" data-score="jelly">Theme park or a bright, busy social gathering.</button>
+      <button class="quiz-option" data-score="green">Hiking in the woods or a quiet park read.</button>
+      <button class="quiz-option" data-score="chilli">Road trip or something that gets the adrenaline up.</button>
+      <button class="quiz-option" data-score="vanilla">Curled up with a book and soft blankets.</button>
+      <button class="quiz-option" data-score="coffee">Networking event or finishing a side project.</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="Step-Question-4" data-step="4">
+    <h2 class="quiz-question-title">Which word describes you best?</h2>
+    <div class="quiz-options">
+      <button class="quiz-option" data-score="coffee">Ambitious</button>
+      <button class="quiz-option" data-score="chilli">Fearless</button>
+      <button class="quiz-option" data-score="vanilla">Serene</button>
+      <button class="quiz-option" data-score="jelly">Playful</button>
+      <button class="quiz-option" data-score="green">Aware</button>
+    </div>
+  </div>
+
+  <div class="quiz-step" id="Step-Question-5" data-step="5">
+    <h2 class="quiz-question-title">Choose a style statement:</h2>
+    <div class="quiz-options">
+      <button class="quiz-option" data-score="chilli">Bold colors and edgy patterns.</button>
+      <button class="quiz-option" data-score="coffee">Sharp, minimal, and professional.</button>
+      <button class="quiz-option" data-score="vanilla">Soft textures and neutral tones.</button>
+      <button class="quiz-option" data-score="jelly">Quirky, fun, and experimental.</button>
+      <button class="quiz-option" data-score="green">Sustainable, earth-inspired, and organic.</button>
+    </div>
+  </div>
+
+  {%- comment -%} RESULT STEP {%- endcomment -%}
+  <div class="quiz-step" id="Step-Results">
+    <div class="quiz-result-card" id="QuizResultCard">
+      <div class="quiz-result-mascot" id="ResultMascot">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7 2.99 7 2.99s-2.29 6.08-2.29 6.08C3.57 10 3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>
+        </svg>
+      </div>
+      <h2 class="quiz-result-name" id="ResultName">Coffee Bean</h2>
+      <ul class="quiz-result-trait-list" id="ResultTraits">
+        {%- comment -%} Dynamically filled {%- endcomment -%}
+      </ul>
+      <p class="quiz-result-description" id="ResultDescription">
+        {%- comment -%} Dynamically filled {%- endcomment -%}
+      </p>
+
+      <a href="#" id="ResultCTA" class="quiz-button">Shop My Bean</a>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const quiz = {
+      scores: {
+        coffee: 0,
+        chilli: 0,
+        vanilla: 0,
+        jelly: 0,
+        green: 0,
+      },
+      archetypes: {
+        coffee: {
+          name: 'The Coffee Bean',
+          traits: ['Ambitious', 'Sharp', 'Focused', 'Driven'],
+          description:
+            'You are the engine of every room. Disciplined and determined, you value structure and performance above all else.',
+          collection: '/collections/coffee-bean',
+        },
+        chilli: {
+          name: 'The Chilli Bean',
+          traits: ['Bold', 'Fearless', 'Passionate', 'Edgy'],
+          description:
+            'You bring the heat. You aren’t afraid to take risks and your energy is infectious to everyone around you.',
+          collection: '/collections/chilli-bean',
+        },
+        vanilla: {
+          name: 'The Vanilla Bean',
+          traits: ['Serene', 'Graceful', 'Empathetic', 'Classic'],
+          description:
+            'You are the calm in the storm. Elegance and empathy are your superpowers, keeping everything balanced.',
+          collection: '/collections/vanilla-bean',
+        },
+        jelly: {
+          name: 'The Jelly Bean',
+          traits: ['Playful', 'Vibrant', 'Quirky', 'Social'],
+          description:
+            'Life is a party and you’re the VIP. You prioritize fun and creativity, making every day an adventure.',
+          collection: '/collections/jelly-bean',
+        },
+        green: {
+          name: 'The Green Bean',
+          traits: ['Mindful', 'Organic', 'Deep', 'Conscious'],
+          description:
+            'You are grounded and aware. Your connection to nature and your conscious mindset make you a guiding force.',
+          collection: '/collections/green-bean',
+        },
+      },
+      currentStep: 0,
+      totalSteps: 5,
+      init() {
+        const startBtn = document.querySelector('[data-next]');
+        if (startBtn) startBtn.addEventListener('click', () => this.goToStep(1));
+
+        document.querySelectorAll('.quiz-option').forEach((opt) => {
+          opt.addEventListener('click', (e) => {
+            const score = e.target.dataset.score;
+            this.scores[score]++;
+            const nextStep = parseInt(e.target.closest('.quiz-step').dataset.step) + 1;
+            if (nextStep > this.totalSteps) {
+              this.showResults();
+            } else {
+              this.goToStep(nextStep);
+            }
+          });
+        });
+      },
+      goToStep(step) {
+        document.querySelectorAll('.quiz-step').forEach((s) => s.classList.remove('active'));
+        const target = document.getElementById(step === 'Results' ? 'Step-Results' : 'Step-Question-' + step);
+        if (target) target.classList.add('active');
+
+        // Update Progress
+        const percent = step === 'Results' ? 100 : (step / this.totalSteps) * 100;
+        document.getElementById('QuizProgress').style.width = percent + '%';
+      },
+      showResults() {
+        // Calculate Winner
+        let winner = 'coffee';
+        let max = 0;
+        for (const bean in this.scores) {
+          if (this.scores[bean] > max) {
+            max = this.scores[bean];
+            winner = bean;
+          }
+        }
+
+        const data = this.archetypes[winner];
+        document.getElementById('ResultName').innerText = data.name;
+        document.getElementById('ResultDescription').innerText = data.description;
+        document.getElementById('ResultCTA').href = data.collection;
+
+        const traitsContainer = document.getElementById('ResultTraits');
+        traitsContainer.innerHTML = '';
+        data.traits.forEach((trait) => {
+          const li = document.createElement('li');
+          li.className = 'quiz-result-trait';
+          li.innerText = trait;
+          traitsContainer.appendChild(li);
+        });
+
+        // Save Result
+        localStorage.setItem('bean_identity_result', winner);
+
+        this.goToStep('Results');
+      },
+    };
+
+    quiz.init();
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Main Quiz",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Which Bean Are You?"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Answer 5 questions. Meet your Bean."
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#121212"
+    }
+  ]
+}
+{% endschema %}

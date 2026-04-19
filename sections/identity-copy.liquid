@@ -1,0 +1,238 @@
+{% comment %}
+  SECTION: IDENTITY COPY (High Impact)
+  - Bold, centered typography for brand messaging.
+  - Scroll-reveal animation for dynamic feel.
+{% endcomment %}
+
+{%- style -%}
+  #IdentityCopy-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    text-align: {{ section.settings.alignment }};
+  }
+
+  .identity-copy__wrapper {
+    max-width: {{ section.settings.content_width }}px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+
+  .identity-copy__headline {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.headline_size_desktop }}rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: {{ section.settings.text_color }};
+    text-transform: uppercase;
+    letter-spacing: -0.02em;
+
+    /* Reveal Animation States */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .identity-copy__subline {
+    margin: 20px 0 0 0;
+    font-size: {{ section.settings.subline_size_desktop }}rem;
+    color: {{ section.settings.text_color }};
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease-out 0.2s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
+    line-height: 1.6;
+    max-width: 600px;
+    display: inline-block;
+  }
+
+  /* Active/Visible state when scrolled into view */
+  #IdentityCopy-{{ section.id }}.is-visible .identity-copy__headline,
+  #IdentityCopy-{{ section.id }}.is-visible .identity-copy__subline {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media screen and (max-width: 749px) {
+    .identity-copy__headline {
+      font-size: {{ section.settings.headline_size_mobile }}rem;
+    }
+    .identity-copy__subline {
+      font-size: {{ section.settings.subline_size_mobile }}rem;
+    }
+    #IdentityCopy-{{ section.id }} {
+      padding-top: {{ section.settings.padding_top | divided_by: 1.5 }}px;
+      padding-bottom: {{ section.settings.padding_bottom | divided_by: 1.5 }}px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="IdentityCopy-{{ section.id }}" class="identity-copy-section scroll-trigger">
+  <div class="identity-copy__wrapper">
+    {%- if section.settings.headline != blank -%}
+      <h2 class="identity-copy__headline">{{ section.settings.headline }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subline != blank -%}
+      <p class="identity-copy__subline">{{ section.settings.subline }}</p>
+    {%- endif -%}
+  </div>
+</div>
+
+<script>
+  (function () {
+    const sectionId = 'IdentityCopy-{{ section.id }}';
+    const section = document.getElementById(sectionId);
+
+    if (!section) return;
+
+    const observerOptions = {
+      root: null,
+      threshold: 0.2, // Trigger when 20% of section is visible
+      rootMargin: '0px',
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          section.classList.add('is-visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    observer.observe(section);
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Identity Copy Section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Content"
+    },
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Express Every Bean of Your Personality."
+    },
+    {
+      "type": "textarea",
+      "id": "subline",
+      "label": "Subline",
+      "default": "India's first personality-driven apparel brand. Find the archetype that speaks your language and wear your identity with pride."
+    },
+    {
+      "type": "header",
+      "content": "Aesthetics"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#121212"
+    },
+    {
+      "type": "select",
+      "id": "alignment",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "range",
+      "id": "content_width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "label": "Content Max Width",
+      "default": 1000
+    },
+    {
+      "type": "header",
+      "content": "Typography Settings"
+    },
+    {
+      "type": "range",
+      "id": "headline_size_desktop",
+      "min": 2,
+      "max": 10,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Headline Size (Desktop)",
+      "default": 6
+    },
+    {
+      "type": "range",
+      "id": "headline_size_mobile",
+      "min": 2,
+      "max": 6,
+      "step": 0.5,
+      "unit": "rem",
+      "label": "Headline Size (Mobile)",
+      "default": 3.5
+    },
+    {
+      "type": "range",
+      "id": "subline_size_desktop",
+      "min": 1,
+      "max": 3,
+      "step": 0.1,
+      "unit": "rem",
+      "label": "Subline Size (Desktop)",
+      "default": 1.8
+    },
+    {
+      "type": "range",
+      "id": "subline_size_mobile",
+      "min": 1,
+      "max": 2,
+      "step": 0.1,
+      "unit": "rem",
+      "label": "Subline Size (Mobile)",
+      "default": 1.6
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 120
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 40,
+      "max": 200,
+      "step": 10,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 120
+    }
+  ],
+  "presets": [
+    {
+      "name": "Identity Copy Section"
+    }
+  ]
+}
+{% endschema %}

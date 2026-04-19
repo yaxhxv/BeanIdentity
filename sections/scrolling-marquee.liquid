@@ -1,0 +1,217 @@
+{% comment %}
+  SECTION: SCROLLING MARQUEE BAND (Theme-Consistent)
+  - Synchronized with theme's heading fonts and color palettes.
+  - Fluid typography via rem units.
+{% endcomment %}
+
+{%- style -%}
+  #ScrollingMarquee-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: {{ section.settings.padding_v | divided_by: 10.0 }}rem 0;
+    overflow: hidden;
+    position: relative;
+    border-top: 0.1rem solid rgba(var(--color-foreground), 0.08);
+    border-bottom: 0.1rem solid rgba(var(--color-foreground), 0.08);
+  }
+
+  .marquee-track {
+    display: flex;
+    white-space: nowrap;
+    width: max-content;
+    animation: marquee-scroll {{ section.settings.speed }}s linear infinite;
+    will-change: transform;
+  }
+
+  {%- if section.settings.pause_on_hover -%}
+    #ScrollingMarquee-{{ section.id }}:hover .marquee-track {
+      animation-play-state: paused;
+    }
+  {%- endif -%}
+
+  .marquee-content {
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .marquee-item {
+    display: flex;
+    align-items: center;
+    padding: 0 4rem;
+    color: {{ section.settings.text_color }};
+    font-family: var(--font-heading-family);
+    font-size: {{ section.settings.font_size | divided_by: 10.0 }}rem;
+    font-weight: var(--font-heading-weight);
+    font-style: var(--font-heading-style);
+    text-transform: uppercase;
+    text-decoration: none;
+    letter-spacing: calc(var(--font-heading-scale) * 0.1rem);
+    transition: opacity 0.3s ease;
+    line-height: 1.2;
+  }
+
+  .marquee-item:hover {
+    opacity: 0.7;
+    color: rgb(var(--color-link));
+  }
+
+  .marquee-separator {
+    color: {{ section.settings.text_color }};
+    font-size: {{ section.settings.font_size | divided_by: 10.0 }}rem;
+    opacity: 0.3;
+    font-family: var(--font-body-family);
+  }
+
+  @keyframes marquee-scroll {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-50%, 0, 0); }
+  }
+
+  @media screen and (max-width: 749px) {
+    .marquee-item {
+      font-size: {{ section.settings.font_size_mobile | divided_by: 10.0 }}rem;
+      padding: 0 2rem;
+    }
+    .marquee-separator {
+      font-size: {{ section.settings.font_size_mobile | divided_by: 10.0 }}rem;
+    }
+    #ScrollingMarquee-{{ section.id }} {
+      padding: {{ section.settings.padding_v | divided_by: 20.0 }}rem 0;
+    }
+  }
+{%- endstyle -%}
+
+<div id="ScrollingMarquee-{{ section.id }}" class="scrolling-marquee-band">
+  <div class="marquee-track">
+    {%- comment -%} Triple render for very wide screens to prevent empty gaps {%- endcomment -%}
+    {%- for i in (1..3) -%}
+      <div class="marquee-content">
+        {%- for block in section.blocks -%}
+          <a href="{{ block.settings.link | default: '#' }}" class="marquee-item" {{ block.shopify_attributes }}>
+            {{ block.settings.text }}
+          </a>
+          <span class="marquee-separator">{{ section.settings.separator }}</span>
+        {%- endfor -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Scrolling Marquee Band",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Aesthetics"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "text",
+      "id": "separator",
+      "label": "Separator Character",
+      "default": "·"
+    },
+    {
+      "type": "range",
+      "id": "font_size",
+      "min": 10,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "label": "Font Size (Desktop)",
+      "default": 32
+    },
+    {
+      "type": "range",
+      "id": "font_size_mobile",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "label": "Font Size (Mobile)",
+      "default": 18
+    },
+    {
+      "type": "header",
+      "content": "Animation"
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 5,
+      "max": 120,
+      "step": 5,
+      "unit": "sec",
+      "label": "Scroll Time (Slower is higher)",
+      "default": 40
+    },
+    {
+      "type": "checkbox",
+      "id": "pause_on_hover",
+      "label": "Pause on Hover",
+      "default": true
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "padding_v",
+      "min": 0,
+      "max": 100,
+      "step": 2,
+      "unit": "px",
+      "label": "Vertical Spacing",
+      "default": 16
+    }
+  ],
+  "blocks": [
+    {
+      "type": "bean",
+      "name": "Bean Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Name",
+          "default": "Coffee Bean"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Scrolling Marquee Band",
+      "blocks": [
+        { "type": "bean", "settings": { "text": "Coffee Bean", "link": "/collections/coffee-bean" } },
+        { "type": "bean", "settings": { "text": "Chilli Bean", "link": "/collections/chilli-bean" } },
+        { "type": "bean", "settings": { "text": "Vanilla Bean", "link": "/collections/vanilla-bean" } },
+        { "type": "bean", "settings": { "text": "Jelly Bean", "link": "/collections/jelly-bean" } },
+        { "type": "bean", "settings": { "text": "Green Bean", "link": "/collections/green-bean" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

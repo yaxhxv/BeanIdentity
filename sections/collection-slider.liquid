@@ -1,0 +1,306 @@
+{% comment %}
+------------------------------------------------------------------------------
+Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
+------------------------------------------------------------------------------
+{% endcomment %}
+
+<style>
+  .cc-section {
+    padding: {{ section.settings.pt }}px 0 {{ section.settings.pb }}px;
+    background-color: {{ section.settings.bg_color }};
+    overflow: hidden;
+  }
+
+  .cc-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+  }
+
+  .cc-header {
+    text-align: center;
+    margin-bottom: 32px;
+  }
+
+  .cc-title {
+    font-size: {{ section.settings.heading_size }}px;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 8px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 600;
+  }
+
+  .cc-subtitle {
+    font-size: 14px;
+    color: {{ section.settings.text_color }};
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  /* Carousel Track */
+  .cc-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 20px;
+    scrollbar-width: none;
+  }
+  
+  .cc-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Cards */
+  .cc-card {
+    flex: 0 0 70%;
+    scroll-snap-align: center;
+    position: relative;
+    text-decoration: none;
+    transition: transform 0.3s ease;
+  }
+
+  .cc-image-wrapper {
+    position: relative;
+    width: 100%;
+    /* padding-top set dynamically inline */
+    background: #f4f4f4;
+    overflow: hidden;
+    margin-bottom: 12px;
+  }
+
+  .cc-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s ease;
+  }
+
+  .cc-card:hover .cc-image {
+    transform: scale(1.05); /* Zoom effect */
+  }
+
+  .cc-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: {{ section.settings.text_color }};
+    letter-spacing: 0.5px;
+  }
+
+  /* Desktop */
+  @media (min-width: 768px) {
+    .cc-track {
+      gap: 24px;
+    }
+    .cc-card {
+      flex: 0 0 calc(25% - 18px); /* 4 items */
+      scroll-snap-align: start;
+    }
+  }
+
+  /* Navigation Buttons */
+  .cc-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 44px;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    z-index: 2;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  }
+  
+  .cc-nav-btn:hover {
+    background: #000;
+    border-color: #000;
+    color: #fff;
+  }
+
+  .cc-nav-btn.prev { left: 10px; }
+  .cc-nav-btn.next { right: 10px; }
+  
+  .cc-nav-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+  @media (max-width: 767px) {
+    .cc-nav-btn { display: none; }
+    .cc-container { padding-right: 0; }
+    .cc-track { padding-right: 20px; }
+  }
+</style>
+
+<div class="cc-section">
+  <div class="cc-container">
+    {% if section.settings.title != blank %}
+      <div class="cc-header">
+        <h2 class="cc-title">{{ section.settings.title }}</h2>
+        {% if section.settings.subtitle != blank %}
+          <p class="cc-subtitle">{{ section.settings.subtitle }}</p>
+        {% endif %}
+      </div>
+    {% endif %}
+
+    <div class="cc-carousel-wrapper">
+      <button class="cc-nav-btn prev" aria-label="Previous">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+
+      <div class="cc-track" id="cc-track-{{ section.id }}">
+        {% for block in section.blocks %}
+          <a href="{{ block.settings.url }}" class="cc-card" {{ block.shopify_attributes }}>
+            <div class="cc-image-wrapper" style="padding-top: {{ block.settings.aspect_ratio }}%;">
+              {% if block.settings.image != blank %}
+                <img src="{{ block.settings.image | img_url: '600x' }}" class="cc-image" alt="{{ block.settings.title }}">
+              {% else %}
+                {{ 'collection-1' | placeholder_svg_tag: 'cc-image' }}
+              {% endif %}
+            </div>
+            <div class="cc-card-title">{{ block.settings.title }}</div>
+          </a>
+        {% endfor %}
+      </div>
+
+      <button class="cc-nav-btn next" aria-label="Next">
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const sectionId = '{{ section.id }}';
+    const track = document.getElementById(`cc-track-${sectionId}`);
+    const navNext = track.parentElement.querySelector('.next');
+    const navPrev = track.parentElement.querySelector('.prev');
+    let autoPlayInterval;
+    
+    // Auto Play Settings
+    const enableAutoplay = {{ section.settings.enable_autoplay | json }};
+    const autoplaySpeed = {{ section.settings.autoplay_speed }} * 1000;
+
+    // Scroll Function
+    const scrollCarousel = function(direction) {
+      const card = track.querySelector('.cc-card');
+      const cardWidth = card.offsetWidth;
+      const gap = window.innerWidth >= 768 ? 24 : 16;
+      const scrollAmount = (cardWidth + gap) * direction;
+
+      // Check for Loop
+      if (direction === 1 && (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10)) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+    };
+    
+    // Handle Clicks
+    navNext.onclick = () => {
+      stopAutoplay();
+      scrollCarousel(1);
+    };
+    navPrev.onclick = () => {
+      stopAutoplay();
+      scrollCarousel(-1);
+    };
+
+    // Autoplay Logic
+    function startAutoplay() {
+      if (!enableAutoplay) return;
+      stopAutoplay();
+      autoPlayInterval = setInterval(() => {
+        scrollCarousel(1);
+      }, autoplaySpeed);
+    }
+
+    function stopAutoplay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
+
+    // Initialize
+    if (enableAutoplay) {
+      startAutoplay();
+      
+      // Pause on Hover
+      track.addEventListener('mouseenter', stopAutoplay);
+      track.addEventListener('mouseleave', startAutoplay);
+      
+      // Pause on User Interaction
+      track.addEventListener('touchstart', stopAutoplay);
+      track.addEventListener('wheel', stopAutoplay);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Carousel",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Shop by Collection" },
+    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Discover the latest trends" },
+    
+    { "type": "header", "content": "Carousel Settings" },
+    { "type": "checkbox", "id": "enable_autoplay", "label": "Enable Auto-Sliding", "default": true },
+    { "type": "range", "id": "autoplay_speed", "label": "Auto-Slide Speed (sec)", "min": 3, "max": 10, "step": 1, "default": 5 },
+
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#FFFFFF" },
+    { "type": "color", "id": "text_color", "label": "Text Color", "default": "#121212" },
+    
+    { "type": "header", "content": "Layout" },
+    { "type": "range", "id": "heading_size", "label": "Heading Size", "min": 20, "max": 60, "step": 2, "default": 28 },
+    { "type": "range", "id": "pt", "label": "Padding Top", "min": 0, "max": 100, "step": 4, "default": 60 },
+    { "type": "range", "id": "pb", "label": "Padding Bottom", "min": 0, "max": 100, "step": 4, "default": 60 }
+  ],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Summer Collection" },
+        { "type": "url", "id": "url", "label": "Link" },
+        {
+          "type": "select",
+          "id": "aspect_ratio",
+          "label": "Aspect Ratio",
+          "default": "130",
+          "options": [
+            { "value": "150", "label": "Portrait (Tall 2:3)" },
+            { "value": "130", "label": "Portrait (Standard)" },
+            { "value": "100", "label": "Square (1:1)" },
+            { "value": "75", "label": "Landscape (4:3)" },
+            { "value": "56.25", "label": "Wide (16:9)" }
+          ]
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Carousel",
+      "blocks": [
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" },
+        { "type": "collection" }
+      ]
+    }
+  ]
+}
+{% endschema %}

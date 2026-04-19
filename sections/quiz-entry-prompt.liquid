@@ -1,0 +1,135 @@
+{% comment %}
+  SECTION: QUIZ ENTRY PROMPT
+  - Captures users halfway down the page and directs them to the quiz.
+{% endcomment %}
+
+{%- style -%}
+  #QuizPrompt-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: 8rem 0;
+    text-align: center;
+    border-top: 1px solid rgba(var(--color-foreground), 0.05);
+    border-bottom: 1px solid rgba(var(--color-foreground), 0.05);
+  }
+
+  .quiz-prompt__wrapper {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 0 2rem;
+  }
+
+  .quiz-prompt__headline {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 5vw, 4.2rem);
+    font-weight: var(--font-heading-weight);
+    color: {{ section.settings.text_color }};
+    margin: 0 0 1.5rem 0;
+    letter-spacing: -0.01em;
+    line-height:1.2;
+  }
+
+  .quiz-prompt__subline {
+    font-size: 1.8rem;
+    color: {{ section.settings.text_color }};
+    opacity: 0.8;
+    margin: 0 0 3.5rem 0;
+    line-height: 1.6;
+  }
+
+  .quiz-prompt__button {
+    display: inline-block;
+    padding: 1.8rem 4.5rem;
+    background-color: {{ section.settings.button_bg }};
+    color: {{ section.settings.button_text }};
+    text-decoration: none;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 4px;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+
+  .quiz-prompt__button:hover {
+    transform: translateY(-2px);
+    opacity: 0.9;
+  }
+
+  @media screen and (max-width: 749px) {
+    #QuizPrompt-{{ section.id }} {
+      padding: 6rem 0;
+    }
+    .quiz-prompt__subline {
+      font-size: 1.6rem;
+    }
+  }
+{%- endstyle -%}
+
+<div id="QuizPrompt-{{ section.id }}" class="quiz-prompt-section">
+  <div class="quiz-prompt__wrapper">
+    {%- if section.settings.headline != blank -%}
+      <h2 class="quiz-prompt__headline">{{ section.settings.headline }}</h2>
+    {%- endif -%}
+    {%- if section.settings.subline != blank -%}
+      <div class="quiz-prompt__subline">{{ section.settings.subline }}</div>
+    {%- endif -%}
+    <a href="/pages/which-bean-are-you" class="quiz-prompt__button">
+      {{ section.settings.button_label }}
+    </a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Quiz Entry Prompt",
+  "settings": [
+    {
+      "type": "textarea",
+      "id": "headline",
+      "label": "Headline",
+      "default": "Not sure who you are?"
+    },
+    {
+      "type": "textarea",
+      "id": "subline",
+      "label": "Subline",
+      "default": "Meet the archetype that fits your soul and wear your identity with pride."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button Label",
+      "default": "Take the Quiz"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#f9f9f9"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Button Background",
+      "default": "#121212"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Button Text",
+      "default": "#ffffff"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quiz Entry Prompt"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,287 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "blocks": {
+        "vendor": {
+          "type": "text",
+          "settings": {
+            "text": "{{ product.vendor }}",
+            "text_style": "uppercase"
+          }
+        },
+        "title": {
+          "type": "title",
+          "settings": {}
+        },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
+        "variant_picker": {
+          "type": "variant_picker",
+          "settings": {
+            "picker_type": "button",
+            "swatch_shape": "circle"
+          }
+        },
+        "quantity_selector": {
+          "type": "quantity_selector",
+          "settings": {}
+        },
+        "buy_buttons": {
+          "type": "buy_buttons",
+          "settings": {
+            "show_dynamic_checkout": true,
+            "show_gift_card_recipient": true
+          }
+        },
+        "description": {
+          "type": "description",
+          "disabled": true,
+          "settings": {}
+        },
+        "collapsible_tab_eHzNxP": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Product Details",
+            "icon": "none",
+            "content": "{{ product.description }}",
+            "page": ""
+          }
+        },
+        "collapsible_tab_RAqHRB": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Wash Care",
+            "icon": "none",
+            "content": "<ul><li>Turn inside out before washing.</li><li>Machine wash cold.</li><li>Do not bleach or tumble dry.</li><li>Iron inside out — avoid print area.</li></ul>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_NAnaRE": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Size Chart",
+            "icon": "none",
+            "content": "",
+            "page": "size-chart"
+          }
+        },
+        "collapsible_tab_Uwz6mE": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Shipping Information",
+            "icon": "none",
+            "content": "<p>Orders are usually processed within <strong>2–4 business days</strong>. Delivery times vary by location and shipping option.<br/><br/>Shipping charges are calculated at checkout. You will receive tracking details once your order ships. For help with delivery or delays, email <a><strong>support@beanidentity.com</strong></a>.</p>",
+            "page": ""
+          }
+        },
+        "collapsible_tab_wYxjyn": {
+          "type": "collapsible_tab",
+          "settings": {
+            "heading": "Return information",
+            "icon": "none",
+            "content": "<p>We accept returns and exchanges within <strong>7 days of delivery</strong> if the item is unused and in original condition with tags attached.<br/><br/>Refunds are issued once the return is received and inspected (usually <strong>7–10 business days</strong>).<br/><br/>To initiate, contact <a><strong>support@beanidentity.com</strong></a> with your order number and photos.</p>",
+            "page": ""
+          }
+        }
+      },
+      "block_order": [
+        "vendor",
+        "title",
+        "price",
+        "variant_picker",
+        "quantity_selector",
+        "buy_buttons",
+        "description",
+        "collapsible_tab_eHzNxP",
+        "collapsible_tab_RAqHRB",
+        "collapsible_tab_NAnaRE",
+        "collapsible_tab_Uwz6mE",
+        "collapsible_tab_wYxjyn"
+      ],
+      "custom_css": [
+        ".product-form__input .select {max-width: 200px;}",
+        ".product-form__input .select__select {width: 100%;}"
+      ],
+      "settings": {
+        "enable_sticky_info": true,
+        "color_scheme": "scheme-1",
+        "media_size": "large",
+        "constrain_to_viewport": true,
+        "media_fit": "contain",
+        "gallery_layout": "thumbnail_slider",
+        "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
+        "hide_variants": true,
+        "enable_video_looping": false,
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "custom_liquid_h7xkad": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n  .custom-benefits-section {\n    /* Uses the background of whatever color scheme you apply to the section */\n    padding: 20px 20px;\n    font-family: inherit;\n    color: inherit; \nbackground: #F7F5F2;\n\n  }\n\n  .custom-benefits-label {\n    text-align: center;\n    font-size: 12px;\n    text-transform: uppercase;\n    letter-spacing: 0.1em;\n    font-weight: 600;\n    opacity: 0.7;\n    margin-bottom: 0px;\n  }\n\n  .custom-benefits-heading {\n    text-align: center;\n    font-size: 30px;\n    font-weight: 400;\n    margin-top: 0;\n    margin-bottom: 56px;\n    line-height: 1.2;\n    color: inherit;\n  }\n\n  .custom-benefits-grid {\n    display: grid;\n    /* Mobile: 2 Columns */\n    grid-template-columns: repeat(2, 1fr);\n    gap: 32px;\n    max-width: 1024px;\n    margin: 0 auto;\n  }\n\n  .custom-benefits-item {\n    text-align: center;\n  }\n\n  .custom-benefits-icon-wrapper {\n    width: 48px;\n    height: 48px;\n    margin: 0 auto 16px auto;\n    border-radius: 50%;\n    /* Light grey transparent circle for icon background */\n    background-color: rgba(0,0,0,0.06); \n    display: flex;\n    align-items: center;\n    justify-content: center;\n  }\n\n  .custom-benefits-icon-wrapper svg {\n    width: 20px;\n    height: 20px;\n    color: inherit;\n  }\n\n  .custom-benefits-title {\n    font-weight: 600;\n    font-size: 14px;\n    margin: 0 0 6px 0;\n    color: inherit;\n  }\n\n  .custom-benefits-desc {\n    font-size: 10px;\n    opacity: 0.7;\n    line-height: 1.6;\n    margin: 0;\n    color: inherit;\n  }\n\n  /* Desktop Adjustments: 4 Columns */\n  @media (min-width: 768px) {\n    .custom-benefits-section {\n      padding: 80px 40px;\n    }\n    .custom-benefits-heading {\n      font-size: 36px;\n    }\n    .custom-benefits-grid {\n      grid-template-columns: repeat(4, 1fr);\n      gap: 48px;\n    }\n  }\n</style>\n\n<div class=\"custom-benefits-section\">\n  <p class=\"custom-benefits-label\">Why You'll Love It</p>\n  <h2 class=\"custom-benefits-heading\">Crafted with Intention</h2>\n\n  <div class=\"custom-benefits-grid\">\n    \n    <div class=\"custom-benefits-item\">\n      <div class=\"custom-benefits-icon-wrapper\">\n         <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7 2.99 7 2.99s-2.29 6.08-2.29 6.08C3.57 10 3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z\"/><path d=\"M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97\"/></svg>\n      </div>\n      <h3 class=\"custom-benefits-title\">Ultra Soft Fabric</h3>\n      <p class=\"custom-benefits-desc\">100% premium cotton for all-day comfort</p>\n    </div>\n\n    <div class=\"custom-benefits-item\">\n      <div class=\"custom-benefits-icon-wrapper\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"13.5\" cy=\"6.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"17.5\" cy=\"10.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"8.5\" cy=\"7.5\" r=\".5\" fill=\"currentColor\"/><circle cx=\"6.5\" cy=\"12.5\" r=\".5\" fill=\"currentColor\"/><path d=\"M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.835-.437-1.125-.29-.289-.438-.652-.438-1.125a1.64 1.64 0 0 1 1.668-1.668h1.996c3.051 0 5.555-2.503 5.555-5.554C21.965 6.012 17.461 2 12 2z\"/></svg>\n      </div>\n      <h3 class=\"custom-benefits-title\">Fade-Resistant Print</h3>\n      <p class=\"custom-benefits-desc\">DTG technology that stays vivid wash after wash</p>\n    </div>\n\n    <div class=\"custom-benefits-item\">\n      <div class=\"custom-benefits-icon-wrapper\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z\"/></svg>\n      </div>\n      <h3 class=\"custom-benefits-title\">Relaxed Drop-Shoulder</h3>\n      <p class=\"custom-benefits-desc\">Modern oversized fit that flatters every body</p>\n    </div>\n\n    <div class=\"custom-benefits-item\">\n      <div class=\"custom-benefits-icon-wrapper\">\n        <svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><circle cx=\"12\" cy=\"12\" r=\"4\"/><path d=\"M12 2v2\"/><path d=\"M12 20v2\"/><path d=\"m4.93 4.93 1.41 1.41\"/><path d=\"m17.66 17.66 1.41 1.41\"/><path d=\"M2 12h2\"/><path d=\"M20 12h2\"/><path d=\"m6.34 17.66-1.41 1.41\"/><path d=\"m19.07 4.93-1.41 1.41\"/></svg>\n      </div>\n      <h3 class=\"custom-benefits-title\">Made for Everyday</h3>\n      <p class=\"custom-benefits-desc\">From morning coffee to late-night conversations</p>\n    </div>\n\n  </div>\n</div>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "image_with_text_fXgT9i": {
+      "type": "image-with-text",
+      "blocks": {
+        "text_phmA3p": {
+          "type": "text",
+          "settings": {
+            "text": "<p>Fabric & Feel</p><h1>Designed for Daily Comfort</h1><p>We use 220 GSM ringspun cotton — substantial enough to drape beautifully, yet breathable enough for Indian summers. Each tee is pre-washed for zero shrinkage and that lived-in softness from day one.</p><p>Our DTG prints bond directly with the fabric fibres, so there's no plasticky overlay just colour that moves and breathes with you.</p>",
+            "text_style": "body"
+          }
+        }
+      },
+      "block_order": [
+        "text_phmA3p"
+      ],
+      "name": "t:sections.image-with-text.presets.name",
+      "settings": {
+        "image": "shopify://shop_images/fabric-texture.webp",
+        "height": "adapt",
+        "desktop_image_width": "large",
+        "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "custom_liquid_gKiJRQ": {
+      "type": "custom-liquid",
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n  /* Container Styling */\n  .custom-lifestyle-banner {\n    position: relative;\n    width: 100%;\n    overflow: hidden;\n    /* We remove min-height so the image dictates the exact size */\n  }\n\n  /* Background Image (Now dictates the section height) */\n  .custom-lifestyle-banner img {\n    display: block;\n    width: 100%;\n    height: auto; /* Adapts to image aspect ratio perfectly */\n    z-index: 1;\n  }\n\n  /* Dark Overlay */\n  .custom-lifestyle-banner .overlay {\n    position: absolute;\n    inset: 0; /* Shorthand for top:0, right:0, bottom:0, left:0 */\n    background-color: rgba(0, 0, 0, 0.4);\n    z-index: 2;\n  }\n\n  /* Content Wrapper (Centered over the image) */\n  .custom-lifestyle-content {\n    position: absolute;\n    top: 50%;\n    left: 50%;\n    transform: translate(-50%, -50%);\n    z-index: 3;\n    text-align: center;\n    width: 100%;\n    padding: 20px;\n  }\n\n  /* Heading Styling */\n  .custom-lifestyle-heading {\n    color: #ffffff;\n    font-size: 28px; /* Slightly smaller for mobile to fit inside the image */\n    font-weight: 400; \n    margin: 0 0 16px 0;\n    line-height: 1.2;\n    font-family: inherit;\n  }\n\n  /* Button Styling */\n  .custom-lifestyle-btn {\n    display: inline-flex;\n    align-items: center;\n    justify-content: center;\n    height: 44px;\n    padding: 0 24px;\n    font-size: 14px;\n    letter-spacing: 0.025em;\n    color: #ffffff;\n    background-color: transparent;\n    border: 1px solid #ffffff;\n    text-decoration: none;\n    transition: background-color 0.3s ease, color 0.3s ease;\n    cursor: pointer;\n  }\n\n  /* Button Hover State */\n  .custom-lifestyle-btn:hover {\n    background-color: #ffffff;\n    color: #000000;\n  }\n\n  /* Responsive Typography for Desktop */\n  @media (min-width: 768px) {\n    .custom-lifestyle-heading {\n      font-size: 48px;\n      margin-bottom: 24px;\n    }\n    .custom-lifestyle-btn {\n      height: 56px;\n      padding: 0 40px;\n      font-size: 16px;\n    }\n  }\n\n  @media (min-width: 1024px) {\n    .custom-lifestyle-heading {\n      font-size: 60px;\n    }\n  }\n</style>\n\n<div class=\"custom-lifestyle-banner\">\n  <img \n    src=\"https://cdn.shopify.com/s/files/1/0960/2691/9283/files/download_1.webp?v=1771297337\" \n    alt=\"Friends in Bean Identity tees during golden hour\" \n    loading=\"lazy\"\n  >\n  \n  <div class=\"overlay\"></div>\n  \n  <div class=\"custom-lifestyle-content\">\n    <h2 class=\"custom-lifestyle-heading\">Wear what feels real.</h2>\n    \n    <a href=\"/collections/all\" class=\"custom-lifestyle-btn\">\n      Explore More Beans\n    </a>\n  </div>\n</div>",
+        "color_scheme": "",
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "You may also like",
+        "heading_size": "h2",
+        "products_to_show": 4,
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "image_shape": "default",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    },
+    "stickey_atc_9WyCmw": {
+      "type": "stickey-atc",
+      "name": "Sticky Add to Cart",
+      "settings": {
+        "enable_sticky": true,
+        "fallback_scroll_threshold": 400,
+        "background_color": "#5a3e2b",
+        "max_width": 1200,
+        "container_padding_vertical": 10,
+        "container_padding_horizontal": 15,
+        "container_border_radius": 0,
+        "bottom_spacing": 0,
+        "z_index": 1000,
+        "show_border": false,
+        "border_color": "#ffffff",
+        "border_width": 2,
+        "show_shadow": true,
+        "shadow_blur": 10,
+        "shadow_opacity": 10,
+        "show_product_image": true,
+        "image_size": 50,
+        "image_margin": 15,
+        "image_border_radius": 4,
+        "show_product_title": true,
+        "text_alignment": "left",
+        "title_font_size": 14,
+        "title_font_weight": "bold",
+        "title_color": "#ffffff",
+        "title_margin_bottom": 3,
+        "show_price": true,
+        "currency_symbol": "₹",
+        "price_font_size": 14,
+        "price_font_weight": "bold",
+        "current_price_color": "#ffffff",
+        "compare_price_color": "#ffffff",
+        "compare_price_opacity": 90,
+        "price_spacing": 8,
+        "button_text": "Add to Cart",
+        "loading_text": "Adding...",
+        "success_text": "Added!",
+        "error_text": "Try Again",
+        "button_reset_delay": 2000,
+        "button_margin_left": 20,
+        "button_min_width": 140,
+        "button_padding_vertical": 10,
+        "button_padding_horizontal": 20,
+        "button_font_size": 14,
+        "button_font_weight": "normal",
+        "button_text_transform": true,
+        "button_bg_color": "#ffffff",
+        "button_text_color": "#000000",
+        "button_border_color": "#000000",
+        "button_border_width": 2,
+        "button_border_radius": 8,
+        "button_hover_bg_color": "#232472",
+        "button_hover_text_color": "#ffffff",
+        "button_hover_border_color": "#000000",
+        "button_hover_transition": 300,
+        "button_hover_lift": 0,
+        "animation_speed": 300,
+        "auto_open_cart": false,
+        "redirect_to_cart": false,
+        "mobile_container_padding_vertical": 8,
+        "mobile_container_padding_horizontal": 10,
+        "mobile_image_size": 40,
+        "mobile_image_margin": 10,
+        "mobile_title_font_size": 14,
+        "mobile_price_font_size": 12,
+        "mobile_button_min_width": 120,
+        "mobile_button_padding_vertical": 8,
+        "mobile_button_padding_horizontal": 15,
+        "mobile_button_font_size": 14,
+        "mobile_button_margin_left": 10,
+        "small_mobile_max_width": 140
+      }
+    }
+  },
+  "order": [
+    "main",
+    "custom_liquid_h7xkad",
+    "image_with_text_fXgT9i",
+    "custom_liquid_gKiJRQ",
+    "related-products",
+    "stickey_atc_9WyCmw"
+  ]
+}

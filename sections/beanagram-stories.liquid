@@ -1,0 +1,312 @@
+{% comment %}
+  SECTION: BEANAGRAM STORIES
+  - Community stories in a social-card style.
+  - Color-coded based on Bean identity.
+{% endcomment %}
+
+{%- style -%}
+  #Beanagram-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+    padding: 10rem 0;
+    overflow: hidden;
+  }
+
+  .beanagram-header {
+    text-align: center;
+    margin-bottom: 6rem;
+    padding: 0 2rem;
+  }
+
+  .beanagram-title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.2rem, 6vw, 4.8rem);
+    font-weight: 800;
+    margin: 0 0 1rem 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  .beanagram-subtitle {
+    font-size: 1.8rem;
+    color: {{ section.settings.text_color }};
+    opacity: 0.7;
+    margin: 0;
+  }
+
+  .beanagram-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    gap: 3rem;
+    padding: 2rem 4rem 4rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+
+  .beanagram-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .beanagram-card {
+    flex: 0 0 32rem;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.1);
+    border-radius: 12px;
+    padding: 2.5rem;
+    scroll-snap-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    display: flex;
+    flex-direction: column;
+    min-height: 38rem;
+    transition: transform 0.3s ease;
+    /* Dynamic Border Accent */
+    border-top: 6px solid var(--bean-accent);
+  }
+
+  .beanagram-card:hover {
+    transform: translateY(-10px);
+  }
+
+  .beanagram-card__header {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .beanagram-card__avatar {
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    background: #f4f4f4;
+    overflow: hidden;
+    flex-shrink: 0;
+    border: 2px solid var(--bean-accent);
+  }
+
+  .beanagram-card__avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .beanagram-card__user-info {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .beanagram-card__handle {
+    font-weight: 800;
+    font-size: 1.6rem;
+    color: #121212;
+  }
+
+  .beanagram-card__bean-badge {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--bean-accent);
+    letter-spacing: 0.05em;
+  }
+
+  .beanagram-card__story {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #444;
+    margin: 0;
+    flex-grow: 1;
+    font-style: italic;
+  }
+
+  .beanagram-card__footer {
+    padding-top: 2rem;
+    border-top: 1px solid #f0f0f0;
+    margin-top: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #999;
+  }
+
+  .beanagram-card__icon {
+    width: 2rem;
+    height: 2rem;
+    fill: var(--bean-accent);
+  }
+
+  .beanagram-cta-wrapper {
+    text-align: center;
+    margin-top: 4rem;
+  }
+
+  .beanagram-cta {
+    display: inline-block;
+    padding: 1.5rem 4rem;
+    border: 2px solid #121212;
+    text-decoration: none;
+    font-weight: 700;
+    color: #121212;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+  }
+
+  .beanagram-cta:hover {
+    background: #121212;
+    color: #fff;
+  }
+
+  @media screen and (max-width: 749px) {
+    .beanagram-track {
+      gap: 2rem;
+      padding: 2rem;
+    }
+    .beanagram-card {
+      flex: 0 0 28rem;
+    }
+  }
+{%- endstyle -%}
+
+<div id="Beanagram-{{ section.id }}" class="beanagram-stories">
+  <div class="beanagram-header">
+    <h2 class="beanagram-title">{{ section.settings.title }}</h2>
+    <p class="beanagram-subtitle">{{ section.settings.subtitle }}</p>
+  </div>
+
+  <div class="beanagram-track">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign bean_color = '#121212'
+        case block.settings.bean_type
+          when 'coffee'
+            assign bean_color = '#4E342E'
+          when 'chilli'
+            assign bean_color = '#D32F2F'
+          when 'vanilla'
+            assign bean_color = '#FFF9C4'
+          when 'jelly'
+            assign bean_color = '#F06292'
+          when 'green'
+            assign bean_color = '#388E3C'
+        endcase
+      -%}
+      <div class="beanagram-card" style="--bean-accent: {{ bean_color }};" {{ block.shopify_attributes }}>
+        <div class="beanagram-card__header">
+          <div class="beanagram-card__avatar">
+            {%- if block.settings.image != blank -%}
+              {{ block.settings.image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+            {%- else -%}
+              <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#eee;">
+                 <svg class="beanagram-card__icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+              </div>
+            {%- endif -%}
+          </div>
+          <div class="beanagram-card__user-info">
+            <span class="beanagram-card__handle">@{{ block.settings.handle }}</span>
+            <span class="beanagram-card__bean-badge">{{ block.settings.bean_type }} Bean</span>
+          </div>
+        </div>
+        <p class="beanagram-card__story">"{{ block.settings.story }}"</p>
+        <div class="beanagram-card__footer">
+          <svg class="beanagram-card__icon" viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Authenticated Identity
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  <div class="beanagram-cta-wrapper">
+    <a href="{{ section.settings.cta_link }}" class="beanagram-cta">{{ section.settings.cta_label }}</a>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Beanagram Stories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Section Title",
+      "default": "Beanagram Community"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Meet the real people wearing their true identities."
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label",
+      "default": "Share Your Bean Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#121212"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Member Story",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "User Photo"
+        },
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "Instagram Handle",
+          "default": "username"
+        },
+        {
+          "type": "select",
+          "id": "bean_type",
+          "label": "Bean Identity",
+          "options": [
+            { "value": "coffee", "label": "Coffee Bean" },
+            { "value": "chilli", "label": "Chilli Bean" },
+            { "value": "vanilla", "label": "Vanilla Bean" },
+            { "value": "jelly", "label": "Jelly Bean" },
+            { "value": "green", "label": "Green Bean" }
+          ],
+          "default": "coffee"
+        },
+        {
+          "type": "textarea",
+          "id": "story",
+          "label": "Their Story",
+          "default": "Finding my bean identity changed how I express myself every day. It's more than apparel, it's a personality statement."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Beanagram Stories",
+      "blocks": [
+        { "type": "story", "settings": { "handle": "alex_driven", "bean_type": "coffee" } },
+        { "type": "story", "settings": { "handle": "sara_heat", "bean_type": "chilli" } },
+        { "type": "story", "settings": { "handle": "neo_zen", "bean_type": "green" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

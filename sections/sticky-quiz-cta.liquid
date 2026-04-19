@@ -1,0 +1,133 @@
+{% comment %}
+  SECTION: STICKY QUIZ CTA
+  - Globally visible floating button.
+  - Excludes showing on the quiz page itself.
+{% endcomment %}
+
+{%- style -%}
+  .sticky-quiz-cta {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    z-index: 100;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .sticky-quiz-cta.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  .sticky-quiz-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 24px;
+    background: {{ section.settings.bg_color }};
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    border-radius: 50px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+    white-space: nowrap;
+    border: 1px solid rgba(var(--color-foreground), 0.1);
+  }
+
+  .sticky-quiz-btn:hover {
+    transform: scale(1.05);
+    background: {{ section.settings.text_color }};
+    color: {{ section.settings.bg_color }};
+  }
+
+  .sticky-quiz-icon {
+    width: 20px;
+    height: 20px;
+    fill: currentColor;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+  }
+
+  @media screen and (max-width: 749px) {
+    .sticky-quiz-cta {
+      bottom: 20px;
+      right: 20px;
+    }
+    .sticky-quiz-btn {
+      padding: 10px 20px;
+      font-size: 1.2rem;
+    }
+  }
+
+  /* Hide on the quiz page */
+  body.template-page-quiz .sticky-quiz-cta {
+    display: none !important;
+  }
+{%- endstyle -%}
+
+<div id="StickyQuizCta-{{ section.id }}" class="sticky-quiz-cta">
+  <a href="/pages/which-bean-are-you" class="sticky-quiz-btn">
+    <svg class="sticky-quiz-icon" viewBox="0 0 24 24">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 17h-2v-2h2v2zm2.07-7.75l-.9.92C13.45 12.9 13 13.5 13 15h-2v-.5c0-1.1.45-2.1 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41 0-1.1-.9-2-2-2s-2 .9-2 2H8c0-2.21 1.79-4 4-4s4 1.79 4 4c0 .88-.36 1.68-.93 2.25z"/>
+    </svg>
+    {{ section.settings.label }}
+  </a>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const cta = document.querySelector('.sticky-quiz-cta');
+    if (!cta) return;
+
+    // Show after scrolling a bit (e.g. 500px)
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 500) {
+        cta.classList.add('is-visible');
+      } else {
+        cta.classList.remove('is-visible');
+      }
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Sticky Quiz CTA",
+  "settings": [
+    {
+      "type": "text",
+      "id": "label",
+      "label": "Button Label",
+      "default": "Who are you?"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#121212"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Sticky Quiz CTA"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,361 @@
+{% comment %}
+  SECTION: NEWSLETTER POPUP (Sitewide)
+  - Exit-intent trigger (Desktop)
+  - 60% scroll trigger (Mobile)
+  - 7-day dismissal suppression
+  - Permanent suppression on success
+{% endcomment %}
+
+{%- style -%}
+  #NewsletterPopup-{{ section.id }} {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 99999;
+    display: none; /* Keep display:none for clean DOM state */
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  /* Fade in state */
+  #NewsletterPopup-{{ section.id }}.is-visible {
+    opacity: 1;
+  }
+
+  .newsletter-popup__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(5px);
+  }
+
+  .newsletter-popup__container {
+    position: relative;
+    background: #ffffff;
+    width: 90%;
+    max-width: 500px;
+    padding: 40px;
+    border-radius: 4px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    text-align: center;
+    z-index: 1001;
+
+    /* Slide-up initial state */
+    transform: translateY(30px);
+    transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  #NewsletterPopup-{{ section.id }}.is-visible .newsletter-popup__container {
+    transform: translateY(0);
+  }
+
+  .newsletter-popup__mascot {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto 20px auto;
+    background: #f4f4f4; /* Placeholder background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .newsletter-popup__mascot svg {
+    width: 40px;
+    height: 40px;
+    color: #121212;
+  }
+
+  .newsletter-popup__heading {
+    margin: 0 0 10px 0;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #121212;
+  }
+
+  .newsletter-popup__subtext {
+    margin: 0 0 25px 0;
+    font-size: 1.6rem;
+    color: #4a4a4a;
+    line-height: 1.5;
+  }
+
+  .newsletter-popup__form-field {
+    margin-bottom: 20px;
+  }
+
+  .newsletter-popup__input {
+    width: 100%;
+    padding: 15px;
+    border: 1px solid #e0e0e0;
+    font-size: 1.6rem;
+    border-radius: 4px;
+    outline: none;
+    transition: border 0.3s ease;
+  }
+
+  .newsletter-popup__input:focus {
+    border-color: #121212;
+  }
+
+  .newsletter-popup__button {
+    width: 100%;
+    padding: 15px;
+    background: #121212;
+    color: #ffffff;
+    border: none;
+    font-size: 1.6rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    border-radius: 4px;
+  }
+
+  .newsletter-popup__button:hover {
+    opacity: 0.9;
+  }
+
+  .newsletter-popup__dismiss {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 1.4rem;
+    color: #888;
+    text-decoration: underline;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+  }
+
+  .newsletter-popup__compliance {
+    margin-top: 15px;
+    font-size: 1.2rem;
+    color: #999;
+    line-height: 1.4;
+  }
+
+  .newsletter-popup__compliance a {
+    color: inherit;
+    text-decoration: underline;
+  }
+
+  .newsletter-popup__success {
+    display: none;
+  }
+
+  /* When form is posted successfully */
+  .newsletter-popup__container[data-success="true"] .newsletter-popup__form {
+    display: none;
+  }
+  .newsletter-popup__container[data-success="true"] .newsletter-popup__success {
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .newsletter-popup__container {
+      padding: 30px 20px;
+    }
+  }
+{%- endstyle -%}
+
+<div id="NewsletterPopup-{{ section.id }}" class="newsletter-popup">
+  <div class="newsletter-popup__overlay"></div>
+  <div
+    class="newsletter-popup__container"
+    {% if form.posted_successfully? %}
+      data-success="true"
+    {% endif %}
+  >
+    <div class="newsletter-popup__mascot">
+      {% comment %} Placeholder Mascot Icon {% endcomment %}
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7 2.99 7 2.99s-2.29 6.08-2.29 6.08C3.57 10 3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>
+      </svg>
+    </div>
+
+    <div class="newsletter-popup__form">
+      <h2 class="newsletter-popup__heading">{{ section.settings.heading }}</h2>
+      <p class="newsletter-popup__subtext">{{ section.settings.subtext }}</p>
+
+      {%- form 'customer', id: 'NewsletterPopupForm', class: 'newsletter-popup__form-inner' -%}
+        <input type="hidden" name="contact[tags]" value="newsletter, Bean_Community_Popup">
+
+        <div class="newsletter-popup__form-field">
+          <input
+            type="email"
+            name="contact[email]"
+            class="newsletter-popup__input"
+            value="{{ form.email }}"
+            placeholder="your@email.com"
+            required
+            aria-required="true"
+          >
+        </div>
+
+        <button type="submit" class="newsletter-popup__button" name="commit">I'm in</button>
+
+        <p class="newsletter-popup__compliance">
+          We respect your inbox. No spam, just good beans. Read our
+          <a href="/policies/privacy-policy">Privacy Policy</a>.
+        </p>
+
+        <button type="button" class="newsletter-popup__dismiss" id="NewsletterPopupDismiss">Not now</button>
+      {%- endform -%}
+    </div>
+
+    <div class="newsletter-popup__success">
+      <h2 class="newsletter-popup__heading">Welcome to the Community!</h2>
+      <p class="newsletter-popup__subtext">Check your inbox for something special soon.</p>
+      <button type="button" class="newsletter-popup__button" id="NewsletterPopupCloseSuccess">Let's Shop</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function () {
+    const popupId = 'NewsletterPopup-{{ section.id }}';
+    const storageKeyDismissed = 'bean_newsletter_last_dismissed';
+    const storageKeySubscribed = 'bean_newsletter_subscribed';
+    const popup = document.getElementById(popupId);
+
+    if (!popup) return;
+    console.log('Newsletter Popup Initialized:', popupId);
+
+    const dismissBtn = document.getElementById('NewsletterPopupDismiss');
+    const closeSuccessBtn = document.getElementById('NewsletterPopupCloseSuccess');
+    const form = document.getElementById('NewsletterPopupForm');
+    const container = popup.querySelector('.newsletter-popup__container');
+
+    // Suppression Logic
+    function isSuppressed() {
+      // Force show via URL parameter ?force_popup=true
+      if (window.location.search.includes('force_popup=true')) {
+        console.log('Newsletter Popup: Force show via URL parameter.');
+        return false;
+      }
+
+      // Permanent suppression
+      if (localStorage.getItem(storageKeySubscribed) === 'true') {
+        console.log('Newsletter Popup: Suppressed - Already Subscribed.');
+        return true;
+      }
+
+      // 7-day suppression
+      const lastDismissed = localStorage.getItem(storageKeyDismissed);
+      if (lastDismissed) {
+        const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
+        if (Date.now() - parseInt(lastDismissed) < sevenDaysMs) {
+          console.log('Newsletter Popup: Suppressed - Recently Dismissed.');
+          return true;
+        }
+      }
+      return false;
+    }
+
+    function showPopup() {
+      if (isSuppressed()) return;
+      if (popup.classList.contains('is-visible')) return;
+
+      console.log('Newsletter Popup: Showing...');
+      popup.style.display = 'flex';
+
+      // Trigger reflow to ensure display:flex is applied before adding animation class
+      setTimeout(() => {
+        popup.classList.add('is-visible');
+      }, 10);
+    }
+
+    function hidePopup(permanent = false) {
+      popup.classList.remove('is-visible');
+
+      setTimeout(() => {
+        popup.style.display = 'none';
+        if (permanent) {
+          localStorage.setItem(storageKeySubscribed, 'true');
+        } else {
+          localStorage.setItem(storageKeyDismissed, Date.now());
+        }
+      }, 500); // Wait for transition to finish
+    }
+
+    // Triggers
+    const isMobile = window.matchMedia('(max-width: 749px)').matches;
+
+    if (!isMobile) {
+      // Desktop Exit Intent: More relaxed e.clientY check
+      document.addEventListener('mouseleave', (e) => {
+        if (e.clientY <= 20) {
+          showPopup();
+        }
+      });
+    } else {
+      // Mobile Scroll Trigger (60%)
+      let scrollTriggered = false;
+      window.addEventListener('scroll', () => {
+        if (scrollTriggered) return;
+        const scrollHeight = document.body.offsetHeight;
+        const scrollPos = window.innerHeight + window.scrollY;
+
+        if (scrollPos / scrollHeight >= 0.6) {
+          scrollTriggered = true;
+          showPopup();
+        }
+      });
+    }
+
+    // Dismissal
+    if (dismissBtn) dismissBtn.addEventListener('click', () => hidePopup(false));
+    if (closeSuccessBtn) closeSuccessBtn.addEventListener('click', () => hidePopup(true));
+    popup.querySelector('.newsletter-popup__overlay').addEventListener('click', () => hidePopup(false));
+
+    // Success State Handling (after reload)
+    if (container.dataset.success === 'true') {
+      showPopup();
+      localStorage.setItem(storageKeySubscribed, 'true');
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Newsletter Pop-Up",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the Bean Community"
+    },
+    {
+      "type": "textarea",
+      "id": "subtext",
+      "label": "Subtext",
+      "default": "Get exclusive access to the universe. Early drops, community stories, and more."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Newsletter Pop-Up"
+    }
+  ]
+}
+{% endschema %}

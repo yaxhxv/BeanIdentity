@@ -1,0 +1,723 @@
+{%- comment -%}
+  COLLECTION SHOWCASE TABS
+  - Premium "Our Collection" section with tabbed navigation.
+  - Server-side rendering (no AJAX) for SEO and speed.
+  - Responsive Grid: 4 (Desktop) / 2 (Tablet) / 1 (Mobile).
+  - Hover effects with "Add to Cart" and "Buy Now".
+{%- endcomment -%}
+
+{%- style -%}
+  .section-{{ section.id }}-padding {
+    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
+    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  }
+
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding {
+      padding-top: {{ section.settings.padding_top }}px;
+      padding-bottom: {{ section.settings.padding_bottom }}px;
+    }
+  }
+
+  /* --- CONTAINER --- */
+  .cst-container {
+    max-width: {{ section.settings.page_width }}px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+  }
+
+  /* --- HEADER --- */
+  .cst-header {
+    margin-bottom: 2rem;
+    text-align: {{ section.settings.heading_align }};
+  }
+
+  .cst-heading {
+    font-size: 3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    line-height: 1.1;
+    margin: 0;
+    color: {{ section.settings.text_color }};
+  }
+
+  .cst-description {
+      margin-top: 10px;
+      font-size: 1.4rem;
+      color: {{ section.settings.text_color }};
+      opacity: 0.8;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+  }
+
+  @media screen and (max-width: 750px) {
+    .cst-heading { font-size: 2.2rem; }
+  }
+
+  /* --- TABS NAVIGATION --- */
+  .cst-tabs-nav {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 1rem;
+    margin-bottom: 3rem;
+    padding-bottom: 0.5rem;
+    scrollbar-width: thin;
+    -webkit-overflow-scrolling: touch;
+    justify-content: center; /* Center tabs on both devices */
+  }
+
+  .cst-tabs-nav::-webkit-scrollbar {
+    height: 4px;
+    display: none;
+  }
+
+  .cst-tab-btn {
+    background: transparent;
+    border: 1px solid #e0e0e0;
+    padding: 10px 24px;
+    font-size: 1.4rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: all 0.3s ease;
+    color: {{ section.settings.text_color }};
+    border-radius: 4px;
+  }
+
+  .cst-tab-btn:hover {
+    border-color: #000;
+  }
+
+  .cst-tab-btn.active {
+    background: #000;
+    color: #fff;
+    border-color: #000;
+  }
+
+  /* --- CAROUSEL STRUCTURE --- */
+  .cst-tab-content {
+    display: none !important;
+    animation: fadeIn 0.4s ease-out;
+    position: relative;
+  }
+
+  .cst-tab-content.active {
+    display: block !important; /* Block for carousel wrapper */
+  }
+
+  .cst-carousel-viewport {
+    overflow: hidden;
+    width: 100%;
+    position: relative;
+  }
+
+  .cst-carousel-track {
+    display: flex;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
+  }
+
+  /* --- PRODUCT CARD ITEM --- */
+  .cst-card-item {
+    flex: 0 0 66%; /* Mobile: 1.5 items visible (66%) */
+    width: 66%;
+    padding: 0 8px;
+    box-sizing: border-box;
+    scroll-snap-align: start;
+    flex-shrink: 0;
+  }
+
+  @media screen and (min-width: 750px) {
+    .cst-card-item {
+      flex: 0 0 50%; /* Tablet: 2 per view */
+      width: 50%;
+      max-width: 50%;
+    }
+  }
+
+  @media screen and (min-width: 990px) {
+    .cst-card-item {
+      flex: 0 0 {{ 100.0 | divided_by: section.settings.products_per_row }}%; /* Desktop */
+      width: {{ 100.0 | divided_by: section.settings.products_per_row }}%;
+      max-width: {{ 100.0 | divided_by: section.settings.products_per_row }}%;
+    }
+  }
+
+  /* Mobile Scroll Overrides */
+  @media screen and (max-width: 749px) {
+    .cst-carousel-viewport {
+      overflow: visible; /* Let track handle scrolling */
+    }
+
+    .cst-carousel-track {
+      display: flex;
+      width: 100%; /* Track matches container width */
+      overflow-x: auto; /* Enable native scroll on track */
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      transform: none !important; /* Disable JS transform */
+    }
+
+    .cst-carousel-track::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* --- CARD STYLING --- */
+  .cst-card {
+    position: relative;
+    group: hover;
+    display: flex;
+    flex-direction: column;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+
+  /* Image Container */
+  .cst-card-image-wrapper {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 0.8;
+    overflow: hidden;
+    border-radius: 12px;
+    background: #f4f4f4;
+    margin-bottom: 1.2rem;
+  }
+
+  .cst-card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .cst-card:hover .cst-card-img {
+    transform: scale(1.08);
+  }
+
+  /* Hover Overlay */
+  .cst-card-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    opacity: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: opacity 0.3s ease;
+    z-index: 2;
+  }
+
+  .cst-card:hover .cst-card-overlay {
+    opacity: 1;
+  }
+
+  /* Ensure form matches link width behavior */
+  .cst-card-overlay form {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* Action Buttons */
+  .cst-btn {
+    display: block;
+    width: 80%;
+    max-width: 200px;
+    padding: 12px 0;
+    text-align: center;
+    font-size: 1.3rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s, background 0.2s;
+    transform: translateY(20px);
+    opacity: 0;
+  }
+
+  /* Reveal buttons on hover with stagger */
+  .cst-card:hover .cst-btn {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .cst-btn-atc {
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    transition-delay: 0.05s;
+  }
+  .cst-btn-atc:hover {
+    background: #fff;
+    color: #000;
+  }
+
+  .cst-btn-buy {
+    background: #fff;
+    color: #000;
+    margin-top: 5px;
+    transition-delay: 0.1s;
+    text-decoration: none;
+  }
+  .cst-btn-buy:hover {
+    background: #f0f0f0;
+  }
+
+  /* Product Info */
+  .cst-card-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    font-size: 1.3rem; /* Reduced from 1.4rem */
+    line-height: 1.4;
+    padding-top: 10px;
+  }
+
+  .cst-card-title {
+    font-weight: 500;
+    margin: 0;
+    padding-right: 1rem;
+    color: {{ section.settings.text_color }};
+    font-size: 1.3rem;
+  }
+
+  .cst-card-price {
+    font-weight: 700;
+    white-space: nowrap;
+    color: {{ section.settings.text_color }};
+    font-size: 1.3rem;
+  }
+
+  @media screen and (max-width: 750px) {
+    .cst-card-info {
+        font-size: 1.2rem;
+    }
+    .cst-card-title {
+        font-size: 1.2rem;
+    }
+    .cst-card-price {
+        font-size: 1.2rem;
+    }
+  }
+
+  /* Responsive Adjustments */
+  @media screen and (max-width: 989px) { /* Tablet */
+     .cst-btn {
+        width: 90%;
+        padding: 10px 0;
+        font-size: 1.2rem;
+     }
+  }
+{%- endstyle -%}
+
+<div class="section-{{ section.id }}-padding" style="background-color: {{ section.settings.bg_color }};">
+  <div class="cst-container">
+    <!-- Header -->
+    <div class="cst-header">
+      {% if section.settings.heading != blank %}
+        <h2 class="cst-heading">{{ section.settings.heading }}</h2>
+      {% endif %}
+      {% if section.settings.description != blank %}
+        <div class="cst-description">{{ section.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    <!-- Tabs Navigation -->
+    <div class="cst-tabs-nav" role="tablist">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <button
+            class="cst-tab-btn {% if forloop.first %}active{% endif %}"
+            role="tab"
+            aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+            aria-controls="panel-{{ block.id }}"
+            id="tab-{{ block.id }}"
+            data-tab-target="#panel-{{ block.id }}"
+          >
+            {{ block.settings.tab_label | default: block.settings.collection.title | default: 'Collection' }}
+          </button>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+
+    <!-- Tabs Content (Carousels) -->
+    <div class="cst-content-wrapper">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'tab' -%}
+          <div
+            id="panel-{{ block.id }}"
+            class="cst-tab-content {% if forloop.first %}active{% endif %}"
+            role="tabpanel"
+            aria-labelledby="tab-{{ block.id }}"
+          >
+            <div class="cst-carousel-viewport">
+              <div class="cst-carousel-track" data-autoplay-speed="3000">
+                {%- assign collection = block.settings.collection -%}
+                {%- assign limit = block.settings.limit | default: 8 -%}
+
+                {%- if collection != blank and collection.products_count > 0 -%}
+                  {%- for product in collection.products limit: limit -%}
+                    <div class="cst-card-item">
+                      <div class="cst-card">
+                        <div class="cst-card-image-wrapper">
+                          <img
+                            src="{{ product.featured_image | image_url: width: 600 }}"
+                            alt="{{ product.title | escape }}"
+                            class="cst-card-img"
+                            loading="lazy"
+                            width="600"
+                            height="{{ 600 | divided_by: product.featured_image.aspect_ratio | ceil }}"
+                          >
+
+                          <div class="cst-card-overlay">
+                            {%- if product.available -%}
+                              {%- form 'product', product -%}
+                                <input type="hidden" name="id" value="{{ product.first_available_variant.id }}">
+                                <button type="submit" class="cst-btn cst-btn-atc">Add to Cart</button>
+                              {%- endform -%}
+                              <a href="{{ product.url }}" class="cst-btn cst-btn-buy">Buy Now</a>
+                            {%- else -%}
+                              <button class="cst-btn cst-btn-atc" disabled style="opacity: 0.6; cursor: not-allowed;">
+                                Sold Out
+                              </button>
+                              <a href="{{ product.url }}" class="cst-btn cst-btn-buy">View Product</a>
+                            {%- endif -%}
+                          </div>
+                        </div>
+
+                        <div class="cst-card-info">
+                          <h3 class="cst-card-title">{{ product.title }}</h3>
+                          <span class="cst-card-price">{{ product.price | money }}</span>
+                        </div>
+                        <a
+                          href="{{ product.url }}"
+                          class="full-card-link"
+                          style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;"
+                        ></a>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                {%- else -%}
+                  {%- for i in (1..5) -%}
+                    <div class="cst-card-item">
+                      <div class="cst-card">
+                        <div class="cst-card-image-wrapper">
+                          {{ 'product-' | append: i | placeholder_svg_tag: 'cst-card-img' }}
+                        </div>
+                        <div class="cst-card-info">
+                          <h3 class="cst-card-title">Example Product {{ i }}</h3>
+                          <span class="cst-card-price">$99.00</span>
+                        </div>
+                      </div>
+                    </div>
+                  {%- endfor -%}
+                {%- endif -%}
+              </div>
+            </div>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    
+    // Auto-Sliding Carousel Class
+    class CSTCarousel {
+      constructor(container) {
+        this.container = container;
+        this.track = container.querySelector('.cst-carousel-track');
+        this.items = container.querySelectorAll('.cst-card-item');
+        if (!this.track || this.items.length === 0) return;
+
+        this.index = 0;
+        this.interval = null;
+        
+        // Settings from data attributes
+        this.enableAutoplay = this.track.dataset.autoplay === 'true';
+        this.autoPlaySpeed = parseInt(this.track.dataset.autoplaySpeed) || 3000;
+        
+        this.isMobile = false;
+        
+        // Responsive check
+        this.updateItemsPerView();
+        window.addEventListener('resize', () => {
+             this.updateItemsPerView();
+             this.reset(); 
+        });
+
+        // Hover Pause
+        this.track.addEventListener('mouseenter', () => this.stop());
+        this.track.addEventListener('mouseleave', () => {
+            if (this.enableAutoplay && !this.isMobile) this.play();
+        });
+      }
+
+      updateItemsPerView() {
+        const width = window.innerWidth;
+        if (width < 750) {
+            this.itemsPerView = 1;
+            this.isMobile = true;
+            this.stop(); // Always stop on mobile
+        }
+        else {
+            this.isMobile = false; 
+            if (width < 990) this.itemsPerView = 2;
+            else this.itemsPerView = {{ section.settings.products_per_row }};
+            
+            if (this.enableAutoplay) this.play();
+        }
+      }
+
+      slide() {
+        if (this.isMobile) return; 
+
+        const totalItems = this.items.length;
+        const maxIndex = totalItems - this.itemsPerView;
+        
+        this.index++;
+        if (this.index > maxIndex) {
+          this.index = 0; 
+        }
+
+        const movePercent = -(this.index * (100 / this.itemsPerView));
+        this.track.style.transform = `translateX(${movePercent}%)`;
+      }
+
+      play() {
+        if (this.isMobile || !this.enableAutoplay) return; 
+        
+        if (this.interval) clearInterval(this.interval);
+        if (this.items.length > this.itemsPerView) {
+          this.interval = setInterval(() => this.slide(), this.autoPlaySpeed);
+        }
+      }
+
+      stop() {
+        if (this.interval) clearInterval(this.interval);
+      }
+
+      reset() {
+        this.index = 0;
+        if (!this.isMobile) {
+            this.track.style.transform = 'translateX(0)';
+            this.play();
+        }
+      }
+    }
+
+    // Active Carousel Manager
+    const carousels = new Map(); // Store initialized carousels
+
+    function activateCarousel(panel) {
+       const panelId = panel.id;
+       let carousel = carousels.get(panelId);
+       
+       if (!carousel) {
+         carousel = new CSTCarousel(panel);
+         carousels.set(panelId, carousel);
+       }
+       
+       carousel.reset();
+       return carousel;
+    }
+
+    // Stop all other carousels
+    function stopOthers(currentPanelId) {
+       carousels.forEach((car, id) => {
+          if (id !== currentPanelId) car.stop();
+       });
+    }
+
+    // Init active tab on load
+    const activePanel = document.querySelector('.cst-tab-content.active');
+    if (activePanel) {
+       activateCarousel(activePanel);
+    }
+
+    // Tab Logic
+    document.body.addEventListener('click', function(e) {
+      if (e.target.matches('.cst-tab-btn')) {
+        const btn = e.target;
+        const container = btn.closest('.cst-container');
+        if (!container) return;
+
+        const targetId = btn.getAttribute('data-tab-target');
+        const targetPanel = container.querySelector(targetId);
+
+        // Deactivate all
+        container.querySelectorAll('.cst-tab-btn').forEach(t => {
+            t.classList.remove('active');
+            t.setAttribute('aria-selected', 'false');
+        });
+        container.querySelectorAll('.cst-tab-content').forEach(p => p.classList.remove('active'));
+
+        // Activate clicked
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        
+        if (targetPanel) {
+            targetPanel.classList.add('active');
+            stopOthers(targetPanel.id);
+            activateCarousel(targetPanel);
+        }
+      }
+    });
+
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Collection Showcase Tabs",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Section Settings"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "default": "Our Collection",
+      "label": "Heading"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description"
+    },
+    {
+      "type": "select",
+      "id": "heading_align",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "left",
+      "label": "Heading Alignment"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#ffffff"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color",
+      "default": "#000000"
+    },
+    {
+      "type": "range",
+      "id": "products_per_row",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Products per row (Desktop)"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 36
+    },
+    {
+      "type": "text",
+      "id": "page_width",
+      "label": "Container Width (px)",
+      "default": "1400"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "tab",
+      "name": "Collection Tab",
+      "settings": [
+        {
+          "type": "text",
+          "id": "tab_label",
+          "label": "Tab Label",
+          "info": "Leave blank to use collection title"
+        },
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Collection"
+        },
+        {
+          "type": "range",
+          "id": "limit",
+          "min": 4,
+          "max": 12,
+          "step": 1,
+          "default": 8,
+          "label": "Product Limit"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Showcase Tabs",
+      "blocks": [
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Hoodies"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Caps"
+          }
+        },
+        {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Trending"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

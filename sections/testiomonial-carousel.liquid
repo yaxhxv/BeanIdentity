@@ -1,0 +1,394 @@
+{% comment %}
+  ------------------------------------------------------------------------------
+  SECTION: Testimonial Carousel (Custom Border Design)
+  ------------------------------------------------------------------------------
+{% endcomment %}
+
+<style>
+  .tm-section {
+    position: relative;
+    padding: {{ section.settings.pt }}px 0 {{ section.settings.pb }}px;
+    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    overflow: hidden;
+  }
+
+  .tm-container {
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  /* Left Header Area */
+  .tm-header-col {
+    width: 100%;
+    margin-bottom: 40px;
+  }
+  @media (min-width: 992px) {
+    .tm-header-col {
+      width: 30%;
+      padding-right: 40px;
+      margin-bottom: 0;
+    }
+  }
+
+  .tm-title {
+    font-size: {{ section.settings.title_size }}px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: {{ section.settings.text_color }};
+    margin: 0 0 16px;
+  }
+  .tm-subtitle {
+    font-size: 16px;
+    line-height: 1.5;
+    color: {{ section.settings.text_color }};
+    opacity: 0.8;
+  }
+
+  /* Carousel Area */
+  .tm-slider-col {
+    width: 100%;
+    position: relative;
+  }
+  @media (min-width: 992px) {
+    .tm-slider-col { width: 70%; }
+  }
+
+  .tm-track {
+    display: flex;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 30px;
+    padding: 30px 5px 60px; /* Top padding for star overlap, Bottom for verified badge space */
+    scrollbar-width: none;
+  }
+  .tm-track::-webkit-scrollbar { display: none; }
+
+  /* Card Styles */
+  .tm-card {
+    flex: 0 0 300px; /* Mobile width */
+    scroll-snap-align: center;
+    position: relative;
+    border: 1px solid #121212;
+    border-radius: 4px; /* Minimal radius */
+    background: #fff;
+    padding: 30px 24px 24px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    min-height: 280px;
+  }
+  @media (min-width: 768px) {
+    .tm-card {
+      flex: 0 0 340px;
+      padding: 30px;
+      min-height: 300px; /* Consistent height */
+    }
+  }
+
+  /* Floating Star Badge */
+  .tm-stars-badge {
+    position: absolute;
+    top: -14px; /* Half height to overlap border */
+    left: 20px; /* Or 50% transformX(-50%) if centered */
+    background: #121212;
+    color: #ffd700; /* Gold stars */
+    padding: 4px 12px;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    border-radius: 2px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  }
+  
+  /* Centered Star Variant (like design?) */
+  .tm-card.center-stars .tm-stars-badge {
+      left: 50%;
+      transform: translateX(-50%);
+  }
+
+  .tm-star-icon {
+    width: 14px;
+    height: 14px;
+    fill: currentColor;
+  }
+
+  .tm-quote {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #333;
+    font-style: italic;
+    margin-bottom: 24px;
+    flex-grow: 1;
+  }
+
+  /* Author Section (Outside Box) */
+  .tm-author-info {
+    position: absolute;
+    bottom: -50px; /* Push below card */
+    left: 0;
+    width: 100%;
+    text-align: center;
+  }
+  .tm-author-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: #000;
+    margin-bottom: 2px;
+  }
+  .tm-verified {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    color: #000;
+    gap: 4px;
+    font-weight: 500;
+  }
+  .tm-check-icon {
+    width: 12px;
+    height: 12px;
+    background: #000;
+    color: #fff;
+    border-radius: 50%;
+    padding: 2px;
+  }
+
+  /* Controls */
+  .tm-controls {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end; /* Right aligned or spaced? */
+    gap: 16px;
+    margin-top: 20px; 
+    /* If design has arrows spread apart: */
+    /* justify-content: space-between; position: absolute? */
+  }
+  
+  /* Bottom Layout for controls */
+  .tm-bottom-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 20px;
+      padding-left: 5px; 
+      padding-right: 5px;
+  }
+
+  .tm-nav-btn {
+    width: 40px;
+    height: 40px;
+    border: 1px solid #1a1a1a;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    border-radius: 4px;
+  }
+  .tm-nav-btn:hover {
+    background: #1a1a1a;
+    color: #fff;
+  }
+  .tm-nav-btn svg { width: 20px; height: 20px; fill: currentColor; }
+
+  /* Progress Bar */
+  .tm-progress-container {
+      flex-grow: 1;
+      height: 2px;
+      background: #eee;
+      margin: 0 20px;
+      position: relative;
+      border-radius: 2px;
+  }
+  .tm-progress-bar {
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      background: #000;
+      width: 0%; /* JS will update */
+      transition: width 0.3s ease;
+  }
+
+</style>
+
+<div class="tm-section">
+  <div class="tm-container">
+    
+    <!-- Header -->
+    <div class="tm-header-col">
+      <h2 class="tm-title">{{ section.settings.title }}</h2>
+      <div class="tm-subtitle">{{ section.settings.subtitle }}</div>
+    </div>
+
+    <!-- Slider -->
+    <div class="tm-slider-col">
+      <div class="tm-track" id="tm-track-{{ section.id }}">
+        
+        {% for block in section.blocks %}
+          <div class="tm-card center-stars" {{ block.shopify_attributes }}>
+            <!-- Stars Badge on Border -->
+            <div class="tm-stars-badge">
+               {% for i in (1..5) %}
+                 <svg class="tm-star-icon" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+               {% endfor %}
+            </div>
+
+            <div class="tm-quote">
+              "{{ block.settings.quote }}"
+            </div>
+
+            <div class="tm-author-info">
+              <div class="tm-author-name">{{ block.settings.author }}</div>
+              {% if block.settings.verified %}
+                <div class="tm-verified">
+                  <svg class="tm-check-icon" viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>
+                  Verified Customer
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+
+      </div>
+
+      <!-- Controls -->
+      <div class="tm-bottom-bar">
+        <button class="tm-nav-btn prev" onclick="scrollTestimonials(-1)">
+           <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        </button>
+        
+        <div class="tm-progress-container">
+            <div class="tm-progress-bar" id="tm-progress-{{ section.id }}" style="width: 25%"></div>
+        </div>
+
+        <button class="tm-nav-btn next" onclick="scrollTestimonials(1)">
+           <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        </button>
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const track = document.getElementById('tm-track-{{ section.id }}');
+    const progressBar = document.getElementById('tm-progress-{{ section.id }}');
+    const prevBtn = track.parentElement.querySelector('.prev');
+    const nextBtn = track.parentElement.querySelector('.next');
+    
+    // Settings
+    const enableAutoplay = {{ section.settings.autoplay | json }};
+    const speed = {{ section.settings.autoplay_speed }} * 1000;
+    let autoPlayInterval;
+
+    // Scroll Function
+    window.scrollTestimonials = function(direction) {
+      const card = track.querySelector('.tm-card');
+      const cardWidth = card.offsetWidth;
+      const gap = 30; 
+      const scrollAmount = (cardWidth + gap) * direction;
+
+      // Check for Loop (End of Scroll)
+      if (direction === 1 && (track.scrollLeft + track.clientWidth >= track.scrollWidth - 10)) {
+        track.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        track.scrollBy({ left: scrollAmount, behavior: 'smooth' });
+      }
+      updateProgress();
+    };
+
+    function updateProgress() {
+      // Small timeout to allow scroll to start
+      setTimeout(() => {
+          const maxScroll = track.scrollWidth - track.clientWidth;
+          const currentScroll = track.scrollLeft;
+          let percent = (currentScroll / maxScroll) * 100;
+          if(percent < 5) percent = 5;
+          if(percent > 100) percent = 100;
+          progressBar.style.width = percent + '%';
+      }, 300);
+    }
+    
+    // Manual Update on Scroll
+    track.addEventListener('scroll', updateProgress);
+    
+    // Autoplay Logic
+    function startAutoplay() {
+      if (!enableAutoplay) return;
+      stopAutoplay();
+      autoPlayInterval = setInterval(() => {
+        window.scrollTestimonials(1);
+      }, speed);
+    }
+
+    function stopAutoplay() {
+      if (autoPlayInterval) clearInterval(autoPlayInterval);
+    }
+
+    // Attach Click Handlers (cleaner scope)
+    prevBtn.onclick = () => { stopAutoplay(); window.scrollTestimonials(-1); };
+    nextBtn.onclick = () => { stopAutoplay(); window.scrollTestimonials(1); };
+
+    // Init
+    if (enableAutoplay) {
+      startAutoplay();
+      // Pause on Interaction
+      track.addEventListener('mouseenter', stopAutoplay);
+      track.addEventListener('mouseleave', startAutoplay);
+      track.addEventListener('touchstart', stopAutoplay);
+      track.addEventListener('wheel', stopAutoplay);
+    }
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Testimonial Carousel",
+  "settings": [
+    { "type": "header", "content": "Content" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "What Our Customers Say" },
+    { "type": "textarea", "id": "subtitle", "label": "Subtitle", "default": "Honest words from those who trust us." },
+    { "type": "range", "id": "title_size", "label": "Title Size", "min": 20, "max": 60, "step": 2, "default": 40 },
+    
+    { "type": "header", "content": "Carousel Settings" },
+    { "type": "checkbox", "id": "autoplay", "label": "Enable Auto-Play", "default": true },
+    { "type": "range", "id": "autoplay_speed", "label": "Speed (seconds)", "min": 3, "max": 10, "step": 1, "default": 5 },
+    
+    { "type": "header", "content": "Colors" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#121212" },
+    { "type": "header", "content": "Spacing" },
+    { "type": "range", "id": "pt", "label": "Top", "default": 60, "min": 0, "max": 100 },
+    { "type": "range", "id": "pb", "label": "Bottom", "default": 60, "min": 0, "max": 100 }
+  ],
+  "blocks": [
+    {
+      "type": "testimonial",
+      "name": "Review",
+      "settings": [
+        { "type": "range", "id": "rating", "label": "Stars", "min": 1, "max": 5, "default": 5 },
+        { "type": "textarea", "id": "quote", "label": "Quote", "default": "This product changed my life! Highly recommended to everyone." },
+        { "type": "text", "id": "author", "label": "Author", "default": "John Doe" },
+        { "type": "checkbox", "id": "verified", "label": "Verified Badge", "default": true }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonial Carousel",
+      "blocks": [
+        { "type": "testimonial" },
+        { "type": "testimonial" },
+        { "type": "testimonial" }
+      ]
+    }
+  ]
+}
+{% endschema %}
