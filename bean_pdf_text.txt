@@ -1,0 +1,223 @@
+This is the brand guidelines for Bean Identity, a charac-
+ter-driven t-shirt brand that blends bold minimalism 
+with playful storytelling. The brand is built on a strong 
+umbrella identity supported by five unique bean perso-
+nas, each representing a distinct mood and lifestyle. 
+These guidelines define the visual language, color sys-
+tems, typography, and character usage to ensure con-
+sistency across all touchpoints. From apparel design to 
+digital presence, this document serves as a foundation 
+for creating a cohesive, scalable, and recognizable 
+brand experience.BRAND ARCHITECTURE
+ONE SYSTEM.
+FIVE PERSONALITIES.
+Umbrella Brand:
+Coffee Bean
+Vanilla Bean
+Green Bean
+Jelly Bean
+Chilli Bean
+Sub Brands (Beans)
+Bean Identity unites a strong, minimal umbrella brand with five distinct bean 
+characters, each expressing a unique mood and style. Together, they create a 
+cohesive yet diverse identity, allowing creative flexibility while maintaining 
+consistency across every design and touchpoint.BRAND PHILOSOPHY
+Core Idea:
+Pillars:
+Identity
+expression
+Playful
+storytelling
+Collectible
+fashion
+Youth
+culture
+Everyone
+is a different
+beanPrimary Logo: Icon Logo:
+Usage Rules:
+Always maintain spacing
+Prefer black on light backgrounds
+No distortion or effects
+Primary Colours
+Jet Black
+HEX: #000000
+RGB: 0, 0, 0
+CMYK: 0, 0, 0, 100
+Pantone: Black C
+Soft White
+HEX: #F5F5F5
+RGB: 245, 245, 245
+CMYK: 0, 0, 0, 4
+Pantone: Cool Gray 1 C
+Secondary Colours
+Charcoal Grey
+HEX: #2B2B2B
+RGB: 43, 43, 43
+CMYK: 0, 0, 0, 83
+Pantone: 446 C
+Warm Ivory
+HEX: #EDE7E3
+RGB: 237, 231, 227
+CMYK: 0, 3, 4, 7
+Pantone: 7527 C
+Accent Colour
+Muted Gold
+HEX: #C6A969
+RGB: 198, 169, 105
+CMYK: 0, 15, 47, 22
+Pantone: 4515 C
+(closest match)
+USAGE RULE
+70% Neutral (White / Ivory)
+25% Black / Charcoal
+5% Accent (Gold only for premium highlights)
+👉 Always maintain a minimal, high-contrast foundation
+👉 Avoid overusing accent colours
+TYPOGRAPHY
+TT Ramillas Poppins
+Poppins
+Poppins
+Poppins
+Poppins
+TT Ramillas
+TT Ramillas
+TT Ramillas
+TT Ramillas
+Primary- Display Font Secondary- Functional Font
+TT Ramillas is a high-contrast transitional serif 
+typeface that brings elegance and sophistication 
+to Bean Identity. With its refined curves, flared 
+serifs, and distinctive flame-like details, it creates a 
+strong visual presence. Its versatile range of styles 
+supports both expressive headlines and polished, 
+modern editorial typography across the brand.
+Poppins is a clean, geometric sans-serif typeface that 
+serves as the functional backbone of Bean Identity. Its 
+balanced proportions and modern simplicity ensure 
+excellent readability across digital and print applications. 
+Versatile and approachable, it complements the 
+elegance of TT Ramillas while maintaining clarity in body 
+text, UI, and supporting content.Beans
+INTRO TOCOFFEE
+BEAN
+Roasted Brown
+HEX: #5A3A1B
+RGB: 90, 58, 27
+CMYK: 0, 36, 70, 65
+Pantone: 4625 C
+Support Shades:
+Espresso Dark — #3B2A1E
+Mocha — #8B5E3C
+GREEN
+BEAN
+Fresh Leaf
+HEX: #5BBF3A
+RGB: 91, 191, 58
+CMYK: 52, 0, 70, 25
+Pantone: 361 C
+Support Shades:
+Lime Pop — #8DE969
+Deep Leaf — #2F7D32
+VANILLA
+BEAN
+Cream Silk
+HEX: #F3E4C8
+RGB: 243, 228, 200
+CMYK: 0, 6, 18, 5
+Pantone: 468 C
+Support Shades:
+Soft Butter — #F7EBD9
+Warm Beige — #E5D3B3
+CHILLI
+BEAN
+Hot Red
+HEX: #E63946
+RGB: 230, 57, 70
+CMYK: 0, 75, 70, 10
+Pantone: 1795 C
+Support Shades:
+Lava Yellow — #FFC300
+Burnt Red — #9E1B1B
+JELLY
+BEAN
+Candy Cyan
+HEX: #2BB3C0
+RGB: 43, 179, 192
+CMYK: 78, 7, 0, 25
+Pantone: 7711 C
+Support Shades:
+Bubble Blue — #6FE7F7
+Confetti Mix — Multi-colorCOFFEE BEAN
+Personality:
+Smart • Intellectual • Calm • Mature
+Typography:
+Visual Style:
+Warm browns
+Books, leaves, textures
+Vintage academic feel
+Graphic Direction:
+Slight texture
+Earthy tones
+Calm compositions
+Playfair Display
+Smart & Mature
+COFFEE BEANGREEN BEAN
+Personality:
+Fresh • Happy • Nature-loving
+Typography:
+Visual Style:
+Leaves, soil,
+watering
+Organic shapes
+Graphic Direction:
+Rounded
+shapes
+Soft shadows
+Poppins ExtraBold
+Happy & HealthyVANILLA BEAN
+Personality:
+Smooth • Cool • Musical • Stylish
+Typography:
+Visual Style:
+Cream tones
+Jazz/music elements
+Soft gradients
+Graphic Direction:
+Clean + rhythm-
+based layouts
+Flowing compositions
+Caprasimo Regular
+Smooth & StylishCHILLI BEAN
+Personality:
+Spicy • Chaotic • Loud • Funny
+Typography:
+Visual Style:
+Expression-heavy characters
+Sweat, heat,
+exaggeration
+Graphic Direction:
+High contrast
+Dynamic
+layouts
+Bangers RegularJELLY BEAN
+Personality:
+Digital • Chill • Gen Z • Techy
+Typography:
+Visual Style:
+Cyan/blue/
+Orange tones
+Screens, glow effects
+Graphic Direction:
+Glossy finish
+Slight neon
+accents
+Baloo 2 ExtraBoldSOCIAL MEDIA TEMPLATE
+Drop Announcement
+Bold text + bean Storytelling Relatable + viral
+Character Spotlight Meme-style Content
+General BAUsMOODBOARD
+Bold • Playful • Collectible • Identity
+Find
+Your
+Bean.Find Your Bean.

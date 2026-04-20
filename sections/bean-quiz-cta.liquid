@@ -1,0 +1,85 @@
+{% comment %}
+  Dynamic Quiz CTA for Bean Collection Pages
+  "Are you a [Bean]?" linking to the quiz page.
+{% endcomment %}
+
+{%- liquid
+  assign bean_name = collection.title | default: 'Bean'
+  
+  case collection.handle
+    when 'coffee-bean'
+      assign btn_bg = '#5A3A1B'
+      assign btn_color = '#F5F5F5'
+    when 'green-bean'
+      assign btn_bg = '#5BBF3A'
+      assign btn_color = '#000000'
+    when 'vanilla-bean'
+      assign btn_bg = '#F3E4C8'
+      assign btn_color = '#000000'
+    when 'chilli-bean'
+      assign btn_bg = '#E63946'
+      assign btn_color = '#FFFFFF'
+    when 'jelly-bean'
+      assign btn_bg = '#2BB3C0'
+      assign btn_color = '#000000'
+    else
+      assign btn_bg = '#000000'
+      assign btn_color = '#FFFFFF'
+  endcase
+-%}
+
+<style>
+  .bean-quiz-cta-wrapper {
+    text-align: center;
+    padding: 60px 20px;
+    background-color: var(--color-background);
+  }
+
+  .bean-quiz-cta-title {
+    font-size: 2.4rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+    color: var(--color-foreground);
+  }
+
+  .bean-quiz-cta-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 40px;
+    font-size: 1.6rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: 50px;
+    background-color: {{ btn_bg }};
+    color: {{ btn_color }};
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bean-quiz-cta-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    color: {{ btn_color }};
+  }
+</style>
+
+<div class="bean-quiz-cta-wrapper page-width">
+  <h2 class="bean-quiz-cta-title">Are you a {{ bean_name }}?</h2>
+  <a href="/pages/which-bean-are-you" class="bean-quiz-cta-btn">
+    Find Out Now
+  </a>
+</div>
+
+{% schema %}
+{
+  "name": "Bean Quiz CTA",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Bean Quiz CTA"
+    }
+  ]
+}
+{% endschema %}

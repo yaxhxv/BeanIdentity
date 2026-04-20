@@ -70,7 +70,7 @@ invitation, not a discount mechanic.
 - A moving copy section about expressing your identity
 - The copy will be provided
 **Priority:** High **Effort:** Low-Medium
-
+ 
 
 ### Task 4: Scrolling Marquee Band — Homepage
 
