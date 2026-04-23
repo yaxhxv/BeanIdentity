@@ -1,10 +1,56 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero_banner_clean_NxXFFK": {
       "type": "hero-banner-clean",
       "blocks": {
+        "slide_CdDEz3": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/Hero_2.png",
+            "headline": "Wear who you are",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "",
+            "button_2_label": "Meet the Beans",
+            "button_2_link": ""
+          }
+        },
+        "slide_Y7r4GX": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/Hero_1.png",
+            "headline": "Wear who you are",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "",
+            "button_2_label": "Meet the Beans",
+            "button_2_link": ""
+          }
+        },
+        "slide_cJBTmD": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/Hero_3.png",
+            "headline": "Wear who you are",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "",
+            "button_2_label": "Meet the Beans",
+            "button_2_link": ""
+          }
+        },
         "slide_t83Cix": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_d": "shopify://shop_images/c71vxsc5hegbuebo1xn8.webp",
             "image_m": "shopify://shop_images/j0gzjnobkywhn5kb1i7o.webp",
@@ -18,6 +64,7 @@
         },
         "slide_ryDiLg": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_d": "shopify://shop_images/Bean_I_3.webp",
             "image_m": "shopify://shop_images/personality_1.webp",
@@ -31,6 +78,7 @@
         },
         "slide_h7miCW": {
           "type": "slide",
+          "disabled": true,
           "settings": {
             "image_d": "shopify://shop_images/ve6gux28jgisnjr93r6v.webp",
             "image_m": "shopify://shop_images/lf3jun3jqhpmlzhgcjwr.webp",
@@ -47,11 +95,19 @@
           "disabled": true,
           "settings": {
             "image_d": "shopify://shop_images/Bean_I_1.png",
-            "link": "shopify://collections/all"
+            "headline": "Wear who you are",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "",
+            "button_2_label": "Meet the Beans",
+            "button_2_link": ""
           }
         }
       },
       "block_order": [
+        "slide_CdDEz3",
+        "slide_Y7r4GX",
+        "slide_cJBTmD",
         "slide_t83Cix",
         "slide_ryDiLg",
         "slide_h7miCW",
@@ -80,47 +136,6 @@
         "text_color": "#121212",
         "button_bg": "#121212",
         "button_text": "#ffffff"
-      }
-    },
-    "beanagram_stories_hp": {
-      "type": "beanagram-stories",
-      "blocks": {
-        "story_1": {
-          "type": "story",
-          "settings": {
-            "handle": "alex_driven",
-            "bean_type": "coffee",
-            "story": "Finding my bean identity changed how I express myself every day. It's more than apparel, it's a personality statement."
-          }
-        },
-        "story_2": {
-          "type": "story",
-          "settings": {
-            "handle": "sara_heat",
-            "bean_type": "chilli",
-            "story": "I stopped trying to fit in. Now I choose honesty over approval. That's when I realised I'm a Chilli Bean."
-          }
-        },
-        "story_3": {
-          "type": "story",
-          "settings": {
-            "handle": "neo_zen",
-            "bean_type": "green",
-            "story": "Being quiet never meant being empty. I relate to being a Green Bean - mindful and grounded."
-          }
-        }
-      },
-      "block_order": [
-        "story_1",
-        "story_2",
-        "story_3"
-      ],
-      "settings": {
-        "title": "People who’ve found their Bean",
-        "subtitle": "Meet the real people wearing their true identities.",
-        "cta_label": "Share Your Bean Story",
-        "bg_color": "#ffffff",
-        "text_color": "#121212"
       }
     },
     "collection_slider_yzYUYt": {
@@ -192,6 +207,97 @@
         "pb": 0
       }
     },
+    "most_popular_products_fJfFYg": {
+      "type": "most-popular-products",
+      "blocks": {
+        "product_hLUbxF": {
+          "type": "product",
+          "settings": {
+            "product": "the-bold-bean-acid-washed-oversized-tee"
+          }
+        },
+        "product_3AzRWL": {
+          "type": "product",
+          "settings": {
+            "product": "curious-bean-acid-washed-oversized-tee"
+          }
+        },
+        "product_nxRBnx": {
+          "type": "product",
+          "settings": {
+            "product": "the-overthinker-bean-oversized"
+          }
+        },
+        "product_VcHghL": {
+          "type": "product",
+          "settings": {
+            "product": "the-calm-bean-mindset-edition-acid-washed-oversized-tee"
+          }
+        }
+      },
+      "block_order": [
+        "product_hLUbxF",
+        "product_3AzRWL",
+        "product_nxRBnx",
+        "product_VcHghL"
+      ],
+      "name": "Most Popular Products",
+      "settings": {
+        "title": "Community Has Spoken",
+        "description": "Shop What’s Selling",
+        "heading_size": 32,
+        "layout_mode": "carousel",
+        "mobile_cols": "2",
+        "bg_color": "#ffffff",
+        "text_color": "#1a1a1a",
+        "badge_bg": "#5a3e2b",
+        "badge_text": "#ffffff",
+        "padding_top": 60,
+        "padding_bottom": 60
+      }
+    },
+    "beanagram_stories_hp": {
+      "type": "beanagram-stories",
+      "blocks": {
+        "story_1": {
+          "type": "story",
+          "settings": {
+            "handle": "alex_driven",
+            "bean_type": "coffee",
+            "story": "Finding my bean identity changed how I express myself every day. It's more than apparel, it's a personality statement."
+          }
+        },
+        "story_2": {
+          "type": "story",
+          "settings": {
+            "handle": "sara_heat",
+            "bean_type": "chilli",
+            "story": "I stopped trying to fit in. Now I choose honesty over approval. That's when I realised I'm a Chilli Bean."
+          }
+        },
+        "story_3": {
+          "type": "story",
+          "settings": {
+            "handle": "neo_zen",
+            "bean_type": "green",
+            "story": "Being quiet never meant being empty. I relate to being a Green Bean - mindful and grounded."
+          }
+        }
+      },
+      "block_order": [
+        "story_1",
+        "story_2",
+        "story_3"
+      ],
+      "settings": {
+        "title": "People who’ve found their Bean",
+        "subtitle": "Meet the real people wearing their true identities.",
+        "cta_label": "Share Your Bean Story",
+        "cta_link": "",
+        "bg_color": "#ffffff",
+        "text_color": "#121212"
+      }
+    },
     "scrolling_marquee_hp": {
       "type": "scrolling-marquee",
       "blocks": {
@@ -242,58 +348,11 @@
         "bg_color": "#121212",
         "text_color": "#ffffff",
         "separator": "·",
-        "speed": 30,
         "font_size": 24,
         "font_size_mobile": 16,
-        "padding_v": 20,
-        "pause_on_hover": true
-      }
-    },
-    "most_popular_products_fJfFYg": {
-      "type": "most-popular-products",
-      "blocks": {
-        "product_hLUbxF": {
-          "type": "product",
-          "settings": {
-            "product": "the-bold-bean-acid-washed-oversized-tee"
-          }
-        },
-        "product_3AzRWL": {
-          "type": "product",
-          "settings": {
-            "product": "curious-bean-acid-washed-oversized-tee"
-          }
-        },
-        "product_nxRBnx": {
-          "type": "product",
-          "settings": {
-            "product": "the-overthinker-bean-oversized"
-          }
-        },
-        "product_VcHghL": {
-          "type": "product",
-          "settings": {
-            "product": "the-calm-bean-mindset-edition-acid-washed-oversized-tee"
-          }
-        }
-      },
-      "block_order": [
-        "product_hLUbxF",
-        "product_3AzRWL",
-        "product_nxRBnx",
-        "product_VcHghL"
-      ],
-      "name": "Most Popular Products",
-      "settings": {
-        "title": "Community Has Spoken",
-        "description": "Shop What’s Selling",
-        "heading_size": 32,
-        "layout_mode": "carousel",
-        "mobile_cols": "2",
-        "bg_color": "#ffffff",
-        "text_color": "#1a1a1a",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "speed": 30,
+        "pause_on_hover": true,
+        "padding_v": 20
       }
     },
     "identity_copy_hp": {
@@ -361,6 +420,13 @@
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 16
       }
@@ -392,6 +458,7 @@
       "name": "Collection Showcase Tabs",
       "settings": {
         "heading": "Our BEANS Collection",
+        "description": "",
         "heading_align": "center",
         "bg_color": "#ffffff",
         "text_color": "#000000",
@@ -439,6 +506,13 @@
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -451,10 +525,17 @@
           "settings": {
             "image": "shopify://shop_images/personality_2.webp",
             "image_overlay_opacity": 0,
+            "heading": "Image slide",
+            "heading_size": "h1",
+            "subheading": "Tell your brand's story through images",
+            "button_label": "Button label",
+            "link": "",
+            "button_style_secondary": false,
             "show_text_box": false,
             "box_align": "middle-center",
             "text_alignment": "center",
-            "text_alignment_mobile": "center"
+            "text_alignment_mobile": "center",
+            "color_scheme": ""
           }
         }
       },
@@ -469,7 +550,8 @@
         "auto_rotate": true,
         "change_slides_speed": 5,
         "image_behavior": "none",
-        "show_text_below": false
+        "show_text_below": false,
+        "accessibility_info": "Slideshow about our brand"
       }
     },
     "most_popular_products_a43Rtk": {
@@ -515,6 +597,8 @@
         "mobile_cols": "2",
         "bg_color": "#ffffff",
         "text_color": "#1a1a1a",
+        "badge_bg": "#5a3e2b",
+        "badge_text": "#ffffff",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -526,10 +610,13 @@
         "blog": "news",
         "post_limit": 3,
         "heading": "Blog posts",
+        "heading_size": "h1",
         "columns_desktop": 3,
         "show_view_all": true,
         "show_image": true,
         "show_date": true,
+        "show_author": false,
+        "color_scheme": "",
         "padding_top": 36,
         "padding_bottom": 36
       }
