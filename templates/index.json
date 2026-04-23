@@ -126,6 +126,10 @@
         "bg_color": "#f4f4f4"
       }
     },
+    "visual_transition_divider": {
+      "type": "visual-transition",
+      "settings": {}
+    },
     "quiz_entry_prompt_hp": {
       "type": "quiz-entry-prompt",
       "settings": {
@@ -624,6 +628,7 @@
   },
   "order": [
     "hero_banner_clean_NxXFFK",
+    "visual_transition_divider",
     "quiz_entry_prompt_hp",
     "collection_slider_yzYUYt",
     "most_popular_products_fJfFYg",
