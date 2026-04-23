@@ -132,10 +132,10 @@
         "headline": "Not sure which bean you are?",
         "subline": "Meet the archetype that fits your soul and wear your identity with pride.",
         "button_label": "Find Out",
-        "bg_color": "#f9f9f9",
-        "text_color": "#121212",
-        "button_bg": "#121212",
-        "button_text": "#ffffff"
+        "bg_color": "#F5F5F5",
+        "text_color": "#000000",
+        "button_bg": "#C6A969",
+        "button_text": "#000000"
       }
     },
     "collection_slider_yzYUYt": {
@@ -200,8 +200,8 @@
         "subtitle": "Pick Your Bean",
         "enable_autoplay": true,
         "autoplay_speed": 3,
-        "bg_color": "#ffffff",
-        "text_color": "#121212",
+        "bg_color": "#EDE7E3",
+        "text_color": "#2B2B2B",
         "heading_size": 22,
         "pt": 16,
         "pb": 0
@@ -248,10 +248,10 @@
         "heading_size": 32,
         "layout_mode": "carousel",
         "mobile_cols": "2",
-        "bg_color": "#ffffff",
-        "text_color": "#1a1a1a",
-        "badge_bg": "#5a3e2b",
-        "badge_text": "#ffffff",
+        "bg_color": "#F5F5F5",
+        "text_color": "#000000",
+        "badge_bg": "#C6A969",
+        "badge_text": "#000000",
         "padding_top": 60,
         "padding_bottom": 60
       }
@@ -294,8 +294,8 @@
         "subtitle": "Meet the real people wearing their true identities.",
         "cta_label": "Share Your Bean Story",
         "cta_link": "",
-        "bg_color": "#ffffff",
-        "text_color": "#121212"
+        "bg_color": "#EDE7E3",
+        "text_color": "#2B2B2B"
       }
     },
     "scrolling_marquee_hp": {
@@ -345,8 +345,8 @@
         "bean_5"
       ],
       "settings": {
-        "bg_color": "#121212",
-        "text_color": "#ffffff",
+        "bg_color": "#2B2B2B",
+        "text_color": "#F5F5F5",
         "separator": "·",
         "font_size": 24,
         "font_size_mobile": 16,
@@ -360,8 +360,8 @@
       "settings": {
         "headline": "Express Every Bean of Your Personality.",
         "subline": "India's first personality-driven apparel brand. Find the archetype that speaks your language and wear your identity with pride.",
-        "bg_color": "#ffffff",
-        "text_color": "#121212",
+        "bg_color": "#F5F5F5",
+        "text_color": "#000000",
         "alignment": "center",
         "content_width": 1000,
         "headline_size_desktop": 6,
@@ -377,10 +377,10 @@
       "settings": {
         "headline": "Still haven't found your soul-bean?",
         "subline": "Take the identity quiz again or browse the universe of all five beans.",
-        "bg_color": "#121212",
-        "text_color": "#ffffff",
-        "primary_btn_bg": "#ffffff",
-        "primary_btn_text": "#121212"
+        "bg_color": "#2B2B2B",
+        "text_color": "#F5F5F5",
+        "primary_btn_bg": "#C6A969",
+        "primary_btn_text": "#000000"
       }
     },
     "image_with_text_zep9A9": {
@@ -460,7 +460,7 @@
         "heading": "Our BEANS Collection",
         "description": "",
         "heading_align": "center",
-        "bg_color": "#ffffff",
+        "bg_color": "#F5F5F5",
         "text_color": "#000000",
         "products_per_row": 4,
         "padding_top": 8,
@@ -595,10 +595,10 @@
         "heading_size": 32,
         "layout_mode": "grid",
         "mobile_cols": "2",
-        "bg_color": "#ffffff",
-        "text_color": "#1a1a1a",
-        "badge_bg": "#5a3e2b",
-        "badge_text": "#ffffff",
+        "bg_color": "#F5F5F5",
+        "text_color": "#000000",
+        "badge_bg": "#C6A969",
+        "badge_text": "#000000",
         "padding_top": 60,
         "padding_bottom": 60
       }

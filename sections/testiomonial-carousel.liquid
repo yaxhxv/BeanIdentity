@@ -8,7 +8,7 @@
   .tm-section {
     position: relative;
     padding: {{ section.settings.pt }}px 0 {{ section.settings.pb }}px;
-    background-color: {{ section.settings.bg_color | default: '#ffffff' }};
+    background-color: {{ section.settings.bg_color | default: '#F5F5F5' }};
     overflow: hidden;
   }
 
@@ -74,9 +74,9 @@
     flex: 0 0 300px; /* Mobile width */
     scroll-snap-align: center;
     position: relative;
-    border: 1px solid #121212;
+    border: 1px solid #C6A969;
     border-radius: 4px; /* Minimal radius */
-    background: #fff;
+    background: #EDE7E3;
     padding: 30px 24px 24px;
     box-sizing: border-box;
     display: flex;
@@ -96,8 +96,8 @@
     position: absolute;
     top: -14px; /* Half height to overlap border */
     left: 20px; /* Or 50% transformX(-50%) if centered */
-    background: #121212;
-    color: #ffd700; /* Gold stars */
+    background: #2B2B2B;
+    color: #C6A969; /* Muted gold stars */
     padding: 4px 12px;
     display: flex;
     align-items: center;
@@ -121,7 +121,7 @@
   .tm-quote {
     font-size: 15px;
     line-height: 1.6;
-    color: #333;
+    color: #2B2B2B;
     font-style: italic;
     margin-bottom: 24px;
     flex-grow: 1;
@@ -138,22 +138,22 @@
   .tm-author-name {
     font-weight: 700;
     font-size: 14px;
-    color: #000;
+    color: #000000;
     margin-bottom: 2px;
   }
   .tm-verified {
     display: inline-flex;
     align-items: center;
     font-size: 12px;
-    color: #000;
+    color: #000000;
     gap: 4px;
     font-weight: 500;
   }
   .tm-check-icon {
     width: 12px;
     height: 12px;
-    background: #000;
-    color: #fff;
+    background: #2B2B2B;
+    color: #C6A969;
     border-radius: 50%;
     padding: 2px;
   }
@@ -182,7 +182,7 @@
   .tm-nav-btn {
     width: 40px;
     height: 40px;
-    border: 1px solid #1a1a1a;
+    border: 1px solid #C6A969;
     background: transparent;
     display: flex;
     align-items: center;
@@ -192,8 +192,8 @@
     border-radius: 4px;
   }
   .tm-nav-btn:hover {
-    background: #1a1a1a;
-    color: #fff;
+    background: #C6A969;
+    color: #000000;
   }
   .tm-nav-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
@@ -201,7 +201,7 @@
   .tm-progress-container {
       flex-grow: 1;
       height: 2px;
-      background: #eee;
+      background: #EDE7E3;
       margin: 0 20px;
       position: relative;
       border-radius: 2px;
@@ -209,7 +209,7 @@
   .tm-progress-bar {
       position: absolute;
       left: 0; top: 0; bottom: 0;
-      background: #000;
+      background: #C6A969;
       width: 0%; /* JS will update */
       transition: width 0.3s ease;
   }
@@ -362,8 +362,8 @@
     { "type": "range", "id": "autoplay_speed", "label": "Speed (seconds)", "min": 3, "max": 10, "step": 1, "default": 5 },
     
     { "type": "header", "content": "Colors" },
-    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#121212" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F5F5F5" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#000000" },
     { "type": "header", "content": "Spacing" },
     { "type": "range", "id": "pt", "label": "Top", "default": 60, "min": 0, "max": 100 },
     { "type": "range", "id": "pb", "label": "Bottom", "default": 60, "min": 0, "max": 100 }

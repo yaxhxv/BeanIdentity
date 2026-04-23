@@ -178,9 +178,9 @@
   }
 
   .bean-btn:hover {
-    background: {{ section.settings.text_color | default: '#1a1a1a' }};
-    color: {{ section.settings.bg_color | default: '#ffffff' }};
-    border-color: {{ section.settings.text_color | default: '#1a1a1a' }};
+    background: {{ section.settings.text_color | default: '#000000' }};
+    color: {{ section.settings.bg_color | default: '#F5F5F5' }};
+    border-color: {{ section.settings.text_color | default: '#000000' }};
   }
 
   @media (hover: hover) {
@@ -340,10 +340,10 @@
       "type": "header",
       "content": "Colors"
     },
-    { "type": "color", "id": "bg_color", "label": "Background", "default": "#ffffff" },
-    { "type": "color", "id": "text_color", "label": "Text", "default": "#1a1a1a" },
-    { "type": "color", "id": "badge_bg", "label": "Badge Background", "default": "#5a3e2b" },
-    { "type": "color", "id": "badge_text", "label": "Badge Text", "default": "#ffffff" },
+    { "type": "color", "id": "bg_color", "label": "Background", "default": "#F5F5F5" },
+    { "type": "color", "id": "text_color", "label": "Text", "default": "#000000" },
+    { "type": "color", "id": "badge_bg", "label": "Badge Background", "default": "#C6A969" },
+    { "type": "color", "id": "badge_text", "label": "Badge Text", "default": "#000000" },
     
     {
       "type": "header",

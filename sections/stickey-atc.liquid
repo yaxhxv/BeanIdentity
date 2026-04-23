@@ -10,11 +10,12 @@
         <div class="sticky-product-info">
           {%- if section.settings.show_product_image -%}
             <div class="sticky-product-image">
-              <img
-                src="{{ product.featured_image | img_url: '100x100', crop: 'center' }}"
-                alt="{{ product.title | escape }}"
-                loading="lazy"
-              >
+              {{ product.featured_image 
+                | image_url: width: 100, height: 100, crop: 'center' 
+                | image_tag: 
+                  loading: 'lazy', 
+                  alt: product.featured_image.alt | default: product.title | escape 
+              }}
             </div>
           {%- endif -%}
           <div class="sticky-product-details">
@@ -541,7 +542,7 @@
       "type": "color",
       "id": "background_color",
       "label": "Background color",
-      "default": "#ffffff"
+      "default": "#F5F5F5"
     },
     {
       "type": "range",
@@ -970,13 +971,13 @@
       "type": "color",
       "id": "button_bg_color",
       "label": "Button background",
-      "default": "#2D2E83"
+      "default": "#C6A969"
     },
     {
       "type": "color",
       "id": "button_text_color",
       "label": "Button text color",
-      "default": "#ffffff"
+      "default": "#000000"
     },
     {
       "type": "color",
@@ -1012,13 +1013,13 @@
       "type": "color",
       "id": "button_hover_bg_color",
       "label": "Hover background color",
-      "default": "#232472"
+      "default": "#A68D53"
     },
     {
       "type": "color",
       "id": "button_hover_text_color",
       "label": "Hover text color",
-      "default": "#ffffff"
+      "default": "#000000"
     },
     {
       "type": "color",

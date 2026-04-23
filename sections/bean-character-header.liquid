@@ -6,9 +6,9 @@
 {%- liquid
   assign current_handle = collection.handle
   
-  assign bean_bg_color = '#FFFFFF'
+  assign bean_bg_color = '#F5F5F5'
   assign bean_text_color = '#000000'
-  assign bean_card_bg_color = '#F5F5F5'
+  assign bean_card_bg_color = '#EDE7E3'
 
   assign bean_nickname = 'The Bean'
   assign bean_archetype = 'The Unknown'
@@ -34,7 +34,7 @@
     when 'green-bean'
       assign bean_bg_color = '#5BBF3A'
       assign bean_text_color = '#000000'
-      assign bean_card_bg_color = '#FFFFFF'
+      assign bean_card_bg_color = '#F5F5F5'
       assign bean_nickname = 'Green Bean'
       assign bean_archetype = 'The Nature Lover'
       assign bean_personality = 'An organic, fresh spirit that keeps things happy and grounded in nature.'
@@ -46,7 +46,7 @@
     when 'vanilla-bean'
       assign bean_bg_color = '#F3E4C8'
       assign bean_text_color = '#000000'
-      assign bean_card_bg_color = '#FFFFFF'
+      assign bean_card_bg_color = '#F5F5F5'
       assign bean_nickname = 'Vanilla Bean'
       assign bean_archetype = 'The Smooth Stylist'
       assign bean_personality = 'A refined, jazzy character who approaches life with effortless cool.'
@@ -70,7 +70,7 @@
     when 'jelly-bean'
       assign bean_bg_color = '#2BB3C0'
       assign bean_text_color = '#000000'
-      assign bean_card_bg_color = '#FFFFFF'
+      assign bean_card_bg_color = '#F5F5F5'
       assign bean_nickname = 'Jelly Bean'
       assign bean_archetype = 'The Digital Native'
       assign bean_personality = 'A tech-savvy spirit living on the internet. Chill vibes only.'
@@ -148,7 +148,7 @@
     max-width: 800px;
     margin: 0 auto;
     background-color: {{ bean_card_bg_color }};
-    color: {% if bean_card_bg_color == '#FFFFFF' %}#000000{% else %}#FFFFFF{% endif %};
+    color: {% if bean_card_bg_color == '#FFFFFF' or bean_card_bg_color == '#F5F5F5' or bean_card_bg_color == '#EDE7E3' %}#000000{% else %}#FFFFFF{% endif %};
     border-radius: 20px;
     padding: 40px;
     box-shadow: 0 10px 30px rgba(0,0,0,0.1);
