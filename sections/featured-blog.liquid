@@ -3,11 +3,25 @@
 {{ 'component-article-card.css' | asset_url | stylesheet_tag }}
 {{ 'section-featured-blog.css' | asset_url | stylesheet_tag }}
 
-{%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    {% if section.settings.bg_color != blank %}
+      background-color: {{ section.settings.bg_color }};
+    {% endif %}
   }
+
+  {% if section.settings.bg_color != blank %}
+    .blog {
+      background-color: transparent !important;
+    }
+    {% if section.settings.text_color != blank %}
+      .section-{{ section.id }}-padding .blog__title,
+      .section-{{ section.id }}-padding .article-card__info {
+        color: {{ section.settings.text_color }};
+      }
+    {% endif %}
+  {% endif %}
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
@@ -294,7 +308,21 @@
       "label": "t:sections.all.colors.label",
       "info": "t:sections.all.colors.has_cards_info",
       "default": "scheme-1"
-    },    
+    },
+    {
+      "type": "header",
+      "content": "Custom Aesthetic Overrides"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
+    },
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"

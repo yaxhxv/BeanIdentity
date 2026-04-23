@@ -25,6 +25,41 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  {% if section.settings.bg_color != blank %}
+    .footer {
+      background-color: {{ section.settings.bg_color }} !important;
+      background: {{ section.settings.bg_color }} !important;
+    }
+    {% if section.settings.text_color != blank %}
+      .footer,
+      .footer .footer-block__heading,
+      .footer .link,
+      .footer .copyright__content,
+      .footer .copyright__content a,
+      .footer .rte,
+      .footer .field__input,
+      .footer .field__label,
+      .footer .field__input::placeholder {
+        color: {{ section.settings.text_color }} !important;
+      }
+      .footer .field__input {
+         background-color: transparent !important;
+         border: 0.1rem solid rgba(255,255,255,0.2) !important;
+         color: {{ section.settings.text_color }} !important;
+      }
+      /* Ensure the floating label/placeholder is visible */
+      .footer .field__label {
+         color: {{ section.settings.text_color }} !important;
+         opacity: 0.7;
+      }
+      .footer .field__input:focus ~ .field__label,
+      .footer .field__input:not(:placeholder-shown) ~ .field__label {
+         opacity: 1;
+         color: {{ section.settings.text_color }} !important;
+      }
+    {% endif %}
+  {% endif %}
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -429,6 +464,20 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Custom Aesthetic Overrides"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text Color"
     },
     {
       "type": "header",

@@ -349,14 +349,14 @@
         "bean_5"
       ],
       "settings": {
-        "bg_color": "#2B2B2B",
-        "text_color": "#F5F5F5",
+        "bg_color": "#1A1A1A",
+        "text_color": "#EDE7E3",
         "separator": "·",
         "font_size": 24,
         "font_size_mobile": 16,
         "speed": 30,
         "pause_on_hover": true,
-        "padding_v": 20
+        "padding_v": 24
       }
     },
     "identity_copy_hp": {
@@ -364,7 +364,7 @@
       "settings": {
         "headline": "Express Every Bean of Your Personality.",
         "subline": "India's first personality-driven apparel brand. Find the archetype that speaks your language and wear your identity with pride.",
-        "bg_color": "#F5F5F5",
+        "bg_color": "#EDE7E3",
         "text_color": "#000000",
         "alignment": "center",
         "content_width": 1000,
@@ -381,8 +381,8 @@
       "settings": {
         "headline": "Still haven't found your soul-bean?",
         "subline": "Take the identity quiz again or browse the universe of all five beans.",
-        "bg_color": "#2B2B2B",
-        "text_color": "#F5F5F5",
+        "bg_color": "#121212",
+        "text_color": "#EDE7E3",
         "primary_btn_bg": "#C6A969",
         "primary_btn_text": "#000000"
       }
@@ -431,6 +431,8 @@
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
         "color_scheme": "",
+        "bg_color": "#EDE7E3",
+        "text_color": "#2B2B2B",
         "padding_top": 36,
         "padding_bottom": 16
       }
@@ -517,6 +519,8 @@
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
         "color_scheme": "",
+        "bg_color": "#EDE7E3",
+        "text_color": "#2B2B2B",
         "padding_top": 36,
         "padding_bottom": 36
       }
@@ -555,7 +559,8 @@
         "change_slides_speed": 5,
         "image_behavior": "none",
         "show_text_below": false,
-        "accessibility_info": "Slideshow about our brand"
+        "accessibility_info": "Slideshow about our brand",
+        "bg_color": "#F5F5F5"
       }
     },
     "most_popular_products_a43Rtk": {
@@ -599,7 +604,7 @@
         "heading_size": 32,
         "layout_mode": "grid",
         "mobile_cols": "2",
-        "bg_color": "#F5F5F5",
+        "bg_color": "#EDE7E3",
         "text_color": "#000000",
         "badge_bg": "#C6A969",
         "badge_text": "#000000",
@@ -621,6 +626,8 @@
         "show_date": true,
         "show_author": false,
         "color_scheme": "",
+        "bg_color": "#F5F5F5",
+        "text_color": "#2B2B2B",
         "padding_top": 36,
         "padding_bottom": 36
       }

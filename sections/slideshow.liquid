@@ -25,6 +25,14 @@
   {%- endstyle -%}
 {%- endif -%}
 
+{%- style -%}
+  #Slider-{{ section.id }} {
+    {% if section.settings.bg_color != blank %}
+      background-color: {{ section.settings.bg_color }};
+    {% endif %}
+  }
+{%- endstyle -%}
+
 <slideshow-component
   class="slider-mobile-gutter{% if section.settings.layout == 'grid' %} page-width{% endif %}{% if section.settings.show_text_below %} mobile-text-below{% endif %}"
   role="region"
@@ -382,6 +390,15 @@
       "label": "t:sections.slideshow.settings.accessibility.label",
       "info": "t:sections.slideshow.settings.accessibility.info",
       "default": "t:sections.slideshow.settings.accessibility.default"
+    },
+    {
+      "type": "header",
+      "content": "Custom Aesthetic Overrides"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color"
     }
   ],
   "blocks": [
