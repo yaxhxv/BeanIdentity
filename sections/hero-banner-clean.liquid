@@ -39,7 +39,7 @@
     width: 100%;
     overflow: hidden;
     display: block;
-    background-color: {{ section.settings.bg_color }};
+    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
   }
 
   /* Container Widths */
@@ -119,8 +119,37 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }});
+    {% assign base_opacity = section.settings.overlay_opacity | divided_by: 100.0 %}
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, {{ base_opacity | times: 1.2 | at_most: 0.9 }}) 0%,
+      rgba(0, 0, 0, {{ base_opacity | times: 0.5 }}) 50%,
+      rgba(0, 0, 0, {{ base_opacity | times: 1.8 | at_most: 0.95 }}) 100%
+    );
     z-index: 1;
+  }
+
+  /* Cinematic Vignette */
+  .clean-image-wrapper::after {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.4) 100%);
+    pointer-events: none;
+    z-index: 2;
+  }
+
+  /* Bottom Edge Blend */
+  .hero-bottom-blend {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, 0.8) 50%, #0a0a0a 100%);
+    z-index: 4;
+    pointer-events: none;
   }
 
   .hero-headline {
@@ -130,6 +159,7 @@
     line-height: 1.1;
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
   }
 
   .hero-subline {
@@ -137,8 +167,9 @@
     font-weight: 400;
     margin: 0 0 2.5rem;
     max-width: 600px;
-    opacity: 0.9;
+    opacity: 0.95;
     line-height: 1.5;
+    text-shadow: 0 1px 5px rgba(0,0,0,0.3);
   }
 
   .hero-buttons {
@@ -164,27 +195,30 @@
   }
 
   .hero-btn-primary {
-    background: transparent;
-    color: {{ section.settings.text_color }};
+    background: {{ section.settings.text_color }};
+    color: #0a0a0a;
     border: 1px solid {{ section.settings.text_color }};
-    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
   }
 
   .hero-btn-primary:hover {
-    background: {{ section.settings.text_color }};
-    color: {{ section.settings.bg_color }};
+    background: transparent;
+    color: {{ section.settings.text_color }};
+    backdrop-filter: blur(5px);
+    transform: translateY(-2px);
   }
 
   .hero-btn-secondary {
-    background: transparent;
+    background: rgba(255, 255, 255, 0.1);
     color: {{ section.settings.text_color }};
-    border: 1px solid {{ section.settings.text_color }};
-    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
   }
 
   .hero-btn-secondary:hover {
-    background: {{ section.settings.text_color }};
-    color: {{ section.settings.bg_color }};
+    background: rgba(255, 255, 255, 0.2);
+    border-color: {{ section.settings.text_color }};
+    transform: translateY(-2px);
   }
 
   /* RESPONSIVE VISIBILITY & RATIOS */
@@ -237,21 +271,21 @@
   }
 
   .clean-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.4);
-    border: 1px solid rgba(0,0,0,0.1);
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, 0.3);
     cursor: pointer;
     pointer-events: auto;
     padding: 0;
-    transition: all 0.3s ease;
+    border: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .clean-dot.active {
-    background: #C6A969;
-    transform: scale(1.2);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    width: 28px;
+    background: {{ section.settings.text_color | default: '#FFFFFF' }};
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
   }
 {%- endstyle -%}
 
@@ -318,6 +352,7 @@
           </div>
 
           <div class="hero-overlay-mask"></div>
+          <div class="hero-bottom-blend"></div>
 
           <div class="hero-content-overlay">
             {% if block.settings.headline != blank %}
