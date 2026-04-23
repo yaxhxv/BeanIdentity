@@ -163,7 +163,11 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
           <a href="{{ block.settings.url }}" class="cc-card" {{ block.shopify_attributes }}>
             <div class="cc-image-wrapper" style="padding-top: {{ block.settings.aspect_ratio }}%;">
               {% if block.settings.image != blank %}
-                <img src="{{ block.settings.image | img_url: '600x' }}" class="cc-image" alt="{{ block.settings.title }}">
+                {{ block.settings.image | image_url: width: 600 | image_tag: 
+                  class: 'cc-image', 
+                  alt: block.settings.title, 
+                  loading: 'lazy' 
+                }}
               {% else %}
                 {{ 'collection-1' | placeholder_svg_tag: 'cc-image' }}
               {% endif %}
@@ -250,8 +254,8 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
   "name": "Collection Carousel",
   "settings": [
     { "type": "header", "content": "Content" },
-    { "type": "text", "id": "title", "label": "Heading", "default": "Shop by Collection" },
-    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Discover the latest trends" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "Choose what feels like you" },
+    { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Pick Your Bean" },
     
     { "type": "header", "content": "Carousel Settings" },
     { "type": "checkbox", "id": "enable_autoplay", "label": "Enable Auto-Sliding", "default": true },
