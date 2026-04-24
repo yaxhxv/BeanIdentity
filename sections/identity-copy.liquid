@@ -67,7 +67,7 @@
   }
 {%- endstyle -%}
 
-<div id="IdentityCopy-{{ section.id }}" class="identity-copy-section scroll-trigger">
+<div id="IdentityCopy-{{ section.id }}" class="identity-copy-section scroll-trigger{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
   <div class="identity-copy__wrapper">
     {%- if section.settings.headline != blank -%}
       <h2 class="identity-copy__headline">{{ section.settings.headline }}</h2>

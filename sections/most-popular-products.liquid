@@ -214,7 +214,7 @@
   }
 </style>
 
-<section class="bean-popular" data-section-id="{{ section.id }}">
+<section class="bean-popular{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}" data-section-id="{{ section.id }}">
   <div class="bean-container">
     
     <header class="bean-popular-header">

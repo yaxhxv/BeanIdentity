@@ -142,7 +142,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
   }
 </style>
 
-<div class="cc-section">
+<div class="cc-section{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
   <div class="cc-container">
     {% if section.settings.title != blank %}
       <div class="cc-header">

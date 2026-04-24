@@ -65,7 +65,7 @@
   }
 {%- endstyle -%}
 
-<div id="QuizPrompt-{{ section.id }}" class="quiz-prompt-section">
+<div id="QuizPrompt-{{ section.id }}" class="quiz-prompt-section{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
   <div class="quiz-prompt__wrapper">
     {%- if section.settings.headline != blank -%}
       <h2 class="quiz-prompt__headline">{{ section.settings.headline }}</h2>

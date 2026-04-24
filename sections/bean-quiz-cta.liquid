@@ -4,9 +4,17 @@
 {% endcomment %}
 
 {%- liquid
-  assign bean_name = collection.title | default: 'Bean'
+  if collection
+    assign bean_handle = collection.handle
+    assign bean_name = collection.title
+  elsif product
+    assign bean_handle = product.collections.first.handle
+    assign bean_name = product.collections.first.title
+  endif
+
+  assign bean_name = bean_name | default: 'Bean'
   
-  case collection.handle
+  case bean_handle
     when 'coffee-bean'
       assign btn_bg = '#5A3A1B'
       assign btn_color = '#F5F5F5'

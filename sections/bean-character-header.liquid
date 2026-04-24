@@ -4,7 +4,13 @@
 {% endcomment %}
 
 {%- liquid
-  assign current_handle = collection.handle
+  if collection
+    assign current_handle = collection.handle
+    assign current_title = collection.title
+  elsif product
+    assign current_handle = product.collections.first.handle
+    assign current_title = product.collections.first.title
+  endif
   
   assign bean_bg_color = '#F5F5F5'
   assign bean_text_color = '#000000'
@@ -80,7 +86,7 @@
       assign bean_font_family = '"Baloo 2", sans-serif'
       
     else
-      assign bean_nickname = collection.title
+      assign bean_nickname = current_title | default: 'Bean'
   endcase
 -%}
 
