@@ -1,0 +1,242 @@
+{%- liquid
+  if collection
+    assign current_handle = collection.handle
+    assign current_title = collection.title
+  elsif product
+    assign current_handle = product.collections.first.handle
+    assign current_title = product.collections.first.title
+  endif
+  
+  assign bean_accent = '#000000'
+  assign bean_eyebrow = 'AUTHENTIC IDENTITY'
+  assign bean_tagline = 'Discover who you are.'
+  assign bean_personality = 'A unique blend of character and style.'
+  assign bean_traits = 'Trait 1 • Trait 2 • Trait 3'
+  assign bean_voice = 'Direct & Clear'
+  assign bean_audience = 'Those who lead'
+
+  case current_handle
+    when 'coffee-bean'
+      assign bean_accent = '#4E342E'
+      assign bean_tagline = 'The Intellectual.'
+      assign bean_personality = 'A calm and collected presence that thrives on depth and knowledge. You are the thinker, the observer, and the steady hand in a fast-paced world.'
+      assign bean_traits = 'Smart, Intellectual, Calm, Mature'
+      assign bean_voice = 'Thoughtful, grounded, and vintage academic.'
+      assign bean_audience = 'Thinkers, readers, and quiet confidence.'
+
+    when 'green-bean'
+      assign bean_accent = '#388E3C'
+      assign bean_tagline = 'The Nature Lover.'
+      assign bean_personality = 'An organic, fresh spirit that keeps things happy and grounded in nature. You find your energy outdoors and spread optimism wherever you go.'
+      assign bean_traits = 'Fresh, Happy, Nature-loving, Organic'
+      assign bean_voice = 'Bright, sunny, and highly positive.'
+      assign bean_audience = 'Outdoor enthusiasts and optimists.'
+
+    when 'vanilla-bean'
+      assign bean_accent = '#D4AF37'
+      assign bean_tagline = 'The Smooth Stylist.'
+      assign bean_personality = 'A refined, jazzy character who approaches life with effortless cool. You appreciate the finer details and move with a rhythmic elegance.'
+      assign bean_traits = 'Smooth, Cool, Musical, Stylish'
+      assign bean_voice = 'Laid-back, rhythmic, and subtly elegant.'
+      assign bean_audience = 'Creatives, musicians, and trendsetters.'
+
+    when 'chilli-bean'
+      assign bean_accent = '#D32F2F'
+      assign bean_tagline = 'The Firecracker.'
+      assign bean_personality = 'Loud, chaotic, and relentlessly spicy. You bring the heat to every situation and live for the moments that make people stop and look.'
+      assign bean_traits = 'Spicy, Chaotic, Loud, Funny'
+      assign bean_voice = 'Exaggerated, high-energy, and unfiltered.'
+      assign bean_audience = 'Rule-breakers and bold personalities.'
+
+    when 'jelly-bean'
+      assign bean_accent = '#00BCD4'
+      assign bean_tagline = 'The Digital Native.'
+      assign bean_personality = 'A tech-savvy spirit living on the internet. You are the early adopter, the digital creator, and the one who knows what’s next before it happens.'
+      assign bean_traits = 'Digital, Chill, Gen Z, Techy'
+      assign bean_voice = 'Internet-fluent, glossy, and meme-forward.'
+      assign bean_audience = 'Gamers and digital creators.'
+  endcase
+-%}
+
+<style>
+  .bean-editorial-header {
+    background-color: #F5F5F5;
+    color: #2B2B2B;
+    padding: 100px 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Ivory transition background */
+  .bean-editorial-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to bottom, #F5F5F5 0%, #EDE7E3 100%);
+    z-index: 1;
+  }
+
+  .bean-editorial-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 30px;
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Header Section */
+  .bean-header-top {
+    margin-bottom: 80px;
+  }
+
+  .bean-eyebrow {
+    font-size: 1.3rem;
+    font-weight: 500;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: {{ bean_accent }};
+    margin-bottom: 15px;
+    display: block;
+  }
+
+  .bean-main-title {
+    font-size: clamp(5rem, 10vw, 9rem);
+    font-weight: 800;
+    line-height: 0.9;
+    text-transform: uppercase;
+    margin: 0 0 20px 0;
+    color: #000000;
+    letter-spacing: -0.02em;
+  }
+
+  .bean-main-title::after {
+    content: '';
+    display: block;
+    width: 80px;
+    height: 6px;
+    background-color: {{ bean_accent }};
+    margin-top: 15px;
+  }
+
+  .bean-subheading {
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 500;
+    color: #555555;
+    margin: 0;
+    line-height: 1.2;
+  }
+
+  /* Grid Content */
+  .bean-content-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    padding-top: 60px;
+    border-top: 1px solid #E0E0E0;
+  }
+
+  @media screen and (min-width: 990px) {
+    .bean-content-grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 120px;
+    }
+  }
+
+  .bean-grid-left h3, .bean-grid-right h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: {{ bean_accent }};
+    margin-bottom: 25px;
+    display: block;
+  }
+
+  .bean-personality-text {
+    font-size: 1.8rem;
+    line-height: 1.8;
+    color: #2B2B2B;
+    margin: 0;
+  }
+
+  .bean-info-block {
+    margin-bottom: 40px;
+  }
+
+  .bean-info-block:last-child {
+    margin-bottom: 0;
+  }
+
+  .bean-info-label {
+    font-weight: 600;
+    font-size: 1.4rem;
+    display: block;
+    margin-bottom: 8px;
+    color: #000000;
+    text-transform: uppercase;
+  }
+
+  .bean-info-value {
+    font-size: 1.6rem;
+    line-height: 1.6;
+    color: #555555;
+    display: block;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bean-editorial-header {
+      padding: 60px 0;
+    }
+    .bean-header-top {
+      margin-bottom: 40px;
+    }
+    .bean-content-grid {
+      gap: 40px;
+      padding-top: 40px;
+    }
+  }
+</style>
+
+<div class="bean-editorial-header">
+  <div class="bean-editorial-container">
+    
+    <div class="bean-header-top">
+      <span class="bean-eyebrow">{{ bean_eyebrow }}</span>
+      <h1 class="bean-main-title">{{ current_title | split: ' ' | first }}<br>{{ current_title | split: ' ' | last }}</h1>
+      <p class="bean-subheading">{{ bean_tagline }}</p>
+    </div>
+
+    <div class="bean-content-grid">
+      <!-- Left Column: Personality -->
+      <div class="bean-grid-left">
+        <h3>Personality</h3>
+        <p class="bean-personality-text">{{ bean_personality }}</p>
+      </div>
+
+      <!-- Right Column: Details -->
+      <div class="bean-grid-right">
+        <h3>Core Identity</h3>
+        
+        <div class="bean-info-block">
+          <span class="bean-info-label">Traits</span>
+          <span class="bean-info-value">{{ bean_traits }}</span>
+        </div>
+
+        <div class="bean-info-block">
+          <span class="bean-info-label">Voice & Tone</span>
+          <span class="bean-info-value">{{ bean_voice }}</span>
+        </div>
+
+        <div class="bean-info-block">
+          <span class="bean-info-label">Audience</span>
+          <span class="bean-info-value">{{ bean_audience }}</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
