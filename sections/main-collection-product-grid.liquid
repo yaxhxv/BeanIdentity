@@ -23,10 +23,150 @@
 {%- endif -%}
 
 {%- style -%}
+  {%- assign is_bean_collection = false -%}
+  {%- if collection.handle contains 'bean' -%}
+    {%- assign is_bean_collection = true -%}
+  {%- endif -%}
+
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
   }
+
+  {%- if is_bean_collection -%}
+    .section-{{ section.id }}-padding {
+      background: linear-gradient(180deg, #f4f1ec 0%, #f7f7f7 100%);
+    }
+
+    .bean-collection-grid {
+      position: relative;
+    }
+
+    .bean-collection-grid__intro {
+      width: min(148rem, calc(100% - 4rem));
+      margin: 0 auto 3rem;
+      padding: clamp(3.6rem, 5vw, 6rem) 0 2rem;
+      border-bottom: 1px solid rgba(11,11,11,0.08);
+    }
+
+    .bean-collection-grid__eyebrow {
+      margin: 0 0 1.2rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(11,11,11,0.48);
+    }
+
+    .bean-collection-grid__headline {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(26rem, 38rem);
+      gap: 2rem;
+      align-items: end;
+    }
+
+    .bean-collection-grid__headline h2 {
+      margin: 0;
+      font-family: var(--font-heading-family);
+      font-size: clamp(4.2rem, 8vw, 8rem);
+      font-weight: 900;
+      line-height: 0.92;
+      text-transform: uppercase;
+      color: #0b0b0b;
+    }
+
+    .bean-collection-grid__headline p {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.55rem;
+      line-height: 1.65;
+      color: rgba(11,11,11,0.66);
+    }
+
+    .bean-collection-grid .facets-wrapper {
+      width: min(148rem, calc(100% - 4rem));
+      margin-inline: auto;
+    }
+
+    .bean-collection-grid .collection.page-width,
+    .bean-collection-grid .facets-vertical.page-width,
+    .bean-collection-grid .collection:not(.page-width) {
+      width: min(148rem, calc(100% - 4rem));
+      margin-inline: auto;
+    }
+
+    .bean-collection-grid .product-grid {
+      gap: 2rem;
+    }
+
+    .bean-collection-grid .card-wrapper {
+      height: 100%;
+    }
+
+    .bean-collection-grid .card {
+      height: 100%;
+      border: 1px solid rgba(11,11,11,0.08);
+      background: rgba(255,255,255,0.92);
+      box-shadow: 0 1.4rem 3.4rem rgba(0,0,0,0.04);
+      transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
+    }
+
+    .bean-collection-grid .card:hover {
+      transform: translateY(-0.4rem);
+      box-shadow: 0 2.2rem 4.8rem rgba(0,0,0,0.08);
+      border-color: rgba(11,11,11,0.16);
+    }
+
+    .bean-collection-grid .card__inner,
+    .bean-collection-grid .card__content {
+      background: transparent;
+    }
+
+    .bean-collection-grid .card__information {
+      padding: 1.8rem 1.8rem 2rem;
+    }
+
+    .bean-collection-grid .card__heading {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .bean-collection-grid .price {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      color: #0b0b0b;
+    }
+
+    .bean-collection-grid .pagination-wrapper {
+      padding-top: 3rem;
+    }
+
+    @media screen and (max-width: 989px) {
+      .bean-collection-grid__headline {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .bean-collection-grid__intro,
+      .bean-collection-grid .facets-wrapper,
+      .bean-collection-grid .collection.page-width,
+      .bean-collection-grid .facets-vertical.page-width,
+      .bean-collection-grid .collection:not(.page-width) {
+        width: calc(100% - 3rem);
+      }
+
+      .bean-collection-grid__headline h2 {
+        font-size: clamp(3.6rem, 14vw, 5rem);
+      }
+
+      .bean-collection-grid__headline p {
+        font-size: 1.45rem;
+      }
+    }
+  {%- endif -%}
 
   @media screen and (min-width: 750px) {
     .section-{{ section.id }}-padding {
@@ -36,7 +176,29 @@
   }
 {%- endstyle -%}
 
-<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}">
+{%- liquid
+  assign is_bean_collection = false
+  assign bean_grid_copy = 'Each drop is filtered through one personality. Start with the pieces that match the mood, then narrow by fit, color, and form.'
+
+  if collection.handle contains 'bean'
+    assign is_bean_collection = true
+
+    case collection.handle
+      when 'coffee-bean'
+        assign bean_grid_copy = 'Grounded silhouettes, cleaner lines, and the kind of pieces that stay sharp without chasing attention.'
+      when 'green-bean'
+        assign bean_grid_copy = 'Fresh layers, easier energy, and wardrobe pieces that feel lighter but still intentional.'
+      when 'vanilla-bean'
+        assign bean_grid_copy = 'Polished shapes, softer confidence, and pieces that carry style without pushing too hard.'
+      when 'chilli-bean'
+        assign bean_grid_copy = 'High-contrast picks, louder attitude, and the kind of product mix that lands fast and leaves a mark.'
+      when 'jelly-bean'
+        assign bean_grid_copy = 'Playful statements, internet-native energy, and pieces that feel switched on from the first look.'
+    endcase
+  endif
+-%}
+
+<div class="section-{{ section.id }}-padding gradient color-{{ section.settings.color_scheme }}{% if is_bean_collection %} bean-collection-grid{% endif %}">
   {%- paginate collection.products by section.settings.products_per_page -%}
     {% comment %} Sort is the first tabbable element when filter type is vertical {% endcomment %}
     {%- if section.settings.enable_sorting and section.settings.filter_type == 'vertical' -%}
@@ -98,6 +260,15 @@
     {%- endif -%}
 
     <div class="{% if section.settings.filter_type == 'vertical' %} facets-vertical page-width{% endif %}">
+      {%- if is_bean_collection -%}
+        <div class="bean-collection-grid__intro" id="BeanCollectionGrid">
+          <p class="bean-collection-grid__eyebrow">Shop the personality</p>
+          <div class="bean-collection-grid__headline">
+            <h2>{{ collection.title }} Drop</h2>
+            <p>{{ bean_grid_copy }}</p>
+          </div>
+        </div>
+      {%- endif -%}
       {{ 'component-facets.css' | asset_url | stylesheet_tag }}
       <script src="{{ 'facets.js' | asset_url }}" defer="defer"></script>
       {%- if section.settings.enable_filtering or section.settings.enable_sorting -%}

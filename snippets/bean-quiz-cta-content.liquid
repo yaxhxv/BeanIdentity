@@ -10,74 +10,152 @@
     assign show_quiz = true
   endif
 
-  assign bean_accent = '#000000'
+  assign bean_accent = '#c6a969'
+  assign bean_title = 'Your next identity shift starts here.'
+  assign bean_text = 'Not every drop belongs to every mood. Take the quiz and land on the bean that actually fits your energy.'
+
   case current_handle
     when 'coffee-bean'
       assign bean_accent = '#4E342E'
+      assign bean_title = 'Still comparing your moods?'
+      assign bean_text = 'Coffee Bean might fit today, but the full identity system will tell you where your sharpest match lives.'
     when 'green-bean'
       assign bean_accent = '#388E3C'
+      assign bean_title = 'Need something lighter?'
+      assign bean_text = 'Take the quiz if you want the bean that matches your pace, mindset, and the version of you showing up today.'
     when 'vanilla-bean'
       assign bean_accent = '#D4AF37'
+      assign bean_title = 'Want the full read on your style?'
+      assign bean_text = 'The quiz maps you to the bean that feels most natural, polished, and true to your energy.'
     when 'chilli-bean'
       assign bean_accent = '#D32F2F'
+      assign bean_title = 'Too much heat or not enough?'
+      assign bean_text = 'Run the identity quiz and find out whether Chilli Bean is really your lane or just today''s mood.'
     when 'jelly-bean'
       assign bean_accent = '#00BCD4'
+      assign bean_title = 'Still deciding what fits your signal?'
+      assign bean_text = 'Take the quiz and match with the bean that tracks your tone, tempo, and personality best.'
   endcase
 -%}
 
 {%- if show_quiz -%}
   <style>
     .bean-quiz-cta {
-      background-color: #EDE7E3;
-      color: #2B2B2B;
-      padding: 120px 20px;
-      text-align: center;
-      font-family: 'Poppins', sans-serif;
-      border-top: 1px solid #E0E0E0;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 14% 22%, color-mix(in srgb, {{ bean_accent }} 26%, transparent), transparent 34%),
+        linear-gradient(180deg, #111111 0%, #080808 100%);
+      color: #f5f5f5;
+      padding: clamp(7rem, 10vw, 11rem) 2rem;
+      border-top: 1px solid rgba(245,245,245,0.08);
     }
+
     .bean-quiz-cta__content {
-      max-width: 900px;
+      position: relative;
+      z-index: 1;
+      max-width: 1040px;
       margin: 0 auto;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 3rem;
+      align-items: end;
     }
-    .bean-quiz-cta__title {
-      font-size: clamp(3.2rem, 6vw, 5.6rem);
+
+    .bean-quiz-cta__copy {
+      max-width: 72rem;
+    }
+
+    .bean-quiz-cta__eyebrow {
+      margin: 0 0 1.6rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.05rem;
       font-weight: 800;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      line-height: 1.1;
-      margin-bottom: 25px;
-      color: #000000;
-      letter-spacing: -0.02em;
+      color: {{ bean_accent }};
     }
+
+    .bean-quiz-cta__title {
+      margin: 0 0 1.6rem;
+      font-family: var(--font-heading-family);
+      font-size: clamp(4.4rem, 7vw, 8rem);
+      font-weight: 900;
+      text-transform: uppercase;
+      line-height: 0.92;
+      color: #f5f5f5;
+      letter-spacing: 0;
+      text-wrap: balance;
+    }
+
     .bean-quiz-cta__text {
-      font-size: 1.8rem;
+      margin: 0;
+      max-width: 58rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.75rem;
       line-height: 1.6;
-      color: #555555;
-      margin-bottom: 45px;
+      color: rgba(245,245,245,0.72);
     }
+
     .bean-quiz-cta__button {
-      display: inline-block;
-      background-color: #000000;
-      color: #FFFFFF;
-      padding: 20px 50px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 5.6rem;
+      padding: 0 3rem;
+      border: 1px solid {{ bean_accent }};
+      background: {{ bean_accent }};
+      color: #0b0b0b;
       text-decoration: none;
-      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 900;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      letter-spacing: 0.15em;
-      transition: all 0.3s ease;
-      font-size: 1.4rem;
+      transition: transform 0.28s ease, background 0.28s ease, border-color 0.28s ease, color 0.28s ease;
     }
+
     .bean-quiz-cta__button:hover {
-      background-color: {{ bean_accent }};
-      transform: translateY(-2px);
-      box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+      background: #f5f5f5;
+      border-color: #f5f5f5;
+      color: #0b0b0b;
+      transform: translateY(-0.2rem);
+    }
+
+    @media screen and (max-width: 989px) {
+      .bean-quiz-cta__content {
+        grid-template-columns: 1fr;
+        align-items: start;
+      }
+    }
+
+    @media screen and (max-width: 749px) {
+      .bean-quiz-cta {
+        padding-inline: 1.5rem;
+      }
+
+      .bean-quiz-cta__title {
+        font-size: clamp(3.8rem, 15vw, 5.6rem);
+      }
+
+      .bean-quiz-cta__text {
+        font-size: 1.55rem;
+      }
+
+      .bean-quiz-cta__button {
+        width: 100%;
+      }
     }
   </style>
 
   <div class="bean-quiz-cta">
     <div class="bean-quiz-cta__content">
-      <h2 class="bean-quiz-cta__title">Not sure if this<br>is your Bean?</h2>
-      <p class="bean-quiz-cta__text">Take our 2-minute identity quiz and find the bean that matches your personality perfectly.</p>
-      <a href="/pages/quiz" class="bean-quiz-cta__button">Take the Quiz</a>
+      <div class="bean-quiz-cta__copy">
+        <p class="bean-quiz-cta__eyebrow">Find your bean</p>
+        <h2 class="bean-quiz-cta__title">{{ bean_title }}</h2>
+        <p class="bean-quiz-cta__text">{{ bean_text }}</p>
+      </div>
+      <a href="/pages/which-bean-are-you" class="bean-quiz-cta__button">Take the quiz</a>
     </div>
   </div>
 {%- endif -%}

@@ -2,323 +2,550 @@
   if collection
     assign current_handle = collection.handle
     assign current_title = collection.title
+    assign collection_description = collection.description
   elsif product
     assign current_handle = product.collections.first.handle
     assign current_title = product.collections.first.title
+    assign collection_description = product.collections.first.description
   endif
-  
-  assign bean_accent = '#000000'
-  assign bean_eyebrow = 'AUTHENTIC IDENTITY'
-  assign bean_tagline = 'Discover who you are.'
-  assign bean_personality = 'A unique blend of character and style.'
-  assign bean_traits = 'Trait 1 • Trait 2 • Trait 3'
-  assign bean_voice = 'Direct & Clear'
-  assign bean_audience = 'Those who lead'
+
+  assign bean_accent = '#c6a969'
+  assign bean_glow = 'rgba(198, 169, 105, 0.18)'
+  assign bean_eyebrow = 'Bean Identity'
+  assign bean_tagline = 'A personality in motion.'
+  assign bean_personality = 'A character with its own pace, point of view, and energy.'
+  assign bean_traits = 'Expressive | Distinct | Wearable'
+  assign bean_voice = 'Clear, confident, unmistakable.'
+  assign bean_audience = 'People who dress with intent.'
+  assign bean_pov = 'Wear the version of you that feels most honest today.'
+  assign bean_manifesto = 'Every bean is a way of moving through the world. This one is yours when the mood, posture, and attitude line up.'
+  assign bean_scene = 'Identity frame'
+  assign bean_shop_label = 'Shop the drop'
+  assign bean_quiz_label = 'Find your bean'
 
   case current_handle
     when 'coffee-bean'
-      assign bean_accent = '#4E342E'
-      assign bean_tagline = 'The Intellectual.'
-      assign bean_personality = 'A calm and collected presence that thrives on depth and knowledge. You are the thinker, the observer, and the steady hand in a fast-paced world.'
-      assign bean_traits = 'Smart, Intellectual, Calm, Mature'
-      assign bean_voice = 'Thoughtful, grounded, and vintage academic.'
-      assign bean_audience = 'Thinkers, readers, and quiet confidence.'
-
+      assign bean_accent = '#6d4a2f'
+      assign bean_glow = 'rgba(109, 74, 47, 0.24)'
+      assign bean_tagline = 'The intellectual. Quietly sharp.'
+      assign bean_personality = 'Coffee Bean moves with focus, restraint, and depth. It is the identity for people who do not need to be loud to leave a mark.'
+      assign bean_traits = 'Curious | Grounded | Precise | Mature'
+      assign bean_voice = 'Thoughtful, grounded, editorial.'
+      assign bean_audience = 'Readers, observers, and people with quiet conviction.'
+      assign bean_pov = 'For the days that call for calm authority and a sharper point of view.'
+      assign bean_manifesto = 'Coffee Bean is built for people who notice everything. The silhouettes stay easy, the tone stays measured, and the presence lands without performance.'
+      assign bean_scene = 'Measured, reflective, deliberate'
     when 'green-bean'
-      assign bean_accent = '#388E3C'
-      assign bean_tagline = 'The Nature Lover.'
-      assign bean_personality = 'An organic, fresh spirit that keeps things happy and grounded in nature. You find your energy outdoors and spread optimism wherever you go.'
-      assign bean_traits = 'Fresh, Happy, Nature-loving, Organic'
-      assign bean_voice = 'Bright, sunny, and highly positive.'
-      assign bean_audience = 'Outdoor enthusiasts and optimists.'
-
+      assign bean_accent = '#4da84a'
+      assign bean_glow = 'rgba(77, 168, 74, 0.22)'
+      assign bean_tagline = 'The nature lover. Fresh without trying.'
+      assign bean_personality = 'Green Bean feels bright, restorative, and alive. It is made for the part of you that chooses clarity, movement, and balance over noise.'
+      assign bean_traits = 'Fresh | Optimistic | Grounded | Open'
+      assign bean_voice = 'Clean, bright, naturally confident.'
+      assign bean_audience = 'Optimists, walkers, reset-seekers, and outdoorsy minds.'
+      assign bean_pov = 'For the days that need a reset, a deep breath, and lighter energy.'
+      assign bean_manifesto = 'Green Bean carries softness without losing shape. It is the identity for people who want their style to feel lighter, cleaner, and still fully themselves.'
+      assign bean_scene = 'Fresh, bright, restorative'
     when 'vanilla-bean'
-      assign bean_accent = '#D4AF37'
-      assign bean_tagline = 'The Smooth Stylist.'
-      assign bean_personality = 'A refined, jazzy character who approaches life with effortless cool. You appreciate the finer details and move with a rhythmic elegance.'
-      assign bean_traits = 'Smooth, Cool, Musical, Stylish'
-      assign bean_voice = 'Laid-back, rhythmic, and subtly elegant.'
-      assign bean_audience = 'Creatives, musicians, and trendsetters.'
-
+      assign bean_accent = '#d9b86f'
+      assign bean_glow = 'rgba(217, 184, 111, 0.24)'
+      assign bean_tagline = 'The smooth stylist. Softly magnetic.'
+      assign bean_personality = 'Vanilla Bean is polished without feeling stiff. It moves with rhythm, taste, and just enough drama to feel unforgettable.'
+      assign bean_traits = 'Smooth | Stylish | Musical | Fluid'
+      assign bean_voice = 'Warm, composed, and rhythm-led.'
+      assign bean_audience = 'Stylists, romantics, and people with a softer edge.'
+      assign bean_pov = 'For the days that want elegance, warmth, and a cleaner silhouette.'
+      assign bean_manifesto = 'Vanilla Bean is less about noise and more about finish. It is the identity that feels considered, graceful, and quietly addictive to wear.'
+      assign bean_scene = 'Smooth, warm, composed'
     when 'chilli-bean'
-      assign bean_accent = '#D32F2F'
-      assign bean_tagline = 'The Firecracker.'
-      assign bean_personality = 'Loud, chaotic, and relentlessly spicy. You bring the heat to every situation and live for the moments that make people stop and look.'
-      assign bean_traits = 'Spicy, Chaotic, Loud, Funny'
-      assign bean_voice = 'Exaggerated, high-energy, and unfiltered.'
-      assign bean_audience = 'Rule-breakers and bold personalities.'
-
+      assign bean_accent = '#e34b44'
+      assign bean_glow = 'rgba(227, 75, 68, 0.25)'
+      assign bean_tagline = 'The firecracker. Bold on contact.'
+      assign bean_personality = 'Chilli Bean is all edge, instinct, and heat. It belongs to the version of you that says it straight, moves first, and refuses to blend in.'
+      assign bean_traits = 'Fiery | Chaotic | Funny | Unfiltered'
+      assign bean_voice = 'Fast, bold, confrontational in the best way.'
+      assign bean_audience = 'Rule-breakers, loud dressers, and people who like pressure.'
+      assign bean_pov = 'For the days that demand heat, movement, and zero apology.'
+      assign bean_manifesto = 'Chilli Bean is not subtle and it should not be. This is the identity for impact: sharper contrast, louder mood, and pieces that arrive with momentum.'
+      assign bean_scene = 'High contrast, high energy, no hesitation'
     when 'jelly-bean'
-      assign bean_accent = '#00BCD4'
-      assign bean_tagline = 'The Digital Native.'
-      assign bean_personality = 'A tech-savvy spirit living on the internet. You are the early adopter, the digital creator, and the one who knows what’s next before it happens.'
-      assign bean_traits = 'Digital, Chill, Gen Z, Techy'
-      assign bean_voice = 'Internet-fluent, glossy, and meme-forward.'
-      assign bean_audience = 'Gamers and digital creators.'
+      assign bean_accent = '#31b7c5'
+      assign bean_glow = 'rgba(49, 183, 197, 0.24)'
+      assign bean_tagline = 'The digital native. Playful with edge.'
+      assign bean_personality = 'Jelly Bean is social, hyper-online, and impossible to ignore for long. It is built for people who move fast between humor, culture, and self-expression.'
+      assign bean_traits = 'Playful | Social | Techy | Magnetic'
+      assign bean_voice = 'Glossy, quick, internet-fluent.'
+      assign bean_audience = 'Creators, scene-builders, and people who thrive in motion.'
+      assign bean_pov = 'For the days that feel playful, sharp, and slightly chaotic online and off.'
+      assign bean_manifesto = 'Jelly Bean is made for the version of you that turns a look into a signal. It stays easy to wear but never anonymous.'
+      assign bean_scene = 'Digital, glossy, socially charged'
   endcase
 
   assign image_pos = image_alignment | default: 'right'
 -%}
 
 <style>
-  .bean-editorial-header {
-    background-color: #F5F5F5;
-    color: #2B2B2B;
-    padding: 120px 0;
-    font-family: 'Poppins', sans-serif;
+  .bean-landing {
     position: relative;
     overflow: hidden;
+    background:
+      radial-gradient(circle at 14% 18%, {{ bean_glow }}, transparent 28%),
+      linear-gradient(180deg, #0b0b0b 0%, #111111 52%, #ede7e3 52%, #f5f5f5 100%);
+    color: #f5f5f5;
   }
 
-  /* Ivory transition background */
-  .bean-editorial-header::before {
+  .bean-landing__hero {
+    position: relative;
+    min-height: clamp(62rem, 78vh, 86rem);
+    display: flex;
+    align-items: stretch;
+    border-bottom: 1px solid rgba(245,245,245,0.08);
+  }
+
+  .bean-landing__hero::before {
     content: '';
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to bottom, #F5F5F5 0%, #EDE7E3 100%);
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.54) 38%, rgba(0,0,0,0.15) 70%),
+      linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.7) 100%);
+    pointer-events: none;
     z-index: 1;
   }
 
-  .bean-editorial-container {
-    max-width: 1200px;
+  .bean-landing__grid {
+    width: min(148rem, calc(100% - 4rem));
     margin: 0 auto;
-    padding: 0 30px;
+    padding: clamp(3.2rem, 5vw, 6rem) 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1.06fr) minmax(32rem, 0.94fr);
+    gap: clamp(3rem, 6vw, 7rem);
+    align-items: end;
     position: relative;
     z-index: 2;
   }
 
-  /* Main Grid Layout */
-  .bean-main-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
-    align-items: flex-start;
+  .bean-landing__grid--image-left {
+    grid-template-columns: minmax(32rem, 0.94fr) minmax(0, 1.06fr);
   }
 
-  @media screen and (min-width: 990px) {
-    .bean-main-grid {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 80px;
-    }
-    .bean-main-grid--image-left {
-      direction: rtl;
-    }
-    .bean-main-grid--image-left .bean-text-content {
-      direction: ltr;
-    }
-    .bean-main-grid--image-left .bean-image-content {
-      direction: ltr;
-    }
+  .bean-landing__copy {
+    padding: clamp(2rem, 3vw, 4rem) 0;
+    align-self: center;
   }
 
-  /* Text Content Styling */
-  .bean-eyebrow {
-    font-size: 1.3rem;
-    font-weight: 500;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: {{ bean_accent }};
-    margin-bottom: 15px;
-    display: block;
-  }
-
-  .bean-main-title {
-    font-size: clamp(5rem, 8vw, 8rem);
+  .bean-landing__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
     font-weight: 800;
-    line-height: 0.95;
+    letter-spacing: 0.24em;
     text-transform: uppercase;
-    margin: 0 0 20px 0;
-    color: #000000;
-    letter-spacing: -0.02em;
-  }
-
-  .bean-main-title::after {
-    content: '';
-    display: block;
-    width: 80px;
-    height: 6px;
-    background-color: {{ bean_accent }};
-    margin-top: 15px;
-  }
-
-  .bean-subheading {
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
-    font-weight: 500;
-    color: #555555;
-    margin: 0 0 60px 0;
-    line-height: 1.2;
-  }
-
-  .bean-personality-section {
-    margin-bottom: 60px;
-  }
-
-  .bean-section-label {
-    font-size: 1.2rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
     color: {{ bean_accent }};
-    margin-bottom: 20px;
-    display: block;
   }
 
-  .bean-personality-text {
-    font-size: 1.8rem;
-    line-height: 1.8;
-    color: #2B2B2B;
+  .bean-landing__eyebrow::before {
+    content: '';
+    width: 4.8rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .bean-landing__title {
     margin: 0;
-  }
-
-  /* Info Blocks */
-  .bean-info-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-
-  @media screen and (min-width: 600px) {
-    .bean-info-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  .bean-info-block {
-    margin-bottom: 0;
-  }
-
-  .bean-info-label {
-    font-weight: 600;
-    font-size: 1.3rem;
-    display: block;
-    margin-bottom: 6px;
-    color: #000000;
+    max-width: 8ch;
+    font-family: var(--font-heading-family);
+    font-size: clamp(5.8rem, 11vw, 14rem);
+    font-weight: 900;
+    line-height: 0.8;
+    letter-spacing: 0;
     text-transform: uppercase;
+    color: #f5f5f5;
+    text-wrap: balance;
   }
 
-  .bean-info-value {
-    font-size: 1.5rem;
-    line-height: 1.5;
-    color: #555555;
-    display: block;
+  .bean-landing__title-mark {
+    width: 9.6rem;
+    height: 0.5rem;
+    margin: 2rem 0 2.4rem;
+    background: {{ bean_accent }};
+    box-shadow: 0 0 3rem {{ bean_glow }};
   }
 
-  /* Image Content Styling */
-  .bean-image-content {
+  .bean-landing__tagline {
+    margin: 0 0 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2rem, 3vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.08;
+    color: #f5f5f5;
+  }
+
+  .bean-landing__pov {
+    max-width: 53rem;
+    margin: 0 0 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.55rem, 1.6vw, 1.95rem);
+    font-weight: 500;
+    line-height: 1.55;
+    color: rgba(245,245,245,0.76);
+  }
+
+  .bean-landing__actions {
     display: flex;
-    justify-content: center;
-    align-items: center;
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    margin-top: 3rem;
   }
 
-  .bean-image-wrapper {
+  .bean-landing__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.6rem;
+    padding: 0 3rem;
+    border: 1px solid rgba(245,245,245,0.72);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: #f5f5f5;
+    background: transparent;
+    transition: transform 0.28s ease, border-color 0.28s ease, background 0.28s ease, color 0.28s ease;
+  }
+
+  .bean-landing__button:hover {
+    transform: translateY(-0.2rem);
+    border-color: {{ bean_accent }};
+    color: {{ bean_accent }};
+  }
+
+  .bean-landing__button--primary {
+    background: {{ bean_accent }};
+    border-color: {{ bean_accent }};
+    color: #0b0b0b;
+  }
+
+  .bean-landing__button--primary:hover {
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #0b0b0b;
+  }
+
+  .bean-landing__media {
+    position: relative;
+    min-height: clamp(40rem, 64vh, 72rem);
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+  }
+
+  .bean-landing__media-frame {
     width: 100%;
-    max-width: 500px;
-    border-radius: 12px;
+    height: 100%;
+    min-height: inherit;
+    position: relative;
     overflow: hidden;
-    background-color: rgba(237, 231, 227, 0.5); /* Neutral Ivory */
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(245,245,245,0.12);
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01)),
+      radial-gradient(circle at 50% 22%, {{ bean_glow }}, transparent 42%),
+      #171717;
+    box-shadow: 0 3rem 9rem rgba(0,0,0,0.24);
+  }
+
+  .bean-landing__media-frame::after {
+    content: '{{ bean_scene }}';
+    position: absolute;
+    right: 2rem;
+    bottom: 1.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.5);
+  }
+
+  .bean-landing__image-wrap {
+    position: absolute;
+    inset: 0;
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
-    line-height: 0;
+    padding: 4rem;
   }
 
-  .bean-image-wrapper img {
+  .bean-landing__image-wrap img {
     width: 100%;
-    height: auto;
+    max-width: 58rem;
+    max-height: 100%;
     object-fit: contain;
-    transition: transform 0.5s ease;
+    filter: drop-shadow(0 3rem 7rem rgba(0,0,0,0.3));
+    transform: scale(1.01);
   }
 
-  .bean-image-wrapper:hover img {
-    transform: scale(1.02);
-  }
-
-  .bean-image-placeholder {
-    padding: 60px;
-    text-align: center;
-    color: #999;
-    font-size: 1.4rem;
-    border: 2px dashed #E0E0E0;
-    border-radius: 12px;
+  .bean-landing__placeholder {
     width: 100%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 4rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    text-align: center;
+    color: rgba(245,245,245,0.5);
+    border: 1px dashed rgba(245,245,245,0.18);
+  }
+
+  .bean-landing__details {
+    position: relative;
+    z-index: 2;
+    width: min(148rem, calc(100% - 4rem));
+    margin: 0 auto;
+    padding: clamp(4rem, 6vw, 7rem) 0 clamp(5rem, 7vw, 9rem);
+    color: #0b0b0b;
+  }
+
+  .bean-landing__details-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    gap: clamp(2.4rem, 4vw, 5rem);
+    align-items: start;
+  }
+
+  .bean-landing__manifesto {
+    padding-right: 3rem;
+  }
+
+  .bean-landing__label {
+    display: inline-block;
+    margin: 0 0 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: {{ bean_accent }};
+  }
+
+  .bean-landing__manifesto h2 {
+    margin: 0 0 1.6rem;
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.8rem, 6vw, 7.2rem);
+    font-weight: 900;
+    line-height: 0.92;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    color: #0b0b0b;
+  }
+
+  .bean-landing__manifesto p {
+    margin: 0;
+    max-width: 62rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.75rem;
+    line-height: 1.7;
+    color: rgba(11,11,11,0.72);
+  }
+
+  .bean-landing__info-card {
+    padding: 3rem;
+    border: 1px solid rgba(11,11,11,0.08);
+    background: rgba(255,255,255,0.6);
+    box-shadow: 0 1.6rem 4rem rgba(0,0,0,0.04);
+  }
+
+  .bean-landing__traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-bottom: 2.2rem;
+  }
+
+  .bean-landing__trait {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.4rem;
+    padding: 0 1.4rem;
+    border: 1px solid rgba(11,11,11,0.14);
+    background: rgba(255,255,255,0.78);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #0b0b0b;
+  }
+
+  .bean-landing__meta {
+    display: grid;
+    gap: 2rem;
+  }
+
+  .bean-landing__meta-block h3 {
+    margin: 0 0 0.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.08rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: {{ bean_accent }};
+  }
+
+  .bean-landing__meta-block p {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.55rem;
+    line-height: 1.6;
+    color: rgba(11,11,11,0.74);
+  }
+
+  @media screen and (max-width: 989px) {
+    .bean-landing__hero {
+      min-height: auto;
+    }
+
+    .bean-landing__grid,
+    .bean-landing__grid--image-left,
+    .bean-landing__details-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .bean-landing__media {
+      order: -1;
+      min-height: 42rem;
+    }
+
+    .bean-landing__copy {
+      padding-top: 0;
+    }
+
+    .bean-landing__title {
+      max-width: none;
+      font-size: clamp(4.8rem, 17vw, 8rem);
+    }
+
+    .bean-landing__manifesto {
+      padding-right: 0;
+    }
   }
 
   @media screen and (max-width: 749px) {
-    .bean-editorial-header {
-      padding: 80px 0;
+    .bean-landing__hero {
+      border-bottom-width: 0;
     }
-    .bean-subheading {
-      margin-bottom: 40px;
+
+    .bean-landing__grid,
+    .bean-landing__details {
+      width: calc(100% - 3rem);
     }
-    .bean-personality-section {
-      margin-bottom: 40px;
+
+    .bean-landing__grid {
+      padding-top: 2rem;
+      padding-bottom: 4rem;
+      gap: 2rem;
     }
-    .bean-main-grid {
-      gap: 40px;
+
+    .bean-landing__media {
+      min-height: 34rem;
+    }
+
+    .bean-landing__image-wrap {
+      padding: 2rem;
+    }
+
+    .bean-landing__actions {
+      flex-direction: column;
+    }
+
+    .bean-landing__button {
+      width: 100%;
+    }
+
+    .bean-landing__manifesto p,
+    .bean-landing__meta-block p {
+      font-size: 1.5rem;
     }
   }
 </style>
 
-<div class="bean-editorial-header">
-  <div class="bean-editorial-container">
-    
-    <div class="bean-main-grid {% if image_pos == 'left' %}bean-main-grid--image-left{% endif %}">
-      
-      <!-- Text Content Side -->
-      <div class="bean-text-content">
-        <span class="bean-eyebrow">{{ bean_eyebrow }}</span>
-        <h1 class="bean-main-title">{{ current_title | split: ' ' | first }}<br>{{ current_title | split: ' ' | last }}</h1>
-        <p class="bean-subheading">{{ bean_tagline }}</p>
+<section class="bean-landing">
+  <div class="bean-landing__hero">
+    <div class="bean-landing__grid {% if image_pos == 'left' %}bean-landing__grid--image-left{% endif %}">
+      <div class="bean-landing__copy">
+        <p class="bean-landing__eyebrow">{{ bean_eyebrow }}</p>
+        <h1 class="bean-landing__title">{{ current_title }}</h1>
+        <div class="bean-landing__title-mark"></div>
+        <p class="bean-landing__tagline">{{ bean_tagline }}</p>
+        <p class="bean-landing__pov">{{ bean_pov }}</p>
 
-        <div class="bean-personality-section">
-          <span class="bean-section-label">Personality</span>
-          <p class="bean-personality-text">{{ bean_personality }}</p>
-        </div>
-
-        <div class="bean-identity-section">
-          <span class="bean-section-label">Core Identity</span>
-          <div class="bean-info-grid">
-            <div class="bean-info-block">
-              <span class="bean-info-label">Traits</span>
-              <span class="bean-info-value">{{ bean_traits }}</span>
-            </div>
-
-            <div class="bean-info-block">
-              <span class="bean-info-label">Voice & Tone</span>
-              <span class="bean-info-value">{{ bean_voice }}</span>
-            </div>
-
-            <div class="bean-info-block">
-              <span class="bean-info-label">Audience</span>
-              <span class="bean-info-value">{{ bean_audience }}</span>
-            </div>
-          </div>
+        <div class="bean-landing__actions">
+          <a href="#BeanCollectionGrid" class="bean-landing__button bean-landing__button--primary">{{ bean_shop_label }}</a>
+          <a href="/pages/which-bean-are-you" class="bean-landing__button">{{ bean_quiz_label }}</a>
         </div>
       </div>
 
-      <!-- Image Content Side -->
-      <div class="bean-image-content">
-        <div class="bean-image-wrapper">
-          {%- if bean_image != blank -%}
-            {{ bean_image | image_url: width: 1000 | image_tag: 
-              class: 'bean-character-image', 
-              alt: current_title, 
-              loading: 'eager' 
-            }}
-          {%- else -%}
-            <div class="bean-image-placeholder">
-              [ Bean Illustration Pending ]<br>
-              <small>Upload an image in Theme Editor</small>
+      <div class="bean-landing__media">
+        <div class="bean-landing__media-frame">
+          <div class="bean-landing__image-wrap">
+            {%- if bean_image != blank -%}
+              {{
+                bean_image
+                | image_url: width: 1400
+                | image_tag:
+                  alt: current_title,
+                  loading: 'eager'
+              }}
+            {%- else -%}
+              <div class="bean-landing__placeholder">
+                Upload a bean visual in the theme editor to complete this hero.
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bean-landing__details">
+    <div class="bean-landing__details-grid">
+      <div class="bean-landing__manifesto">
+        <span class="bean-landing__label">Character profile</span>
+        <h2>{{ bean_personality }}</h2>
+        <p>{{ bean_manifesto }}</p>
+      </div>
+
+      <div class="bean-landing__info-card">
+        <div class="bean-landing__traits">
+          {%- assign trait_list = bean_traits | split: '|' -%}
+          {%- for trait in trait_list -%}
+            <span class="bean-landing__trait">{{ trait | strip }}</span>
+          {%- endfor -%}
+        </div>
+
+        <div class="bean-landing__meta">
+          <div class="bean-landing__meta-block">
+            <h3>Voice and tone</h3>
+            <p>{{ bean_voice }}</p>
+          </div>
+          <div class="bean-landing__meta-block">
+            <h3>Who it fits</h3>
+            <p>{{ bean_audience }}</p>
+          </div>
+          {%- if collection_description != blank -%}
+            <div class="bean-landing__meta-block">
+              <h3>Collection note</h3>
+              <p>{{ collection_description | strip_html }}</p>
             </div>
           {%- endif -%}
         </div>
       </div>
-
     </div>
-
   </div>
-</div>
+</section>

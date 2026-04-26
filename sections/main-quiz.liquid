@@ -1,273 +1,903 @@
 {%- style -%}
-  .quiz-container {
-    max-width: 800px;
-    margin: 60px auto;
-    padding: 40px 20px;
-    text-align: center;
-    background: {{ section.settings.bg_color }};
-    color: {{ section.settings.text_color }};
+  .bean-quiz-page {
+    position: relative;
+    overflow: hidden;
+    background:
+      radial-gradient(circle at 12% 14%, rgba(198, 169, 105, 0.16), transparent 28%),
+      radial-gradient(circle at 88% 22%, rgba(255, 255, 255, 0.08), transparent 24%),
+      linear-gradient(180deg, #080808 0%, #101010 52%, #141414 100%);
+    color: #f5f5f5;
   }
 
-  .quiz-progress {
+  .bean-quiz-page::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+    background-size: 5.2rem 5.2rem;
+    opacity: 0.22;
+    pointer-events: none;
+  }
+
+  .bean-quiz-page__shell {
+    position: relative;
+    z-index: 1;
+    width: min(120rem, calc(100% - 4rem));
+    margin: 0 auto;
+    padding: clamp(3rem, 5vw, 5rem) 0 clamp(7rem, 9vw, 10rem);
+  }
+
+  .bean-quiz-page__hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(30rem, 0.95fr);
+    gap: clamp(2.4rem, 5vw, 6rem);
+    align-items: end;
+    min-height: clamp(34rem, 46vw, 52rem);
+    padding: clamp(4rem, 7vw, 8rem) 0 3rem;
+    border-bottom: 1px solid rgba(245,245,245,0.08);
+  }
+
+  .bean-quiz-page__eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: #c6a969;
+  }
+
+  .bean-quiz-page__eyebrow::before {
+    content: '';
+    width: 4.8rem;
+    height: 1px;
+    background: currentColor;
+  }
+
+  .bean-quiz-page__title {
+    margin: 0;
+    max-width: 8ch;
+    font-family: var(--font-heading-family);
+    font-size: clamp(5.4rem, 11vw, 12.8rem);
+    font-weight: 900;
+    line-height: 0.82;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    text-wrap: balance;
+  }
+
+  .bean-quiz-page__subtitle {
+    max-width: 58rem;
+    margin: 2.2rem 0 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.7rem, 2vw, 2rem);
+    line-height: 1.65;
+    color: rgba(245,245,245,0.7);
+  }
+
+  .bean-quiz-page__side {
+    padding: clamp(2.4rem, 3vw, 3.2rem);
+    border: 1px solid rgba(245,245,245,0.12);
+    background: rgba(255,255,255,0.04);
+    box-shadow: 0 2rem 6rem rgba(0,0,0,0.22);
+    backdrop-filter: blur(10px);
+  }
+
+  .bean-quiz-page__side-label {
+    margin: 0 0 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.54);
+  }
+
+  .bean-quiz-page__side-copy {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.78);
+  }
+
+  .bean-quiz-page__meta {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .bean-quiz-page__meta-item {
+    padding-top: 1.4rem;
+    border-top: 1px solid rgba(245,245,245,0.12);
+  }
+
+  .bean-quiz-page__meta-item strong,
+  .bean-quiz-page__meta-item span {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .bean-quiz-page__meta-item strong {
+    margin-bottom: 0.5rem;
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz-page__meta-item span {
+    font-size: 1.1rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.54);
+  }
+
+  .bean-quiz {
+    max-width: 92rem;
+    margin: clamp(4rem, 6vw, 7rem) auto 0;
+  }
+
+  .bean-quiz__status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-bottom: 1.8rem;
+  }
+
+  .bean-quiz__status-label,
+  .bean-quiz__step-count {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.52);
+  }
+
+  .bean-quiz__progress {
     width: 100%;
-    height: 4px;
-    background: #EDE7E3;
-    margin-bottom: 40px;
-    border-radius: 2px;
+    height: 0.5rem;
+    margin-bottom: 2.6rem;
+    background: rgba(245,245,245,0.08);
     overflow: hidden;
   }
 
-  .quiz-progress-bar {
-    height: 100%;
-    background: #C6A969;
+  .bean-quiz__progress-bar {
     width: 0%;
+    height: 100%;
+    background: linear-gradient(90deg, #8d6b3d 0%, #c6a969 45%, #f5e3b0 100%);
     transition: width 0.4s ease;
   }
 
-  .quiz-step {
-    display: none;
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
+  .bean-quiz__panel {
+    position: relative;
+    min-height: 50rem;
+    padding: clamp(2.2rem, 3vw, 3rem);
+    border: 1px solid rgba(245,245,245,0.1);
+    background: rgba(255,255,255,0.04);
+    box-shadow: 0 2rem 6rem rgba(0,0,0,0.22);
+    backdrop-filter: blur(10px);
   }
 
-  .quiz-step.active {
+  .bean-quiz__screen {
+    display: none;
+    opacity: 0;
+    transform: translateY(1rem);
+    transition: opacity 0.32s ease, transform 0.32s ease;
+  }
+
+  .bean-quiz__screen.is-active {
     display: block;
     opacity: 1;
     transform: translateY(0);
   }
 
-  .quiz-heading {
-    font-size: 3.2rem;
-    font-weight: 700;
-    margin-bottom: 10px;
+  .bean-quiz__intro-title,
+  .bean-quiz__question-title,
+  .bean-quiz__result-title {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: #f5f5f5;
+    letter-spacing: 0;
+    line-height: 0.92;
   }
 
-  .quiz-subheading {
-    font-size: 1.8rem;
-    opacity: 0.7;
-    margin-bottom: 40px;
+  .bean-quiz__intro-title {
+    max-width: 8ch;
+    font-size: clamp(4.4rem, 8vw, 8rem);
   }
 
-  .quiz-question-title {
-    font-size: 2.8rem;
-    font-weight: 600;
-    margin-bottom: 30px;
+  .bean-quiz__question-title {
+    max-width: 14ch;
+    font-size: clamp(3.4rem, 6vw, 5.8rem);
   }
 
-  .quiz-options {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-    margin-bottom: 40px;
+  .bean-quiz__result-title {
+    font-size: clamp(4rem, 7vw, 7rem);
   }
 
-  .quiz-option {
-    padding: 20px;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 1.8rem;
-    transition: all 0.3s ease;
-    background: transparent;
-    text-align: left;
+  .bean-quiz__intro-copy,
+  .bean-quiz__question-copy,
+  .bean-quiz__result-copy {
+    max-width: 58rem;
+    margin: 1.8rem 0 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.7rem;
+    line-height: 1.65;
+    color: rgba(245,245,245,0.72);
   }
 
-  .quiz-option:hover {
-    background: #EDE7E3;
-    border-color: #C6A969;
-  }
-
-  .quiz-button {
-    display: inline-block;
-    padding: 20px 40px;
-    background: #C6A969;
-    color: #000000;
-    border: none;
-    font-size: 1.8rem;
-    font-weight: 600;
+  .bean-quiz__button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.6rem;
+    padding: 0 3rem;
+    margin-top: 3rem;
+    border: 1px solid #c6a969;
+    background: #c6a969;
+    color: #0b0b0b;
+    text-decoration: none;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 900;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     cursor: pointer;
-    border-radius: 4px;
-    transition: opacity 0.3s ease;
+    transition: transform 0.28s ease, background 0.28s ease, border-color 0.28s ease, color 0.28s ease;
   }
 
-  .quiz-button:hover {
-    opacity: 0.9;
+  .bean-quiz__button:hover {
+    transform: translateY(-0.2rem);
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #0b0b0b;
+  }
+
+  .bean-quiz__options {
+    display: grid;
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  .bean-quiz__option {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 1.6rem;
+    align-items: start;
+    width: 100%;
+    padding: 1.8rem 2rem;
+    border: 1px solid rgba(245,245,245,0.1);
+    background: rgba(255,255,255,0.02);
+    color: #f5f5f5;
+    text-align: left;
+    cursor: pointer;
+    transition: transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease;
+  }
+
+  .bean-quiz__option:hover,
+  .bean-quiz__option.is-selected {
+    transform: translateY(-0.2rem);
+    border-color: rgba(198,169,105,0.72);
+    background: rgba(198,169,105,0.08);
+    box-shadow: 0 1.4rem 3.2rem rgba(0,0,0,0.18);
+  }
+
+  .bean-quiz__option-index {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 3.6rem;
+    height: 3.6rem;
+    border: 1px solid rgba(245,245,245,0.18);
+    color: rgba(245,245,245,0.76);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .bean-quiz__option-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.65rem;
+    line-height: 1.58;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz__footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-top: 2.4rem;
+  }
+
+  .bean-quiz__helper {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: rgba(245,245,245,0.5);
+  }
+
+  .bean-quiz__ghost {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.2rem;
+    padding: 0 2.4rem;
+    border: 1px solid rgba(245,245,245,0.22);
+    background: transparent;
+    color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.08rem;
+    font-weight: 800;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: transform 0.24s ease, border-color 0.24s ease, color 0.24s ease;
+  }
+
+  .bean-quiz__ghost:hover {
+    transform: translateY(-0.2rem);
+    border-color: #f5f5f5;
+  }
+
+  .bean-quiz__result-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(28rem, 0.9fr);
+    gap: 2.4rem;
+    margin-top: 2.8rem;
+  }
+
+  .bean-quiz__result-copy-wrap,
+  .bean-quiz__result-meta {
+    padding: 2.2rem;
+    border: 1px solid rgba(245,245,245,0.1);
+    background: rgba(255,255,255,0.03);
+  }
+
+  .bean-quiz__result-label {
+    display: inline-block;
+    margin: 0 0 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--result-accent, #c6a969);
+  }
+
+  .bean-quiz__traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+  }
+
+  .bean-quiz__trait {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.4rem;
+    padding: 0 1.3rem;
+    border: 1px solid rgba(245,245,245,0.12);
+    background: rgba(255,255,255,0.04);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz__result-stat + .bean-quiz__result-stat {
+    margin-top: 1.8rem;
+    padding-top: 1.8rem;
+    border-top: 1px solid rgba(245,245,245,0.08);
+  }
+
+  .bean-quiz__result-stat strong,
+  .bean-quiz__result-stat span {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .bean-quiz__result-stat strong {
+    margin-bottom: 0.5rem;
+    font-size: 1.06rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245,245,245,0.52);
+  }
+
+  .bean-quiz__result-stat span {
+    font-size: 1.55rem;
+    line-height: 1.6;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz__result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+  }
+
+  .bean-quiz__button--secondary {
+    border-color: rgba(245,245,245,0.22);
+    background: transparent;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz__button--secondary:hover {
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #0b0b0b;
+  }
+
+  @media screen and (max-width: 989px) {
+    .bean-quiz-page__hero,
+    .bean-quiz__result-card {
+      grid-template-columns: 1fr;
+    }
+
+    .bean-quiz-page__title {
+      max-width: none;
+      font-size: clamp(4.8rem, 16vw, 8.8rem);
+    }
   }
 
   @media screen and (max-width: 749px) {
-    .quiz-heading { font-size: 2.6rem; }
-    .quiz-question-title { font-size: 2.22rem; }
+    .bean-quiz-page__shell {
+      width: calc(100% - 3rem);
+      padding-top: 2rem;
+    }
+
+    .bean-quiz-page__hero {
+      gap: 2rem;
+      padding-top: 3.4rem;
+    }
+
+    .bean-quiz-page__meta {
+      grid-template-columns: 1fr;
+    }
+
+    .bean-quiz__panel {
+      min-height: auto;
+      padding: 2rem 1.6rem;
+    }
+
+    .bean-quiz__status {
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .bean-quiz__option {
+      padding: 1.5rem;
+      gap: 1.2rem;
+    }
+
+    .bean-quiz__option-text,
+    .bean-quiz__intro-copy,
+    .bean-quiz__question-copy,
+    .bean-quiz__result-copy {
+      font-size: 1.5rem;
+    }
+
+    .bean-quiz__footer,
+    .bean-quiz__result-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .bean-quiz__button,
+    .bean-quiz__ghost,
+    .bean-quiz__button--secondary {
+      width: 100%;
+    }
   }
 {%- endstyle -%}
 
-<div id="Quiz-{{ section.id }}" class="quiz-container" data-section-id="{{ section.id }}">
-  <div class="quiz-progress">
-    <div class="quiz-progress-bar" id="QuizProgress"></div>
-  </div>
+<section
+  id="Quiz-{{ section.id }}"
+  class="bean-quiz-page"
+  data-section-id="{{ section.id }}"
+  data-quiz-root
+>
+  <div class="bean-quiz-page__shell">
+    <div class="bean-quiz-page__hero">
+      <div class="bean-quiz-page__copy">
+        <p class="bean-quiz-page__eyebrow">Bean Identity Quiz</p>
+        <h1 class="bean-quiz-page__title">{{ section.settings.heading }}</h1>
+        <p class="bean-quiz-page__subtitle">
+          {{ section.settings.subheading }}
+        </p>
+      </div>
 
-  {%- comment -%} WELCOME STEP {%- endcomment -%}
-  <div class="quiz-step active" id="Step-Welcome">
-    <h1 class="quiz-heading">{{ section.settings.heading }}</h1>
-    <p class="quiz-subheading">{{ section.settings.subheading }}</p>
-    <button class="quiz-button" data-next="Question-1">Start Quiz</button>
-  </div>
+      <div class="bean-quiz-page__side">
+        <p class="bean-quiz-page__side-label">How it works</p>
+        <p class="bean-quiz-page__side-copy">
+          Five instinctive choices. One personality match. Start with the umbrella brand, then land on the bean that actually feels like you.
+        </p>
+        <div class="bean-quiz-page__meta">
+          <div class="bean-quiz-page__meta-item">
+            <strong>5</strong>
+            <span>Questions</span>
+          </div>
+          <div class="bean-quiz-page__meta-item">
+            <strong>2 min</strong>
+            <span>Finish time</span>
+          </div>
+          <div class="bean-quiz-page__meta-item">
+            <strong>1 match</strong>
+            <span>Identity result</span>
+          </div>
+        </div>
+      </div>
+    </div>
 
-  {%- comment -%} QUESTIONS (Template for 5 questions) {%- endcomment -%}
-  <div class="quiz-step" id="Step-Question-1" data-step="1">
-    <h2 class="quiz-question-title">When starting something new, your instinct is:</h2>
-    <div class="quiz-options">
-      <button class="quiz-option" data-score="coffee">"Let me understand how this actually works first."</button>
-      <button class="quiz-option" data-score="vanilla">"Let’s try it and see what happens."</button>
-      <button class="quiz-option" data-score="chilli">"Let’s do it big."</button>
-      <button class="quiz-option" data-score="jelly">"Who else is doing this with me?"</button>
-      <button class="quiz-option" data-score="green">"Let me think about whether this feels right."</button>
+    <div class="bean-quiz" data-quiz-app>
+      <div class="bean-quiz__status">
+        <span class="bean-quiz__status-label">Identity scan</span>
+        <span class="bean-quiz__step-count" data-quiz-count>Intro</span>
+      </div>
+
+      <div class="bean-quiz__progress">
+        <div class="bean-quiz__progress-bar" data-quiz-progress></div>
+      </div>
+
+      <div class="bean-quiz__panel">
+        <div class="bean-quiz__screen is-active" data-quiz-screen="welcome">
+          <h2 class="bean-quiz__intro-title">Find the bean that wears like you.</h2>
+          <p class="bean-quiz__intro-copy">
+            Pick the option that feels most instinctive each time. Do not overthink it. The strongest matches usually happen fast.
+          </p>
+          <button class="bean-quiz__button" type="button" data-quiz-start>Start quiz</button>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="1" data-step="1">
+          <h2 class="bean-quiz__question-title">When starting something new, your instinct is:</h2>
+          <p class="bean-quiz__question-copy">Start where your energy goes first, not where you think it should.</p>
+          <div class="bean-quiz__options">
+            <button class="bean-quiz__option" type="button" data-score="coffee"><span class="bean-quiz__option-index">A</span><span class="bean-quiz__option-text">Let me understand how this actually works first.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="vanilla"><span class="bean-quiz__option-index">B</span><span class="bean-quiz__option-text">Let us try it and see what happens.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="chilli"><span class="bean-quiz__option-index">C</span><span class="bean-quiz__option-text">Let us do it big.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="jelly"><span class="bean-quiz__option-index">D</span><span class="bean-quiz__option-text">Who else is doing this with me?</span></button>
+            <button class="bean-quiz__option" type="button" data-score="green"><span class="bean-quiz__option-index">E</span><span class="bean-quiz__option-text">Let me think about whether this feels right.</span></button>
+          </div>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="2" data-step="2">
+          <h2 class="bean-quiz__question-title">When your friend group walks into a party, you are usually the one who:</h2>
+          <p class="bean-quiz__question-copy">This is less about volume and more about your natural posture in the room.</p>
+          <div class="bean-quiz__options">
+            <button class="bean-quiz__option" type="button" data-score="coffee"><span class="bean-quiz__option-index">A</span><span class="bean-quiz__option-text">Finds one interesting person and ends up in a deep conversation about something random.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="vanilla"><span class="bean-quiz__option-index">B</span><span class="bean-quiz__option-text">Immediately asks, where is the fun happening?</span></button>
+            <button class="bean-quiz__option" type="button" data-score="chilli"><span class="bean-quiz__option-index">C</span><span class="bean-quiz__option-text">Walks in like you already own the place.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="jelly"><span class="bean-quiz__option-index">D</span><span class="bean-quiz__option-text">Somehow knows half the room within ten minutes.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="green"><span class="bean-quiz__option-index">E</span><span class="bean-quiz__option-text">Quietly reads the vibe of the room before doing anything.</span></button>
+          </div>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="3" data-step="3">
+          <h2 class="bean-quiz__question-title">When facing a tough decision with no obvious right answer, you usually:</h2>
+          <p class="bean-quiz__question-copy">Choose the option that sounds the most like your default decision mode.</p>
+          <div class="bean-quiz__options">
+            <button class="bean-quiz__option" type="button" data-score="coffee"><span class="bean-quiz__option-index">A</span><span class="bean-quiz__option-text">List the pros and cons and think it through logically.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="vanilla"><span class="bean-quiz__option-index">B</span><span class="bean-quiz__option-text">Follow the option that feels like the biggest adventure.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="chilli"><span class="bean-quiz__option-index">C</span><span class="bean-quiz__option-text">Choose the path where you can make the boldest impact.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="jelly"><span class="bean-quiz__option-index">D</span><span class="bean-quiz__option-text">Talk it out with people until a creative solution appears.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="green"><span class="bean-quiz__option-index">E</span><span class="bean-quiz__option-text">Check in with your emotions and long-term peace of mind.</span></button>
+          </div>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="4" data-step="4">
+          <h2 class="bean-quiz__question-title">Your friends would probably describe you as the one who:</h2>
+          <p class="bean-quiz__question-copy">Go with what people say when they are being honest, not polite.</p>
+          <div class="bean-quiz__options">
+            <button class="bean-quiz__option" type="button" data-score="coffee"><span class="bean-quiz__option-index">A</span><span class="bean-quiz__option-text">Randomly drops facts or thoughts that make everyone pause and think.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="vanilla"><span class="bean-quiz__option-index">B</span><span class="bean-quiz__option-text">Says let us just go and somehow everyone follows.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="chilli"><span class="bean-quiz__option-index">C</span><span class="bean-quiz__option-text">Says the brutally honest thing everyone else avoided.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="jelly"><span class="bean-quiz__option-index">D</span><span class="bean-quiz__option-text">Turns a normal night into a story everyone laughs about later.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="green"><span class="bean-quiz__option-index">E</span><span class="bean-quiz__option-text">Calms everyone down when things start getting chaotic.</span></button>
+          </div>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="5" data-step="5">
+          <h2 class="bean-quiz__question-title">Imagine you unexpectedly get a free day. What are you most likely to do?</h2>
+          <p class="bean-quiz__question-copy">The answer that feels easiest is usually the right one.</p>
+          <div class="bean-quiz__options">
+            <button class="bean-quiz__option" type="button" data-score="coffee"><span class="bean-quiz__option-index">A</span><span class="bean-quiz__option-text">Dive into a book, podcast, or documentary about something fascinating.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="vanilla"><span class="bean-quiz__option-index">B</span><span class="bean-quiz__option-text">Plan a spontaneous trip or try something completely new.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="chilli"><span class="bean-quiz__option-index">C</span><span class="bean-quiz__option-text">Start a bold project, pitch a big idea, or take on a tough challenge.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="jelly"><span class="bean-quiz__option-index">D</span><span class="bean-quiz__option-text">Call a bunch of friends and plan something fun together.</span></button>
+            <button class="bean-quiz__option" type="button" data-score="green"><span class="bean-quiz__option-index">E</span><span class="bean-quiz__option-text">Sleep in, take a peaceful walk, journal, or enjoy a slow day.</span></button>
+          </div>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="result">
+          <p class="bean-quiz__result-label">Your match</p>
+          <h2 class="bean-quiz__result-title" data-result-name></h2>
+          <p class="bean-quiz__result-copy" data-result-description></p>
+
+          <div class="bean-quiz__result-card">
+            <div class="bean-quiz__result-copy-wrap">
+              <p class="bean-quiz__result-label">Identity traits</p>
+              <div class="bean-quiz__traits" data-result-traits></div>
+            </div>
+
+            <div class="bean-quiz__result-meta">
+              <div class="bean-quiz__result-stat">
+                <strong>Energy</strong>
+                <span data-result-energy></span>
+              </div>
+              <div class="bean-quiz__result-stat">
+                <strong>Why it fits</strong>
+                <span data-result-fit></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="bean-quiz__result-actions">
+            <a class="bean-quiz__button" href="#" data-result-link>Shop your bean</a>
+            <button class="bean-quiz__button bean-quiz__button--secondary" type="button" data-quiz-restart>Retake quiz</button>
+          </div>
+        </div>
+
+        <div class="bean-quiz__footer">
+          <p class="bean-quiz__helper">Best results come from instinct, not strategy.</p>
+          <button class="bean-quiz__ghost" type="button" data-quiz-back hidden>Previous</button>
+        </div>
+      </div>
     </div>
   </div>
-
-  <div class="quiz-step" id="Step-Question-2" data-step="2">
-    <h2 class="quiz-question-title">When your friend group walks into a party, you’re usually the one who:</h2>
-    <div class="quiz-options">
-      <button class="quiz-option" data-score="coffee">Finds one interesting person and ends up in a deep conversation about something random.</button>
-      <button class="quiz-option" data-score="vanilla">Immediately asks, "Where’s the fun happening?"</button>
-      <button class="quiz-option" data-score="chilli">Walks in like you already own the place.</button>
-      <button class="quiz-option" data-score="jelly">Somehow knows half the room within 10 minutes.</button>
-      <button class="quiz-option" data-score="green">Quietly reads the vibe of the room before doing anything.</button>
-    </div>
-  </div>
-
-  <div class="quiz-step" id="Step-Question-3" data-step="3">
-    <h2 class="quiz-question-title">When facing a tough decision with no obvious right answer, you usually:</h2>
-    <div class="quiz-options">
-      <button class="quiz-option" data-score="coffee">List the pros and cons and think it through logically.</button>
-      <button class="quiz-option" data-score="vanilla">Follow the option that feels like the biggest adventure.</button>
-      <button class="quiz-option" data-score="chilli">Choose the path where you can make the boldest impact.</button>
-      <button class="quiz-option" data-score="jelly">Talk it out with people until a creative solution appears.</button>  
-      <button class="quiz-option" data-score="green">Check in with your emotions and long-term peace of mind.</button>
-    </div>
-  </div>
-
-  <div class="quiz-step" id="Step-Question-4" data-step="4">
-    <h2 class="quiz-question-title">Your friends would probably describe you as the one who:</h2>
-    <div class="quiz-options">
-      <button class="quiz-option" data-score="coffee">Randomly drops facts or thoughts that make everyone pause and think.</button>
-      <button class="quiz-option" data-score="vanilla">Says "Let’s just go" — and somehow everyone follows.</button>
-      <button class="quiz-option" data-score="chilli">Says the brutally honest thing everyone else avoided.</button>
-      <button class="quiz-option" data-score="jelly">Turns a normal night into a story everyone laughs about later.</button>
-      <button class="quiz-option" data-score="green">Calms everyone down when things start getting chaotic.</button>
-    </div>
-  </div>
-
-  <div class="quiz-step" id="Step-Question-5" data-step="5">
-    <h2 class="quiz-question-title">Imagine you unexpectedly get a free day. What are you most likely to do?</h2>
-    <div class="quiz-options">
-      <button class="quiz-option" data-score="coffee">Dive into a book, podcast, or documentary about something fascinating.</button>
-      <button class="quiz-option" data-score="vanilla">Plan a spontaneous trip or try something completely new.</button>
-      <button class="quiz-option" data-score="chilli">Start a bold project, pitch a big idea, or take on a tough challenge.</button>
-      <button class="quiz-option" data-score="jelly">Call a bunch of friends and plan something fun together.</button>
-      <button class="quiz-option" data-score="green">Sleep in, take a peaceful walk, journal, or enjoy a slow day.</button>
-    </div>
-  </div>
-</div>
+</section>
 
 <script>
   (function () {
-    const quiz = {
+    const root = document.querySelector('[data-quiz-root]');
+    if (!root) return;
+
+    const screens = Array.from(root.querySelectorAll('[data-quiz-screen]'));
+    const progressBar = root.querySelector('[data-quiz-progress]');
+    const stepCount = root.querySelector('[data-quiz-count]');
+    const backButton = root.querySelector('[data-quiz-back]');
+    const startButton = root.querySelector('[data-quiz-start]');
+    const restartButton = root.querySelector('[data-quiz-restart]');
+    const resultName = root.querySelector('[data-result-name]');
+    const resultDescription = root.querySelector('[data-result-description]');
+    const resultTraits = root.querySelector('[data-result-traits]');
+    const resultEnergy = root.querySelector('[data-result-energy]');
+    const resultFit = root.querySelector('[data-result-fit]');
+    const resultLink = root.querySelector('[data-result-link]');
+
+    const archetypes = {
+      coffee: {
+        name: 'Coffee Bean',
+        traits: ['Curious', 'Grounded', 'Precise'],
+        description: 'You move with thought, restraint, and depth. Even when you are quiet, your point of view lands clearly.',
+        energy: 'Calm authority',
+        fit: 'Best on days that call for sharper thinking and quieter confidence.',
+        collection: '/collections/coffee-bean',
+        accent: '#6d4a2f'
+      },
+      chilli: {
+        name: 'Chilli Bean',
+        traits: ['Bold', 'Fiery', 'Unfiltered'],
+        description: 'You lead with instinct, heat, and impact. People feel your presence before you explain yourself.',
+        energy: 'High contrast',
+        fit: 'Best when the mood is direct, loud, and impossible to ignore.',
+        collection: '/collections/chilli-bean',
+        accent: '#e34b44'
+      },
+      vanilla: {
+        name: 'Vanilla Bean',
+        traits: ['Smooth', 'Stylish', 'Fluid'],
+        description: 'You have range, rhythm, and a polished way of moving that never feels forced.',
+        energy: 'Soft magnetism',
+        fit: 'Best when you want elegance, ease, and style without stiffness.',
+        collection: '/collections/vanilla-bean',
+        accent: '#d9b86f'
+      },
+      jelly: {
+        name: 'Jelly Bean',
+        traits: ['Playful', 'Social', 'Magnetic'],
+        description: 'You are switched on, socially alive, and naturally expressive. Your energy turns moments into signals.',
+        energy: 'Fast and social',
+        fit: 'Best for playful days, scene energy, and a look that feels current.',
+        collection: '/collections/jelly-bean',
+        accent: '#31b7c5'
+      },
+      green: {
+        name: 'Green Bean',
+        traits: ['Fresh', 'Grounded', 'Open'],
+        description: 'You carry lightness without losing shape. Your best style feels clean, calm, and fully lived in.',
+        energy: 'Restorative clarity',
+        fit: 'Best when you want a reset, softer movement, and easy confidence.',
+        collection: '/collections/green-bean',
+        accent: '#4da84a'
+      }
+    };
+
+    const state = {
+      current: 'welcome',
+      totalSteps: 5,
+      answers: {},
       scores: {
         coffee: 0,
         chilli: 0,
         vanilla: 0,
         jelly: 0,
-        green: 0,
-      },
-      archetypes: {
-        coffee: {
-          name: 'The Coffee Bean',
-          traits: ['Curious', 'Analytical', 'Thoughtful'],
-          description:
-            'You love understanding how things work and observing the world deeply. Even when you’re quiet in a room, your mind is full of ideas and questions.',
-          collection: '/collections/coffee-bean',
-        },
-        chilli: {
-          name: 'The Chilli Bean',
-          traits: ['Bold', 'Fiery', 'Authentic'],
-          description:
-            'You say what others hesitate to say and aren’t afraid to challenge the status quo. People may find you intense — but they always know you’re real.',
-          collection: '/collections/chilli-bean',
-        },
-        vanilla: {
-          name: 'The Vanilla Bean',
-          traits: ['Energetic', 'Adventurous', 'Optimistic'],
-          description:
-            'You’re always chasing the next experience and inspiring others to do the same. Life feels like something to explore, not overthink.',
-          collection: '/collections/vanilla-bean',
-        },
-        jelly: {
-          name: 'The Jelly Bean',
-          traits: ['Playful', 'Extroverted', 'Socially Magnetic'],
-          description:
-            'You bring energy, laughter, and chaos to every group you’re in. With you around, ordinary moments somehow turn into unforgettable stories.',
-          collection: '/collections/jelly-bean',
-        },
-        green: {
-          name: 'The Green Bean',
-          traits: ['Calm', 'Mindful', 'Grounded'],
-          description:
-            'You are the quiet balance in the group — the one people turn to when things get overwhelming. Your presence reminds everyone to slow down and breathe.',
-          collection: '/collections/green-bean',
-        },
-      },
-      currentStep: 0,
-      totalSteps: 5,
-      init() {
-        const startBtn = document.querySelector('[data-next]');
-        if (startBtn) startBtn.addEventListener('click', () => this.goToStep(1));
-
-        document.querySelectorAll('.quiz-option').forEach((opt) => {
-          opt.addEventListener('click', (e) => {
-            const score = e.target.dataset.score;
-            this.scores[score]++;
-            const nextStep = parseInt(e.target.closest('.quiz-step').dataset.step) + 1;
-            if (nextStep > this.totalSteps) {
-              this.showResults();
-            } else {
-              this.goToStep(nextStep);
-            }
-          });
-        });
-      },
-      goToStep(step) {
-        document.querySelectorAll('.quiz-step').forEach((s) => s.classList.remove('active'));
-        const target = document.getElementById(step === 'Results' ? 'Step-Results' : 'Step-Question-' + step);
-        if (target) target.classList.add('active');
-
-        // Update Progress
-        const percent = step === 'Results' ? 100 : (step / this.totalSteps) * 100;
-        document.getElementById('QuizProgress').style.width = percent + '%';
-      },
-      showResults() {
-        // Calculate Winner
-        let winner = 'coffee';
-        let max = 0;
-        for (const bean in this.scores) {
-          if (this.scores[bean] > max) {
-            max = this.scores[bean];
-            winner = bean;
-          }
-        }
-
-        const data = this.archetypes[winner];
-        
-        // Save Result
-        localStorage.setItem('bean_identity_result', winner);
-
-        // Redirect directly to the collection page
-        window.location.href = data.collection;
-      },
+        green: 0
+      }
     };
 
-    quiz.init();
+    function updateProgress() {
+      if (state.current === 'welcome') {
+        progressBar.style.width = '0%';
+        stepCount.textContent = 'Intro';
+        backButton.hidden = true;
+        return;
+      }
+
+      if (state.current === 'result') {
+        progressBar.style.width = '100%';
+        stepCount.textContent = 'Result';
+        backButton.hidden = false;
+        return;
+      }
+
+      const step = Number(state.current);
+      progressBar.style.width = ((step / state.totalSteps) * 100) + '%';
+      stepCount.textContent = 'Question ' + step + ' / ' + state.totalSteps;
+      backButton.hidden = step === 1;
+    }
+
+    function showScreen(name) {
+      state.current = name;
+      screens.forEach((screen) => {
+        screen.classList.toggle('is-active', screen.dataset.quizScreen === String(name));
+      });
+      updateProgress();
+    }
+
+    function getWinningBean() {
+      const tieOrder = ['coffee', 'vanilla', 'chilli', 'jelly', 'green'];
+      let winner = tieOrder[0];
+      let max = -1;
+
+      tieOrder.forEach((bean) => {
+        if (state.scores[bean] > max) {
+          max = state.scores[bean];
+          winner = bean;
+        }
+      });
+
+      return winner;
+    }
+
+    function renderResult(beanKey) {
+      const data = archetypes[beanKey];
+      if (!data) return;
+
+      root.style.setProperty('--result-accent', data.accent);
+      resultName.textContent = data.name;
+      resultDescription.textContent = data.description;
+      resultEnergy.textContent = data.energy;
+      resultFit.textContent = data.fit;
+      resultLink.href = data.collection;
+      resultTraits.innerHTML = '';
+
+      data.traits.forEach((trait) => {
+        const item = document.createElement('span');
+        item.className = 'bean-quiz__trait';
+        item.textContent = trait;
+        resultTraits.appendChild(item);
+      });
+
+      localStorage.setItem('bean_identity_result', beanKey);
+    }
+
+    function goNextFrom(step, optionButton) {
+      const score = optionButton.dataset.score;
+      const nextStep = step + 1;
+      const previousScore = state.answers[step];
+
+      if (previousScore) {
+        state.scores[previousScore] = Math.max(0, state.scores[previousScore] - 1);
+      }
+
+      state.answers[step] = score;
+      state.scores[score] += 1;
+
+      optionButton.closest('[data-quiz-screen]').querySelectorAll('.bean-quiz__option').forEach((option) => {
+        option.classList.remove('is-selected');
+      });
+      optionButton.classList.add('is-selected');
+
+      window.setTimeout(function () {
+        if (nextStep > state.totalSteps) {
+          const winner = getWinningBean();
+          renderResult(winner);
+          showScreen('result');
+        } else {
+          showScreen(String(nextStep));
+        }
+      }, 180);
+    }
+
+    function goBack() {
+      if (state.current === 'result') {
+        showScreen(String(state.totalSteps));
+        return;
+      }
+
+      if (state.current === 'welcome') {
+        return;
+      }
+
+      const step = Number(state.current);
+      if (step > 1) {
+        showScreen(String(step - 1));
+      } else {
+        showScreen('welcome');
+      }
+    }
+
+    function resetQuiz() {
+      state.current = 'welcome';
+      state.answers = {};
+      state.scores = {
+        coffee: 0,
+        chilli: 0,
+        vanilla: 0,
+        jelly: 0,
+        green: 0
+      };
+
+      root.querySelectorAll('.bean-quiz__option').forEach((option) => {
+        option.classList.remove('is-selected');
+      });
+
+      showScreen('welcome');
+    }
+
+    if (startButton) {
+      startButton.addEventListener('click', function () {
+        showScreen('1');
+      });
+    }
+
+    if (backButton) {
+      backButton.addEventListener('click', goBack);
+    }
+
+    if (restartButton) {
+      restartButton.addEventListener('click', resetQuiz);
+    }
+
+    root.querySelectorAll('.bean-quiz__screen[data-step]').forEach((screen) => {
+      const step = Number(screen.dataset.step);
+      screen.querySelectorAll('.bean-quiz__option').forEach((button) => {
+        button.addEventListener('click', function () {
+          goNextFrom(step, button);
+        });
+      });
+    });
+
+    showScreen('welcome');
   })();
 </script>
 
@@ -285,19 +915,19 @@
       "type": "text",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Answer 5 questions. Meet your Bean."
+      "default": "Five quick choices. One personality match."
     },
     {
       "type": "color",
       "id": "bg_color",
       "label": "Background Color",
-      "default": "#F5F5F5"
+      "default": "#080808"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text Color",
-      "default": "#000000"
+      "default": "#F5F5F5"
     }
   ]
 }

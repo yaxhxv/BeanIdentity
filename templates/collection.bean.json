@@ -13,10 +13,6 @@
       "type": "bean-character-header",
       "settings": {}
     },
-    "quiz-cta": {
-      "type": "bean-quiz-cta",
-      "settings": {}
-    },
     "product-grid": {
       "type": "main-collection-product-grid",
       "settings": {
@@ -40,7 +36,6 @@
   },
   "order": [
     "bean-header",
-    "quiz-cta",
     "product-grid"
   ]
 }
