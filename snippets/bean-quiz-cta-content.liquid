@@ -54,7 +54,7 @@
     .bean-quiz-cta__content {
       position: relative;
       z-index: 1;
-      max-width: 1040px;
+      width: min(104rem, calc(100% - 8rem));
       margin: 0 auto;
       display: grid;
       grid-template-columns: minmax(0, 1fr) auto;
@@ -124,6 +124,7 @@
 
     @media screen and (max-width: 989px) {
       .bean-quiz-cta__content {
+        width: min(104rem, calc(100% - 6rem));
         grid-template-columns: 1fr;
         align-items: start;
       }
@@ -131,7 +132,13 @@
 
     @media screen and (max-width: 749px) {
       .bean-quiz-cta {
-        padding-inline: 1.5rem;
+        padding-top: 5.6rem;
+        padding-bottom: 5.6rem;
+        padding-inline: 0;
+      }
+
+      .bean-quiz-cta__content {
+        width: calc(100% - 3.2rem);
       }
 
       .bean-quiz-cta__title {
@@ -144,6 +151,12 @@
 
       .bean-quiz-cta__button {
         width: 100%;
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .bean-quiz-cta__content {
+        width: calc(100% - 2.4rem);
       }
     }
   </style>

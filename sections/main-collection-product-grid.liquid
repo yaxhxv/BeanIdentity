@@ -43,9 +43,9 @@
     }
 
     .bean-collection-grid__intro {
-      width: min(148rem, calc(100% - 4rem));
-      margin: 0 auto 3rem;
-      padding: clamp(3.6rem, 5vw, 6rem) 0 2rem;
+      width: min(148rem, calc(100% - 8rem));
+      margin: 0 auto 3.6rem;
+      padding: clamp(4rem, 6vw, 6.5rem) 0 2.4rem;
       border-bottom: 1px solid rgba(11,11,11,0.08);
     }
 
@@ -85,14 +85,14 @@
     }
 
     .bean-collection-grid .facets-wrapper {
-      width: min(148rem, calc(100% - 4rem));
+      width: min(148rem, calc(100% - 8rem));
       margin-inline: auto;
     }
 
     .bean-collection-grid .collection.page-width,
     .bean-collection-grid .facets-vertical.page-width,
     .bean-collection-grid .collection:not(.page-width) {
-      width: min(148rem, calc(100% - 4rem));
+      width: min(148rem, calc(100% - 8rem));
       margin-inline: auto;
     }
 
@@ -143,9 +143,23 @@
       padding-top: 3rem;
     }
 
+    @media screen and (max-width: 1199px) {
+      .bean-collection-grid__intro,
+      .bean-collection-grid .facets-wrapper,
+      .bean-collection-grid .collection.page-width,
+      .bean-collection-grid .facets-vertical.page-width,
+      .bean-collection-grid .collection:not(.page-width) {
+        width: min(148rem, calc(100% - 6rem));
+      }
+    }
+
     @media screen and (max-width: 989px) {
       .bean-collection-grid__headline {
         grid-template-columns: 1fr;
+      }
+
+      .bean-collection-grid__intro {
+        margin-bottom: 2.8rem;
       }
     }
 
@@ -155,7 +169,13 @@
       .bean-collection-grid .collection.page-width,
       .bean-collection-grid .facets-vertical.page-width,
       .bean-collection-grid .collection:not(.page-width) {
-        width: calc(100% - 3rem);
+        width: calc(100% - 3.2rem);
+      }
+
+      .bean-collection-grid__intro {
+        margin-bottom: 2.4rem;
+        padding-top: 3.2rem;
+        padding-bottom: 1.8rem;
       }
 
       .bean-collection-grid__headline h2 {
@@ -164,6 +184,24 @@
 
       .bean-collection-grid__headline p {
         font-size: 1.45rem;
+      }
+
+      .bean-collection-grid .product-grid {
+        gap: 1.4rem;
+      }
+
+      .bean-collection-grid .card__information {
+        padding: 1.4rem 1.4rem 1.8rem;
+      }
+    }
+
+    @media screen and (max-width: 479px) {
+      .bean-collection-grid__intro,
+      .bean-collection-grid .facets-wrapper,
+      .bean-collection-grid .collection.page-width,
+      .bean-collection-grid .facets-vertical.page-width,
+      .bean-collection-grid .collection:not(.page-width) {
+        width: calc(100% - 2.4rem);
       }
     }
   {%- endif -%}
