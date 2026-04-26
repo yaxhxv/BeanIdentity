@@ -1,0 +1,61 @@
+╭─ success ────────────────────────────────────────────────────────────────────╮
+│                                                                              │
+│  Preview your theme (t)                                                      │
+│    • http://127.0.0.1:9292                                                   │
+│                                                                              │
+│  Next steps                                                                  │
+│    • Share your theme preview (p) [1]                                        │
+│      https://beanspot-2.myshopify.com/?preview_theme_id=190342103411         │
+│    • Customize your theme at the theme editor (e) [2]                        │
+│    • Preview your gift cards (g) [3]                                         │
+│                                                                              │
+╰──────────────────────────────────────────────────────────────────────────────╯
+[1] https://beanspot-2.myshopify.com/?preview_theme_id=190342103411
+[2] https://beanspot-2.myshopify.com/admin/themes/190342103411/editor?hr=9292
+[3] http://127.0.0.1:9292/gift_cards/[store_id]/preview
+
+• 21:06:06  Synced » update sections/featured-blog.liquid
+• 21:06:06  Synced » update sections/image-with-text.liquid
+• 21:06:12 Request »    GET 200 / 1781ms
+• 21:06:52 Request »    GET 200 / 948ms
+• 21:07:45 Request »    GET 200 /pages/which-bean-are-you 630ms
+• 21:07:48 Request »    GET 200 /collections/coffee-bean 1256ms
+• 21:08:01 Request »    GET 200 /products/the-bold-bean-acid-washed-oversized-tee 1073ms
+• 21:10:24 Request »    GET 200 / 766ms
+• 21:12:43  Synced » update sections/hero-banner-clean.liquid
+• 21:12:54  Synced » update templates/index.json
+• 21:12:55 Request »    GET 200 / 1318ms
+• 21:13:05 Request »    GET 200 / 1158ms
+• 21:14:38 Request »    GET 200 /pages/which-bean-are-you 885ms
+• 21:14:44 Request »    GET 200 / 935ms
+• 21:15:50  Synced » update sections/visual-transition.liquid
+• 21:15:50  Synced » update sections/quiz-entry-prompt.liquid
+• 21:15:51  Synced » update sections/identity-copy.liquid
+• 21:16:28  Synced » update sections/collection-slider.liquid
+• 21:16:41  Synced » update sections/most-popular-products.liquid
+• 21:16:52  Synced » update sections/beanagram-stories.liquid
+• 21:17:09  Synced » update sections/scrolling-marquee.liquid
+• 21:17:09  Synced » update sections/final-cta-loop.liquid
+• 21:17:30  Synced » update sections/quiz-entry-prompt.liquid
+• 21:17:31  Synced » update sections/collection-showcase-tabs.liquid
+• 21:17:31  Synced » update sections/image-with-text.liquid
+• 21:18:09  Synced » update templates/index.json
+• 21:18:09 Request »    GET 200 / 1584ms
+• 21:18:18  Synced » update templates/index.json
+• 21:18:19 Request »    GET 200 / 1450ms
+• 21:18:27  Synced » update templates/index.json
+• 21:18:27 Request »    GET 200 / 1439ms
+• 21:19:08 Request »    GET 200 / 999ms
+• 21:19:47 Request »    GET 200 / 961ms
+• 21:20:40 Request »    GET 200 / 1088ms
+• 21:21:19  Synced » update sections/identity-copy.liquid
+• 21:21:22 Request »    GET 404 /favicon.ico 300ms
+• 21:21:40 Request »    GET 200 / 1092ms
+• 21:22:09 Request »    GET 200 / 976ms
+• 21:22:22 Request »    GET 200 /products/curious-bean-acid-washed-oversized-tee 1145ms
+• 21:22:23 Request »    GET 200 /collections/green-bean 865ms
+• 21:22:26 Request »    GET 200 /collections/chilli-bean 764ms
+• 21:22:27 Request »    GET 200 /products/curious-bean-acid-washed-oversized-tee 978ms
+• 21:23:43  Synced » update sections/image-with-text.liquid
+• 21:23:57 Request »    GET 200 / 1083ms
+• 21:26:33 Request »    GET 200 /collections/chilli-bean 792ms

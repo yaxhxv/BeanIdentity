@@ -6,14 +6,31 @@
 
 {%- style -%}
   #IdentityCopy-{{ section.id }} {
-    background-color: {{ section.settings.bg_color }};
+    position: relative;
+    overflow: hidden;
+    background:
+      linear-gradient(180deg, #ede7e3 0%, #f5f5f5 100%);
     padding-top: {{ section.settings.padding_top }}px;
     padding-bottom: {{ section.settings.padding_bottom }}px;
     text-align: {{ section.settings.alignment }};
   }
 
+  #IdentityCopy-{{ section.id }}::before {
+    content: "ONE SYSTEM / FIVE PERSONALITIES";
+    position: absolute;
+    top: 2.4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    letter-spacing: 0.28em;
+    color: #c6a969;
+    white-space: nowrap;
+  }
+
   .identity-copy__wrapper {
-    max-width: {{ section.settings.content_width }}px;
+    max-width: min({{ section.settings.content_width }}px, calc(100vw - 4rem));
     margin: 0 auto;
     padding: 0 20px;
   }
@@ -21,28 +38,29 @@
   .identity-copy__headline {
     margin: 0;
     font-family: var(--font-heading-family);
-    font-size: {{ section.settings.headline_size_desktop }}rem;
-    font-weight: 700;
-    line-height: 1.1;
-    color: {{ section.settings.text_color }};
+    font-size: clamp(5rem, 10vw, 12rem);
+    font-weight: 900;
+    line-height: 0.82;
+    color: #0b0b0b;
     text-transform: uppercase;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
 
     /* Reveal Animation States */
-    opacity: 0;
-    transform: translateY(30px);
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .identity-copy__subline {
-    margin: 20px 0 0 0;
-    font-size: {{ section.settings.subline_size_desktop }}rem;
-    color: {{ section.settings.text_color }};
-    opacity: 0;
-    transform: translateY(20px);
+    margin: 3rem 0 0 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.55rem, 1.5vw, 2rem);
+    color: #2b2b2b;
+    opacity: 1;
+    transform: translateY(0);
     transition: opacity 0.8s ease-out 0.2s, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s;
     line-height: 1.6;
-    max-width: 600px;
+    max-width: 70rem;
     display: inline-block;
   }
 
@@ -55,7 +73,7 @@
 
   @media screen and (max-width: 749px) {
     .identity-copy__headline {
-      font-size: {{ section.settings.headline_size_mobile }}rem;
+      font-size: clamp(4.2rem, 15vw, 6.2rem);
     }
     .identity-copy__subline {
       font-size: {{ section.settings.subline_size_mobile }}rem;

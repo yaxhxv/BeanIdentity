@@ -1,9 +1,7 @@
 {% comment %}
-  SECTION: CLEAN HERO BANNER (5 SLIDES) - LCP OPTIMIZED
-  - Full Width, Auto-Play, No Arrows, Typography & Buttons.
-  - Separate Desktop/Mobile Images & Ratios.
-  - Slide 1: Eager Load + Fetchpriority High (Speed Boost).
-  - Everlane-inspired minimalist design.
+  SECTION: CLEAN HERO BANNER
+  - Full width autoplay hero using the same image blocks.
+  - Editorial Bean Identity treatment with restrained motion.
 {% endcomment %}
 
 {% liquid
@@ -39,7 +37,8 @@
     width: 100%;
     overflow: hidden;
     display: block;
-    background: linear-gradient(180deg, #0a0a0a 0%, #1a1a1a 100%);
+    background: #0b0b0b;
+    isolation: isolate;
   }
 
   /* Container Widths */
@@ -60,7 +59,7 @@
   .clean-hero-track {
     display: flex;
     width: 100%;
-    transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
     will-change: transform;
   }
 
@@ -75,6 +74,7 @@
     width: 100%;
     position: relative;
     overflow: hidden;
+    background: #0b0b0b;
   }
 
   .clean-img {
@@ -84,6 +84,14 @@
     display: block;
     position: absolute;
     top: 0; left: 0;
+    transform: scale(1.02);
+    filter: saturate(0.85) contrast(1.08);
+    transition: transform 6s ease, filter 0.6s ease;
+  }
+
+  .clean-hero-slide.is-active .clean-img {
+    transform: scale(1.08);
+    filter: saturate(0.92) contrast(1.12);
   }
 
   /* CONTENT OVERLAY */
@@ -95,23 +103,42 @@
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    padding: 20px;
-    z-index: 2;
-    text-align: {{ section.settings.content_alignment }};
+    justify-content: flex-end;
+    align-items: flex-start;
+    padding: clamp(3.2rem, 6vw, 7rem);
+    z-index: 5;
+    text-align: left;
     color: {{ section.settings.text_color }};
   }
 
-  {% if section.settings.content_alignment == 'center' %}
-    .hero-content-overlay {
-      align-items: center;
-    }
-  {% else %}
-    .hero-content-overlay {
-      align-items: flex-start;
-      padding-left: 5%;
-    }
-  {% endif %}
+  .hero-copy-stack {
+    width: min(78rem, 100%);
+    transform: translateY(1rem);
+    opacity: 0;
+    animation: heroCopyIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.15s forwards;
+  }
+
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 1.4rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1rem, 1.1vw, 1.2rem);
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #c6a969;
+  }
+
+  .hero-kicker::before {
+    content: "";
+    width: 4.8rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.85;
+  }
 
   .hero-overlay-mask {
     position: absolute;
@@ -120,13 +147,10 @@
     width: 100%;
     height: 100%;
     {% assign base_opacity = section.settings.overlay_opacity | divided_by: 100.0 %}
-    background: linear-gradient(
-      to bottom,
-      rgba(0, 0, 0, {{ base_opacity | times: 1.2 | at_most: 0.9 }}) 0%,
-      rgba(0, 0, 0, {{ base_opacity | times: 0.5 }}) 50%,
-      rgba(0, 0, 0, {{ base_opacity | times: 1.8 | at_most: 0.95 }}) 100%
-    );
-    z-index: 1;
+    background:
+      linear-gradient(90deg, rgba(0, 0, 0, 0.82) 0%, rgba(0, 0, 0, 0.5) 34%, rgba(0, 0, 0, 0.16) 72%),
+      linear-gradient(180deg, rgba(0, 0, 0, 0.18) 0%, rgba(0, 0, 0, 0.05) 42%, rgba(0, 0, 0, 0.82) 100%);
+    z-index: 2;
   }
 
   /* Cinematic Vignette */
@@ -135,9 +159,25 @@
     position: absolute;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.4) 100%);
+    background:
+      radial-gradient(circle at 72% 32%, transparent 0, rgba(0,0,0,0.08) 34%, rgba(0,0,0,0.72) 100%),
+      linear-gradient(0deg, rgba(0,0,0,0.18), rgba(0,0,0,0.18));
     pointer-events: none;
-    z-index: 2;
+    z-index: 3;
+  }
+
+  .clean-image-wrapper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.18;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
+    background-size: 76px 76px;
+    mask-image: linear-gradient(90deg, #000, transparent 72%);
   }
 
   /* Bottom Edge Blend */
@@ -146,79 +186,119 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 200px;
-    background: linear-gradient(to bottom, transparent, rgba(10, 10, 10, 0.8) 50%, #0a0a0a 100%);
+    height: 32%;
+    background: linear-gradient(to bottom, transparent, rgba(11, 11, 11, 0.9) 70%, #0b0b0b 100%);
     z-index: 4;
     pointer-events: none;
   }
 
   .hero-headline {
-    font-size: clamp(2.4rem, 5vw, 4.8rem);
-    font-weight: 700;
-    margin: 0 0 1rem;
-    line-height: 1.1;
+    font-family: var(--font-heading-family);
+    font-size: clamp(5.2rem, 11vw, 13.2rem);
+    font-weight: 900;
+    margin: 0;
+    max-width: 11ch;
+    line-height: 0.78;
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    letter-spacing: 0;
+    color: #f5f5f5;
+    text-wrap: balance;
+    text-shadow: 0 2rem 6rem rgba(0,0,0,0.55);
   }
 
   .hero-subline {
-    font-size: clamp(1.4rem, 2vw, 1.8rem);
-    font-weight: 400;
-    margin: 0 0 2.5rem;
-    max-width: 600px;
-    opacity: 0.95;
-    line-height: 1.5;
-    text-shadow: 0 1px 5px rgba(0,0,0,0.3);
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.45rem, 1.6vw, 1.85rem);
+    font-weight: 500;
+    margin: 2rem 0 0;
+    max-width: 52rem;
+    color: rgba(245, 245, 245, 0.86);
+    line-height: 1.45;
+    text-shadow: 0 1rem 3rem rgba(0,0,0,0.45);
   }
 
   .hero-buttons {
     display: flex;
-    gap: 15px;
+    gap: 1.2rem;
     flex-wrap: wrap;
-    {% if section.settings.content_alignment == 'center' %}
-      justify-content: center;
-    {% endif %}
+    margin-top: 3rem;
+    align-items: center;
   }
 
   .hero-btn {
-    display: inline-block;
-    padding: 14px 32px;
-    font-size: 1.4rem;
-    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 5.4rem;
+    padding: 0 3rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
     text-decoration: none;
     text-transform: uppercase;
-    letter-spacing: 0.1em;
-    transition: all 0.3s ease;
-    min-width: 180px;
+    letter-spacing: 0.16em;
+    transition: color 0.28s ease, background 0.28s ease, border-color 0.28s ease, transform 0.28s ease;
+    min-width: 18.8rem;
     text-align: center;
+    border-radius: 0;
   }
 
   .hero-btn-primary {
-    background: {{ section.settings.text_color }};
-    color: #0a0a0a;
-    border: 1px solid {{ section.settings.text_color }};
-    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+    background: #f5f5f5;
+    color: #0b0b0b;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 2rem 5rem rgba(0,0,0,0.28);
   }
 
   .hero-btn-primary:hover {
-    background: transparent;
-    color: {{ section.settings.text_color }};
-    backdrop-filter: blur(5px);
-    transform: translateY(-2px);
+    background: #c6a969;
+    border-color: #c6a969;
+    color: #0b0b0b;
+    transform: translateY(-0.2rem);
   }
 
   .hero-btn-secondary {
-    background: rgba(255, 255, 255, 0.1);
-    color: {{ section.settings.text_color }};
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    backdrop-filter: blur(10px);
+    background: rgba(11, 11, 11, 0.26);
+    color: #f5f5f5;
+    border: 1px solid rgba(245, 245, 245, 0.55);
+    backdrop-filter: blur(14px);
   }
 
   .hero-btn-secondary:hover {
-    background: rgba(255, 255, 255, 0.2);
-    border-color: {{ section.settings.text_color }};
-    transform: translateY(-2px);
+    background: rgba(245, 245, 245, 0.12);
+    border-color: #c6a969;
+    color: #c6a969;
+    transform: translateY(-0.2rem);
+  }
+
+  .hero-brand-note {
+    position: absolute;
+    right: clamp(2rem, 4vw, 5.2rem);
+    bottom: clamp(2rem, 4vw, 4.8rem);
+    z-index: 5;
+    display: grid;
+    gap: 0.5rem;
+    max-width: 20rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 700;
+    line-height: 1.4;
+    letter-spacing: 0.14em;
+    text-align: right;
+    text-transform: uppercase;
+    color: rgba(245, 245, 245, 0.72);
+  }
+
+  .hero-brand-note strong {
+    color: #c6a969;
+    font-weight: 800;
+  }
+
+  @keyframes heroCopyIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   /* RESPONSIVE VISIBILITY & RATIOS */
@@ -229,6 +309,7 @@
   @media (min-width: 768px) {
     .clean-image-wrapper {
       padding-bottom: {{ desktop_ratio }};
+      min-height: 62rem;
     }
   }
 
@@ -239,6 +320,7 @@
 
     .clean-image-wrapper {
       padding-bottom: {{ mobile_ratio }};
+      min-height: 67rem;
     }
 
     .hero-buttons {
@@ -253,8 +335,36 @@
     }
 
     .hero-content-overlay {
-        justify-content: flex-end;
-        padding-bottom: 60px;
+      justify-content: flex-end;
+      padding: 3.2rem 2rem 7.2rem;
+    }
+
+    .hero-headline {
+      font-size: clamp(4.4rem, 16vw, 6.8rem);
+      max-width: 10ch;
+    }
+
+    .hero-subline {
+      max-width: 34rem;
+    }
+
+    .hero-overlay-mask {
+      background:
+        linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.35) 42%, rgba(0,0,0,0.9) 100%),
+        linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
+    }
+
+    .clean-image-wrapper::before {
+      background-size: 54px 54px;
+      opacity: 0.12;
+    }
+
+    .hero-kicker::before {
+      width: 3.2rem;
+    }
+
+    .hero-brand-note {
+      display: none;
     }
   }
 
@@ -265,16 +375,16 @@
     left: 50%;
     transform: translateX(-50%);
     display: flex;
-    gap: 12px;
-    z-index: 5;
+    gap: 1rem;
+    z-index: 6;
     pointer-events: none;
   }
 
   .clean-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, 0.3);
+    width: 3rem;
+    height: 0.3rem;
+    border-radius: 0;
+    background: rgba(245, 245, 245, 0.28);
     cursor: pointer;
     pointer-events: auto;
     padding: 0;
@@ -283,9 +393,9 @@
   }
 
   .clean-dot.active {
-    width: 28px;
-    background: {{ section.settings.text_color | default: '#FFFFFF' }};
-    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+    width: 5.2rem;
+    background: #c6a969;
+    box-shadow: 0 0 2rem rgba(198,169,105,0.35);
   }
 {%- endstyle -%}
 
@@ -297,7 +407,7 @@
 >
   <div class="clean-hero-track">
     {% for block in section.blocks %}
-      <div class="clean-hero-slide" {{ block.shopify_attributes }}>
+      <div class="clean-hero-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
         <div class="clean-image-wrapper">
           {% liquid
             assign loading_strategy = 'lazy'
@@ -355,27 +465,35 @@
           <div class="hero-bottom-blend"></div>
 
           <div class="hero-content-overlay">
-            {% if block.settings.headline != blank %}
-              <h2 class="hero-headline">{{ block.settings.headline }}</h2>
-            {% endif %}
-
-            {% if block.settings.subline != blank %}
-              <p class="hero-subline">{{ block.settings.subline }}</p>
-            {% endif %}
-
-            <div class="hero-buttons">
-              {% if block.settings.button_1_label != blank %}
-                <a href="{{ block.settings.button_1_link | default: '#' }}" class="hero-btn hero-btn-primary">
-                  {{ block.settings.button_1_label }}
-                </a>
+            <div class="hero-copy-stack">
+              <p class="hero-kicker">Bean Identity</p>
+              {% if block.settings.headline != blank %}
+                <h2 class="hero-headline">{{ block.settings.headline }}</h2>
               {% endif %}
 
-              {% if block.settings.button_2_label != blank %}
-                <a href="{{ block.settings.button_2_link | default: '#' }}" class="hero-btn hero-btn-secondary">
-                  {{ block.settings.button_2_label }}
-                </a>
+              {% if block.settings.subline != blank %}
+                <p class="hero-subline">{{ block.settings.subline }}</p>
               {% endif %}
+
+              <div class="hero-buttons">
+                {% if block.settings.button_1_label != blank %}
+                  <a href="{{ block.settings.button_1_link | default: '#' }}" class="hero-btn hero-btn-primary">
+                    {{ block.settings.button_1_label }}
+                  </a>
+                {% endif %}
+
+                {% if block.settings.button_2_label != blank %}
+                  <a href="{{ block.settings.button_2_link | default: '#' }}" class="hero-btn hero-btn-secondary">
+                    {{ block.settings.button_2_label }}
+                  </a>
+                {% endif %}
+              </div>
             </div>
+          </div>
+
+          <div class="hero-brand-note" aria-hidden="true">
+            <span><strong>One system.</strong></span>
+            <span>Five personalities.</span>
           </div>
         </div>
       </div>
@@ -414,7 +532,9 @@
       currentIndex = index;
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
 
-      // Update dots
+      slides.forEach((slide) => slide.classList.remove('is-active'));
+      if (slides[currentIndex]) slides[currentIndex].classList.add('is-active');
+
       dots.forEach((d) => d.classList.remove('active'));
       if (dots[currentIndex]) dots[currentIndex].classList.add('active');
     }

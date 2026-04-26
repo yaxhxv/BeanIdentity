@@ -6,9 +6,12 @@
 
 {%- style -%}
   #Beanagram-{{ section.id }} {
-    background-color: {{ section.settings.bg_color }};
-    padding: 10rem 0;
+    background:
+      radial-gradient(circle at 12% 0%, rgba(198,169,105,0.16), transparent 24%),
+      #121212;
+    padding: clamp(8rem, 10vw, 13rem) 0;
     overflow: hidden;
+    color: #f5f5f5;
   }
 
   .beanagram-header {
@@ -19,16 +22,17 @@
 
   .beanagram-title {
     font-family: var(--font-heading-family);
-    font-size: clamp(3.2rem, 6vw, 4.8rem);
-    font-weight: 800;
+    font-size: clamp(4rem, 7vw, 8.8rem);
+    font-weight: 900;
+    line-height: 0.9;
     margin: 0 0 1rem 0;
-    color: {{ section.settings.text_color }};
+    color: #f5f5f5;
   }
 
   .beanagram-subtitle {
+    font-family: 'Poppins', sans-serif;
     font-size: 1.8rem;
-    color: {{ section.settings.text_color }};
-    opacity: 0.7;
+    color: rgba(245,245,245,0.68);
     margin: 0;
   }
 
@@ -36,7 +40,7 @@
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 3rem;
+    gap: 2rem;
     padding: 2rem 4rem 4rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
@@ -47,23 +51,25 @@
   }
 
   .beanagram-card {
-    flex: 0 0 32rem;
-    background: #EDE7E3;
-    border: 1px solid #C6A969;
-    border-radius: 12px;
-    padding: 2.5rem;
+    flex: 0 0 36rem;
+    background: rgba(245,245,245,0.05);
+    border: 1px solid rgba(245,245,245,0.12);
+    border-radius: 0;
+    padding: 2.8rem;
     scroll-snap-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     display: flex;
     flex-direction: column;
-    min-height: 38rem;
-    transition: transform 0.3s ease;
+    min-height: 40rem;
+    transition: transform 0.35s ease, border-color 0.35s ease, background 0.35s ease;
     /* Dynamic Border Accent */
-    border-top: 6px solid var(--bean-accent);
+    border-top: 4px solid var(--bean-accent);
   }
 
   .beanagram-card:hover {
-    transform: translateY(-10px);
+    transform: translateY(-0.8rem);
+    border-color: var(--bean-accent);
+    background: rgba(245,245,245,0.08);
   }
 
   .beanagram-card__header {
@@ -77,7 +83,7 @@
     width: 5rem;
     height: 5rem;
     border-radius: 50%;
-    background: #f4f4f4;
+    background: rgba(245,245,245,0.08);
     overflow: hidden;
     flex-shrink: 0;
     border: 2px solid var(--bean-accent);
@@ -97,7 +103,7 @@
   .beanagram-card__handle {
     font-weight: 800;
     font-size: 1.6rem;
-    color: #000000;
+    color: #f5f5f5;
   }
 
   .beanagram-card__bean-badge {
@@ -111,7 +117,7 @@
   .beanagram-card__story {
     font-size: 1.6rem;
     line-height: 1.6;
-    color: #2B2B2B;
+    color: rgba(245,245,245,0.84);
     margin: 0;
     flex-grow: 1;
     font-style: italic;
@@ -119,14 +125,14 @@
 
   .beanagram-card__footer {
     padding-top: 2rem;
-    border-top: 1px solid #C6A969;
+    border-top: 1px solid rgba(245,245,245,0.16);
     margin-top: 2rem;
     display: flex;
     align-items: center;
     gap: 1rem;
     font-size: 1.3rem;
     font-weight: 600;
-    color: #999;
+    color: rgba(245,245,245,0.48);
   }
 
   .beanagram-card__icon {
@@ -143,10 +149,10 @@
   .beanagram-cta {
     display: inline-block;
     padding: 1.5rem 4rem;
-    border: 2px solid #C6A969;
+    border: 1px solid #C6A969;
     text-decoration: none;
     font-weight: 700;
-    color: #000000;
+    color: #f5f5f5;
     text-transform: uppercase;
     transition: all 0.3s ease;
   }

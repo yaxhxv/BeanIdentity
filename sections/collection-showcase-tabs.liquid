@@ -10,6 +10,7 @@
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+    background: linear-gradient(180deg, #ede7e3 0%, #f5f5f5 100%) !important;
   }
 
   @media screen and (min-width: 750px) {
@@ -28,23 +29,25 @@
 
   /* --- HEADER --- */
   .cst-header {
-    margin-bottom: 2rem;
+    margin-bottom: 3.2rem;
     text-align: {{ section.settings.heading_align }};
   }
 
   .cst-heading {
-    font-size: 3rem;
-    font-weight: 800;
+    font-family: var(--font-heading-family);
+    font-size: clamp(4rem, 7vw, 8.6rem);
+    font-weight: 900;
     text-transform: uppercase;
-    line-height: 1.1;
+    line-height: 0.86;
     margin: 0;
-    color: {{ section.settings.text_color }};
+    color: #0b0b0b;
   }
 
   .cst-description {
       margin-top: 10px;
-      font-size: 1.4rem;
-      color: {{ section.settings.text_color }};
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      color: #2b2b2b;
       opacity: 0.8;
       max-width: 600px;
       margin-left: auto;
@@ -60,7 +63,7 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 1rem;
+    gap: 0.8rem;
     margin-bottom: 3rem;
     padding-bottom: 0.5rem;
     scrollbar-width: thin;
@@ -75,20 +78,24 @@
 
   .cst-tab-btn {
     background: transparent;
-    border: 1px solid #C6A969;
-    padding: 10px 24px;
-    font-size: 1.4rem;
-    font-weight: 600;
+    border: 1px solid rgba(11,11,11,0.28);
+    padding: 12px 28px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 900;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.3s ease;
-    color: {{ section.settings.text_color }};
-    border-radius: 4px;
+    color: #0b0b0b;
+    border-radius: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
   }
 
   .cst-tab-btn:hover {
-    background: #EDE7E3;
+    background: #0b0b0b;
     border-color: #C6A969;
+    color: #f5f5f5;
   }
 
   .cst-tab-btn.active {
@@ -116,7 +123,7 @@
 
   .cst-carousel-track {
     display: flex;
-    transition: transform 0.5s ease-in-out;
+    transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
     width: 100%;
   }
 
@@ -124,7 +131,7 @@
   .cst-card-item {
     flex: 0 0 66%; /* Mobile: 1.5 items visible (66%) */
     width: 66%;
-    padding: 0 8px;
+    padding: 0 10px;
     box-sizing: border-box;
     scroll-snap-align: start;
     flex-shrink: 0;
@@ -189,9 +196,10 @@
     width: 100%;
     aspect-ratio: 0.8;
     overflow: hidden;
-    border-radius: 12px;
-    background: #EDE7E3;
-    margin-bottom: 1.2rem;
+    border-radius: 0;
+    background: #ebe7e2;
+    margin-bottom: 1.4rem;
+    border: 1px solid rgba(11,11,11,0.08);
   }
 
   .cst-card-img {
@@ -212,7 +220,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.4);
+    background: rgba(0, 0, 0, 0.54);
     opacity: 0;
     display: flex;
     flex-direction: column;
@@ -242,6 +250,7 @@
     max-width: 200px;
     padding: 12px 0;
     text-align: center;
+    font-family: 'Poppins', sans-serif;
     font-size: 1.3rem;
     font-weight: 700;
     text-transform: uppercase;
@@ -297,6 +306,7 @@
     padding-right: 1rem;
     color: {{ section.settings.text_color }};
     font-size: 1.3rem;
+    font-weight: 700;
   }
 
   .cst-card-price {

@@ -17,11 +17,11 @@
           "settings": {
             "image_d": "shopify://shop_images/Hero_2.png",
             "headline": "Wear who you are",
-            "subline": "Insert supporting sub-line copy here.",
+            "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
             "button_1_label": "Find your Bean",
-            "button_1_link": "",
-            "button_2_label": "Meet the Beans",
-            "button_2_link": ""
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop the Beans",
+            "button_2_link": "/collections/all"
           }
         },
         "slide_Y7r4GX": {
@@ -29,11 +29,11 @@
           "settings": {
             "image_d": "shopify://shop_images/Hero_1.png",
             "headline": "Wear who you are",
-            "subline": "Insert supporting sub-line copy here.",
+            "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
             "button_1_label": "Find your Bean",
-            "button_1_link": "",
-            "button_2_label": "Meet the Beans",
-            "button_2_link": ""
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop the Beans",
+            "button_2_link": "/collections/all"
           }
         },
         "slide_cJBTmD": {
@@ -41,11 +41,11 @@
           "settings": {
             "image_d": "shopify://shop_images/Hero_3.png",
             "headline": "Wear who you are",
-            "subline": "Insert supporting sub-line copy here.",
+            "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
             "button_1_label": "Find your Bean",
-            "button_1_link": "",
-            "button_2_label": "Meet the Beans",
-            "button_2_link": ""
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop the Beans",
+            "button_2_link": "/collections/all"
           }
         },
         "slide_t83Cix": {
@@ -133,9 +133,9 @@
     "quiz_entry_prompt_hp": {
       "type": "quiz-entry-prompt",
       "settings": {
-        "headline": "Not sure which bean you are?",
-        "subline": "Meet the archetype that fits your soul and wear your identity with pride.",
-        "button_label": "Find Out",
+        "headline": "Which side of you shows up today?",
+        "subline": "Take the identity quiz and meet the bean that matches your mood, edge, and everyday uniform.",
+        "button_label": "Start the Quiz",
         "bg_color": "#F5F5F5",
         "text_color": "#000000",
         "button_bg": "#C6A969",
@@ -167,7 +167,7 @@
           "type": "collection",
           "settings": {
             "image": "shopify://shop_images/878F49BF-A84F-4DB0-AFD7-873B3FA95B96.png",
-            "title": "Chilli bean",
+            "title": "Chilli Bean",
             "url": "shopify://collections/chilli-bean",
             "aspect_ratio": "100"
           }
@@ -200,8 +200,8 @@
       ],
       "name": "Bean Collection Slider",
       "settings": {
-        "title": "Choose what feels like you",
-        "subtitle": "Pick Your Bean",
+        "title": "Meet the Beans",
+        "subtitle": "Choose Your Energy",
         "enable_autoplay": true,
         "autoplay_speed": 3,
         "bg_color": "#EDE7E3",
@@ -248,7 +248,7 @@
       "name": "Most Popular Products",
       "settings": {
         "title": "Community Has Spoken",
-        "description": "Shop What’s Selling",
+        "description": "The pieces people keep reaching for.",
         "heading_size": 32,
         "layout_mode": "carousel",
         "mobile_cols": "2",
@@ -294,8 +294,8 @@
         "story_3"
       ],
       "settings": {
-        "title": "People who’ve found their Bean",
-        "subtitle": "Meet the real people wearing their true identities.",
+        "title": "The Bean Stories",
+        "subtitle": "Identity notes from the community.",
         "cta_label": "Share Your Bean Story",
         "cta_link": "",
         "bg_color": "#EDE7E3",
@@ -362,8 +362,8 @@
     "identity_copy_hp": {
       "type": "identity-copy",
       "settings": {
-        "headline": "Express Every Bean of Your Personality.",
-        "subline": "India's first personality-driven apparel brand. Find the archetype that speaks your language and wear your identity with pride.",
+        "headline": "One identity. Five personalities.",
+        "subline": "Bean Identity is built for the versions of you that refuse to dress the same every day.",
         "bg_color": "#EDE7E3",
         "text_color": "#000000",
         "alignment": "center",
@@ -379,8 +379,8 @@
     "final_cta_loop_hp": {
       "type": "final-cta-loop",
       "settings": {
-        "headline": "Still haven't found your soul-bean?",
-        "subline": "Take the identity quiz again or browse the universe of all five beans.",
+        "headline": "Wear the version that feels real.",
+        "subline": "Start with the quiz or enter the full Bean Identity universe.",
         "bg_color": "#121212",
         "text_color": "#EDE7E3",
         "primary_btn_bg": "#C6A969",
@@ -455,16 +455,43 @@
             "collection": "coffee-bean",
             "limit": 8
           }
+        },
+        "tab_chilli": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Chilli Bean",
+            "collection": "chilli-bean",
+            "limit": 8
+          }
+        },
+        "tab_vanilla": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Vanilla Bean",
+            "collection": "vanilla-bean",
+            "limit": 8
+          }
+        },
+        "tab_jelly": {
+          "type": "tab",
+          "settings": {
+            "tab_label": "Jelly Bean",
+            "collection": "jelly-bean",
+            "limit": 8
+          }
         }
       },
       "block_order": [
         "tab_4aKGTe",
-        "tab_ajdcBE"
+        "tab_ajdcBE",
+        "tab_chilli",
+        "tab_vanilla",
+        "tab_jelly"
       ],
       "name": "Collection Showcase Tabs",
       "settings": {
-        "heading": "Our BEANS Collection",
-        "description": "",
+        "heading": "Shop by Bean",
+        "description": "<p>Every drop starts with a personality. Pick the one that feels closest today.</p>",
         "heading_align": "center",
         "bg_color": "#F5F5F5",
         "text_color": "#000000",
@@ -527,6 +554,7 @@
     },
     "slideshow_6AdwP4": {
       "type": "slideshow",
+      "disabled": true,
       "blocks": {
         "slide_br6zhC": {
           "type": "slide",
@@ -565,6 +593,7 @@
     },
     "most_popular_products_a43Rtk": {
       "type": "most-popular-products",
+      "disabled": true,
       "blocks": {
         "product_cDAdNi": {
           "type": "product",
@@ -614,6 +643,7 @@
     },
     "featured_blog_bhD3VW": {
       "type": "featured-blog",
+      "disabled": true,
       "name": "Blog Posts",
       "settings": {
         "blog": "news",
@@ -636,18 +666,18 @@
   "order": [
     "hero_banner_clean_NxXFFK",
     "visual_transition_divider",
+    "identity_copy_hp",
     "quiz_entry_prompt_hp",
     "collection_slider_yzYUYt",
     "most_popular_products_fJfFYg",
     "beanagram_stories_hp",
     "scrolling_marquee_hp",
-    "identity_copy_hp",
-    "final_cta_loop_hp",
     "image_with_text_zep9A9",
     "collection_showcase_tabs_nQm96R",
     "image_with_text_nFqPww",
     "slideshow_6AdwP4",
     "most_popular_products_a43Rtk",
-    "featured_blog_bhD3VW"
+    "featured_blog_bhD3VW",
+    "final_cta_loop_hp"
   ]
 }
