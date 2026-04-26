@@ -59,3 +59,47 @@
 • 21:23:43  Synced » update sections/image-with-text.liquid
 • 21:23:57 Request »    GET 200 / 1083ms
 • 21:26:33 Request »    GET 200 /collections/chilli-bean 792ms
+• 21:33:02 Request »    GET 200 /collections/chilli-bean 1035ms
+• 21:33:03  Synced » update templates/index.json
+• 21:33:03 Request »    GET 200 / 1201ms
+• 00:26:57  Synced » delete snippets/bean-header-content.liquid
+• 00:26:59 Request »    GET 200 /collections/chilli-bean 1354ms
+• 00:26:59 Request »    GET 200 / 2006ms
+• 00:27:52 Request »    GET 200 /collections/green-bean 972ms
+• 00:28:54  Synced » update snippets/bean-header-content.liquid
+• 00:28:54 Request »    GET 200 /collections/chilli-bean 1095ms
+• 00:28:54 Request »    GET 200 /collections/green-bean 1330ms
+• 00:30:06 Request »    GET 200 / 1789ms
+• 00:30:13 Request »    GET 200 /collections/coffee-bean 1364ms
+• 00:31:37  Synced » update snippets/bean-header-content.liquid
+• 00:31:37  Synced » update templates/collection.bean.json
+• 00:31:38 Request »    GET 200 /collections/chilli-bean 1045ms
+• 00:31:38 Request »    GET 200 /collections/coffee-bean 1064ms
+• 00:31:38 Request »    GET 200 /collections/coffee-bean 1042ms
+• 00:31:38 Request »    GET 200 /collections/chilli-bean 1150ms
+• 00:31:40 Request »    GET 400 /sf_private_access_tokens 613ms
+• 00:32:10  Synced » update snippets/bean-quiz-cta-content.liquid
+• 00:32:10 Request »    GET 200 /collections/coffee-bean 846ms
+• 00:32:10 Request »    GET 200 /collections/chilli-bean 865ms
+• 00:32:47  Synced » update sections/main-collection-product-grid.liquid
+• 00:32:59 Request »    GET 200 /collections/chilli-bean 1210ms
+• 00:33:08 Request »    GET 200 /collections/coffee-bean 1076ms
+• 00:33:08 Request »    GET 200 /collections/chilli-bean 1199ms
+• 00:33:30 Request »    GET 200 / 1233ms
+• 00:34:17 Request »    GET 200 /collections/chilli-bean 791ms
+• 00:34:54 Request »    GET 200 /pages/which-bean-are-you 698ms
+• 00:38:45 Request »    GET 200 / 877ms
+• 00:38:52 Request »    GET 200 /pages/which-bean-are-you 692ms
+• 00:39:01 Request »    GET 200 /collections/coffee-bean 729ms
+• 00:40:09  Synced » update sections/main-quiz.liquid
+• 00:40:09 Request »    GET 200 /collections/chilli-bean 1264ms
+• 00:40:09 Request »    GET 200 /collections/coffee-bean 1416ms
+• 00:40:15 Request »    GET 200 /pages/which-bean-are-you 927ms
+• 00:40:20 Request »    GET 200 /pages/which-bean-are-you 727ms
+• 00:40:32 Request »    GET 200 / 1197ms
+• 00:40:36 Request »    GET 200 /pages/which-bean-are-you 753ms
+• 00:41:03 Request »    GET 200 /collections/coffee-bean 1243ms
+• 00:41:22 Request »    GET 200 / 867ms
+• 00:41:26 Request »    GET 200 / 914ms
+• 00:48:55 Request »    GET 200 /pages/which-bean-are-you 955ms
+• 00:49:37 Request »    GET 200 /collections/green-bean 863ms
