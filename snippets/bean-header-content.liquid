@@ -56,13 +56,15 @@
       assign bean_voice = 'Internet-fluent, glossy, and meme-forward.'
       assign bean_audience = 'Gamers and digital creators.'
   endcase
+
+  assign image_pos = image_alignment | default: 'right'
 -%}
 
 <style>
   .bean-editorial-header {
     background-color: #F5F5F5;
     color: #2B2B2B;
-    padding: 100px 0;
+    padding: 120px 0;
     font-family: 'Poppins', sans-serif;
     position: relative;
     overflow: hidden;
@@ -88,11 +90,31 @@
     z-index: 2;
   }
 
-  /* Header Section */
-  .bean-header-top {
-    margin-bottom: 80px;
+  /* Main Grid Layout */
+  .bean-main-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 60px;
+    align-items: flex-start;
   }
 
+  @media screen and (min-width: 990px) {
+    .bean-main-grid {
+      grid-template-columns: 1.2fr 1fr;
+      gap: 80px;
+    }
+    .bean-main-grid--image-left {
+      direction: rtl;
+    }
+    .bean-main-grid--image-left .bean-text-content {
+      direction: ltr;
+    }
+    .bean-main-grid--image-left .bean-image-content {
+      direction: ltr;
+    }
+  }
+
+  /* Text Content Styling */
   .bean-eyebrow {
     font-size: 1.3rem;
     font-weight: 500;
@@ -104,9 +126,9 @@
   }
 
   .bean-main-title {
-    font-size: clamp(5rem, 10vw, 9rem);
+    font-size: clamp(5rem, 8vw, 8rem);
     font-weight: 800;
-    line-height: 0.9;
+    line-height: 0.95;
     text-transform: uppercase;
     margin: 0 0 20px 0;
     color: #000000;
@@ -123,36 +145,24 @@
   }
 
   .bean-subheading {
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
     font-weight: 500;
     color: #555555;
-    margin: 0;
+    margin: 0 0 60px 0;
     line-height: 1.2;
   }
 
-  /* Grid Content */
-  .bean-content-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 60px;
-    padding-top: 60px;
-    border-top: 1px solid #E0E0E0;
+  .bean-personality-section {
+    margin-bottom: 60px;
   }
 
-  @media screen and (min-width: 990px) {
-    .bean-content-grid {
-      grid-template-columns: 1.2fr 1fr;
-      gap: 120px;
-    }
-  }
-
-  .bean-grid-left h3, .bean-grid-right h3 {
+  .bean-section-label {
     font-size: 1.2rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: {{ bean_accent }};
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     display: block;
   }
 
@@ -163,40 +173,92 @@
     margin: 0;
   }
 
-  .bean-info-block {
-    margin-bottom: 40px;
+  /* Info Blocks */
+  .bean-info-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
   }
 
-  .bean-info-block:last-child {
+  @media screen and (min-width: 600px) {
+    .bean-info-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  .bean-info-block {
     margin-bottom: 0;
   }
 
   .bean-info-label {
     font-weight: 600;
-    font-size: 1.4rem;
+    font-size: 1.3rem;
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
     color: #000000;
     text-transform: uppercase;
   }
 
   .bean-info-value {
-    font-size: 1.6rem;
-    line-height: 1.6;
+    font-size: 1.5rem;
+    line-height: 1.5;
     color: #555555;
     display: block;
   }
 
+  /* Image Content Styling */
+  .bean-image-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .bean-image-wrapper {
+    width: 100%;
+    max-width: 500px;
+    border-radius: 12px;
+    overflow: hidden;
+    background-color: rgba(237, 231, 227, 0.5); /* Neutral Ivory */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+  }
+
+  .bean-image-wrapper img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+
+  .bean-image-wrapper:hover img {
+    transform: scale(1.02);
+  }
+
+  .bean-image-placeholder {
+    padding: 60px;
+    text-align: center;
+    color: #999;
+    font-size: 1.4rem;
+    border: 2px dashed #E0E0E0;
+    border-radius: 12px;
+    width: 100%;
+  }
+
   @media screen and (max-width: 749px) {
     .bean-editorial-header {
-      padding: 60px 0;
+      padding: 80px 0;
     }
-    .bean-header-top {
+    .bean-subheading {
       margin-bottom: 40px;
     }
-    .bean-content-grid {
+    .bean-personality-section {
+      margin-bottom: 40px;
+    }
+    .bean-main-grid {
       gap: 40px;
-      padding-top: 40px;
     }
   }
 </style>
@@ -204,38 +266,58 @@
 <div class="bean-editorial-header">
   <div class="bean-editorial-container">
     
-    <div class="bean-header-top">
-      <span class="bean-eyebrow">{{ bean_eyebrow }}</span>
-      <h1 class="bean-main-title">{{ current_title | split: ' ' | first }}<br>{{ current_title | split: ' ' | last }}</h1>
-      <p class="bean-subheading">{{ bean_tagline }}</p>
-    </div>
+    <div class="bean-main-grid {% if image_pos == 'left' %}bean-main-grid--image-left{% endif %}">
+      
+      <!-- Text Content Side -->
+      <div class="bean-text-content">
+        <span class="bean-eyebrow">{{ bean_eyebrow }}</span>
+        <h1 class="bean-main-title">{{ current_title | split: ' ' | first }}<br>{{ current_title | split: ' ' | last }}</h1>
+        <p class="bean-subheading">{{ bean_tagline }}</p>
 
-    <div class="bean-content-grid">
-      <!-- Left Column: Personality -->
-      <div class="bean-grid-left">
-        <h3>Personality</h3>
-        <p class="bean-personality-text">{{ bean_personality }}</p>
+        <div class="bean-personality-section">
+          <span class="bean-section-label">Personality</span>
+          <p class="bean-personality-text">{{ bean_personality }}</p>
+        </div>
+
+        <div class="bean-identity-section">
+          <span class="bean-section-label">Core Identity</span>
+          <div class="bean-info-grid">
+            <div class="bean-info-block">
+              <span class="bean-info-label">Traits</span>
+              <span class="bean-info-value">{{ bean_traits }}</span>
+            </div>
+
+            <div class="bean-info-block">
+              <span class="bean-info-label">Voice & Tone</span>
+              <span class="bean-info-value">{{ bean_voice }}</span>
+            </div>
+
+            <div class="bean-info-block">
+              <span class="bean-info-label">Audience</span>
+              <span class="bean-info-value">{{ bean_audience }}</span>
+            </div>
+          </div>
+        </div>
       </div>
 
-      <!-- Right Column: Details -->
-      <div class="bean-grid-right">
-        <h3>Core Identity</h3>
-        
-        <div class="bean-info-block">
-          <span class="bean-info-label">Traits</span>
-          <span class="bean-info-value">{{ bean_traits }}</span>
-        </div>
-
-        <div class="bean-info-block">
-          <span class="bean-info-label">Voice & Tone</span>
-          <span class="bean-info-value">{{ bean_voice }}</span>
-        </div>
-
-        <div class="bean-info-block">
-          <span class="bean-info-label">Audience</span>
-          <span class="bean-info-value">{{ bean_audience }}</span>
+      <!-- Image Content Side -->
+      <div class="bean-image-content">
+        <div class="bean-image-wrapper">
+          {%- if bean_image != blank -%}
+            {{ bean_image | image_url: width: 1000 | image_tag: 
+              class: 'bean-character-image', 
+              alt: current_title, 
+              loading: 'eager' 
+            }}
+          {%- else -%}
+            <div class="bean-image-placeholder">
+              [ Bean Illustration Pending ]<br>
+              <small>Upload an image in Theme Editor</small>
+            </div>
+          {%- endif -%}
         </div>
       </div>
+
     </div>
 
   </div>

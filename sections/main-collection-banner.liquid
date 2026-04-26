@@ -10,7 +10,10 @@
 {%- endstyle -%}
 
 {%- if collection.handle contains 'bean' -%}
-  {% render 'bean-header-content', bean_image: collection.image %}
+  {% render 'bean-header-content', 
+    bean_image: section.settings.bean_image,
+    image_alignment: section.settings.bean_image_alignment
+  %}
 {%- else -%}
   <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
     <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -75,6 +78,25 @@
       "id": "color_scheme",
       "label": "t:sections.all.colors.label",
       "default": "scheme-1"
+    },
+    {
+      "type": "header",
+      "content": "Bean Specific Layout"
+    },
+    {
+      "type": "image_picker",
+      "id": "bean_image",
+      "label": "Bean Illustration / Image"
+    },
+    {
+      "type": "select",
+      "id": "bean_image_alignment",
+      "label": "Image Alignment (Desktop)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
     }
   ]
 }

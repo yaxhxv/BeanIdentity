@@ -96,67 +96,9 @@
     opacity: 0.9;
   }
 
-  /* Results Section */
-  .quiz-result-card {
-    padding: 40px;
-    border: 1px solid #C6A969;
-    border-radius: 4px;
-  }
-
-  .quiz-result-mascot {
-    width: 120px;
-    height: 120px;
-    margin: 0 auto 20px;
-    background: #EDE7E3;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .quiz-result-mascot svg {
-    width: 60px;
-    height: 60px;
-  }
-
-  .quiz-result-name {
-    font-size: 4.8rem;
-    font-weight: 800;
-    margin-bottom: 10px;
-    text-transform: uppercase;
-  }
-
-  .quiz-result-trait-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-    list-style: none;
-    padding: 0;
-    margin-bottom: 30px;
-  }
-
-  .quiz-result-trait {
-    padding: 6px 14px;
-    background: #EDE7E3;
-    border-radius: 20px;
-    font-size: 1.4rem;
-    font-weight: 600;
-  }
-
-  .quiz-result-description {
-    font-size: 1.8rem;
-    line-height: 1.6;
-    margin-bottom: 40px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-  }
-
   @media screen and (max-width: 749px) {
     .quiz-heading { font-size: 2.6rem; }
     .quiz-question-title { font-size: 2.22rem; }
-    .quiz-result-name { font-size: 3.2rem; }
   }
 {%- endstyle -%}
 
@@ -225,36 +167,6 @@
       <button class="quiz-option" data-score="chilli">Start a bold project, pitch a big idea, or take on a tough challenge.</button>
       <button class="quiz-option" data-score="jelly">Call a bunch of friends and plan something fun together.</button>
       <button class="quiz-option" data-score="green">Sleep in, take a peaceful walk, journal, or enjoy a slow day.</button>
-    </div>
-  </div>
-
-  {%- comment -%} RESULT STEP {%- endcomment -%}
-  <div class="quiz-step" id="Step-Results">
-    <div class="quiz-result-card" id="QuizResultCard">
-      <div class="quiz-result-mascot" id="ResultMascot">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <path d="M7 16.3c2.2 0 4-1.83 4-4.05 0-1.16-.57-2.26-1.71-3.19S7 2.99 7 2.99s-2.29 6.08-2.29 6.08C3.57 10 3 11.09 3 12.25c0 2.22 1.8 4.05 4 4.05z"/><path d="M12.56 6.6A10.97 10.97 0 0 0 14 3.02c.5 2.5 2 4.9 4 6.5s3 3.5 3 5.5a6.98 6.98 0 0 1-11.91 4.97"/>
-        </svg>
-      </div>
-      <h2 class="quiz-result-name" id="ResultName">Coffee Bean</h2>
-      <ul class="quiz-result-trait-list" id="ResultTraits">
-        {%- comment -%} Dynamically filled {%- endcomment -%}
-      </ul>
-      <p class="quiz-result-description" id="ResultDescription">
-        {%- comment -%} Dynamically filled {%- endcomment -%}
-      </p>
-
-      <a href="#" id="ResultCTA" class="quiz-button">Shop My Bean</a>
     </div>
   </div>
 </div>
@@ -346,23 +258,12 @@
         }
 
         const data = this.archetypes[winner];
-        document.getElementById('ResultName').innerText = data.name;
-        document.getElementById('ResultDescription').innerText = data.description;
-        document.getElementById('ResultCTA').href = data.collection;
-
-        const traitsContainer = document.getElementById('ResultTraits');
-        traitsContainer.innerHTML = '';
-        data.traits.forEach((trait) => {
-          const li = document.createElement('li');
-          li.className = 'quiz-result-trait';
-          li.innerText = trait;
-          traitsContainer.appendChild(li);
-        });
-
+        
         // Save Result
         localStorage.setItem('bean_identity_result', winner);
 
-        this.goToStep('Results');
+        // Redirect directly to the collection page
+        window.location.href = data.collection;
       },
     };
 

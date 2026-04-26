@@ -1,9 +1,28 @@
-{% render 'bean-header-content' %}
+{% render 'bean-header-content', 
+  bean_image: section.settings.image,
+  image_alignment: section.settings.image_alignment
+%}
 
 {% schema %}
 {
   "name": "Bean Character Header",
   "tag": "section",
-  "settings": []
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Bean Illustration / Image"
+    },
+    {
+      "type": "select",
+      "id": "image_alignment",
+      "label": "Image Alignment (Desktop)",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "right"
+    }
+  ]
 }
 {% endschema %}
