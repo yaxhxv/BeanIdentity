@@ -1330,3 +1330,55 @@ class CartPerformance {
     );
   }
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+  const motionSections = Array.from(
+    document.querySelectorAll(
+      'main .shopify-section, main .section, main product-recommendations, main .collection, main .bean-landing, main .bean-quiz-page'
+    )
+  ).filter((element, index, collection) => {
+    return (
+      element &&
+      !element.closest('#shopify-section-header, #shopify-section-footer') &&
+      collection.indexOf(element) === index
+    );
+  });
+
+  const setScrolledState = () => {
+    document.body.classList.toggle('is-scrolled', window.scrollY > 24);
+  };
+
+  setScrolledState();
+  window.addEventListener('scroll', throttle(setScrolledState, 80), { passive: true });
+
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    motionSections.forEach((section) => section.classList.add('is-in-view'));
+    return;
+  }
+
+  motionSections.forEach((section, index) => {
+    section.classList.add('motion-section');
+
+    if (index < 2) {
+      section.classList.add('motion-section--fast');
+    } else if (index % 4 === 0) {
+      section.classList.add('motion-section--slow');
+    }
+  });
+
+  const observer = new IntersectionObserver(
+    (entries, motionObserver) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-in-view');
+        motionObserver.unobserve(entry.target);
+      });
+    },
+    {
+      rootMargin: '0px 0px -10% 0px',
+      threshold: 0.12,
+    }
+  );
+
+  motionSections.forEach((section) => observer.observe(section));
+});

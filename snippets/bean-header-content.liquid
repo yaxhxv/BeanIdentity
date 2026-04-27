@@ -28,7 +28,7 @@
       assign bean_accent = '#6d4a2f'
       assign bean_glow = 'rgba(109, 74, 47, 0.24)'
       assign bean_tagline = 'The intellectual. Quietly sharp.'
-      assign bean_personality = 'Coffee Bean moves with focus, restraint, and depth. It is the identity for people who do not need to be loud to leave a mark.'
+      assign bean_personality = 'Think deeper. Question everything. The world makes more sense when you slow down long enough to understand it. Not everyone will keep up. Thats okay. You were never meant to be easy to explain.'
       assign bean_traits = 'Curious | Grounded | Precise | Mature'
       assign bean_voice = 'Thoughtful, grounded, editorial.'
       assign bean_audience = 'Readers, observers, and people with quiet conviction.'
@@ -539,7 +539,9 @@
         <p class="bean-landing__pov">{{ bean_pov }}</p>
 
         <div class="bean-landing__actions">
-          <a href="#BeanCollectionGrid" class="bean-landing__button bean-landing__button--primary">{{ bean_shop_label }}</a>
+          <a href="#BeanCollectionGrid" class="bean-landing__button bean-landing__button--primary">
+            {{- bean_shop_label -}}
+          </a>
           <a href="/pages/which-bean-are-you" class="bean-landing__button">{{ bean_quiz_label }}</a>
         </div>
       </div>
@@ -548,13 +550,7 @@
         <div class="bean-landing__media-frame">
           <div class="bean-landing__image-wrap">
             {%- if bean_image != blank -%}
-              {{
-                bean_image
-                | image_url: width: 1400
-                | image_tag:
-                  alt: current_title,
-                  loading: 'eager'
-              }}
+              {{ bean_image | image_url: width: 1400 | image_tag: alt: current_title, loading: 'eager' }}
             {%- else -%}
               <div class="bean-landing__placeholder">
                 Upload a bean visual in the theme editor to complete this hero.
