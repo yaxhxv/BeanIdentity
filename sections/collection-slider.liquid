@@ -54,6 +54,20 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
   .cc-header {
     text-align: center;
     margin-bottom: 32px;
+    position: relative;
+  }
+
+  .cc-header::after {
+    content: "";
+    position: absolute;
+    right: calc(50% - 34rem);
+    top: -1rem;
+    width: 10rem;
+    height: 10rem;
+    background: url('{{ "bean-jelly-2.png" | asset_url }}') center/contain no-repeat;
+    transform: rotate(8deg);
+    animation: ccStickerFloat 9s ease-in-out infinite;
+    filter: drop-shadow(0 1.2rem 2.4rem rgba(0,0,0,0.25));
   }
 
   .cc-title {
@@ -156,6 +170,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     display: flex;
     align-items: center;
     gap: 1rem;
+    justify-content: space-between;
   }
 
   .cc-card-title {
@@ -175,9 +190,36 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     color: rgba(245,245,245,0.54);
   }
 
+  .cc-card-bean {
+    position: absolute;
+    right: -1rem;
+    bottom: 4rem;
+    width: 9rem;
+    z-index: 2;
+    pointer-events: none;
+    transform: rotate(8deg);
+    transition: transform 0.35s ease;
+    filter: drop-shadow(0 1rem 2rem rgba(0,0,0,0.28));
+  }
+
+  .cc-card-bean img {
+    width: 100%;
+    display: block;
+    height: auto;
+  }
+
+  .cc-card:hover .cc-card-bean {
+    transform: translateY(-0.6rem) rotate(14deg) scale(1.06);
+  }
+
   @keyframes ccBeanFloat {
     0%, 100% { transform: translate3d(0, 0, 0) rotate(12deg); }
     50% { transform: translate3d(0.8rem, -0.8rem, 0) rotate(18deg); }
+  }
+
+  @keyframes ccStickerFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(8deg); }
+    50% { transform: translate3d(0.6rem, -0.8rem, 0) rotate(14deg); }
   }
 
   /* Desktop */
@@ -231,8 +273,19 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
       right: 2rem;
       bottom: 2rem;
     }
+    .cc-header::after {
+      width: 7rem;
+      height: 7rem;
+      right: 1rem;
+      top: -2rem;
+    }
     .cc-card:nth-child(even) {
       margin-top: 0;
+    }
+    .cc-card-bean {
+      width: 7rem;
+      right: -0.4rem;
+      bottom: 3.4rem;
     }
   }
 </style>
@@ -255,6 +308,21 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
 
       <div class="cc-track" id="cc-track-{{ section.id }}">
         {% for block in section.blocks %}
+          {%- liquid
+            assign bean_art = 'bean-green-1.png'
+            assign bean_title = block.settings.title | downcase
+            if bean_title contains 'coffee'
+              assign bean_art = 'bean-coffee-2.png'
+            elsif bean_title contains 'chilli'
+              assign bean_art = 'bean-chilli-2.png'
+            elsif bean_title contains 'jelly'
+              assign bean_art = 'bean-jelly-2.png'
+            elsif bean_title contains 'vanilla'
+              assign bean_art = 'bean-vanilla-1.png'
+            elsif bean_title contains 'green'
+              assign bean_art = 'bean-green-2.png'
+            endif
+          -%}
           <a href="{{ block.settings.url }}" class="cc-card" {{ block.shopify_attributes }}>
             <div class="cc-image-wrapper" style="padding-top: {{ block.settings.aspect_ratio }}%;">
               {% if block.settings.image != blank %}
@@ -267,6 +335,9 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
                 {{ 'collection-1' | placeholder_svg_tag: 'cc-image' }}
               {% endif %}
             </div>
+            <span class="cc-card-bean" aria-hidden="true">
+              <img src="{{ bean_art | asset_url }}" alt="">
+            </span>
             <div class="cc-card-title-wrap">
               <div class="cc-card-title">{{ block.settings.title }}</div>
               <span class="cc-card-note" aria-hidden="true">01</span>

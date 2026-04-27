@@ -161,6 +161,60 @@
     position: relative;
   }
 
+  .cst-tab-scene {
+    position: relative;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 18rem;
+    gap: 2rem;
+    align-items: end;
+    margin-bottom: 2rem;
+  }
+
+  .cst-scene-copy {
+    padding: 1.8rem 2rem;
+    background: rgba(255,255,255,0.56);
+    backdrop-filter: blur(8px);
+    border-left: 3px solid var(--bean-accent, rgba(198,169,105,0.9));
+    transform: rotate(-1deg);
+  }
+
+  .cst-scene-copy strong,
+  .cst-scene-copy span {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .cst-scene-copy strong {
+    font-size: 1rem;
+    font-weight: 900;
+    color: #0b0b0b;
+  }
+
+  .cst-scene-copy span {
+    margin-top: 0.55rem;
+    font-size: 1.15rem;
+    color: rgba(11,11,11,0.72);
+  }
+
+  .cst-scene-bean {
+    position: relative;
+    align-self: stretch;
+    min-height: 18rem;
+  }
+
+  .cst-scene-bean img {
+    position: absolute;
+    right: 0;
+    bottom: -1rem;
+    width: 100%;
+    max-width: 18rem;
+    height: auto;
+    filter: drop-shadow(0 1.8rem 3rem rgba(0,0,0,0.14));
+    animation: cstSceneFloat 10s ease-in-out infinite;
+  }
+
   .cst-carousel-track {
     display: flex;
     transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
@@ -267,6 +321,24 @@
     transform: translateY(-0.2rem);
     box-shadow: 0 2rem 5rem rgba(0,0,0,0.1);
     border-color: rgba(198,169,105,0.35);
+  }
+
+  .cst-card-sticker {
+    position: absolute;
+    right: 1rem;
+    bottom: 1rem;
+    z-index: 3;
+    display: inline-flex;
+    padding: 0.75rem 0.95rem;
+    background: #0b0b0b;
+    color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    transform: rotate(-8deg);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.12);
   }
 
   /* Hover Overlay */
@@ -402,6 +474,11 @@
     margin-top: 0.25rem;
   }
 
+  @keyframes cstSceneFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(-3deg); }
+    50% { transform: translate3d(0.8rem, -1rem, 0) rotate(2deg); }
+  }
+
   .cst-card-title {
     font-weight: 500;
     margin: 0;
@@ -430,6 +507,18 @@
     }
     .cst-header::after {
       display: none;
+    }
+    .cst-tab-scene {
+      grid-template-columns: 1fr;
+    }
+    .cst-scene-bean {
+      min-height: 12rem;
+    }
+    .cst-scene-bean img {
+      left: 50%;
+      right: auto;
+      transform: translateX(-50%);
+      max-width: 12rem;
     }
   }
 
@@ -487,35 +576,50 @@
             role="tabpanel"
             aria-labelledby="tab-{{ block.id }}"
           >
+            {%- liquid
+              assign collection = block.settings.collection
+              assign bean_title = block.settings.tab_label | default: collection.title | downcase
+              assign bean_note = 'Some version of you.'
+              assign bean_accent = 'rgba(198,169,105,0.9)'
+              assign bean_art = 'bean-green-1.png'
+              if bean_title contains 'coffee'
+                assign bean_note = 'Calm. Collected.'
+                assign bean_accent = 'rgba(141,106,79,0.92)'
+                assign bean_art = 'bean-coffee-1.png'
+              elsif bean_title contains 'chilli'
+                assign bean_note = 'Too much? Perfect.'
+                assign bean_accent = 'rgba(179,69,43,0.92)'
+                assign bean_art = 'bean-chilli-2.png'
+              elsif bean_title contains 'jelly'
+                assign bean_note = 'Online. Always.'
+                assign bean_accent = 'rgba(214,113,161,0.92)'
+                assign bean_art = 'bean-jelly-2.png'
+              elsif bean_title contains 'green'
+                assign bean_note = 'Soft focus. Sharp instincts.'
+                assign bean_accent = 'rgba(111,144,88,0.92)'
+                assign bean_art = 'bean-green-2.png'
+              elsif bean_title contains 'vanilla'
+                assign bean_note = 'Clean, quiet, expensive energy.'
+                assign bean_accent = 'rgba(204,181,126,0.92)'
+                assign bean_art = 'bean-vanilla-2.png'
+              endif
+            -%}
+            <div class="cst-tab-scene" style="--bean-accent: {{ bean_accent }};">
+              <div class="cst-scene-copy">
+                <strong>{{ collection.title }}</strong>
+                <span>{{ bean_note }}</span>
+              </div>
+              <div class="cst-scene-bean" aria-hidden="true">
+                <img src="{{ bean_art | asset_url }}" alt="">
+              </div>
+            </div>
             <div class="cst-carousel-viewport">
               <div class="cst-carousel-track" data-autoplay-speed="3000">
-                {%- assign collection = block.settings.collection -%}
                 {%- assign limit = block.settings.limit | default: 8 -%}
 
                 {%- if collection != blank and collection.products_count > 0 -%}
                   {%- for product in collection.products limit: limit -%}
                     <div class="cst-card-item">
-                      {%- liquid
-                        assign bean_title = block.settings.tab_label | default: collection.title | downcase
-                        assign bean_note = 'Some version of you.'
-                        assign bean_accent = 'rgba(198,169,105,0.9)'
-                        if bean_title contains 'coffee'
-                          assign bean_note = 'Calm. Collected.'
-                          assign bean_accent = 'rgba(141,106,79,0.92)'
-                        elsif bean_title contains 'chilli'
-                          assign bean_note = 'Too much? Good.'
-                          assign bean_accent = 'rgba(179,69,43,0.92)'
-                        elsif bean_title contains 'jelly'
-                          assign bean_note = 'Online. Always.'
-                          assign bean_accent = 'rgba(214,113,161,0.92)'
-                        elsif bean_title contains 'green'
-                          assign bean_note = 'Quiet, then clear.'
-                          assign bean_accent = 'rgba(111,144,88,0.92)'
-                        elsif bean_title contains 'vanilla'
-                          assign bean_note = 'Soft, never simple.'
-                          assign bean_accent = 'rgba(204,181,126,0.92)'
-                        endif
-                      -%}
                       <div class="cst-card" style="--bean-accent: {{ bean_accent }};">
                         <div class="cst-card-image-wrapper">
                           <div class="cst-card-persona" aria-hidden="true">
@@ -532,6 +636,9 @@
                             width="600"
                             height="{{ 600 | divided_by: product.featured_image.aspect_ratio | ceil }}"
                           >
+                          <span class="cst-card-sticker">
+                            {% cycle 'main character', 'too real', 'chaotic pick', 'lowkey fire' %}
+                          </span>
 
                           <div class="cst-card-overlay">
                             {%- if product.available -%}

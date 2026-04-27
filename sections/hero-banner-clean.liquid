@@ -145,6 +145,59 @@
     color: {{ section.settings.text_color }};
   }
 
+  .hero-bean-cast {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+  }
+
+  .hero-bean-char {
+    position: absolute;
+    width: clamp(10rem, 14vw, 22rem);
+    max-width: 22rem;
+    filter: drop-shadow(0 2rem 4rem rgba(0,0,0,0.45));
+    transform-origin: center;
+    animation: heroCastFloat 12s ease-in-out infinite;
+  }
+
+  .hero-bean-char img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .hero-bean-char--1 {
+    left: clamp(1rem, 3vw, 4rem);
+    bottom: clamp(1rem, 6vw, 5rem);
+    transform: rotate(-7deg);
+    animation-delay: 0s;
+  }
+
+  .hero-bean-char--2 {
+    right: clamp(2rem, 9vw, 10rem);
+    top: clamp(6rem, 12vw, 10rem);
+    width: clamp(9rem, 12vw, 16rem);
+    transform: rotate(10deg);
+    animation-delay: -3s;
+  }
+
+  .hero-bean-char--3 {
+    right: clamp(2rem, 3vw, 4rem);
+    bottom: clamp(9rem, 18vw, 18rem);
+    width: clamp(8rem, 11vw, 14rem);
+    transform: rotate(7deg);
+    animation-delay: -5s;
+  }
+
+  .hero-bean-char--4 {
+    left: clamp(34rem, 48vw, 56rem);
+    top: clamp(5rem, 10vw, 8rem);
+    width: clamp(8rem, 10vw, 13rem);
+    transform: rotate(-9deg);
+    animation-delay: -7s;
+  }
+
   .hero-copy-stack {
     width: min(78rem, 100%);
     transform: translateY(1rem);
@@ -390,6 +443,11 @@
     50% { transform: rotate(-5deg) translateY(-0.4rem); }
   }
 
+  @keyframes heroCastFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(var(--hero-rot, 0deg)); }
+    50% { transform: translate3d(0.8rem, -1.4rem, 0) rotate(calc(var(--hero-rot, 0deg) + 4deg)); }
+  }
+
   /* RESPONSIVE VISIBILITY & RATIOS */
   .mobile-only { display: none; }
   .desktop-only { display: block; }
@@ -464,6 +522,24 @@
 
     .clean-hero-section::after,
     .hero-buttons::after {
+      display: none;
+    }
+
+    .hero-bean-char--1 {
+      left: auto;
+      right: 1.2rem;
+      bottom: 1.6rem;
+      width: 11rem;
+    }
+
+    .hero-bean-char--2 {
+      top: 7rem;
+      right: 1rem;
+      width: 8rem;
+    }
+
+    .hero-bean-char--3,
+    .hero-bean-char--4 {
       display: none;
     }
   }
@@ -563,6 +639,20 @@
 
           <div class="hero-overlay-mask"></div>
           <div class="hero-bottom-blend"></div>
+          <div class="hero-bean-cast" aria-hidden="true">
+            <span class="hero-bean-char hero-bean-char--1" style="--hero-rot:-7deg;">
+              <img src="{{ 'bean-green-1.png' | asset_url }}" alt="">
+            </span>
+            <span class="hero-bean-char hero-bean-char--2" style="--hero-rot:10deg;">
+              <img src="{{ 'bean-jelly-1.png' | asset_url }}" alt="">
+            </span>
+            <span class="hero-bean-char hero-bean-char--3" style="--hero-rot:7deg;">
+              <img src="{{ 'bean-chilli-1.png' | asset_url }}" alt="">
+            </span>
+            <span class="hero-bean-char hero-bean-char--4" style="--hero-rot:-9deg;">
+              <img src="{{ 'bean-coffee-1.png' | asset_url }}" alt="">
+            </span>
+          </div>
 
           <div class="hero-content-overlay">
             <div class="hero-copy-stack">
