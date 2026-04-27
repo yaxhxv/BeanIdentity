@@ -7,11 +7,19 @@
 <div class="visual-transition" id="Transition-{{ section.id }}">
   <div class="transition-gradient-top"></div>
   <div class="transition-texture"></div>
+  <div class="transition-doodles" aria-hidden="true">
+    <span class="transition-star transition-star-1"></span>
+    <span class="transition-star transition-star-2"></span>
+    <span class="transition-line transition-line-1"></span>
+    <span class="transition-line transition-line-2"></span>
+  </div>
   <div class="floating-beans">
     <div class="f-bean f-bean-1"></div>
     <div class="f-bean f-bean-2"></div>
     <div class="f-bean f-bean-3"></div>
     <div class="f-bean f-bean-4"></div>
+    <div class="f-bean f-bean-5"></div>
+    <div class="f-bean f-bean-6"></div>
   </div>
 </div>
 
@@ -63,30 +71,109 @@
 
   .f-bean {
     position: absolute;
-    width: 32px;
-    height: 20px;
-    background: #c6a969;
-    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
-    opacity: 0.1;
-    filter: blur(0.5px);
+    width: 38px;
+    height: 54px;
+    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
+    opacity: 0.22;
+    background:
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.34), transparent 18%),
+      linear-gradient(145deg, rgba(198,169,105,0.92), rgba(146,111,67,0.75));
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.18);
   }
 
   /* The "bean" line */
   .f-bean::after {
     content: '';
     position: absolute;
-    top: 50%;
-    left: 10%;
-    width: 80%;
-    height: 1px;
-    background: rgba(11,11,11,0.28);
-    transform: rotate(-5deg);
+    top: 16%;
+    left: 48%;
+    width: 2px;
+    height: 68%;
+    background: rgba(11,11,11,0.18);
+    border-radius: 999px;
+    transform: rotate(10deg);
   }
 
-  .f-bean-1 { top: 30%; left: 10%; transform: rotate(25deg); animation: floatBean 12s infinite ease-in-out; }
-  .f-bean-2 { top: 65%; left: 85%; transform: rotate(-15deg); animation: floatBean 15s infinite ease-in-out reverse; }
-  .f-bean-3 { top: 15%; left: 60%; transform: rotate(45deg); animation: floatBean 18s infinite ease-in-out 2s; }
-  .f-bean-4 { top: 75%; left: 40%; transform: rotate(-35deg); animation: floatBean 14s infinite ease-in-out 1s; }
+  .f-bean-1 { top: 18%; left: 9%; --base-rot: 24deg; animation: floatBean 12s infinite ease-in-out; }
+  .f-bean-2 { top: 60%; left: 84%; --base-rot: -14deg; animation: floatBean 15s infinite ease-in-out reverse; }
+  .f-bean-3 { top: 8%; left: 61%; --base-rot: 42deg; animation: floatBean 18s infinite ease-in-out 2s; }
+  .f-bean-4 { top: 62%; left: 39%; --base-rot: -30deg; animation: floatBean 14s infinite ease-in-out 1s; }
+  .f-bean-5 { top: 34%; left: 72%; --base-rot: 10deg; animation: floatBean 16s infinite ease-in-out 1.5s; }
+  .f-bean-6 { top: 48%; left: 20%; --base-rot: -18deg; animation: floatBean 13s infinite ease-in-out 0.5s; }
+
+  .transition-doodles {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    pointer-events: none;
+    opacity: 0.48;
+  }
+
+  .transition-star,
+  .transition-line {
+    position: absolute;
+    display: block;
+  }
+
+  .transition-star::before,
+  .transition-star::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(245,245,245,0.45);
+  }
+
+  .transition-star::before {
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+
+  .transition-star::after {
+    width: 1px;
+    height: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .transition-star-1 {
+    width: 1.4rem;
+    height: 1.4rem;
+    top: 18%;
+    right: 24%;
+    transform: rotate(12deg);
+  }
+
+  .transition-star-2 {
+    width: 1rem;
+    height: 1rem;
+    bottom: 20%;
+    left: 31%;
+    transform: rotate(-8deg);
+  }
+
+  .transition-line {
+    border-top: 1px solid rgba(245,245,245,0.34);
+    border-right: 1px solid rgba(245,245,245,0.34);
+    border-radius: 0 100% 0 0;
+  }
+
+  .transition-line-1 {
+    width: 7rem;
+    height: 2.4rem;
+    top: 18%;
+    left: 42%;
+    transform: rotate(8deg);
+  }
+
+  .transition-line-2 {
+    width: 6rem;
+    height: 2rem;
+    bottom: 18%;
+    right: 10%;
+    transform: rotate(-12deg);
+  }
 
   @keyframes floatBean {
     0%, 100% { transform: translate(0, 0) rotate(var(--base-rot, 0deg)); }
@@ -98,8 +185,12 @@
       height: 72px;
     }
     .f-bean {
-      width: 24px;
-      height: 15px;
+      width: 28px;
+      height: 40px;
+    }
+    .transition-line-1,
+    .transition-line-2 {
+      display: none;
     }
   }
 </style>

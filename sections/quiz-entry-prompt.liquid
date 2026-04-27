@@ -34,6 +34,23 @@
     white-space: nowrap;
   }
 
+  #QuizPrompt-{{ section.id }}::after {
+    content: "";
+    position: absolute;
+    left: clamp(2rem, 4vw, 4rem);
+    bottom: clamp(2rem, 4vw, 3rem);
+    width: 6rem;
+    height: 8.4rem;
+    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
+    background:
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.22), transparent 18%),
+      linear-gradient(145deg, rgba(198,169,105,0.92), rgba(147,111,67,0.75));
+    opacity: 0.84;
+    transform: rotate(-18deg);
+    box-shadow: 0 1.4rem 3.6rem rgba(0,0,0,0.22);
+    animation: quizBeanFloat 10s ease-in-out infinite;
+  }
+
   .quiz-prompt__wrapper {
     max-width: 118rem;
     margin: 0 auto;
@@ -42,6 +59,37 @@
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 4rem;
     align-items: end;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quiz-prompt__wrapper::before,
+  .quiz-prompt__wrapper::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+
+  .quiz-prompt__wrapper::before {
+    right: 22%;
+    top: 2rem;
+    width: 1.4rem;
+    height: 1.4rem;
+    background:
+      linear-gradient(rgba(245,245,245,0.45), rgba(245,245,245,0.45)) center/100% 1px no-repeat,
+      linear-gradient(rgba(245,245,245,0.45), rgba(245,245,245,0.45)) center/1px 100% no-repeat;
+    transform: rotate(14deg);
+  }
+
+  .quiz-prompt__wrapper::after {
+    right: 11%;
+    bottom: 0.8rem;
+    width: 7rem;
+    height: 2.4rem;
+    border-top: 1px solid rgba(245,245,245,0.34);
+    border-right: 1px solid rgba(245,245,245,0.34);
+    border-radius: 0 100% 0 0;
+    transform: rotate(-12deg);
   }
 
   .quiz-prompt__headline {
@@ -88,12 +136,38 @@
     grid-column: 2;
     grid-row: 1 / span 2;
     align-self: end;
+    position: relative;
+    overflow: hidden;
   }
 
   .quiz-prompt__button:hover {
     background: transparent;
     color: #c6a969;
-    transform: translateY(-0.25rem);
+    transform: translateY(-0.25rem) rotate(-1deg) scale(1.02);
+  }
+
+  .quiz-prompt__button::after {
+    content: "";
+    position: absolute;
+    left: 2.2rem;
+    right: 2.2rem;
+    bottom: 1.2rem;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0.16);
+    transform-origin: left center;
+    opacity: 0.28;
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .quiz-prompt__button:hover::after {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+
+  @keyframes quizBeanFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(-18deg); }
+    50% { transform: translate3d(0.7rem, -1rem, 0) rotate(-10deg); }
   }
 
   @media screen and (max-width: 749px) {
@@ -121,6 +195,17 @@
     .quiz-prompt__button {
       width: 100%;
       margin-top: 3rem;
+    }
+    #QuizPrompt-{{ section.id }}::after {
+      width: 4.1rem;
+      height: 5.8rem;
+      left: auto;
+      right: 1.6rem;
+      bottom: 1.6rem;
+    }
+    .quiz-prompt__wrapper::before,
+    .quiz-prompt__wrapper::after {
+      display: none;
     }
   }
 {%- endstyle -%}

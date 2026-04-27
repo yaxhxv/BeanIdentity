@@ -16,6 +16,22 @@
     border-top: 1px solid rgba(245,245,245,0.08);
   }
 
+  #FinalCTA-{{ section.id }}::after {
+    content: "";
+    position: absolute;
+    right: 7rem;
+    top: 5rem;
+    width: 5rem;
+    height: 7rem;
+    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
+    background:
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.22), transparent 18%),
+      linear-gradient(145deg, rgba(198,169,105,0.92), rgba(155,120,73,0.75));
+    opacity: 0.82;
+    transform: rotate(18deg);
+    animation: finalBeanFloat 11s ease-in-out infinite;
+  }
+
   #FinalCTA-{{ section.id }}::before {
     content: "BEAN IDENTITY";
     position: absolute;
@@ -49,6 +65,11 @@
     text-transform: uppercase;
   }
 
+  .final-cta__headline span {
+    position: relative;
+    display: inline-block;
+  }
+
   .final-cta__subline {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(1.55rem, 1.5vw, 2rem);
@@ -75,6 +96,8 @@
     letter-spacing: 0.1em;
     border-radius: 0;
     transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
   }
 
   .final-cta__button--primary {
@@ -90,13 +113,43 @@
   }
 
   .final-cta__button:hover {
-    transform: translateY(-0.3rem);
+    transform: translateY(-0.3rem) rotate(-1deg) scale(1.02);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .final-cta__button::after {
+    content: "";
+    position: absolute;
+    left: 2.2rem;
+    right: 2.2rem;
+    bottom: 1.2rem;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0.14);
+    transform-origin: left center;
+    opacity: 0.35;
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .final-cta__button:hover::after {
+    transform: scaleX(1);
+    opacity: 0.8;
+  }
+
+  @keyframes finalBeanFloat {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(18deg); }
+    50% { transform: translate3d(-0.8rem, -1rem, 0) rotate(12deg); }
   }
 
   @media screen and (max-width: 749px) {
     #FinalCTA-{{ section.id }} {
       padding: 8rem 0;
+    }
+    #FinalCTA-{{ section.id }}::after {
+      right: 2rem;
+      top: 2rem;
+      width: 3.8rem;
+      height: 5.4rem;
     }
     .final-cta__button {
       width: 100%;

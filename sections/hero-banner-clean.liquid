@@ -41,6 +41,40 @@
     isolation: isolate;
   }
 
+  .clean-hero-section::before,
+  .clean-hero-section::after {
+    content: "";
+    position: absolute;
+    z-index: 4;
+    pointer-events: none;
+    opacity: 0.65;
+  }
+
+  .clean-hero-section::before {
+    width: 6.2rem;
+    height: 8.8rem;
+    right: clamp(2rem, 5vw, 5.4rem);
+    top: clamp(8rem, 15vh, 14rem);
+    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
+    background:
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.4), transparent 18%),
+      linear-gradient(145deg, rgba(198,169,105,0.95), rgba(167,128,76,0.85));
+    box-shadow: 0 1.2rem 3rem rgba(0,0,0,0.25);
+    animation: heroBeanFloatA 10s ease-in-out infinite;
+  }
+
+  .clean-hero-section::after {
+    width: 8rem;
+    height: 3rem;
+    left: clamp(2rem, 4vw, 5rem);
+    bottom: 10rem;
+    border-top: 2px solid rgba(245,245,245,0.72);
+    border-right: 2px solid rgba(245,245,245,0.72);
+    border-radius: 0 100% 0 0;
+    transform: rotate(-8deg);
+    animation: heroDoodleFloat 8s ease-in-out infinite;
+  }
+
   /* Container Widths */
   .clean-hero-section.page-width {
     max-width: 1200px;
@@ -223,6 +257,25 @@
     flex-wrap: wrap;
     margin-top: 3rem;
     align-items: center;
+    position: relative;
+  }
+
+  .hero-buttons::after {
+    content: "";
+    position: absolute;
+    width: 4.6rem;
+    height: 6.4rem;
+    right: clamp(-1rem, 3vw, 2rem);
+    top: -0.8rem;
+    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
+    background:
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.34), transparent 18%),
+      linear-gradient(145deg, rgba(245,245,245,0.95), rgba(198,169,105,0.72));
+    opacity: 0.8;
+    transform: rotate(22deg);
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.16);
+    animation: heroBeanFloatB 12s ease-in-out infinite;
+    pointer-events: none;
   }
 
   .hero-btn {
@@ -241,6 +294,8 @@
     min-width: 18.8rem;
     text-align: center;
     border-radius: 0;
+    position: relative;
+    overflow: hidden;
   }
 
   .hero-btn-primary {
@@ -254,7 +309,7 @@
     background: #c6a969;
     border-color: #c6a969;
     color: #0b0b0b;
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.2rem) rotate(-1deg) scale(1.02);
   }
 
   .hero-btn-secondary {
@@ -268,7 +323,26 @@
     background: rgba(245, 245, 245, 0.12);
     border-color: #c6a969;
     color: #c6a969;
-    transform: translateY(-0.2rem);
+    transform: translateY(-0.2rem) rotate(1deg) scale(1.02);
+  }
+
+  .hero-btn::after {
+    content: "";
+    position: absolute;
+    left: 1.8rem;
+    right: 1.8rem;
+    bottom: 1.1rem;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0.14);
+    transform-origin: left center;
+    opacity: 0.3;
+    transition: transform 0.28s ease, opacity 0.28s ease;
+  }
+
+  .hero-btn:hover::after {
+    transform: scaleX(1);
+    opacity: 0.8;
   }
 
   .hero-brand-note {
@@ -299,6 +373,21 @@
       opacity: 1;
       transform: translateY(0);
     }
+  }
+
+  @keyframes heroBeanFloatA {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(14deg); }
+    50% { transform: translate3d(0.9rem, -1rem, 0) rotate(18deg); }
+  }
+
+  @keyframes heroBeanFloatB {
+    0%, 100% { transform: translate3d(0, 0, 0) rotate(22deg); }
+    50% { transform: translate3d(-0.6rem, -1.2rem, 0) rotate(14deg); }
+  }
+
+  @keyframes heroDoodleFloat {
+    0%, 100% { transform: rotate(-8deg) translateY(0); }
+    50% { transform: rotate(-5deg) translateY(-0.4rem); }
   }
 
   /* RESPONSIVE VISIBILITY & RATIOS */
@@ -364,6 +453,17 @@
     }
 
     .hero-brand-note {
+      display: none;
+    }
+
+    .clean-hero-section::before {
+      width: 4.4rem;
+      height: 6.2rem;
+      top: 9rem;
+    }
+
+    .clean-hero-section::after,
+    .hero-buttons::after {
       display: none;
     }
   }

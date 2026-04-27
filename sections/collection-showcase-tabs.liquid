@@ -11,6 +11,8 @@
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
     padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
     background: linear-gradient(180deg, #ede7e3 0%, #f5f5f5 100%) !important;
+    position: relative;
+    overflow: hidden;
   }
 
   @media screen and (min-width: 750px) {
@@ -25,12 +27,28 @@
     max-width: {{ section.settings.page_width }}px;
     margin: 0 auto;
     padding: 0 1.5rem;
+    position: relative;
   }
 
   /* --- HEADER --- */
   .cst-header {
     margin-bottom: 3.2rem;
     text-align: {{ section.settings.heading_align }};
+    position: relative;
+  }
+
+  .cst-header::after {
+    content: "";
+    position: absolute;
+    width: 4.2rem;
+    height: 4.2rem;
+    right: calc(50% - 35rem);
+    top: 0.8rem;
+    background:
+      linear-gradient(rgba(11,11,11,0.5), rgba(11,11,11,0.5)) center/100% 1px no-repeat,
+      linear-gradient(rgba(11,11,11,0.5), rgba(11,11,11,0.5)) center/1px 100% no-repeat;
+    transform: rotate(12deg);
+    opacity: 0.5;
   }
 
   .cst-heading {
@@ -52,6 +70,15 @@
       max-width: 600px;
       margin-left: auto;
       margin-right: auto;
+  }
+
+  .cst-persona-line {
+    margin-top: 1.4rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(43,43,43,0.7);
   }
 
   @media screen and (max-width: 750px) {
@@ -90,6 +117,7 @@
     border-radius: 0;
     text-transform: uppercase;
     letter-spacing: 0.08em;
+    position: relative;
   }
 
   .cst-tab-btn:hover {
@@ -104,11 +132,23 @@
     border-color: #C6A969;
   }
 
+  .cst-tab-btn.active::after {
+    content: "";
+    position: absolute;
+    left: 1.6rem;
+    right: 1.6rem;
+    bottom: 0.8rem;
+    height: 2px;
+    background: currentColor;
+    opacity: 0.45;
+  }
+
   /* --- CAROUSEL STRUCTURE --- */
   .cst-tab-content {
     display: none !important;
     animation: fadeIn 0.4s ease-out;
     position: relative;
+    padding-top: 1.6rem;
   }
 
   .cst-tab-content.active {
@@ -135,6 +175,10 @@
     box-sizing: border-box;
     scroll-snap-align: start;
     flex-shrink: 0;
+  }
+
+  .cst-card-item:nth-child(odd) {
+    margin-top: 1.6rem;
   }
 
   @media screen and (min-width: 750px) {
@@ -188,6 +232,7 @@
     text-decoration: none;
     color: inherit;
     height: 100%;
+    transition: transform 0.35s ease;
   }
 
   /* Image Container */
@@ -200,6 +245,7 @@
     background: #ebe7e2;
     margin-bottom: 1.4rem;
     border: 1px solid rgba(11,11,11,0.08);
+    transition: transform 0.35s ease, box-shadow 0.35s ease, border-color 0.35s ease;
   }
 
   .cst-card-img {
@@ -211,6 +257,16 @@
 
   .cst-card:hover .cst-card-img {
     transform: scale(1.08);
+  }
+
+  .cst-card:hover {
+    transform: translateY(-0.4rem) rotate(-1deg);
+  }
+
+  .cst-card:hover .cst-card-image-wrapper {
+    transform: translateY(-0.2rem);
+    box-shadow: 0 2rem 5rem rgba(0,0,0,0.1);
+    border-color: rgba(198,169,105,0.35);
   }
 
   /* Hover Overlay */
@@ -300,6 +356,52 @@
     padding-top: 10px;
   }
 
+  .cst-card-persona {
+    position: absolute;
+    left: 1.4rem;
+    top: 1.4rem;
+    z-index: 3;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    max-width: calc(100% - 2.8rem);
+    padding: 0.85rem 1rem;
+    background: rgba(245,245,245,0.8);
+    color: #0b0b0b;
+    backdrop-filter: blur(10px);
+  }
+
+  .cst-card-persona::before {
+    content: "";
+    width: 1.6rem;
+    height: 2.2rem;
+    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
+    background:
+      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.45), transparent 18%),
+      linear-gradient(145deg, var(--bean-accent, rgba(198,169,105,0.9)), rgba(11,11,11,0.45));
+    flex: 0 0 auto;
+    transform: rotate(18deg);
+  }
+
+  .cst-card-persona-label,
+  .cst-card-persona-note {
+    font-family: 'Poppins', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.1;
+  }
+
+  .cst-card-persona-label {
+    font-size: 0.95rem;
+    font-weight: 900;
+  }
+
+  .cst-card-persona-note {
+    font-size: 0.86rem;
+    color: rgba(11,11,11,0.68);
+    margin-top: 0.25rem;
+  }
+
   .cst-card-title {
     font-weight: 500;
     margin: 0;
@@ -326,6 +428,9 @@
     .cst-card-price {
         font-size: 1.2rem;
     }
+    .cst-header::after {
+      display: none;
+    }
   }
 
   /* Responsive Adjustments */
@@ -334,6 +439,9 @@
         width: 90%;
         padding: 10px 0;
         font-size: 1.2rem;
+     }
+     .cst-card-item:nth-child(odd) {
+        margin-top: 0;
      }
   }
 {%- endstyle -%}
@@ -348,6 +456,7 @@
       {% if section.settings.description != blank %}
         <div class="cst-description">{{ section.settings.description }}</div>
       {% endif %}
+      <div class="cst-persona-line">Pick what feels like you</div>
     </div>
 
     <!-- Tabs Navigation -->
@@ -386,8 +495,35 @@
                 {%- if collection != blank and collection.products_count > 0 -%}
                   {%- for product in collection.products limit: limit -%}
                     <div class="cst-card-item">
-                      <div class="cst-card">
+                      {%- liquid
+                        assign bean_title = block.settings.tab_label | default: collection.title | downcase
+                        assign bean_note = 'Some version of you.'
+                        assign bean_accent = 'rgba(198,169,105,0.9)'
+                        if bean_title contains 'coffee'
+                          assign bean_note = 'Calm. Collected.'
+                          assign bean_accent = 'rgba(141,106,79,0.92)'
+                        elsif bean_title contains 'chilli'
+                          assign bean_note = 'Too much? Good.'
+                          assign bean_accent = 'rgba(179,69,43,0.92)'
+                        elsif bean_title contains 'jelly'
+                          assign bean_note = 'Online. Always.'
+                          assign bean_accent = 'rgba(214,113,161,0.92)'
+                        elsif bean_title contains 'green'
+                          assign bean_note = 'Quiet, then clear.'
+                          assign bean_accent = 'rgba(111,144,88,0.92)'
+                        elsif bean_title contains 'vanilla'
+                          assign bean_note = 'Soft, never simple.'
+                          assign bean_accent = 'rgba(204,181,126,0.92)'
+                        endif
+                      -%}
+                      <div class="cst-card" style="--bean-accent: {{ bean_accent }};">
                         <div class="cst-card-image-wrapper">
+                          <div class="cst-card-persona" aria-hidden="true">
+                            <div>
+                              <div class="cst-card-persona-label">{{ collection.title }}</div>
+                              <div class="cst-card-persona-note">{{ bean_note }}</div>
+                            </div>
+                          </div>
                           <img
                             src="{{ product.featured_image | image_url: width: 600 }}"
                             alt="{{ product.title | escape }}"
