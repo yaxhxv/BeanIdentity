@@ -1,0 +1,22 @@
+{% comment %}
+  SECTION: BEAN NARRATIVE INJECT
+  Injects the narrative CSS + JS assets only on the homepage.
+  Place this section in templates/index.json to scope it exclusively.
+  No visible output — purely an asset loader.
+{% endcomment %}
+
+{{ 'bean-narrative.css' | asset_url | stylesheet_tag }}
+
+<script src="{{ 'bean-narrative.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Narrative Layer",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Narrative Layer"
+    }
+  ]
+}
+{% endschema %}

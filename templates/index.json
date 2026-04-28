@@ -1,6 +1,10 @@
 
 {
   "sections": {
+    "bean_narrative_inject": {
+      "type": "bean-narrative-inject",
+      "settings": {}
+    },
     "hero_banner_clean_NxXFFK": {
       "type": "hero-banner-clean",
       "blocks": {
@@ -656,6 +660,7 @@
     }
   },
   "order": [
+    "bean_narrative_inject",
     "hero_banner_clean_NxXFFK",
     "visual_transition_divider",
     "identity_copy_hp",

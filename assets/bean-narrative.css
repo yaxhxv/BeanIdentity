@@ -1,0 +1,501 @@
+/* ============================================================
+   BEAN IDENTITY — NARRATIVE LAYER  v1.0
+   Pure additive CSS. Zero layout disruption.
+   All animations respect prefers-reduced-motion.
+   ============================================================ */
+
+/* ---- MOTION PREFERENCE KILL-SWITCH ---- */
+@media (prefers-reduced-motion: reduce) {
+  .bi-word,
+  .bi-mood-text,
+  .bi-blob,
+  .bi-tm-marquee-inner,
+  .bi-checkin-mood,
+  .cst-card-story-layer,
+  .identity-copy-section,
+  .final-cta-section,
+  .quiz-prompt-section {
+    animation: none !important;
+    transition: opacity 0.2s ease, transform 0.2s ease !important;
+  }
+  .bi-word { clip-path: inset(0 0% 0 0) !important; }
+  .cst-card-item { opacity: 1 !important; transform: none !important; }
+}
+
+/* ============================================================
+   1. HERO — CURSOR PARALLAX
+   Bean chars respond to --cx / --cy set by JS
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .clean-hero-section .hero-bean-char--1 {
+    transform: rotate(-7deg) translate(calc(var(--cx, 0) * -0.018rem), calc(var(--cy, 0) * -0.012rem));
+    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  .clean-hero-section .hero-bean-char--2 {
+    transform: rotate(10deg) translate(calc(var(--cx, 0) * 0.024rem), calc(var(--cy, 0) * 0.016rem));
+    transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  .clean-hero-section .hero-bean-char--3 {
+    transform: rotate(7deg) translate(calc(var(--cx, 0) * -0.016rem), calc(var(--cy, 0) * 0.022rem));
+    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+  .clean-hero-section .hero-bean-char--4 {
+    transform: rotate(-9deg) translate(calc(var(--cx, 0) * 0.028rem), calc(var(--cy, 0) * -0.018rem));
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+  }
+}
+
+/* Hero CTA — premium glow sweep on hover */
+.hero-btn {
+  overflow: hidden;
+}
+.hero-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.14) 50%, transparent 100%);
+  transform: translateX(-110%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 1;
+}
+.hero-btn:hover::before {
+  transform: translateX(110%);
+}
+
+/* Mood text rotator */
+.bi-mood-text {
+  display: inline-block;
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bi-mood-text.bi-fade-out {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+@keyframes biMoodIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+.bi-mood-text.bi-fade-in {
+  animation: biMoodIn 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ============================================================
+   2. IDENTITY COPY — WORD CLIP-PATH REVEAL + GRADIENT
+   ============================================================ */
+@keyframes biGradientDrift {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+.identity-copy-section {
+  background: linear-gradient(
+    135deg,
+    #ede7e3 0%,
+    #f5f5f5 35%,
+    #ede0d4 65%,
+    #e8e0d8 100%
+  ) !important;
+  background-size: 300% 300% !important;
+  animation: biGradientDrift 14s ease infinite;
+}
+
+/* Word reveal spans — injected by JS */
+.bi-word {
+  display: inline-block;
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: clip-path;
+}
+.bi-word.bi-in-view {
+  clip-path: inset(0 0% 0 0);
+}
+
+/* ============================================================
+   3. QUIZ SECTION — CHECK-IN FEEL
+   ============================================================ */
+/* Check-in label injected by JS */
+.bi-checkin-label {
+  display: block;
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.05rem, 1.1vw, 1.3rem);
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(245, 245, 245, 0.5);
+  margin: 0 0 1.8rem;
+}
+.bi-checkin-mood {
+  color: #c6a969;
+  font-weight: 700;
+  display: inline-block;
+  transition: opacity 0.35s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bi-checkin-mood.bi-swap-out {
+  opacity: 0;
+  transform: translateY(-5px);
+}
+@keyframes biSwapIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0);   }
+}
+.bi-checkin-mood.bi-swap-in {
+  animation: biSwapIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Quiz button — press ripple */
+.quiz-prompt__button {
+  overflow: hidden;
+  position: relative;
+}
+.quiz-prompt__button::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.14);
+  transform: translate(-50%, -50%);
+  transition: none;
+  pointer-events: none;
+  z-index: 0;
+}
+.quiz-prompt__button:active::before {
+  width: 200%;
+  height: 400%;
+  border-radius: 0;
+  transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              height 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ============================================================
+   4. STORY TILES — SHOP BY BEAN (collection-showcase-tabs)
+   ============================================================ */
+
+/* Story reveal layer — injected by JS into .cst-card-image-wrapper */
+.cst-card-story-layer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 4;
+  padding: 1.4rem 1.6rem 1.8rem;
+  background: linear-gradient(0deg, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.3) 60%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transform: translateY(100%);
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+.cst-card:hover .cst-card-story-layer {
+  transform: translateY(0);
+}
+
+.cst-story-line {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  font-style: italic;
+  color: rgba(245, 245, 245, 0.92);
+  line-height: 1.35;
+}
+.cst-mood-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.82rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--bean-accent, #c6a969);
+}
+.cst-mood-tag::before {
+  content: "";
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  background: var(--bean-accent, #c6a969);
+  flex-shrink: 0;
+}
+
+/* Background personality tint on card hover */
+.cst-card-image-wrapper {
+  position: relative;
+}
+.cst-card-image-wrapper::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--bean-accent, rgba(198,169,105,0.9));
+  opacity: 0;
+  transition: opacity 0.45s ease;
+  z-index: 1;
+  pointer-events: none;
+  mix-blend-mode: color;
+}
+.cst-card:hover .cst-card-image-wrapper::after {
+  opacity: 0.2;
+}
+
+/* 3D Tilt — JS sets --tx / --ty on hover */
+.cst-card {
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.cst-card.bi-tilt-active {
+  transform: perspective(700px)
+    rotateX(var(--tx, 0deg))
+    rotateY(var(--ty, 0deg))
+    translateY(-0.5rem) !important;
+  box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.18) !important;
+  transition: transform 0.12s ease, box-shadow 0.12s ease !important;
+}
+.cst-card:not(.bi-tilt-active) {
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.55s ease !important;
+}
+
+/* Idle image breathing */
+@media (prefers-reduced-motion: no-preference) {
+  .cst-card-img {
+    animation: biImgBreathe var(--bi-drift, 9s) ease-in-out infinite;
+  }
+  .cst-card:hover .cst-card-img {
+    animation: none;
+  }
+}
+@keyframes biImgBreathe {
+  0%, 100% { transform: scale(1);     }
+  50%       { transform: scale(1.018); }
+}
+
+/* Staggered card entrance */
+.cst-card-item {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--bi-stagger, 0ms),
+    transform 0.6s cubic-bezier(0.16, 1, 0.3, 1) var(--bi-stagger, 0ms);
+}
+.cst-card-item.bi-card-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Tab transition */
+.cst-tab-content.bi-tab-out {
+  opacity: 0 !important;
+  transform: translateY(8px) !important;
+  pointer-events: none;
+  transition: opacity 0.25s ease, transform 0.25s ease !important;
+}
+@keyframes biTabIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0);    }
+}
+.cst-tab-content.bi-tab-in {
+  animation: biTabIn 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Tab button active sweep underline */
+.cst-tab-btn {
+  position: relative;
+}
+.cst-tab-btn::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: #c6a969;
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.cst-tab-btn.active::after {
+  transform: scaleX(1);
+}
+
+/* ============================================================
+   5. TESTIMONIALS — CONTINUOUS MARQUEE
+   ============================================================ */
+.bi-tm-marquee-wrap {
+  overflow: hidden;
+  width: 100%;
+  position: relative;
+}
+.bi-tm-marquee-inner {
+  display: flex;
+  width: max-content;
+  gap: 28px;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .bi-tm-marquee-inner {
+    animation: biMarquee 36s linear infinite;
+  }
+  .bi-tm-marquee-inner:hover {
+    animation-play-state: paused;
+  }
+}
+@keyframes biMarquee {
+  from { transform: translateX(0);    }
+  to   { transform: translateX(-50%); }
+}
+
+/* Random card rotation set via inline --bi-rot */
+.bi-tm-card {
+  transform: rotate(calc(var(--bi-rot, 0) * 1deg));
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.35s ease;
+  flex-shrink: 0;
+  cursor: default;
+}
+.bi-tm-card:hover {
+  transform: rotate(0deg) translateY(-5px);
+  box-shadow: 0 1.6rem 4rem rgba(0,0,0,0.14);
+}
+
+/* Quote highlight underline animation */
+.bi-highlight {
+  position: relative;
+  display: inline;
+}
+.bi-highlight::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 1.5px;
+  background: linear-gradient(90deg, #c6a969, rgba(198,169,105,0.35));
+  transform: scaleX(0);
+  transform-origin: left center;
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.bi-tm-card:hover .bi-highlight::after {
+  transform: scaleX(1);
+}
+
+/* Mobile: keep original click-scroll, hide marquee duplicate */
+@media (max-width: 991px) {
+  .bi-tm-marquee-inner {
+    animation: none;
+  }
+}
+
+/* ============================================================
+   6. FINAL CTA — AMBIENT LOOPING BACKGROUND + BLOBS
+   ============================================================ */
+@keyframes biFinalGlow {
+  0%   { background-position: 0% 50%;   }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%;   }
+}
+.final-cta-section {
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(198,169,105,0.14) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(198,169,105,0.09) 0%, transparent 50%),
+    radial-gradient(circle  at 50%  0%, rgba(198,169,105,0.18) 0%, transparent 30%),
+    #0b0b0b !important;
+  background-size: 200% 200%, 200% 200%, 100% 100%, 100% 100% !important;
+  animation: biFinalGlow 18s ease infinite;
+}
+
+/* Floating blob elements — injected by JS */
+.bi-blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  pointer-events: none;
+  z-index: 0;
+}
+.bi-blob--1 {
+  width: 32rem;
+  height: 32rem;
+  left: -10rem;
+  top: 50%;
+  background: radial-gradient(circle, rgba(198,169,105,0.3), transparent 68%);
+  opacity: 0.45;
+  animation: biBlob1 16s ease-in-out infinite;
+}
+.bi-blob--2 {
+  width: 24rem;
+  height: 24rem;
+  right: -8rem;
+  bottom: 8%;
+  background: radial-gradient(circle, rgba(198,169,105,0.22), transparent 65%);
+  opacity: 0.38;
+  animation: biBlob2 20s ease-in-out infinite;
+  animation-delay: -6s;
+}
+.bi-blob--3 {
+  width: 18rem;
+  height: 18rem;
+  left: 50%;
+  top: -6rem;
+  transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(245,240,225,0.07), transparent 65%);
+  opacity: 0.55;
+  animation: biBlob3 13s ease-in-out infinite;
+  animation-delay: -9s;
+}
+@keyframes biBlob1 {
+  0%, 100% { transform: translateY(-50%) translate(0,     0);    }
+  50%       { transform: translateY(-50%) translate(2.5rem, -1.5rem); }
+}
+@keyframes biBlob2 {
+  0%, 100% { transform: translate(0,      0);       }
+  50%       { transform: translate(-2rem,  1.2rem);  }
+}
+@keyframes biBlob3 {
+  0%, 100% { transform: translateX(-50%) translateY(0);     }
+  50%       { transform: translateX(-50%) translateY(1.5rem);}
+}
+
+/* Final CTA buttons — sweep glow */
+.final-cta__button {
+  overflow: hidden;
+  position: relative;
+}
+.final-cta__button::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(255,255,255,0.1);
+  transform: translateX(-110%);
+  transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  z-index: 0;
+}
+.final-cta__button:hover::before {
+  transform: translateX(110%);
+}
+.final-cta__button--secondary:hover {
+  background: rgba(245,245,245,0.08) !important;
+  border-color: rgba(198,169,105,0.7) !important;
+  color: #c6a969 !important;
+}
+
+/* ============================================================
+   7. GLOBAL SCROLL REVEAL
+   ============================================================ */
+.bi-reveal {
+  opacity: 0;
+  transform: translateY(22px);
+  transition:
+    opacity  0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--bi-reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1) var(--bi-reveal-delay, 0ms);
+}
+.bi-reveal.bi-in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
