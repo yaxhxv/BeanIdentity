@@ -29,19 +29,6 @@
     position: relative;
   }
 
-  .bean-popular-header::after {
-    content: "";
-    position: absolute;
-    width: 6rem;
-    height: 1.6rem;
-    right: calc(50% - 36rem);
-    top: 1rem;
-    border-top: 2px solid rgba(11,11,11,0.55);
-    border-right: 2px solid rgba(11,11,11,0.55);
-    border-radius: 0 100% 0 0;
-    transform: rotate(12deg);
-    opacity: 0.55;
-  }
 
   .bean-popular-title {
     font-family: var(--font-heading-family);
@@ -226,7 +213,7 @@
 
   @media (hover: hover) {
     .bean-product-card:hover {
-      transform: translateY(-5px) rotate(-1deg) scale(1.015);
+      transform: translateY(-5px) scale(1.015);
       box-shadow: 0 24px 60px rgba(0,0,0,0.14);
       border-color: rgba(198,169,105,0.4);
     }

@@ -16,21 +16,6 @@
     border-top: 1px solid rgba(245,245,245,0.08);
   }
 
-  #FinalCTA-{{ section.id }}::after {
-    content: "";
-    position: absolute;
-    right: 7rem;
-    top: 5rem;
-    width: 5rem;
-    height: 7rem;
-    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
-    background:
-      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.22), transparent 18%),
-      linear-gradient(145deg, rgba(198,169,105,0.92), rgba(155,120,73,0.75));
-    opacity: 0.82;
-    transform: rotate(18deg);
-    animation: finalBeanFloat 11s ease-in-out infinite;
-  }
 
   #FinalCTA-{{ section.id }}::before {
     content: "BEAN IDENTITY";
@@ -114,7 +99,7 @@
   }
 
   .final-cta__button:hover {
-    transform: translateY(-0.3rem) rotate(-1deg) scale(1.02);
+    transform: translateY(-0.3rem) scale(1.02);
     box-shadow: 0 10px 20px rgba(0,0,0,0.1);
   }
 
@@ -137,20 +122,10 @@
     opacity: 0.8;
   }
 
-  @keyframes finalBeanFloat {
-    0%, 100% { transform: translate3d(0, 0, 0) rotate(18deg); }
-    50% { transform: translate3d(-0.8rem, -1rem, 0) rotate(12deg); }
-  }
 
   @media screen and (max-width: 749px) {
     #FinalCTA-{{ section.id }} {
       padding: 8rem 0;
-    }
-    #FinalCTA-{{ section.id }}::after {
-      right: 2rem;
-      top: 2rem;
-      width: 3.8rem;
-      height: 5.4rem;
     }
     .final-cta__button {
       width: 100%;
@@ -166,14 +141,10 @@
     {%- if section.settings.subline != blank -%}
       <p class="final-cta__subline">{{ section.settings.subline }}</p>
     {%- endif -%}
-    
+
     <div class="final-cta__buttons">
-      <a href="/pages/which-bean-are-you" class="final-cta__button final-cta__button--primary">
-        Find Your Bean
-      </a>
-      <a href="/collections/all" class="final-cta__button final-cta__button--secondary">
-        Explore Beans
-      </a>
+      <a href="/pages/which-bean-are-you" class="final-cta__button final-cta__button--primary"> Find Your Bean </a>
+      <a href="/collections/all" class="final-cta__button final-cta__button--secondary"> Explore Beans </a>
     </div>
   </div>
 </div>

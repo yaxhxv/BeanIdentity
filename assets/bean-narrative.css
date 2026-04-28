@@ -22,32 +22,6 @@
   .cst-card-item { opacity: 1 !important; transform: none !important; }
 }
 
-/* ============================================================
-   1. HERO — CURSOR PARALLAX
-   Bean chars respond to --cx / --cy set by JS
-   ============================================================ */
-@media (prefers-reduced-motion: no-preference) {
-  .clean-hero-section .hero-bean-char--1 {
-    transform: rotate(-7deg) translate(calc(var(--cx, 0) * -0.018rem), calc(var(--cy, 0) * -0.012rem));
-    transition: transform 1s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
-  }
-  .clean-hero-section .hero-bean-char--2 {
-    transform: rotate(10deg) translate(calc(var(--cx, 0) * 0.024rem), calc(var(--cy, 0) * 0.016rem));
-    transition: transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
-  }
-  .clean-hero-section .hero-bean-char--3 {
-    transform: rotate(7deg) translate(calc(var(--cx, 0) * -0.016rem), calc(var(--cy, 0) * 0.022rem));
-    transition: transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
-  }
-  .clean-hero-section .hero-bean-char--4 {
-    transform: rotate(-9deg) translate(calc(var(--cx, 0) * 0.028rem), calc(var(--cy, 0) * -0.018rem));
-    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform;
-  }
-}
 
 /* Hero CTA — premium glow sweep on hover */
 .hero-btn {

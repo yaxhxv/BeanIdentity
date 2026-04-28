@@ -10,38 +10,6 @@
   const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const isMobile = () => window.innerWidth < 992;
 
-  /* ============================================================
-     1. HERO — CURSOR PARALLAX
-     Writes --cx / --cy on <html> consumed by CSS bean transforms
-     ============================================================ */
-  function initCursorParallax() {
-    const hero = document.querySelector('.clean-hero-section');
-    if (!hero || REDUCED) return;
-
-    let targetX = 0, targetY = 0;
-    let currentX = 0, currentY = 0;
-    let rafId;
-
-    hero.addEventListener('mousemove', function (e) {
-      const rect = hero.getBoundingClientRect();
-      targetX = ((e.clientX - rect.left) / rect.width - 0.5) * 200;
-      targetY = ((e.clientY - rect.top) / rect.height - 0.5) * 200;
-    });
-
-    hero.addEventListener('mouseleave', function () {
-      targetX = 0;
-      targetY = 0;
-    });
-
-    function tick() {
-      currentX += (targetX - currentX) * 0.07;
-      currentY += (targetY - currentY) * 0.07;
-      document.documentElement.style.setProperty('--cx', currentX.toFixed(2));
-      document.documentElement.style.setProperty('--cy', currentY.toFixed(2));
-      rafId = requestAnimationFrame(tick);
-    }
-    rafId = requestAnimationFrame(tick);
-  }
 
   /* ============================================================
      2. HERO — MOOD TEXT ROTATOR
@@ -402,7 +370,7 @@
      INIT — Run on DOMContentLoaded
      ============================================================ */
   function init() {
-    initCursorParallax();
+
     initHeroMoodRotator();
     initWordReveal();
     initQuizCheckin();

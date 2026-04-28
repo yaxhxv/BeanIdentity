@@ -13,14 +13,6 @@
     <span class="transition-line transition-line-1"></span>
     <span class="transition-line transition-line-2"></span>
   </div>
-  <div class="floating-beans">
-    <div class="f-bean f-bean-1"></div>
-    <div class="f-bean f-bean-2"></div>
-    <div class="f-bean f-bean-3"></div>
-    <div class="f-bean f-bean-4"></div>
-    <div class="f-bean f-bean-5"></div>
-    <div class="f-bean f-bean-6"></div>
-  </div>
 </div>
 
 <style>
@@ -58,48 +50,6 @@
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   }
 
-  /* Floating Beans */
-  .floating-beans {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    pointer-events: none;
-    z-index: 3;
-  }
-
-  .f-bean {
-    position: absolute;
-    width: 38px;
-    height: 54px;
-    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
-    opacity: 0.22;
-    background:
-      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.34), transparent 18%),
-      linear-gradient(145deg, rgba(198,169,105,0.92), rgba(146,111,67,0.75));
-    box-shadow: 0 1rem 2rem rgba(0,0,0,0.18);
-  }
-
-  /* The "bean" line */
-  .f-bean::after {
-    content: '';
-    position: absolute;
-    top: 16%;
-    left: 48%;
-    width: 2px;
-    height: 68%;
-    background: rgba(11,11,11,0.18);
-    border-radius: 999px;
-    transform: rotate(10deg);
-  }
-
-  .f-bean-1 { top: 18%; left: 9%; --base-rot: 24deg; animation: floatBean 12s infinite ease-in-out; }
-  .f-bean-2 { top: 60%; left: 84%; --base-rot: -14deg; animation: floatBean 15s infinite ease-in-out reverse; }
-  .f-bean-3 { top: 8%; left: 61%; --base-rot: 42deg; animation: floatBean 18s infinite ease-in-out 2s; }
-  .f-bean-4 { top: 62%; left: 39%; --base-rot: -30deg; animation: floatBean 14s infinite ease-in-out 1s; }
-  .f-bean-5 { top: 34%; left: 72%; --base-rot: 10deg; animation: floatBean 16s infinite ease-in-out 1.5s; }
-  .f-bean-6 { top: 48%; left: 20%; --base-rot: -18deg; animation: floatBean 13s infinite ease-in-out 0.5s; }
 
   .transition-doodles {
     position: absolute;
@@ -142,7 +92,7 @@
     height: 1.4rem;
     top: 18%;
     right: 24%;
-    transform: rotate(12deg);
+    transform: none;
   }
 
   .transition-star-2 {
@@ -150,7 +100,7 @@
     height: 1rem;
     bottom: 20%;
     left: 31%;
-    transform: rotate(-8deg);
+    transform: none;
   }
 
   .transition-line {
@@ -164,7 +114,7 @@
     height: 2.4rem;
     top: 18%;
     left: 42%;
-    transform: rotate(8deg);
+    transform: none;
   }
 
   .transition-line-2 {
@@ -172,13 +122,9 @@
     height: 2rem;
     bottom: 18%;
     right: 10%;
-    transform: rotate(-12deg);
+    transform: none;
   }
 
-  @keyframes floatBean {
-    0%, 100% { transform: translate(0, 0) rotate(var(--base-rot, 0deg)); }
-    50% { transform: translate(15px, -20px) rotate(calc(var(--base-rot, 0deg) + 12deg)); }
-  }
 
   @media (max-width: 767px) {
     .visual-transition {

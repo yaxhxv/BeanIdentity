@@ -29,19 +29,6 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     background: radial-gradient(circle, rgba(198,169,105,0.16), transparent 70%);
   }
 
-  .cc-section::after {
-    width: 5rem;
-    height: 7rem;
-    right: 6rem;
-    bottom: 6rem;
-    border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;
-    background:
-      radial-gradient(circle at 38% 30%, rgba(255,255,255,0.24), transparent 18%),
-      linear-gradient(145deg, rgba(198,169,105,0.92), rgba(161,125,79,0.78));
-    opacity: 0.85;
-    transform: rotate(12deg);
-    animation: ccBeanFloat 11s ease-in-out infinite;
-  }
 
   .cc-container {
     max-width: 1500px;
@@ -57,18 +44,6 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     position: relative;
   }
 
-  .cc-header::after {
-    content: "";
-    position: absolute;
-    right: calc(50% - 34rem);
-    top: -1rem;
-    width: 10rem;
-    height: 10rem;
-    background: url('{{ "bean-jelly-2.png" | asset_url }}') center/contain no-repeat;
-    transform: rotate(8deg);
-    animation: ccStickerFloat 9s ease-in-out infinite;
-    filter: drop-shadow(0 1.2rem 2.4rem rgba(0,0,0,0.25));
-  }
 
   .cc-title {
     font-family: var(--font-heading-family);
@@ -154,7 +129,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
   }
 
   .cc-card:hover {
-    transform: translateY(-0.4rem) rotate(-1deg);
+    transform: translateY(-0.4rem);
   }
 
   .cc-card:hover .cc-image-wrapper {
@@ -190,37 +165,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     color: rgba(245,245,245,0.54);
   }
 
-  .cc-card-bean {
-    position: absolute;
-    right: -1rem;
-    bottom: 4rem;
-    width: 9rem;
-    z-index: 2;
-    pointer-events: none;
-    transform: rotate(8deg);
-    transition: transform 0.35s ease;
-    filter: drop-shadow(0 1rem 2rem rgba(0,0,0,0.28));
-  }
 
-  .cc-card-bean img {
-    width: 100%;
-    display: block;
-    height: auto;
-  }
-
-  .cc-card:hover .cc-card-bean {
-    transform: translateY(-0.6rem) rotate(14deg) scale(1.06);
-  }
-
-  @keyframes ccBeanFloat {
-    0%, 100% { transform: translate3d(0, 0, 0) rotate(12deg); }
-    50% { transform: translate3d(0.8rem, -0.8rem, 0) rotate(18deg); }
-  }
-
-  @keyframes ccStickerFloat {
-    0%, 100% { transform: translate3d(0, 0, 0) rotate(8deg); }
-    50% { transform: translate3d(0.6rem, -0.8rem, 0) rotate(14deg); }
-  }
 
   /* Desktop */
   @media (min-width: 768px) {
@@ -267,25 +212,8 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     .cc-nav-btn { display: none; }
     .cc-container { padding-right: 0; }
     .cc-track { padding-right: 20px; }
-    .cc-section::after {
-      width: 3.8rem;
-      height: 5.4rem;
-      right: 2rem;
-      bottom: 2rem;
-    }
-    .cc-header::after {
-      width: 7rem;
-      height: 7rem;
-      right: 1rem;
-      top: -2rem;
-    }
     .cc-card:nth-child(even) {
       margin-top: 0;
-    }
-    .cc-card-bean {
-      width: 7rem;
-      right: -0.4rem;
-      bottom: 3.4rem;
     }
   }
 </style>
@@ -312,9 +240,9 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
             assign bean_art = 'bean-green-1.png'
             assign bean_title = block.settings.title | downcase
             if bean_title contains 'coffee'
-              assign bean_art = 'bean-coffee-2.png'
-            elsif bean_title contains 'chilli'
               assign bean_art = 'bean-chilli-2.png'
+            elsif bean_title contains 'chilli'
+              assign bean_art = 'bean-coffee-2.png'
             elsif bean_title contains 'jelly'
               assign bean_art = 'bean-jelly-2.png'
             elsif bean_title contains 'vanilla'
@@ -335,9 +263,6 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
                 {{ 'collection-1' | placeholder_svg_tag: 'cc-image' }}
               {% endif %}
             </div>
-            <span class="cc-card-bean" aria-hidden="true">
-              <img src="{{ bean_art | asset_url }}" alt="">
-            </span>
             <div class="cc-card-title-wrap">
               <div class="cc-card-title">{{ block.settings.title }}</div>
               <span class="cc-card-note" aria-hidden="true">01</span>
