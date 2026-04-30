@@ -473,3 +473,99 @@
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ============================================================
+   8. HOMEPAGE MODULE-LEVEL ROUNDING
+   Each homepage section rendered as a smooth rounded module.
+   Shopify wraps sections in: #shopify-section-{id}
+   ============================================================ */
+
+/* --- Shared module shape --- */
+#shopify-section-bean_narrative_inject,
+#shopify-section-hero_banner_clean_NxXFFK,
+#shopify-section-visual_transition_divider,
+#shopify-section-identity_copy_hp,
+#shopify-section-quiz_entry_prompt_hp,
+#shopify-section-collection_slider_yzYUYt,
+#shopify-section-most_popular_products_fJfFYg,
+#shopify-section-beanagram_stories_hp,
+#shopify-section-scrolling_marquee_hp,
+#shopify-section-image_with_text_zep9A9,
+#shopify-section-collection_showcase_tabs_nQm96R,
+#shopify-section-image_with_text_nFqPww,
+#shopify-section-slideshow_6AdwP4,
+#shopify-section-most_popular_products_a43Rtk,
+#shopify-section-featured_blog_bhD3VW,
+#shopify-section-final_cta_loop_hp {
+  border-radius: 28px;
+  overflow: hidden;
+  margin-left: 8px;
+  margin-right: 8px;
+  margin-bottom: 10px;
+  transition: box-shadow 0.45s ease;
+}
+
+@media screen and (min-width: 750px) {
+  #shopify-section-bean_narrative_inject,
+  #shopify-section-hero_banner_clean_NxXFFK,
+  #shopify-section-visual_transition_divider,
+  #shopify-section-identity_copy_hp,
+  #shopify-section-quiz_entry_prompt_hp,
+  #shopify-section-collection_slider_yzYUYt,
+  #shopify-section-most_popular_products_fJfFYg,
+  #shopify-section-beanagram_stories_hp,
+  #shopify-section-scrolling_marquee_hp,
+  #shopify-section-image_with_text_zep9A9,
+  #shopify-section-collection_showcase_tabs_nQm96R,
+  #shopify-section-image_with_text_nFqPww,
+  #shopify-section-slideshow_6AdwP4,
+  #shopify-section-most_popular_products_a43Rtk,
+  #shopify-section-featured_blog_bhD3VW,
+  #shopify-section-final_cta_loop_hp {
+    border-radius: 32px;
+    margin-left: 14px;
+    margin-right: 14px;
+    margin-bottom: 14px;
+  }
+}
+
+@media screen and (min-width: 990px) {
+  #shopify-section-bean_narrative_inject,
+  #shopify-section-hero_banner_clean_NxXFFK,
+  #shopify-section-visual_transition_divider,
+  #shopify-section-identity_copy_hp,
+  #shopify-section-quiz_entry_prompt_hp,
+  #shopify-section-collection_slider_yzYUYt,
+  #shopify-section-most_popular_products_fJfFYg,
+  #shopify-section-beanagram_stories_hp,
+  #shopify-section-scrolling_marquee_hp,
+  #shopify-section-image_with_text_zep9A9,
+  #shopify-section-collection_showcase_tabs_nQm96R,
+  #shopify-section-image_with_text_nFqPww,
+  #shopify-section-slideshow_6AdwP4,
+  #shopify-section-most_popular_products_a43Rtk,
+  #shopify-section-featured_blog_bhD3VW,
+  #shopify-section-final_cta_loop_hp {
+    border-radius: 36px;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 18px;
+  }
+}
+
+/* Thin divider gets a softer radius */
+#shopify-section-visual_transition_divider {
+  border-radius: 16px !important;
+}
+
+/* Subtle lift shadow on the hero for premium depth */
+#shopify-section-hero_banner_clean_NxXFFK {
+  box-shadow: 0 8px 48px rgba(0, 0, 0, 0.12);
+}
+
+/* Dark sections get a slightly stronger shadow */
+#shopify-section-quiz_entry_prompt_hp,
+#shopify-section-final_cta_loop_hp {
+  box-shadow: 0 6px 40px rgba(0, 0, 0, 0.22);
+}
+

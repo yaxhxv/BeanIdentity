@@ -19,6 +19,27 @@
     color: #f5f5f5;
   }
 
+  .quiz-prompt__bean-gif {
+    position: absolute;
+    top: -5rem;
+    left: -5rem;
+    width: clamp(260px, 30vw, 400px);
+    height: auto;
+    border-radius: 50% 44% 55% 42% / 46% 52% 48% 54%;
+    mix-blend-mode: screen;
+    opacity: 0.55;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .quiz-prompt__bean-gif {
+      width: clamp(160px, 44vw, 240px);
+      top: -3rem;
+      left: -3rem;
+    }
+  }
+
   #QuizPrompt-{{ section.id }}::before {
     content: "FIND YOUR BEAN";
     position: absolute;
@@ -152,6 +173,13 @@
 {%- endstyle -%}
 
 <div id="QuizPrompt-{{ section.id }}" class="quiz-prompt-section{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
+  <img
+    src="{{ 'coffee_bean_gif.gif' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    class="quiz-prompt__bean-gif"
+    loading="lazy"
+  >
   <div class="quiz-prompt__wrapper">
     {%- if section.settings.headline != blank -%}
       <h2 class="quiz-prompt__headline">{{ section.settings.headline }}</h2>

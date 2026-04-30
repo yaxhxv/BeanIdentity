@@ -131,9 +131,38 @@
       width: 100%;
     }
   }
+
+  .final-cta__bean-gif {
+    position: absolute;
+    right: -3rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: clamp(240px, 26vw, 360px);
+    height: auto;
+    border-radius: 46% 54% 52% 48% / 54% 46% 54% 46%;
+    mix-blend-mode: screen;
+    opacity: 0.4;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .final-cta__bean-gif {
+      width: clamp(120px, 36vw, 180px);
+      right: -1.5rem;
+      opacity: 0.3;
+    }
+  }
 {%- endstyle -%}
 
 <div id="FinalCTA-{{ section.id }}" class="final-cta-section">
+  <img
+    src="{{ 'chilli_bean_gif.gif' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    class="final-cta__bean-gif"
+    loading="lazy"
+  >
   <div class="final-cta__wrapper">
     {%- if section.settings.headline != blank -%}
       <h2 class="final-cta__headline">{{ section.settings.headline }}</h2>

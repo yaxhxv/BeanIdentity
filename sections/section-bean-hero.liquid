@@ -1,0 +1,439 @@
+{%- comment -%}
+  SECTION: DYNAMIC BEAN HERO
+  - High-impact cinematic banner using specific store assets.
+  - Features dynamic bean selection mapped to file_url PNGs.
+  - Premium typography and overlay treatments.
+{%- endcomment -%}
+
+{%- style -%}
+  .bean-hero-{{ section.id }} {
+    position: relative;
+    width: 100%;
+    min-height: {{ section.settings.desktop_height }}vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    background: #0b0b0b;
+    color: #f5f5f5;
+  }
+
+  .bean-hero-{{ section.id }} .bean-hero-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .bean-hero-{{ section.id }} .bean-hero-slide {
+    flex: 0 0 100%;
+    width: 100%;
+    position: relative;
+    min-height: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: {{ section.settings.content_alignment }};
+    padding: 6rem 5%;
+  }
+
+  .bean-hero-{{ section.id }} .bean-hero-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 10s ease;
+    z-index: 1;
+  }
+
+  .bean-hero-{{ section.id }} .bean-hero-slide.is-active .bean-hero-bg {
+    transform: scale(1.1);
+  }
+
+  /* Overlay Gradients */
+  .bean-hero-{{ section.id }} .bean-hero-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: linear-gradient(
+      to right,
+      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 1.5 }}),
+      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 0.5 }}) 50%,
+      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 0.2 }})
+    );
+  }
+
+  /* Typography */
+  .bean-hero-{{ section.id }} .bean-hero-content {
+    position: relative;
+    z-index: 3;
+    max-width: 800px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+  }
+
+  .bean-hero-{{ section.id }} .bean-hero-slide.is-active .bean-hero-content {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .bean-hero-{{ section.id }} .hero-kicker {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #c6a969;
+    margin-bottom: 1.5rem;
+    display: block;
+  }
+
+  .bean-hero-{{ section.id }} .hero-title {
+    font-family: var(--font-heading-family), sans-serif;
+    font-size: clamp(4.5rem, 8vw, 10rem);
+    font-weight: 900;
+    line-height: 0.9;
+    margin: 0 0 2rem;
+    text-transform: uppercase;
+    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  }
+
+  .bean-hero-{{ section.id }} .hero-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.6rem, 2vw, 2rem);
+    line-height: 1.6;
+    margin-bottom: 3.5rem;
+    color: rgba(245, 245, 245, 0.9);
+    max-width: 60ch;
+  }
+
+  /* CTA Button */
+  .bean-hero-{{ section.id }} .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    padding: 1.8rem 4.5rem;
+    background: #f5f5f5;
+    color: #0b0b0b;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+  }
+
+  .bean-hero-{{ section.id }} .hero-btn:hover {
+    background: #c6a969;
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(198, 169, 105, 0.4);
+  }
+
+  /* Mobile Adjustments */
+  @media screen and (max-width: 749px) {
+    .bean-hero-{{ section.id }} {
+      min-height: {{ section.settings.mobile_height }}vh;
+    }
+    .bean-hero-{{ section.id }} .bean-hero-slide {
+      padding: 4rem 2rem;
+      align-items: flex-end;
+      text-align: center;
+      justify-content: center;
+    }
+    .bean-hero-{{ section.id }} .hero-title {
+      font-size: 4.8rem;
+    }
+    .bean-hero-{{ section.id }} .hero-btn {
+      width: 100%;
+      justify-content: center;
+    }
+    .bean-hero-{{ section.id }} .bean-hero-overlay {
+      background: linear-gradient(
+        to bottom,
+        transparent 20%,
+        rgba(0, 0, 0, 0.4) 50%,
+        rgba(0, 0, 0, 0.85) 100%
+      );
+    }
+  }
+
+  /* Dots Navigation */
+  .bean-hero-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 12px;
+    z-index: 5;
+  }
+
+  .bean-hero-dot {
+    width: 40px;
+    height: 4px;
+    background: rgba(245, 245, 245, 0.3);
+    cursor: pointer;
+    border: none;
+    padding: 0;
+    transition: all 0.3s ease;
+  }
+
+  .bean-hero-dot.is-active {
+    background: #c6a969;
+    width: 60px;
+  }
+{%- endstyle -%}
+
+<div class="bean-hero-{{ section.id }}" id="BeanHero-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.speed }}">
+  <div class="bean-hero-track">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign bean_filename = ''
+        case block.settings.bean_type
+          when 'vanilla'
+            assign bean_filename = 'vanilla_bean_hero.png'
+          when 'green'
+            assign bean_filename = 'green_bean_hero.png'
+          when 'coffee'
+            assign bean_filename = 'coffee_bean_hero.png'
+          when 'jelly'
+            assign bean_filename = 'jelly_bean_hero.png'
+          when 'chilli'
+            assign bean_filename = 'Chilli_bean_hero.png'
+        endcase
+        
+        assign bg_image_url = bean_filename | file_url
+      -%}
+      
+      <div class="bean-hero-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+        <div class="bean-hero-bg" style="background-image: url('{{ bg_image_url }}');"></div>
+        <div class="bean-hero-overlay"></div>
+        
+        <div class="bean-hero-content">
+          {%- if block.settings.kicker != blank -%}
+            <span class="hero-kicker">{{ block.settings.kicker }}</span>
+          {%- endif -%}
+          
+          {%- if block.settings.title != blank -%}
+            <h2 class="hero-title">{{ block.settings.title | escape }}</h2>
+          {%- endif -%}
+          
+          {%- if block.settings.subtitle != blank -%}
+            <div class="hero-subtitle">{{ block.settings.subtitle }}</div>
+          {%- endif -%}
+          
+          {%- if block.settings.button_label != blank -%}
+            <a href="{{ block.settings.button_link | default: '#' }}" class="hero-btn">
+              {{ block.settings.button_label | escape }}
+            </a>
+          {%- endif -%}
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.blocks.size > 1 -%}
+    <div class="bean-hero-dots">
+      {%- for block in section.blocks -%}
+        <button class="bean-hero-dot {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('BeanHero-{{ section.id }}');
+    if (!section) return;
+
+    const track = section.querySelector('.bean-hero-track');
+    const slides = section.querySelectorAll('.bean-hero-slide');
+    const dots = section.querySelectorAll('.bean-hero-dot');
+    
+    if (slides.length <= 1) return;
+
+    let currentIndex = 0;
+    const autoplay = section.dataset.autoplay === 'true';
+    const speed = parseInt(section.dataset.speed) * 1000;
+    let interval;
+
+    function goToSlide(index) {
+      currentIndex = index;
+      track.style.transform = `translateX(-${currentIndex * 100}%)`;
+      
+      slides.forEach(s => s.classList.remove('is-active'));
+      slides[currentIndex].classList.add('is-active');
+      
+      dots.forEach(d => d.classList.remove('is-active'));
+      if (dots[currentIndex]) dots[currentIndex].classList.add('is-active');
+    }
+
+    function nextSlide() {
+      let next = (currentIndex + 1) % slides.length;
+      goToSlide(next);
+    }
+
+    function startAutoplay() {
+      if (autoplay) {
+        interval = setInterval(nextSlide, speed);
+      }
+    }
+
+    function stopAutoplay() {
+      clearInterval(interval);
+    }
+
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => {
+        stopAutoplay();
+        goToSlide(parseInt(dot.dataset.index));
+        startAutoplay();
+      });
+    });
+
+    section.addEventListener('mouseenter', stopAutoplay);
+    section.addEventListener('mouseleave', startAutoplay);
+
+    startAutoplay();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Dynamic Bean Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "select",
+      "id": "desktop_height",
+      "label": "Desktop Height",
+      "options": [
+        { "value": "60", "label": "60vh" },
+        { "value": "70", "label": "70vh" },
+        { "value": "80", "label": "80vh" },
+        { "value": "90", "label": "90vh" },
+        { "value": "100", "label": "Full Screen (100vh)" }
+      ],
+      "default": "80"
+    },
+    {
+      "type": "select",
+      "id": "mobile_height",
+      "label": "Mobile Height",
+      "options": [
+        { "value": "50", "label": "50vh" },
+        { "value": "60", "label": "60vh" },
+        { "value": "70", "label": "70vh" },
+        { "value": "80", "label": "80vh" }
+      ],
+      "default": "70"
+    },
+    {
+      "type": "select",
+      "id": "content_alignment",
+      "label": "Content Alignment (Desktop)",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "min": 0,
+      "max": 90,
+      "step": 5,
+      "unit": "%",
+      "label": "Overlay Intensity",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Slider Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Enable Autoplay",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "speed",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "label": "Slide Duration",
+      "default": 6
+    }
+  ],
+  "blocks": [
+    {
+      "type": "hero_slide",
+      "name": "Bean Slide",
+      "settings": [
+        {
+          "type": "select",
+          "id": "bean_type",
+          "label": "Select Bean Identity",
+          "options": [
+            { "value": "vanilla", "label": "Vanilla Bean" },
+            { "value": "green", "label": "Green Bean" },
+            { "value": "coffee", "label": "Coffee Bean" },
+            { "value": "jelly", "label": "Jelly Bean" },
+            { "value": "chilli", "label": "Chilli Bean" }
+          ],
+          "default": "vanilla"
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Kicker (Small Text Above)",
+          "default": "Meet the Origin"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading",
+          "default": "Vanilla Bean"
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "<p>Experience the clean, quiet, and expensive energy of our premium vanilla selection.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop the Collection"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Dynamic Bean Hero",
+      "blocks": [
+        { "type": "hero_slide", "settings": { "bean_type": "vanilla", "title": "Vanilla" } },
+        { "type": "hero_slide", "settings": { "bean_type": "chilli", "title": "Chilli" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

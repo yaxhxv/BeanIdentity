@@ -204,9 +204,37 @@
       flex: 0 0 28rem;
     }
   }
+
+  .beanagram__bean-gif {
+    position: absolute;
+    top: -3rem;
+    right: -5rem;
+    width: clamp(240px, 28vw, 360px);
+    height: auto;
+    border-radius: 48% 52% 44% 56% / 52% 44% 56% 48%;
+    mix-blend-mode: screen;
+    opacity: 0.45;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media screen and (max-width: 749px) {
+    .beanagram__bean-gif {
+      width: clamp(140px, 40vw, 200px);
+      top: -1.5rem;
+      right: -2.5rem;
+    }
+  }
 {%- endstyle -%}
 
 <div id="Beanagram-{{ section.id }}" class="beanagram-stories">
+  <img
+    src="{{ 'green_bean_gif.gif' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    class="beanagram__bean-gif"
+    loading="lazy"
+  >
   <div class="beanagram-header">
     <h2 class="beanagram-title">{{ section.settings.title }}</h2>
     <p class="beanagram-subtitle">{{ section.settings.subtitle }}</p>
