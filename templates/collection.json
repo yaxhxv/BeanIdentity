@@ -11,6 +11,54 @@
   "sections": {
     "banner": {
       "type": "main-collection-banner",
+      "blocks": {
+        "vanilla": {
+          "type": "hero_slide",
+          "settings": {
+            "bean_type": "vanilla",
+            "kicker": "Clean. Quiet. Expensive.",
+            "title": "Vanilla Bean",
+            "subtitle": "<p>Go where the map runs out. The best stories never started with a perfect plan. Chase the horizon. Find the hidden gem. Life rewards the ones who actually show up.</p>"
+          }
+        },
+        "chilli": {
+          "type": "hero_slide",
+          "settings": {
+            "bean_type": "chilli",
+            "kicker": "High Edge. Zero Apology.",
+            "title": "Chilli Bean",
+            "subtitle": "<p>Break the mould. Burn the rulebook. Fitting in was never the goal. Say what you mean. Do what you say. The world doesn't need another copy. Be the original.</p>"
+          }
+        },
+        "coffee": {
+          "type": "hero_slide",
+          "settings": {
+            "bean_type": "coffee",
+            "kicker": "Thoughtful. Grounded.",
+            "title": "Coffee Bean",
+            "subtitle": "<p>Think deeper. Question everything. The world makes more sense when you slow down long enough to understand it. Not everyone will keep up. That's okay. You were never meant to be easy to explain.</p>"
+          }
+        },
+        "green": {
+          "type": "hero_slide",
+          "settings": {
+            "bean_type": "green",
+            "kicker": "Fresh. Restorative.",
+            "title": "Green Bean",
+            "subtitle": "<p>Still waters run deep. Not everyone feels the room the way you do. The calm you carry is not weakness. It's the rarest kind of strength.</p>"
+          }
+        },
+        "jelly": {
+          "type": "hero_slide",
+          "settings": {
+            "bean_type": "jelly",
+            "kicker": "Playful. Magnetic.",
+            "title": "Jelly Bean",
+            "subtitle": "<p>Live louder. Love harder. Your energy is impossible to ignore. The world lights up when you walk in. Never apologise for taking up space.</p>"
+          }
+        }
+      },
+      "block_order": ["vanilla", "chilli", "coffee", "green", "jelly"],
       "settings": {
         "show_collection_description": true,
         "show_collection_image": true,

@@ -1,14 +1,27 @@
-/*
- * ------------------------------------------------------------
- * IMPORTANT: The contents of this file are auto-generated.
- *
- * This file may be updated by the Shopify admin theme editor
- * or related systems. Please exercise caution as any changes
- * made to this file may be overwritten.
- * ------------------------------------------------------------
- */
 {
   "sections": {
+    "cinematic-hero": {
+      "type": "bean-hero",
+      "blocks": {
+        "slide_1": { 
+          "type": "hero_slide",
+          "settings": {
+            "bean_type": "coffee",
+            "kicker": "Identity Series",
+            "title": "Coffee Bean",
+            "subtitle": "<p>Think deeper. Question everything. The world makes more sense when you slow down long enough to understand it. Not everyone will keep up. That's okay. You were never meant to be easy to explain.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "slide_1"
+      ],
+      "settings": {
+        "desktop_height": "90",
+        "mobile_height": "80",
+        "overlay_opacity": 45
+      }
+    },
     "bean-header": {
       "type": "bean-character-header",
       "settings": {}
@@ -35,6 +48,7 @@
     }
   },
   "order": [
+    "cinematic-hero",
     "bean-header",
     "product-grid"
   ]

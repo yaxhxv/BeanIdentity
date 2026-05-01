@@ -10,10 +10,191 @@
 {%- endstyle -%}
 
 {%- if collection.handle contains 'bean' -%}
-  {% render 'bean-header-content', 
-    bean_image: section.settings.bean_image,
-    image_alignment: section.settings.bean_image_alignment
-  %}
+  {%- liquid
+    assign active_block = nil
+    for block in section.blocks
+      if block.type == 'hero_slide'
+        assign target_handle = block.settings.bean_type | append: '-bean'
+        if target_handle == collection.handle
+          assign active_block = block
+          break
+        endif
+      endif
+    endfor
+  -%}
+
+  {%- if active_block != nil -%}
+    {%- liquid
+      assign bean_filename = ''
+      case active_block.settings.bean_type
+        when 'vanilla'
+          assign bean_filename = 'vanilla_bean_hero.png'
+          assign bean_accent = '#d9b86f'
+          assign bean_font = '"Caprasimo", serif'
+        when 'green'
+          assign bean_filename = 'green_bean_hero.png'
+          assign bean_accent = '#4da84a'
+          assign bean_font = '"Poppins", sans-serif'
+        when 'coffee'
+          assign bean_filename = 'coffee_bean_hero.png'
+          assign bean_accent = '#6d4a2f'
+          assign bean_font = '"Playfair Display", serif'
+        when 'jelly'
+          assign bean_filename = 'jelly_bean_hero.png'
+          assign bean_accent = '#31b7c5'
+          assign bean_font = '"Baloo 2", cursive'
+        when 'chilli'
+          assign bean_filename = 'Chilli_bean_hero.png'
+          assign bean_accent = '#e34b44'
+          assign bean_font = '"Bangers", system-ui'
+      endcase
+      
+      assign bg_image_url = bean_filename | file_url
+    -%}
+    <script>
+      console.log('--- CINEMATIC BANNER DEBUG ---');
+      console.log('Active Bean:', {{ active_block.settings.bean_type | json }});
+      console.log('Handle Match:', {{ collection.handle | json }});
+      console.log('Hero Image URL:', {{ bg_image_url | json }});
+    </script>
+
+    {%- style -%}
+      .bean-collection-hero-{{ section.id }} {
+        position: relative;
+        width: 100vw;
+        height: 80vh;
+        min-height: 600px;
+        display: flex;
+        align-items: flex-end;
+        justify-content: flex-start;
+        overflow: hidden;
+        margin-left: calc(-50vw + 50%);
+        margin-right: calc(-50vw + 50%);
+        background: #0b0b0b;
+        color: #fff;
+      }
+      .bean-collection-hero-{{ section.id }} .hero-bg-container {
+        position: absolute;
+        inset: 0;
+        z-index: 1;
+        overflow: hidden;
+      }
+      .bean-collection-hero-{{ section.id }} .hero-bg-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center;
+        transform: scale(1.05);
+        transition: transform 10s ease-out;
+        display: block;
+      }
+      .bean-collection-hero-{{ section.id }}:hover .hero-bg-img {
+        transform: scale(1.1);
+      }
+      .bean-collection-hero-{{ section.id }} .hero-overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        background: linear-gradient(to top right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 40%, transparent 100%);
+      }
+      .bean-collection-hero-{{ section.id }} .hero-content {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        max-width: 1200px;
+        padding: 0 8% 8rem;
+        text-align: left;
+      }
+      .bean-collection-hero-{{ section.id }} .hero-kicker {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: 0.4em;
+        text-transform: uppercase;
+        color: {{ bean_accent }};
+        margin-bottom: 2rem;
+        display: block;
+      }
+      .bean-collection-hero-{{ section.id }} .hero-title {
+        font-family: {{ bean_font | default: 'var(--font-heading-family)' }};
+        font-size: clamp(5rem, 10vw, 11rem);
+        font-weight: 900;
+        line-height: 0.85;
+        margin: 0 0 2rem;
+        text-transform: uppercase;
+        text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      }
+      .bean-collection-hero-{{ section.id }} .hero-subtitle {
+        font-family: 'Poppins', sans-serif;
+        font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+        line-height: 1.5;
+        margin-bottom: 4rem;
+        color: rgba(255,255,255,0.9);
+        max-width: 60ch;
+        text-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      }
+      .bean-collection-hero-{{ section.id }} .hero-btn {
+        display: inline-flex;
+        align-items: center;
+        padding: 2rem 5rem;
+        background: #fff;
+        color: #0b0b0b;
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.3rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.15em;
+        text-decoration: none;
+        transition: all 0.3s ease;
+        box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      }
+      .bean-collection-hero-{{ section.id }} .hero-btn:hover {
+        background: {{ bean_accent }};
+        color: #fff;
+        transform: translateY(-3px);
+      }
+      @media screen and (max-width: 749px) {
+        .bean-collection-hero-{{ section.id }} {
+          height: 70vh;
+          margin-bottom: 2rem;
+        }
+        .bean-collection-hero-{{ section.id }} .hero-content {
+          padding: 0 2rem;
+          text-align: center;
+        }
+        .bean-collection-hero-{{ section.id }} .hero-overlay {
+          background: linear-gradient(to bottom, transparent 0%, rgba(0,0,0,0.7) 100%);
+        }
+      }
+    {%- endstyle -%}
+
+    <div class="bean-collection-hero-{{ section.id }}">
+      <div class="hero-bg-container">
+        <img src="{{ bg_image_url }}" alt="{{ active_block.settings.title }}" class="hero-bg-img" loading="eager">
+      </div>
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        {%- if active_block.settings.kicker != blank -%}
+          <span class="hero-kicker">{{ active_block.settings.kicker }}</span>
+        {%- endif -%}
+        <h1 class="hero-title">{{ active_block.settings.title | default: collection.title }}</h1>
+        {%- if active_block.settings.subtitle != blank -%}
+          <div class="hero-subtitle">{{ active_block.settings.subtitle }}</div>
+        {%- endif -%}
+        {%- if active_block.settings.button_label != blank -%}
+          <a href="{{ active_block.settings.button_link | default: '#product-grid' }}" class="hero-btn">
+            {{ active_block.settings.button_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  {%- else -%}
+    {% comment %} Fallback to legacy snippet if no block is configured for this bean {% endcomment %}
+    {% render 'bean-header-content', 
+      bean_image: section.settings.bean_image,
+      image_alignment: section.settings.bean_image_alignment
+    %}
+  {%- endif -%}
 {%- else -%}
   <div class="collection-hero{% if section.settings.show_collection_image and collection.image %} collection-hero--with-image{% endif %} color-{{ section.settings.color_scheme }} gradient">
     <div class="collection-hero__inner page-width {% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
@@ -81,7 +262,7 @@
     },
     {
       "type": "header",
-      "content": "Bean Specific Layout"
+      "content": "Bean Specific Layout (Fallback)"
     },
     {
       "type": "image_picker",
@@ -98,6 +279,57 @@
       ],
       "default": "right"
     }
+  ],
+  "blocks": [
+    {
+      "type": "hero_slide",
+      "name": "Cinematic Bean Hero",
+      "settings": [
+        {
+          "type": "select",
+          "id": "bean_type",
+          "label": "Bean Identity",
+          "options": [
+            { "value": "vanilla", "label": "Vanilla Bean" },
+            { "value": "green", "label": "Green Bean" },
+            { "value": "coffee", "label": "Coffee Bean" },
+            { "value": "jelly", "label": "Jelly Bean" },
+            { "value": "chilli", "label": "Chilli Bean" }
+          ],
+          "default": "vanilla"
+        },
+        {
+          "type": "text",
+          "id": "kicker",
+          "label": "Kicker (Eyebrow)",
+          "default": "Character Profile"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Heading Override",
+          "info": "Leave blank to use Collection Title."
+        },
+        {
+          "type": "richtext",
+          "id": "subtitle",
+          "label": "Subheading",
+          "default": "<p>Experience the identity that moves with your rhythm.</p>"
+        },
+        {
+          "type": "text",
+          "id": "button_label",
+          "label": "Button Label",
+          "default": "Shop the Collection"
+        },
+        {
+          "type": "url",
+          "id": "button_link",
+          "label": "Button Link"
+        }
+      ]
+    }
   ]
 }
 {% endschema %}
+

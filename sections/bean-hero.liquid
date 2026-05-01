@@ -1,8 +1,8 @@
 {%- comment -%}
-  SECTION: DYNAMIC BEAN HERO
+  SECTION: DYNAMIC BEAN HERO (PREMIUM)
   - High-impact cinematic banner using specific store assets.
   - Features dynamic bean selection mapped to file_url PNGs.
-  - Premium typography and overlay treatments.
+  - Premium typography with Ken Burns effects and film grain texture.
 {%- endcomment -%}
 
 {%- style -%}
@@ -21,7 +21,7 @@
     display: flex;
     width: 100%;
     height: 100%;
-    transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .bean-hero-{{ section.id }} .bean-hero-slide {
@@ -30,108 +30,162 @@
     position: relative;
     min-height: inherit;
     display: flex;
-    align-items: center;
-    justify-content: {{ section.settings.content_alignment }};
-    padding: 6rem 5%;
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 0 8% 8rem;
   }
 
   .bean-hero-{{ section.id }} .bean-hero-bg {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background-size: cover;
     background-position: center;
-    transition: transform 10s ease;
+    transition: transform 12s ease-out;
     z-index: 1;
+    transform: scale(1.05); /* Start slightly zoomed for Ken Burns */
   }
 
   .bean-hero-{{ section.id }} .bean-hero-slide.is-active .bean-hero-bg {
-    transform: scale(1.1);
+    transform: scale(1.15); /* Slow Ken Burns zoom in */
   }
 
-  /* Overlay Gradients */
+  /* Cinematic Overlays */
   .bean-hero-{{ section.id }} .bean-hero-overlay {
     position: absolute;
     inset: 0;
     z-index: 2;
     background: linear-gradient(
-      to right,
-      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 1.5 }}),
-      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 0.5 }}) 50%,
-      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 0.2 }})
+      to top right,
+      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 | times: 1.8 }}) 0%,
+      rgba(0, 0, 0, {{ section.settings.overlay_opacity | divided_by: 100.0 }}) 40%,
+      transparent 100%
     );
+  }
+
+  /* Film Grain Texture */
+  .bean-hero-{{ section.id }} .film-grain {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    opacity: 0.04;
+    pointer-events: none;
+    background-image: url('data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMjAwIDIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZmlsdGVyIGlkPSJuIj48ZmVUdXJidWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC42NSIgbnVtT2N0YXZlcz0iMyIgc3RpdGNoVGlsZXM9InN0aXRjaCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbHRlcj0idXJsKCNuKSIvPjwvc3ZnPg==');
   }
 
   /* Typography */
   .bean-hero-{{ section.id }} .bean-hero-content {
     position: relative;
-    z-index: 3;
-    max-width: 800px;
+    z-index: 4;
+    max-width: 900px;
     opacity: 0;
-    transform: translateY(30px);
-    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s;
+    transform: translateX(-40px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s;
   }
 
   .bean-hero-{{ section.id }} .bean-hero-slide.is-active .bean-hero-content {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateX(0);
   }
 
   .bean-hero-{{ section.id }} .hero-kicker {
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.4em;
     text-transform: uppercase;
     color: #c6a969;
-    margin-bottom: 1.5rem;
-    display: block;
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .bean-hero-{{ section.id }} .hero-kicker::before {
+    content: '';
+    width: 4rem;
+    height: 1px;
+    background: currentColor;
   }
 
   .bean-hero-{{ section.id }} .hero-title {
-    font-family: var(--font-heading-family), sans-serif;
-    font-size: clamp(4.5rem, 8vw, 10rem);
+    font-family: var(--bean-font, var(--font-heading-family));
+    font-size: clamp(5rem, 10vw, 12rem);
     font-weight: 900;
-    line-height: 0.9;
-    margin: 0 0 2rem;
+    line-height: 0.85;
+    margin: 0 0 2.5rem;
     text-transform: uppercase;
-    text-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    color: #fff;
+    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
   }
 
   .bean-hero-{{ section.id }} .hero-subtitle {
     font-family: 'Poppins', sans-serif;
-    font-size: clamp(1.6rem, 2vw, 2rem);
-    line-height: 1.6;
-    margin-bottom: 3.5rem;
-    color: rgba(245, 245, 245, 0.9);
-    max-width: 60ch;
+    font-size: clamp(1.8rem, 2.2vw, 2.4rem);
+    font-weight: 500;
+    line-height: 1.5;
+    margin-bottom: 4rem;
+    color: rgba(245, 245, 245, 0.85);
+    max-width: 55ch;
+    text-wrap: balance;
   }
 
-  /* CTA Button */
+  /* CTA Button - High Impact */
+  .bean-hero-{{ section.id }} .hero-actions {
+    display: flex;
+    gap: 2rem;
+    flex-wrap: wrap;
+  }
+
   .bean-hero-{{ section.id }} .hero-btn {
     display: inline-flex;
     align-items: center;
-    padding: 1.8rem 4.5rem;
-    background: #f5f5f5;
+    justify-content: center;
+    padding: 2.2rem 5rem;
+    background: #fff;
     color: #0b0b0b;
     font-family: 'Poppins', sans-serif;
     font-size: 1.3rem;
-    font-weight: 800;
+    font-weight: 900;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
+    letter-spacing: 0.2em;
     text-decoration: none;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bean-hero-{{ section.id }} .hero-btn::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: #c6a969;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+    z-index: -1;
   }
 
   .bean-hero-{{ section.id }} .hero-btn:hover {
-    background: #c6a969;
     color: #fff;
-    transform: translateY(-3px);
-    box-shadow: 0 15px 30px rgba(198, 169, 105, 0.4);
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(198, 169, 105, 0.3);
+  }
+
+  .bean-hero-{{ section.id }} .hero-btn:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .bean-hero-{{ section.id }} .hero-btn--outline {
+    background: transparent;
+    color: #fff;
+    border: 1px solid rgba(255,255,255,0.4);
+  }
+
+  .bean-hero-{{ section.id }} .hero-btn--outline:hover {
+    border-color: #fff;
+    background: rgba(255,255,255,0.1);
   }
 
   /* Mobile Adjustments */
@@ -140,98 +194,167 @@
       min-height: {{ section.settings.mobile_height }}vh;
     }
     .bean-hero-{{ section.id }} .bean-hero-slide {
-      padding: 4rem 2rem;
+      padding: 4rem 5%;
       align-items: flex-end;
       text-align: center;
       justify-content: center;
     }
+    .bean-hero-{{ section.id }} .bean-hero-content {
+      transform: translateY(30px);
+      transition-delay: 0.2s;
+    }
+    .bean-hero-{{ section.id }} .bean-hero-slide.is-active .bean-hero-content {
+      transform: translateY(0);
+    }
+    .bean-hero-{{ section.id }} .hero-kicker {
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .bean-hero-{{ section.id }} .hero-kicker::before {
+      display: none;
+    }
     .bean-hero-{{ section.id }} .hero-title {
-      font-size: 4.8rem;
+      font-size: 5.4rem;
+    }
+    .bean-hero-{{ section.id }} .hero-actions {
+      flex-direction: column;
+      gap: 1.5rem;
     }
     .bean-hero-{{ section.id }} .hero-btn {
       width: 100%;
-      justify-content: center;
+      padding: 2rem 3rem;
     }
     .bean-hero-{{ section.id }} .bean-hero-overlay {
       background: linear-gradient(
         to bottom,
-        transparent 20%,
-        rgba(0, 0, 0, 0.4) 50%,
-        rgba(0, 0, 0, 0.85) 100%
+        transparent 0%,
+        rgba(0, 0, 0, 0.4) 40%,
+        rgba(0, 0, 0, 0.9) 100%
       );
     }
   }
 
-  /* Dots Navigation */
+  /* Pagination Dots */
   .bean-hero-dots {
     position: absolute;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%);
+    bottom: 4rem;
+    right: 8%;
     display: flex;
-    gap: 12px;
+    gap: 1.5rem;
     z-index: 5;
   }
 
   .bean-hero-dot {
-    width: 40px;
-    height: 4px;
-    background: rgba(245, 245, 245, 0.3);
+    width: 5rem;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.2);
     cursor: pointer;
     border: none;
     padding: 0;
-    transition: all 0.3s ease;
+    transition: all 0.4s ease;
   }
 
   .bean-hero-dot.is-active {
     background: #c6a969;
-    width: 60px;
+    width: 8rem;
+  }
+
+  /* Custom Cursor Hint */
+  .scroll-hint {
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 5;
+    opacity: 0.6;
+    animation: bounce 2s infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+    40% {transform: translateY(-10px) translateX(-50%);}
+    60% {transform: translateY(-5px) translateX(-50%);}
   }
 {%- endstyle -%}
 
-<div class="bean-hero-{{ section.id }}" id="BeanHero-{{ section.id }}" data-autoplay="{{ section.settings.autoplay }}" data-speed="{{ section.settings.speed }}">
+<script>
+  console.log('--- BEAN HERO DEBUG ---');
+  console.log('Collection Handle:', {{ collection.handle | json }});
+  console.log('Section ID:', {{ section.id | json }});
+  console.log('Blocks Count:', {{ section.blocks.size | json }});
+  {% for block in section.blocks %}
+    console.log('Block {{ forloop.index }}:', {
+      type: {{ block.settings.bean_type | json }},
+      title: {{ block.settings.title | json }}
+    });
+  {% endfor %}
+</script>
+
+<div
+  class="bean-hero-{{ section.id }}"
+  id="BeanHero-{{ section.id }}"
+  data-autoplay="{{ section.settings.autoplay }}"
+  data-speed="{{ section.settings.speed }}"
+>
+  <div class="film-grain"></div>
+
   <div class="bean-hero-track">
     {%- for block in section.blocks -%}
       {%- liquid
-        assign bean_filename = ''
         case block.settings.bean_type
           when 'vanilla'
             assign bean_filename = 'vanilla_bean_hero.png'
+            assign bean_font = '"Caprasimo", serif'
           when 'green'
             assign bean_filename = 'green_bean_hero.png'
+            assign bean_font = '"Poppins", sans-serif'
           when 'coffee'
             assign bean_filename = 'coffee_bean_hero.png'
+            assign bean_font = '"Playfair Display", serif'
           when 'jelly'
             assign bean_filename = 'jelly_bean_hero.png'
+            assign bean_font = '"Baloo 2", cursive'
           when 'chilli'
             assign bean_filename = 'Chilli_bean_hero.png'
+            assign bean_font = '"Bangers", system-ui'
         endcase
-        
+
         assign bg_image_url = bean_filename | file_url
       -%}
-      
-      <div class="bean-hero-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }}>
+      <script>
+        console.log('Block {{ forloop.index }} Image:', {{ bg_image_url | json }});
+      </script>
+
+      <div class="bean-hero-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }} style="--bean-font: {{ bean_font }};">
         <div class="bean-hero-bg" style="background-image: url('{{ bg_image_url }}');"></div>
         <div class="bean-hero-overlay"></div>
-        
+
         <div class="bean-hero-content">
           {%- if block.settings.kicker != blank -%}
             <span class="hero-kicker">{{ block.settings.kicker }}</span>
           {%- endif -%}
-          
+
           {%- if block.settings.title != blank -%}
             <h2 class="hero-title">{{ block.settings.title | escape }}</h2>
           {%- endif -%}
-          
+
           {%- if block.settings.subtitle != blank -%}
             <div class="hero-subtitle">{{ block.settings.subtitle }}</div>
           {%- endif -%}
-          
-          {%- if block.settings.button_label != blank -%}
-            <a href="{{ block.settings.button_link | default: '#' }}" class="hero-btn">
-              {{ block.settings.button_label | escape }}
-            </a>
-          {%- endif -%}
+
+          <div class="hero-actions">
+            {%- if block.settings.button_label != blank -%}
+              <a href="{{ block.settings.button_link | default: '#' }}" class="hero-btn">
+                {{ block.settings.button_label | escape }}
+              </a>
+            {%- endif -%}
+
+            {%- if block.settings.secondary_button_label != blank -%}
+              <a href="{{ block.settings.secondary_button_link | default: '#' }}" class="hero-btn hero-btn--outline">
+                {{ block.settings.secondary_button_label | escape }}
+              </a>
+            {%- endif -%}
+          </div>
         </div>
       </div>
     {%- endfor -%}
@@ -240,21 +363,40 @@
   {%- if section.blocks.size > 1 -%}
     <div class="bean-hero-dots">
       {%- for block in section.blocks -%}
-        <button class="bean-hero-dot {% if forloop.first %}is-active{% endif %}" data-index="{{ forloop.index0 }}" aria-label="Go to slide {{ forloop.index }}"></button>
+        <button
+          class="bean-hero-dot {% if forloop.first %}is-active{% endif %}"
+          data-index="{{ forloop.index0 }}"
+          aria-label="Go to slide {{ forloop.index }}"
+        ></button>
       {%- endfor -%}
     </div>
   {%- endif -%}
+
+  <div class="scroll-hint">
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M7 13l5 5 5-5M7 6l5 5 5-5"/>
+    </svg>
+  </div>
 </div>
 
 <script>
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     const section = document.getElementById('BeanHero-{{ section.id }}');
     if (!section) return;
 
     const track = section.querySelector('.bean-hero-track');
     const slides = section.querySelectorAll('.bean-hero-slide');
     const dots = section.querySelectorAll('.bean-hero-dot');
-    
+
     if (slides.length <= 1) return;
 
     let currentIndex = 0;
@@ -265,11 +407,11 @@
     function goToSlide(index) {
       currentIndex = index;
       track.style.transform = `translateX(-${currentIndex * 100}%)`;
-      
-      slides.forEach(s => s.classList.remove('is-active'));
+
+      slides.forEach((s) => s.classList.remove('is-active'));
       slides[currentIndex].classList.add('is-active');
-      
-      dots.forEach(d => d.classList.remove('is-active'));
+
+      dots.forEach((d) => d.classList.remove('is-active'));
       if (dots[currentIndex]) dots[currentIndex].classList.add('is-active');
     }
 
@@ -288,7 +430,7 @@
       clearInterval(interval);
     }
 
-    dots.forEach(dot => {
+    dots.forEach((dot) => {
       dot.addEventListener('click', () => {
         stopAutoplay();
         goToSlide(parseInt(dot.dataset.index));
@@ -398,7 +540,7 @@
           "type": "text",
           "id": "kicker",
           "label": "Kicker (Small Text Above)",
-          "default": "Meet the Origin"
+          "default": "Identity Series"
         },
         {
           "type": "text",
@@ -413,15 +555,34 @@
           "default": "<p>Experience the clean, quiet, and expensive energy of our premium vanilla selection.</p>"
         },
         {
+          "type": "header",
+          "content": "Primary Call to Action"
+        },
+        {
           "type": "text",
           "id": "button_label",
           "label": "Button Label",
-          "default": "Shop the Collection"
+          "default": "Shop the Drop"
         },
         {
           "type": "url",
           "id": "button_link",
           "label": "Button Link"
+        },
+        {
+          "type": "header",
+          "content": "Secondary Call to Action"
+        },
+        {
+          "type": "text",
+          "id": "secondary_button_label",
+          "label": "Secondary Label",
+          "default": "Find Your Bean"
+        },
+        {
+          "type": "url",
+          "id": "secondary_button_link",
+          "label": "Secondary Link"
         }
       ]
     }
@@ -429,10 +590,7 @@
   "presets": [
     {
       "name": "Dynamic Bean Hero",
-      "blocks": [
-        { "type": "hero_slide", "settings": { "bean_type": "vanilla", "title": "Vanilla" } },
-        { "type": "hero_slide", "settings": { "bean_type": "chilli", "title": "Chilli" } }
-      ]
+      "blocks": [{ "type": "hero_slide", "settings": { "bean_type": "vanilla", "title": "Vanilla Bean" } }]
     }
   ]
 }
