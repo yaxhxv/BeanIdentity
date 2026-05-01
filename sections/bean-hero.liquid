@@ -114,8 +114,23 @@
     line-height: 0.85;
     margin: 0 0 2.5rem;
     text-transform: uppercase;
-    color: #fff;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+    color: var(--bean-accent);
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .bean-hero-{{ section.id }} .hero-title::before {
+    content: '';
+    position: absolute;
+    inset: -10rem -15rem;
+    background: radial-gradient(circle at center, var(--bean-accent) 0%, transparent 70%);
+    opacity: 0.15;
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
+  }
   }
 
   .bean-hero-{{ section.id }} .hero-subtitle {
@@ -325,7 +340,11 @@
         console.log('Block {{ forloop.index }} Image:', {{ bg_image_url | json }});
       </script>
 
-      <div class="bean-hero-slide {% if forloop.first %}is-active{% endif %}" {{ block.shopify_attributes }} style="--bean-font: {{ bean_font }};">
+      <div
+        class="bean-hero-slide {% if forloop.first %}is-active{% endif %}"
+        {{ block.shopify_attributes }}
+        style="--bean-font: {{ bean_font }};"
+      >
         <div class="bean-hero-bg" style="background-image: url('{{ bg_image_url }}');"></div>
         <div class="bean-hero-overlay"></div>
 

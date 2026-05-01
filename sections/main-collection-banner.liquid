@@ -4,14 +4,14 @@
 {%- style -%}
   @media screen and (max-width: 749px) {
     .collection-hero--with-image .collection-hero__inner {
-      padding-bottom: calc({{ settings.media_shadow_vertical_offset | at_least: 0 }}px + 2rem);
+      padding-bottom: calc({{settings.media_shadow_vertical_offset | at_least: 0}}px + 2rem);
     }
   }
 {%- endstyle -%}
 
 {%- if collection.handle contains 'bean' -%}
   {%- liquid
-    assign active_block = nil
+    assign active_block = null
     for block in section.blocks
       if block.type == 'hero_slide'
         assign target_handle = block.settings.bean_type | append: '-bean'
@@ -23,7 +23,7 @@
     endfor
   -%}
 
-  {%- if active_block != nil -%}
+  {%- if active_block != null -%}
     {%- liquid
       assign bean_filename = ''
       case active_block.settings.bean_type
@@ -48,7 +48,7 @@
           assign bean_accent = '#e34b44'
           assign bean_font = '"Bangers", system-ui'
       endcase
-      
+
       assign bg_image_url = bean_filename | file_url
     -%}
     <script>
@@ -122,7 +122,20 @@
         line-height: 0.85;
         margin: 0 0 2rem;
         text-transform: uppercase;
-        text-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        color: {{ bean_accent }};
+        position: relative;
+        display: inline-block;
+        z-index: 1;
+        text-shadow: 0 10px 40px rgba(0,0,0,0.3);
+      }
+      .bean-collection-hero-{{ section.id }} .hero-title::before {
+        content: '';
+        position: absolute;
+        inset: -10rem -15rem;
+        background: radial-gradient(circle at center, {{ bean_accent }}22 0%, transparent 70%);
+        filter: blur(40px);
+        z-index: -1;
+        pointer-events: none;
       }
       .bean-collection-hero-{{ section.id }} .hero-subtitle {
         font-family: 'Poppins', sans-serif;
@@ -190,7 +203,7 @@
     </div>
   {%- else -%}
     {% comment %} Fallback to legacy snippet if no block is configured for this bean {% endcomment %}
-    {% render 'bean-header-content', 
+    {% render 'bean-header-content',
       bean_image: section.settings.bean_image,
       image_alignment: section.settings.bean_image_alignment
     %}
@@ -332,4 +345,3 @@
   ]
 }
 {% endschema %}
-

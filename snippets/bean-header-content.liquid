@@ -101,7 +101,7 @@
     when 'chilli-bean'
       assign bean_hero_asset = 'Chilli_bean_hero.png'
   endcase
-  
+
   assign bean_hero_url = bean_hero_asset | file_url
 -%}
 
@@ -197,8 +197,21 @@
     line-height: 0.85;
     margin: 0 0 3rem;
     text-transform: uppercase;
-    color: #fff;
-    filter: drop-shadow(0 10px 30px rgba(0,0,0,0.5));
+    color: {{ bean_accent }};
+    position: relative;
+    display: inline-block;
+    z-index: 1;
+    text-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  }
+
+  .bean-landing__title::before {
+    content: '';
+    position: absolute;
+    inset: -10rem -15rem;
+    background: radial-gradient(circle at center, {{ bean_accent }}25 0%, transparent 70%);
+    filter: blur(40px);
+    z-index: -1;
+    pointer-events: none;
   }
 
   .bean-landing__tagline {
@@ -290,12 +303,14 @@
       <span class="bean-landing__kicker">{{ bean_eyebrow }}</span>
       <h1 class="bean-landing__title">{{ current_title }}</h1>
       <p class="bean-landing__tagline">{{ bean_tagline }}</p>
-      
+
       <div class="bean-landing__actions">
         <a href="#BeanCollectionGrid" class="bean-landing__button">
           {{- bean_shop_label -}}
         </a>
-        <a href="/pages/which-bean-are-you" class="bean-landing__button bean-landing__button--outline">{{ bean_quiz_label }}</a>
+        <a href="/pages/which-bean-are-you" class="bean-landing__button bean-landing__button--outline">
+          {{- bean_quiz_label -}}
+        </a>
       </div>
     </div>
   </div>
