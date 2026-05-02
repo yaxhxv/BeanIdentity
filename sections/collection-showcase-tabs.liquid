@@ -13,6 +13,9 @@
     background: linear-gradient(180deg, #ede7e3 0%, #f5f5f5 100%) !important;
     position: relative;
     overflow: hidden;
+    border-radius: 4.6rem 4.6rem 5.6rem 5rem / 3rem 3rem 4rem 3.6rem;
+    box-shadow: 0 2.6rem 5.6rem rgba(43,43,43,0.08);
+    margin: 0 1.6rem;
   }
 
   .cst-vanilla-gif {
@@ -34,6 +37,11 @@
       bottom: -2.5rem;
       left: -2rem;
     }
+
+    .section-{{ section.id }}-padding {
+      margin: 0 1rem;
+      border-radius: 2.8rem 2.8rem 3.8rem 3.2rem / 2rem 2rem 2.8rem 2.4rem;
+    }
   }
 
   @media screen and (min-width: 750px) {
@@ -49,6 +57,7 @@
     margin: 0 auto;
     padding: 0 1.5rem;
     position: relative;
+    z-index: 1;
   }
 
   /* --- HEADER --- */

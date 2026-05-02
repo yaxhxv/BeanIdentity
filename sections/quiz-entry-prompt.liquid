@@ -15,8 +15,12 @@
     padding: clamp(4rem, 6vw, 7.2rem) 0;
     text-align: left;
     border-top: 1px solid rgba(245, 245, 245, 0.08);
-    border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+    border-bottom: 0;
+    border-radius: 4.2rem 4.2rem 4.8rem 4.8rem / 3rem 3rem 4rem 4rem;
     color: #f5f5f5;
+    margin: 0 1.6rem 2.4rem;
+    box-shadow: 0 2.2rem 4.8rem rgba(0, 0, 0, 0.18);
+    z-index: 1;
   }
 
   .quiz-prompt__bean-gif {
@@ -149,6 +153,8 @@
     #QuizPrompt-{{ section.id }} {
       padding: 4rem 0;
       text-align: center;
+      border-radius: 2.8rem 2.8rem 3.4rem 3.4rem / 2.2rem 2.2rem 2.8rem 2.8rem;
+      margin: 0 1rem 1.8rem;
     }
     .quiz-prompt__wrapper {
       display: block;
@@ -174,7 +180,10 @@
   }
 {%- endstyle -%}
 
-<div id="QuizPrompt-{{ section.id }}" class="quiz-prompt-section{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
+<div
+  id="QuizPrompt-{{ section.id }}"
+  class="quiz-prompt-section{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}"
+>
   <img
     src="{{ 'coffee_bean_gif.gif' | file_url }}"
     alt=""

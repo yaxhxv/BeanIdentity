@@ -12,6 +12,36 @@
     color: #0b0b0b;
     padding: {{ section.settings.padding_top }}px 0 {{ section.settings.padding_bottom }}px;
     overflow: hidden;
+    border-radius: 4.4rem 4.4rem 5.2rem 5.6rem / 3rem 3rem 4rem 4.2rem;
+    box-shadow: 0 2.8rem 6rem rgba(43, 43, 43, 0.08);
+    margin: 0 1.6rem;
+  }
+
+  .bean-popular::before,
+  .bean-popular::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .bean-popular::before {
+    top: 3rem;
+    right: 4rem;
+    width: clamp(10rem, 18vw, 18rem);
+    height: clamp(10rem, 18vw, 18rem);
+    border-radius: 44% 56% 58% 42% / 48% 44% 56% 52%;
+    background: radial-gradient(circle, rgba(198,169,105,0.16), transparent 72%);
+  }
+
+  .bean-popular::after {
+    left: -2rem;
+    bottom: -3rem;
+    width: clamp(14rem, 22vw, 24rem);
+    height: clamp(14rem, 22vw, 24rem);
+    border-radius: 58% 42% 46% 54% / 54% 48% 52% 46%;
+    background: radial-gradient(circle, rgba(255,255,255,0.88), rgba(255,255,255,0) 72%);
+    opacity: 0.75;
   }
   
   .bean-container {
@@ -21,6 +51,7 @@
     padding: 0 20px;   
     box-sizing: border-box;
     position: relative;
+    z-index: 1;
   }
 
   .bean-popular-header {
@@ -225,6 +256,10 @@
   }
 
   @media (max-width: 768px) {
+    .bean-popular {
+      margin: 0 1rem;
+      border-radius: 2.8rem 2.8rem 3.6rem 3.4rem / 2rem 2rem 2.8rem 2.6rem;
+    }
     .bean-product-card {
       flex: 0 0 240px; /* Mobile Optimization for Carousel */
     }
@@ -249,6 +284,13 @@
 </style>
 
 <section class="bean-popular{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}" data-section-id="{{ section.id }}">
+  <img
+    src="{{ 'bean-coffee-2.png' | asset_url }}"
+    alt=""
+    aria-hidden="true"
+    style="position:absolute; top:3rem; right:-2rem; width:clamp(180px,20vw,280px); height:auto; opacity:0.18; transform:rotate(-8deg); pointer-events:none; z-index:0; filter:drop-shadow(0 1.8rem 3rem rgba(0,0,0,0.12));"
+    loading="lazy"
+  >
   <div class="bean-container">
     
     <header class="bean-popular-header">

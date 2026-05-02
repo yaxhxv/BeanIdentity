@@ -1,0 +1,237 @@
+{% liquid
+  assign selected_collection = section.settings.collection
+  assign products_to_show = section.settings.products_to_show
+  assign background_class = 'bean-surface-soft'
+
+  if section.settings.background_style == 'warm'
+    assign background_class = 'bean-surface-warm'
+  endif
+%}
+
+<section
+  id="BeanEditorialProducts-{{ section.id }}"
+  class="bean-editorial-products {{ background_class }} color-{{ section.settings.color_scheme }}"
+  aria-labelledby="BeanEditorialProductsHeading-{{ section.id }}"
+>
+  <div class="bean-section-shell">
+    <div class="bean-editorial-products__header">
+      {% if section.settings.eyebrow != blank %}
+        <p class="bean-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      <h2 id="BeanEditorialProductsHeading-{{ section.id }}" class="bean-section-heading">
+        {{ section.settings.heading }}
+      </h2>
+
+      {% if section.settings.text != blank %}
+        <div class="bean-section-copy rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    {% if selected_collection != blank and selected_collection.products_count > 0 %}
+      <div class="bean-editorial-products__grid" role="list">
+        {% for product in selected_collection.products limit: products_to_show %}
+          {% assign secondary_image = product.images[1] %}
+          {% assign current_variant = product.selected_or_first_available_variant %}
+          {% assign primary_image_class = 'bean-product-card__image bean-product-card__image--primary no-secondary' %}
+
+          {% if secondary_image != blank %}
+            {% assign primary_image_class = 'bean-product-card__image bean-product-card__image--primary has-secondary' %}
+          {% endif %}
+
+          <article class="bean-editorial-products__item" role="listitem">
+            <div class="bean-product-card">
+              <div class="bean-product-card__media">
+                <a
+                  class="bean-product-card__media-link"
+                  href="{{ product.url }}"
+                  aria-label="{{ product.title | escape }}"
+                >
+                  {% if product.featured_image != blank %}
+                    {{
+                      product.featured_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        class: primary_image_class,
+                        widths: '400, 600, 900, 1200',
+                        sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw',
+                        loading: 'lazy',
+                        alt: product.featured_image.alt | default: product.title
+                    }}
+                  {% endif %}
+
+                  {% if secondary_image != blank %}
+                    {{
+                      secondary_image
+                      | image_url: width: 1200
+                      | image_tag:
+                        class: 'bean-product-card__image bean-product-card__image--secondary',
+                        widths: '400, 600, 900, 1200',
+                        sizes: '(min-width: 990px) 25vw, (min-width: 750px) 50vw, 100vw',
+                        loading: 'lazy',
+                        alt: secondary_image.alt | default: product.title
+                    }}
+                  {% endif %}
+                </a>
+
+                <div class="bean-product-card__quick-add">
+                  {% if product.available and product.has_only_default_variant %}
+                    <form
+                      method="post"
+                      action="{{ routes.cart_add_url }}"
+                      class="bean-editorial-quick-add-form"
+                      data-editorial-quick-add-form
+                      data-success-message="Added to cart."
+                    >
+                      <input type="hidden" name="id" value="{{ current_variant.id }}">
+                      <button type="submit" class="bean-button">
+                        Add to cart
+                      </button>
+                      <p
+                        class="bean-product-card__quick-add-message"
+                        data-quick-add-message
+                        aria-live="polite"
+                      ></p>
+                    </form>
+                  {% elsif product.available %}
+                    <a class="bean-button" href="{{ product.url }}">Select options</a>
+                  {% else %}
+                    <span class="bean-button bean-button--secondary" aria-disabled="true">Sold out</span>
+                  {% endif %}
+                </div>
+              </div>
+
+              <div class="bean-product-card__content">
+                {% if product.compare_at_price > product.price %}
+                  <span class="bean-product-card__sale-tag">Sale</span>
+                {% endif %}
+
+                <h3 class="bean-product-card__title">
+                  <a href="{{ product.url }}">{{ product.title }}</a>
+                </h3>
+
+                <div class="bean-product-card__price">
+                  {% if product.compare_at_price > product.price %}
+                    <span>{{ product.price | money }}</span>
+                    <s class="bean-product-card__meta">{{ product.compare_at_price | money }}</s>
+                  {% else %}
+                    <span>{{ product.price | money }}</span>
+                  {% endif %}
+                </div>
+
+                {% if section.settings.show_product_type and product.type != blank %}
+                  <div class="bean-product-card__meta">{{ product.type }}</div>
+                {% endif %}
+
+                {% if section.settings.show_excerpt and product.description != blank %}
+                  <p class="bean-product-card__excerpt">
+                    {{ product.description | strip_html | truncatewords: 18 }}
+                  </p>
+                {% endif %}
+              </div>
+            </div>
+          </article>
+        {% endfor %}
+      </div>
+
+      {% if section.settings.show_view_all and selected_collection.url != blank %}
+        <div class="bean-editorial-products__footer">
+          <a class="bean-button bean-button--secondary" href="{{ selected_collection.url }}">
+            View collection
+          </a>
+        </div>
+      {% endif %}
+    {% else %}
+      <p class="bean-editorial-products__empty">
+        Choose a collection to display products in this editorial grid.
+      </p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Editorial Product Grid",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "select",
+      "id": "background_style",
+      "label": "Background style",
+      "default": "soft",
+      "options": [
+        {
+          "value": "soft",
+          "label": "Soft White"
+        },
+        {
+          "value": "warm",
+          "label": "Warm Ivory"
+        }
+      ]
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Editorial collection"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "A staggered luxury product field"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Break away from uniform merchandising with a collection layout that feels curated, directional, and slightly off-balance in the best way.</p>"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "label": "Products to show",
+      "min": 3,
+      "max": 12,
+      "step": 1,
+      "default": 6
+    },
+    {
+      "type": "checkbox",
+      "id": "show_product_type",
+      "label": "Show product type",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show product excerpt",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Show collection link",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Editorial Product Grid"
+    }
+  ]
+}
+{% endschema %}

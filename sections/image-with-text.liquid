@@ -6,6 +6,11 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 {% if section.settings.bg_color != blank %}
   background: linear-gradient(180deg, #f5f5f5 0%, #ede7e3 100%);
 {% endif %}
+  border-radius: 4.2rem 4.2rem 5rem 5.4rem / 3rem 3rem 3.8rem 4rem;
+  box-shadow: 0 2.4rem 5rem rgba(43,43,43,0.08);
+  margin: 0 1.6rem;
+  position: relative;
+  overflow: hidden;
 }
 
 {% if section.settings.bg_color != blank %}
@@ -21,10 +26,13 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px; } }
 
 .section-{{ section.id }}-padding .image-with-text {
-  border-top: 1px solid rgba(11,11,11,0.08);
-  border-bottom: 1px solid rgba(11,11,11,0.08);
+  border: 1px solid rgba(11,11,11,0.08);
+  border-radius: 3.6rem 2.8rem 3.8rem 3.2rem;
+  overflow: hidden;
   opacity: 1 !important;
   transform: none !important;
+  background: rgba(255,255,255,0.36);
+  box-shadow: 0 1.8rem 4rem rgba(43,43,43,0.06);
 }
 
 .section-{{ section.id }}-padding .scroll-trigger,
@@ -34,7 +42,7 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 }
 
 .section-{{ section.id }}-padding .image-with-text__media {
-  border-radius: 0;
+  border-radius: 2.6rem;
   border: 1px solid rgba(11,11,11,0.08);
   overflow: hidden;
   opacity: 1 !important;
@@ -61,7 +69,7 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 }
 
 .section-{{ section.id }}-padding .button {
-  border-radius: 0;
+  border-radius: 999px;
   min-height: 5.2rem;
   padding: 0 3rem;
   font-family: 'Poppins', sans-serif;
@@ -69,6 +77,30 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
   font-weight: 900;
   letter-spacing: 0.12em;
   text-transform: uppercase;
+}
+
+.section-{{ section.id }}-padding::after {
+  content: "";
+  position: absolute;
+  top: 3rem;
+  right: 2rem;
+  width: clamp(140px, 18vw, 240px);
+  height: clamp(140px, 18vw, 240px);
+  background: url('{{ "bean-jelly-1.png" | asset_url }}') center / contain no-repeat;
+  opacity: 0.12;
+  transform: rotate(8deg);
+  pointer-events: none;
+}
+
+@media screen and (max-width: 749px) {
+  .section-{{ section.id }}-padding {
+    margin: 0 1rem;
+    border-radius: 2.6rem 2.6rem 3.4rem 3.6rem / 2rem 2rem 2.6rem 2.8rem;
+  }
+
+  .section-{{ section.id }}-padding .image-with-text {
+    border-radius: 2.4rem;
+  }
 }
 {%- endstyle -%}
 

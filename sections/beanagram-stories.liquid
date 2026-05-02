@@ -13,6 +13,9 @@
     overflow: hidden;
     color: #f5f5f5;
     position: relative;
+    border-radius: 4.6rem 4.6rem 5.8rem 5rem / 3rem 3rem 4rem 3.8rem;
+    box-shadow: 0 2.8rem 6rem rgba(0, 0, 0, 0.18);
+    margin: 0 1.6rem;
   }
 
 
@@ -62,7 +65,7 @@
     flex: 0 0 36rem;
     background: rgba(245,245,245,0.05);
     border: 1px solid rgba(245,245,245,0.12);
-    border-radius: 0;
+    border-radius: 2.4rem 2rem 2.8rem 2.2rem;
     padding: 2.8rem;
     scroll-snap-align: center;
     box-shadow: 0 10px 30px rgba(0,0,0,0.05);
@@ -196,6 +199,10 @@
 
 
   @media screen and (max-width: 749px) {
+    #Beanagram-{{ section.id }} {
+      margin: 0 1rem;
+      border-radius: 2.8rem 2.8rem 3.8rem 3.2rem / 2rem 2rem 2.8rem 2.4rem;
+    }
     .beanagram-track {
       gap: 2rem;
       padding: 2rem;

@@ -1,0 +1,150 @@
+<section
+  id="BeanCharactersBento-{{ section.id }}"
+  class="bean-bento bean-surface-warm color-{{ section.settings.color_scheme }}"
+  aria-labelledby="BeanCharactersBentoHeading-{{ section.id }}"
+>
+  <div class="bean-section-shell">
+    <div class="bean-bento__header">
+      {% if section.settings.eyebrow != blank %}
+        <p class="bean-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      <h2 id="BeanCharactersBentoHeading-{{ section.id }}" class="bean-section-heading">
+        {{ section.settings.heading }}
+      </h2>
+
+      {% if section.settings.text != blank %}
+        <div class="bean-section-copy rte">{{ section.settings.text }}</div>
+      {% endif %}
+    </div>
+
+    {% if section.blocks.size > 0 %}
+      <div class="bean-bento__grid" role="list">
+        {% for block in section.blocks limit: 5 %}
+          {% assign featured_card = forloop.first %}
+          <a
+            class="bean-bento__card{% if featured_card %} bean-bento__card--featured{% endif %}"
+            href="{{ block.settings.link | default: '#' }}"
+            {{ block.shopify_attributes }}
+            role="listitem"
+            aria-label="{{ block.settings.heading | escape }}{% if block.settings.subheading != blank %}: {{ block.settings.subheading | escape }}{% endif %}"
+          >
+            <div class="bean-bento__media" aria-hidden="true">
+              {% if block.settings.image != blank %}
+                {{
+                  block.settings.image
+                  | image_url: width: 1200
+                  | image_tag:
+                    widths: '400, 600, 900, 1200',
+                    sizes: '(min-width: 990px) 25vw, 100vw',
+                    loading: 'lazy',
+                    alt: ''
+                }}
+              {% else %}
+                <div class="bean-bento__media-placeholder"></div>
+              {% endif %}
+            </div>
+
+            <div class="bean-bento__content">
+              {% if block.settings.subheading != blank %}
+                <span class="bean-bento__kicker">{{ block.settings.subheading }}</span>
+              {% endif %}
+              <h3 class="bean-bento__title">{{ block.settings.heading }}</h3>
+              <span class="bean-bento__arrow">Discover</span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+    {% else %}
+      <p class="bean-editorial-products__empty">Add five character blocks to complete the bento layout.</p>
+    {% endif %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bean Characters Bento",
+  "tag": "section",
+  "class": "section",
+  "max_blocks": 5,
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Meet the characters"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Five icons. One world."
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Show every mascot at once in a high-fashion editorial grid that feels collected, tactile, and deliberately composed.</p>"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "character",
+      "name": "Character",
+      "limit": 5,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Vanilla Bean"
+        },
+        {
+          "type": "text",
+          "id": "subheading",
+          "label": "Subheading",
+          "default": "The soft disruptor"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bean Characters Bento",
+      "blocks": [
+        {
+          "type": "character"
+        },
+        {
+          "type": "character"
+        },
+        {
+          "type": "character"
+        },
+        {
+          "type": "character"
+        },
+        {
+          "type": "character"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

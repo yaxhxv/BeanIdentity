@@ -1,0 +1,221 @@
+{% liquid
+  assign hero_image = section.settings.image
+  assign hero_video = section.settings.video
+  assign media_alt = section.settings.heading | escape
+  assign hero_label = section.settings.aria_label | default: section.settings.heading
+%}
+
+<section
+  id="BeanEditorialHero-{{ section.id }}"
+  class="bean-editorial-hero color-{{ section.settings.color_scheme }}"
+  data-editorial-hero
+  aria-label="{{ hero_label | escape }}"
+>
+  <div class="bean-editorial-hero__media" aria-hidden="true">
+    {% if hero_video != blank %}
+      {{
+        hero_video
+        | video_tag:
+          class: 'bean-editorial-hero__video',
+          image_size: '1600x',
+          autoplay: true,
+          loop: true,
+          muted: true,
+          controls: false,
+          playsinline: true
+      }}
+    {% elsif hero_image != blank %}
+      {{
+        hero_image
+        | image_url: width: 2400
+        | image_tag:
+          class: 'bean-editorial-hero__image',
+          widths: '768, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          alt: media_alt,
+          loading: 'eager',
+          fetchpriority: 'high'
+      }}
+    {% else %}
+      <div class="bean-editorial-hero__placeholder"></div>
+    {% endif %}
+  </div>
+
+  <div
+    class="bean-editorial-hero__veil"
+    style="opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};"
+  ></div>
+
+  <div class="bean-editorial-hero__overlay bean-section-shell">
+    <div class="bean-editorial-hero__content">
+      {% if section.settings.eyebrow != blank %}
+        <p class="bean-eyebrow">{{ section.settings.eyebrow }}</p>
+      {% endif %}
+
+      {% if section.settings.heading != blank %}
+        <h1 class="bean-editorial-hero__heading">{{ section.settings.heading }}</h1>
+      {% endif %}
+
+      {% if section.settings.text != blank %}
+        <div class="bean-editorial-hero__text rte">{{ section.settings.text }}</div>
+      {% endif %}
+
+      {% if section.settings.primary_label != blank or section.settings.secondary_label != blank %}
+        <div class="bean-editorial-hero__actions">
+          {% if section.settings.primary_label != blank %}
+            {% if section.settings.primary_link != blank %}
+              <a class="bean-button" href="{{ section.settings.primary_link }}">
+                {{ section.settings.primary_label }}
+              </a>
+            {% else %}
+              <span class="bean-button bean-button--secondary" aria-disabled="true">
+                {{ section.settings.primary_label }}
+              </span>
+            {% endif %}
+          {% endif %}
+
+          {% if section.settings.secondary_label != blank %}
+            {% if section.settings.secondary_link != blank %}
+              <a class="bean-button bean-button--secondary" href="{{ section.settings.secondary_link }}">
+                {{ section.settings.secondary_label }}
+              </a>
+            {% else %}
+              <span class="bean-button bean-button--secondary" aria-disabled="true">
+                {{ section.settings.secondary_label }}
+              </span>
+            {% endif %}
+          {% endif %}
+        </div>
+      {% endif %}
+
+      {% if section.settings.meta_one_label != blank or section.settings.meta_two_label != blank %}
+        <div class="bean-editorial-hero__meta" aria-label="Hero highlights">
+          {% if section.settings.meta_one_label != blank %}
+            <div class="bean-editorial-hero__meta-item">
+              <span class="bean-editorial-hero__meta-label">{{ section.settings.meta_one_label }}</span>
+              <span class="bean-editorial-hero__meta-value">{{ section.settings.meta_one_value }}</span>
+            </div>
+          {% endif %}
+
+          {% if section.settings.meta_two_label != blank %}
+            <div class="bean-editorial-hero__meta-item">
+              <span class="bean-editorial-hero__meta-label">{{ section.settings.meta_two_label }}</span>
+              <span class="bean-editorial-hero__meta-value">{{ section.settings.meta_two_value }}</span>
+            </div>
+          {% endif %}
+        </div>
+      {% endif %}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bean Editorial Hero",
+  "tag": "section",
+  "class": "section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    },
+    {
+      "type": "text",
+      "id": "aria_label",
+      "label": "Section aria label",
+      "default": "Featured brand campaign"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "New editorial drop"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Quiet power in motion"
+    },
+    {
+      "type": "richtext",
+      "id": "text",
+      "label": "Text",
+      "default": "<p>Shift the brand into a softer, elevated streetwear world with tailored silhouettes, deliberate pacing, and character-led storytelling.</p>"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Background video"
+    },
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Fallback image"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 100,
+      "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "primary_label",
+      "label": "Primary button label",
+      "default": "Shop the drop"
+    },
+    {
+      "type": "url",
+      "id": "primary_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_label",
+      "label": "Secondary button label",
+      "default": "Read the story"
+    },
+    {
+      "type": "url",
+      "id": "secondary_link",
+      "label": "Secondary button link"
+    },
+    {
+      "type": "text",
+      "id": "meta_one_label",
+      "label": "Highlight 1 label",
+      "default": "Edition"
+    },
+    {
+      "type": "text",
+      "id": "meta_one_value",
+      "label": "Highlight 1 value",
+      "default": "Spring 2026"
+    },
+    {
+      "type": "text",
+      "id": "meta_two_label",
+      "label": "Highlight 2 label",
+      "default": "Mood"
+    },
+    {
+      "type": "text",
+      "id": "meta_two_value",
+      "label": "Highlight 2 value",
+      "default": "Quiet luxury streetwear"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bean Editorial Hero"
+    }
+  ]
+}
+{% endschema %}
