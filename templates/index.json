@@ -196,7 +196,7 @@
       "name": "Bean Collection Slider",
       "settings": {
         "title": "Meet the Beans",
-        "subtitle": "Choose Your Energy",
+        "subtitle": "Choose Your Identity",
         "enable_autoplay": true,
         "autoplay_speed": 3,
         "bg_color": "#EDE7E3",
@@ -378,7 +378,7 @@
       "type": "final-cta-loop",
       "settings": {
         "headline": "Wear the version that feels real.",
-        "subline": "Start with the quiz or enter the full Bean Identity universe.",
+        "subline": "Start with the quiz and enter the Bean Identity Universe",
         "bg_color": "#121212",
         "text_color": "#EDE7E3",
         "primary_btn_bg": "#C6A969",

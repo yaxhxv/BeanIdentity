@@ -100,7 +100,7 @@
 
     const label = document.createElement('p');
     label.className = 'bi-checkin-label';
-    label.innerHTML = 'Right now, you feel like… <span class="bi-checkin-mood">' + quizMoods[0] + '</span>';
+    label.innerHTML = 'Right now, you feel… <span class="bi-checkin-mood">' + quizMoods[0] + '</span>';
     wrapper.insertBefore(label, wrapper.firstChild);
 
     const moodSpan = label.querySelector('.bi-checkin-mood');
@@ -130,11 +130,11 @@
 
   /* Bean personality data */
   var beanData = {
-    coffee:  { line: 'Calm outside. Loud mind.',        mood: 'Coffee Bean', accent: 'rgba(141,106,79,0.92)'  },
-    chilli:  { line: 'Too much? Nah. Just enough.',     mood: 'Chilli Bean', accent: 'rgba(179,69,43,0.92)'   },
-    jelly:   { line: 'Online 24/7. Offline never.',     mood: 'Jelly Bean',  accent: 'rgba(214,113,161,0.92)' },
-    green:   { line: 'Soft focus. Sharp instincts.',    mood: 'Green Bean',  accent: 'rgba(111,144,88,0.92)'  },
-    vanilla: { line: 'Clean, quiet, expensive energy.', mood: 'Vanilla Bean',accent: 'rgba(204,181,126,0.92)' }
+    coffee: { line: 'Calm outside. Loud mind.', mood: 'Coffee Bean', accent: 'rgba(141,106,79,0.92)' },
+    chilli: { line: 'Too much? Nah. Just enough.', mood: 'Chilli Bean', accent: 'rgba(179,69,43,0.92)' },
+    jelly: { line: 'Online 24/7. Offline never.', mood: 'Jelly Bean', accent: 'rgba(214,113,161,0.92)' },
+    green: { line: 'Soft focus. Sharp instincts.', mood: 'Green Bean', accent: 'rgba(111,144,88,0.92)' },
+    vanilla: { line: 'Clean, quiet, expensive energy.', mood: 'Vanilla Bean', accent: 'rgba(204,181,126,0.92)' }
   };
 
   function getBeanKey(panel) {
@@ -211,8 +211,8 @@
     document.querySelectorAll('.cst-card').forEach(function (card) {
       card.addEventListener('mousemove', function (e) {
         var rect = card.getBoundingClientRect();
-        var cx = (e.clientX - rect.left) / rect.width  - 0.5;
-        var cy = (e.clientY - rect.top)  / rect.height - 0.5;
+        var cx = (e.clientX - rect.left) / rect.width - 0.5;
+        var cy = (e.clientY - rect.top) / rect.height - 0.5;
         card.style.setProperty('--ty', (cx * 10).toFixed(2) + 'deg');
         card.style.setProperty('--tx', (-cy * 6).toFixed(2) + 'deg');
         card.classList.add('bi-tilt-active');
@@ -236,7 +236,7 @@
         if (!targetSelector) return;
 
         var currentPanel = document.querySelector('.cst-tab-content.active');
-        var nextPanel    = document.querySelector(targetSelector);
+        var nextPanel = document.querySelector(targetSelector);
         if (!nextPanel || nextPanel === currentPanel) return;
 
         if (REDUCED) return; /* Let native handler proceed */
