@@ -351,7 +351,10 @@
         "font_size_mobile": 16,
         "speed": 30,
         "pause_on_hover": true,
-        "padding_v": 24
+        "margin_top": 20,
+        "margin_bottom": 0,
+        "padding_top": 24,
+        "padding_bottom": 24
       }
     },
     "identity_copy_hp": {
