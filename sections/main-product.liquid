@@ -1,16 +1,4 @@
-{%- liquid
-  assign is_bean_product = false
-  for c in product.collections
-    if c.handle contains 'bean'
-      assign is_bean_product = true
-      break
-    endif
-  endfor
--%}
 
-{%- if is_bean_product -%}
-  {% render 'bean-header-content' %}
-{%- endif -%}
 
 <product-info
   id="MainProduct-{{ section.id }}"

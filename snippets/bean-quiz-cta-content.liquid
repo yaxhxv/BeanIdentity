@@ -16,7 +16,7 @@
 
   case current_handle
     when 'coffee-bean'
-      assign bean_accent = '#4E342E'
+      assign bean_accent = '#A67C52'
       assign bean_title = 'Still comparing your moods?'
       assign bean_text = 'Coffee Bean might fit today, but the full identity system will tell you where your sharpest match lives.'
     when 'green-bean'
@@ -33,7 +33,7 @@
       assign bean_text = "Run the identity quiz and find out whether Chilli Bean is really your lane or just today's mood."
     when 'jelly-bean'
       assign bean_accent = '#00BCD4'
-      assign bean_title = 'Still deciding what fits your signal?'
+      assign bean_title = 'Still deciding what fits your mood?'
       assign bean_text = 'Take the quiz and match with the bean that tracks your tone, tempo, and personality best.'
   endcase
 -%}
@@ -164,7 +164,6 @@
   <div class="bean-quiz-cta">
     <div class="bean-quiz-cta__content">
       <div class="bean-quiz-cta__copy">
-        <p class="bean-quiz-cta__eyebrow">Find your bean</p>
         <h2 class="bean-quiz-cta__title">{{ bean_title }}</h2>
         <p class="bean-quiz-cta__text">{{ bean_text }}</p>
       </div>

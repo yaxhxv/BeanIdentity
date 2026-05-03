@@ -25,11 +25,11 @@
 
   case current_handle
     when 'coffee-bean'
-      assign bean_accent = '#6d4a2f'
-      assign bean_glow = 'rgba(109, 74, 47, 0.24)'
+      assign bean_accent = '#A67C52'
+      assign bean_glow = 'rgba(166, 124, 82, 0.24)'
       assign bean_font = '"Playfair Display", serif'
       assign bean_tagline = 'The intellectual. Quietly sharp.'
-      assign bean_personality = 'Think deeper. Question everything. The world makes more sense when you slow down long enough to understand it. Not everyone will keep up. That\'s okay. You were never meant to be easy to explain.'
+      assign bean_personality = "Think deeper. When you slow down long enough to understand it.<br>Not everyone will keep up. That's okay.<br>You were never meant to be easy to explain."
       assign bean_traits = 'Curious | Grounded | Precise | Mature'
       assign bean_voice = 'Thoughtful, grounded, editorial.'
       assign bean_audience = 'Readers, observers, and people with quiet conviction.'
@@ -41,7 +41,7 @@
       assign bean_glow = 'rgba(77, 168, 74, 0.22)'
       assign bean_font = '"Poppins", sans-serif'
       assign bean_tagline = 'The nature lover. Fresh without trying.'
-      assign bean_personality = 'Still waters run deep. Not everyone feels the room the way you do. The calm you carry is not weakness. It is the rarest kind of strength.'
+      assign bean_personality = "Still waters run deep. Not everyone feels the room the way you do.<br>The calm you carry is not weakness. It is the rarest kind of strength."
       assign bean_traits = 'Fresh | Optimistic | Grounded | Open'
       assign bean_voice = 'Clean, bright, naturally confident.'
       assign bean_audience = 'Optimists, walkers, reset-seekers, and outdoorsy minds.'
@@ -65,7 +65,7 @@
       assign bean_glow = 'rgba(227, 75, 68, 0.25)'
       assign bean_font = '"Bangers", system-ui'
       assign bean_tagline = 'The firecracker. Bold on contact.'
-      assign bean_personality = 'Break the mould. Burn the rulebook. Fitting in was never the goal. Say what you mean. Do what you say. The world doesn\'t need another copy. Be the original.'
+      assign bean_personality = "Break the mould. Burn the rulebook.<br>Fitting in was never the goal.<br>Say what you mean. Do what you say.<br>The world doesn't need another copy.<br>Be the original."
       assign bean_traits = 'Fiery | Chaotic | Funny | Unfiltered'
       assign bean_voice = 'Fast, bold, confrontational in the best way.'
       assign bean_audience = 'Rule-breakers, loud dressers, and people who like pressure.'
@@ -77,7 +77,7 @@
       assign bean_glow = 'rgba(49, 183, 197, 0.24)'
       assign bean_font = '"Baloo 2", cursive'
       assign bean_tagline = 'The digital native. Playful with edge.'
-      assign bean_personality = 'Live louder. Love harder. Your energy is impossible to ignore. The world lights up when you walk in. Never apologise for taking up space.'
+      assign bean_personality = "Live louder. Love harder. Your energy is impossible to ignore.<br>The world lights up when you walk in<br>Never apologise for taking up space"
       assign bean_traits = 'Playful | Social | Techy | Magnetic'
       assign bean_voice = 'Glossy, quick, internet-fluent.'
       assign bean_audience = 'Creators, scene-builders, and people who thrive in motion.'
@@ -315,39 +315,5 @@
     </div>
   </div>
 
-  <div class="bean-landing__details">
-    <div class="bean-landing__details-grid">
-      <div class="bean-landing__manifesto">
-        <span class="bean-landing__label">Character profile</span>
-        <h2>{{ bean_personality }}</h2>
-        <p>{{ bean_manifesto }}</p>
-      </div>
 
-      <div class="bean-landing__info-card">
-        <div class="bean-landing__traits">
-          {%- assign trait_list = bean_traits | split: '|' -%}
-          {%- for trait in trait_list -%}
-            <span class="bean-landing__trait">{{ trait | strip }}</span>
-          {%- endfor -%}
-        </div>
-
-        <div class="bean-landing__meta">
-          <div class="bean-landing__meta-block">
-            <h3>Voice and tone</h3>
-            <p>{{ bean_voice }}</p>
-          </div>
-          <div class="bean-landing__meta-block">
-            <h3>Who it fits</h3>
-            <p>{{ bean_audience }}</p>
-          </div>
-          {%- if collection_description != blank -%}
-            <div class="bean-landing__meta-block">
-              <h3>Collection note</h3>
-              <p>{{ collection_description | strip_html }}</p>
-            </div>
-          {%- endif -%}
-        </div>
-      </div>
-    </div>
-  </div>
 </section>

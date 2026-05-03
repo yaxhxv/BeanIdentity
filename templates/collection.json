@@ -27,7 +27,7 @@
             "bean_type": "chilli",
             "kicker": "High Edge. Zero Apology.",
             "title": "Chilli Bean",
-            "subtitle": "<p>Break the mould. Burn the rulebook. Fitting in was never the goal. Say what you mean. Do what you say. The world doesn't need another copy. Be the original.</p>"
+            "subtitle": "<p>Break the mould. Burn the rulebook.<br>Fitting in was never the goal.<br>Say what you mean. Do what you say.<br>The world doesn't need another copy.<br>Be the original.</p>"
           }
         },
         "coffee": {
@@ -36,7 +36,7 @@
             "bean_type": "coffee",
             "kicker": "Thoughtful. Grounded.",
             "title": "Coffee Bean",
-            "subtitle": "<p>Think deeper. Question everything. The world makes more sense when you slow down long enough to understand it. Not everyone will keep up. That's okay. You were never meant to be easy to explain.</p>"
+            "subtitle": "<p>Think deeper. When you slow down long enough to understand it.<br>Not everyone will keep up. That's okay.<br>You were never meant to be easy to explain.</p>"
           }
         },
         "green": {
@@ -45,7 +45,7 @@
             "bean_type": "green",
             "kicker": "Fresh. Restorative.",
             "title": "Green Bean",
-            "subtitle": "<p>Still waters run deep. Not everyone feels the room the way you do. The calm you carry is not weakness. It's the rarest kind of strength.</p>"
+            "subtitle": "<p>Still waters run deep. Not everyone feels the room the way you do.<br>The calm you carry is not weakness. It's the rarest kind of strength.</p>"
           }
         },
         "jelly": {
@@ -54,11 +54,17 @@
             "bean_type": "jelly",
             "kicker": "Playful. Magnetic.",
             "title": "Jelly Bean",
-            "subtitle": "<p>Live louder. Love harder. Your energy is impossible to ignore. The world lights up when you walk in. Never apologise for taking up space.</p>"
+            "subtitle": "<p>Live louder. Love harder. Your energy is impossible to ignore.<br>The world lights up when you walk in<br>Never apologise for taking up space</p>"
           }
         }
       },
-      "block_order": ["vanilla", "chilli", "coffee", "green", "jelly"],
+      "block_order": [
+        "vanilla",
+        "chilli",
+        "coffee",
+        "green",
+        "jelly"
+      ],
       "settings": {
         "show_collection_description": true,
         "show_collection_image": true,
