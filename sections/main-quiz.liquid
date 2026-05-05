@@ -592,6 +592,29 @@
     background: var(--result-panel-alt);
   }
 
+  @media screen and (max-width: 989px) {
+    .bean-quiz__result-card {
+      grid-template-columns: 1fr;
+    }
+    .bean-quiz__result-hero {
+      grid-template-columns: 1fr;
+      text-align: center;
+      justify-items: center;
+    }
+    .bean-quiz__result-copy {
+      margin-inline: auto;
+    }
+    .bean-quiz__result-bridge {
+      grid-template-columns: 1fr;
+    }
+    .bean-quiz__result-visual-shell {
+      width: min(100%, 28rem);
+    }
+    .bean-quiz__result-actions {
+      justify-content: center;
+    }
+  }
+
   .bean-quiz__bridge-card strong,
   .bean-quiz__bridge-card span {
     display: block;

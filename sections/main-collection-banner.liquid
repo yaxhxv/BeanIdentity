@@ -95,6 +95,7 @@
           assign bean_glow = 'rgba(230, 57, 70, 0.16)'
           assign bean_border = 'rgba(158, 27, 27, 0.14)'
           assign bean_font = '"Bangers", system-ui'
+          assign bean_letter_spacing = '0.2em'
       endcase
 
       assign bg_image_url = bean_filename | file_url
@@ -126,12 +127,12 @@
         width: min(148rem, calc(100vw - 3.2rem));
         min-height: min(82rem, calc(100vh - 8rem));
         display: grid;
-        grid-template-columns: minmax(0, 1.1fr) minmax(30rem, 0.9fr);
+        grid-template-columns: 1fr 1fr;
         align-items: center;
-        gap: clamp(2.4rem, 4vw, 6rem);
+        gap: clamp(2rem, 3vw, 4rem);
         overflow: hidden;
         margin: 1.6rem auto 0;
-        padding: clamp(2.4rem, 4vw, 5.6rem);
+        padding: clamp(2rem, 4vw, 4.6rem);
         border: 1px solid var(--bean-border);
         border-radius: 3.2rem;
         background:
@@ -140,6 +141,13 @@
         color: var(--bean-copy);
         box-shadow: 0 2.2rem 6rem rgba(20,20,20,0.08);
         isolation: isolate;
+      }
+      @media screen and (min-width: 1200px) {
+        .bean-collection-hero-{{ section.id }} {
+           grid-template-columns: minmax(0, 1.1fr) minmax(30rem, 0.9fr);
+           padding: clamp(2.4rem, 4vw, 5.6rem);
+           gap: clamp(2.4rem, 4vw, 6rem);
+        }
       }
       .bean-collection-hero-{{ section.id }}::before,
       .bean-collection-hero-{{ section.id }}::after {
@@ -253,6 +261,7 @@
         font-size: clamp(4.8rem, 10vw, 10.4rem);
         font-weight: 800;
         line-height: 0.9;
+        letter-spacing: {{ bean_letter_spacing | default: '-0.06em' }};
         margin: 0;
         text-transform: uppercase;
         color: var(--bean-accent-deep);

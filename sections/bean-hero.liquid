@@ -109,6 +109,7 @@
 
   .bean-hero-{{ section.id }} .hero-title {
     font-family: var(--bean-font, var(--font-heading-family));
+    letter-spacing: var(--bean-letter-spacing, -0.06em);
     font-size: clamp(5rem, 10vw, 12rem);
     font-weight: 900;
     line-height: 0.85;
@@ -332,6 +333,7 @@
           when 'chilli'
             assign bean_filename = 'ChilliBeanHero2.png'
             assign bean_font = '"Bangers", system-ui'
+            assign bean_letter_spacing = '0.2em'
         endcase
 
         assign bg_image_url = bean_filename | file_url
@@ -343,7 +345,7 @@
       <div
         class="bean-hero-slide {% if forloop.first %}is-active{% endif %}"
         {{ block.shopify_attributes }}
-        style="--bean-font: {{ bean_font }};"
+        style="--bean-font: {{ bean_font }}; --bean-letter-spacing: {{ bean_letter_spacing | default: 'normal' }};"
       >
         <div class="bean-hero-bg" style="background-image: url('{{ bg_image_url }}');"></div>
         <div class="bean-hero-overlay"></div>
