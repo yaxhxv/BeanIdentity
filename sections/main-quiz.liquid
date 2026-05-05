@@ -367,11 +367,148 @@
     margin-top: 2.8rem;
   }
 
+  .bean-quiz__screen[data-quiz-screen='result'] {
+    --result-bg: rgba(255, 255, 255, 0.04);
+    --result-bg-strong: rgba(255, 255, 255, 0.08);
+    --result-ink: #f5f5f5;
+    --result-copy-soft: rgba(245, 245, 245, 0.72);
+    --result-border: rgba(245, 245, 245, 0.1);
+    --result-glow: rgba(198, 169, 105, 0.18);
+    --result-panel: rgba(255, 255, 255, 0.04);
+    --result-panel-alt: rgba(255, 255, 255, 0.03);
+    position: relative;
+    padding: clamp(2rem, 3vw, 3rem);
+    border-radius: 2.6rem;
+    overflow: hidden;
+    background: radial-gradient(circle at top right, var(--result-glow) 0%, transparent 28rem),
+      linear-gradient(135deg, var(--result-bg-strong), var(--result-bg));
+    border: 1px solid var(--result-border);
+  }
+
+  .bean-quiz__screen[data-quiz-screen='result']::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0)),
+      radial-gradient(circle at left bottom, rgba(255, 255, 255, 0.08), transparent 22rem);
+    pointer-events: none;
+  }
+
+  .bean-quiz__result-hero {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(24rem, 0.9fr);
+    gap: 2.4rem;
+    align-items: center;
+  }
+
+  .bean-quiz__result-copy-block {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+  }
+
+  .bean-quiz__result-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0;
+    color: var(--result-accent, #c6a969);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .bean-quiz__result-kicker::before {
+    content: '';
+    width: 4rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
+  }
+
+  .bean-quiz__result-title,
+  .bean-quiz__result-copy,
+  .bean-quiz__result-label,
+  .bean-quiz__result-stat span,
+  .bean-quiz__trait {
+    position: relative;
+    z-index: 1;
+  }
+
+  .bean-quiz__result-title {
+    color: var(--result-ink);
+  }
+
+  .bean-quiz__result-copy {
+    max-width: 52rem;
+    color: var(--result-copy-soft);
+  }
+
+  .bean-quiz__result-visual {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  .bean-quiz__result-visual-shell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: min(100%, 34rem);
+    aspect-ratio: 1 / 1;
+    border-radius: 3rem;
+    border: 1px solid var(--result-border);
+    background: radial-gradient(
+        circle at 50% 45%,
+        rgba(255, 255, 255, 0.9) 0%,
+        rgba(255, 255, 255, 0.42) 42%,
+        transparent 72%
+      ),
+      linear-gradient(180deg, rgba(255, 255, 255, 0.36), rgba(255, 255, 255, 0.14));
+    overflow: hidden;
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28);
+  }
+
+  .bean-quiz__result-visual-shell::before {
+    content: '';
+    position: absolute;
+    inset: 14%;
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--result-glow), transparent 72%);
+    filter: blur(16px);
+  }
+
+  .bean-quiz__result-gif {
+    position: relative;
+    z-index: 1;
+    width: min(100%, 24rem);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 1.8rem 3rem rgba(0, 0, 0, 0.16));
+  }
+
+  .bean-quiz__result-illustration {
+    position: absolute;
+    right: -0.8rem;
+    bottom: -0.8rem;
+    width: clamp(8.6rem, 9vw, 12rem);
+    height: auto;
+    opacity: 0.95;
+    filter: drop-shadow(0 1.2rem 2rem rgba(0, 0, 0, 0.18));
+  }
+
   .bean-quiz__result-copy-wrap,
   .bean-quiz__result-meta {
     padding: 2.2rem;
-    border: 1px solid rgba(245, 245, 245, 0.1);
-    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--result-border);
+    background: var(--result-panel);
+    border-radius: 2.2rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
   }
 
   .bean-quiz__result-label {
@@ -398,13 +535,13 @@
     min-height: 3.4rem;
     padding: 0 1.3rem;
     border: 1px solid rgba(245, 245, 245, 0.12);
-    background: rgba(255, 255, 255, 0.04);
+    background: rgba(255, 255, 255, 0.08);
     font-family: 'Poppins', sans-serif;
     font-size: 1.02rem;
     font-weight: 800;
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    color: #f5f5f5;
+    color: var(--result-ink);
   }
 
   .bean-quiz__result-stat + .bean-quiz__result-stat {
@@ -431,7 +568,7 @@
   .bean-quiz__result-stat span {
     font-size: 1.55rem;
     line-height: 1.6;
-    color: #f5f5f5;
+    color: var(--result-ink);
   }
 
   .bean-quiz__result-actions {
@@ -439,6 +576,41 @@
     flex-wrap: wrap;
     gap: 1.2rem;
     margin-top: 2.4rem;
+  }
+
+  .bean-quiz__result-bridge {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 2rem;
+  }
+
+  .bean-quiz__bridge-card {
+    padding: 1.6rem 1.5rem;
+    border: 1px solid var(--result-border);
+    border-radius: 1.8rem;
+    background: var(--result-panel-alt);
+  }
+
+  .bean-quiz__bridge-card strong,
+  .bean-quiz__bridge-card span {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+  }
+
+  .bean-quiz__bridge-card strong {
+    margin-bottom: 0.5rem;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245, 245, 245, 0.5);
+  }
+
+  .bean-quiz__bridge-card span {
+    font-size: 1.3rem;
+    line-height: 1.45;
+    color: var(--result-ink);
   }
 
   .bean-quiz__button--secondary {
@@ -455,7 +627,9 @@
 
   @media screen and (max-width: 989px) {
     .bean-quiz-page__hero,
-    .bean-quiz__result-card {
+    .bean-quiz__result-card,
+    .bean-quiz__result-hero,
+    .bean-quiz__result-bridge {
       grid-template-columns: 1fr;
     }
 
@@ -740,9 +914,25 @@
         </div>
 
         <div class="bean-quiz__screen" data-quiz-screen="result">
-          <p class="bean-quiz__result-label">Your match</p>
-          <h2 class="bean-quiz__result-title" data-result-name></h2>
-          <p class="bean-quiz__result-copy" data-result-description></p>
+          <div class="bean-quiz__result-hero">
+            <div class="bean-quiz__result-copy-block">
+              <p class="bean-quiz__result-kicker">Your match</p>
+              <h2 class="bean-quiz__result-title" data-result-name></h2>
+              <p class="bean-quiz__result-copy" data-result-description></p>
+            </div>
+
+            <div class="bean-quiz__result-visual">
+              <div class="bean-quiz__result-visual-shell">
+                <img
+                  class="bean-quiz__result-gif"
+                  src=""
+                  alt=""
+                  loading="lazy"
+                  data-result-gif
+                >
+              </div>
+            </div>
+          </div>
 
           <div class="bean-quiz__result-card">
             <div class="bean-quiz__result-copy-wrap">
@@ -759,6 +949,21 @@
                 <strong>Why it fits</strong>
                 <span data-result-fit></span>
               </div>
+            </div>
+          </div>
+
+          <div class="bean-quiz__result-bridge">
+            <div class="bean-quiz__bridge-card">
+              <strong>Visual direction</strong>
+              <span data-result-direction></span>
+            </div>
+            <div class="bean-quiz__bridge-card">
+              <strong>Color mood</strong>
+              <span data-result-palette></span>
+            </div>
+            <div class="bean-quiz__bridge-card">
+              <strong>Best next move</strong>
+              <span data-result-cta-copy></span>
             </div>
           </div>
 
@@ -796,6 +1001,11 @@
     const resultEnergy = root.querySelector('[data-result-energy]');
     const resultFit = root.querySelector('[data-result-fit]');
     const resultLink = root.querySelector('[data-result-link]');
+    const resultGif = root.querySelector('[data-result-gif]');
+
+    const resultDirection = root.querySelector('[data-result-direction]');
+    const resultPalette = root.querySelector('[data-result-palette]');
+    const resultCtaCopy = root.querySelector('[data-result-cta-copy]');
 
     const archetypes = {
       coffee: {
@@ -806,7 +1016,18 @@
         energy: 'Calm authority',
         fit: 'Best on days that call for sharper thinking and quieter confidence.',
         collection: '/collections/coffee-bean',
-        accent: '#6d4a2f',
+        accent: '#8B5E3C',
+        ink: '#F7F1EA',
+        bg: 'rgba(90, 58, 27, 0.28)',
+        bgStrong: 'rgba(139, 94, 60, 0.18)',
+        glow: 'rgba(90, 58, 27, 0.24)',
+        border: 'rgba(184, 133, 96, 0.22)',
+        panel: 'rgba(255, 248, 240, 0.05)',
+        panelAlt: 'rgba(255, 248, 240, 0.03)',
+        palette: 'Roasted brown, espresso depth, warm mocha neutrals.',
+        direction: 'Editorial, grounded, and quietly sharp with deeper contrast.',
+        ctaCopy: 'Go straight into the Coffee Bean drop for the clearest fit.',
+        gif: "{{ 'coffee_bean_gif.gif' | file_url }}",
       },
       chilli: {
         name: 'Chilli Bean',
@@ -815,7 +1036,18 @@
         energy: 'High contrast',
         fit: 'Best when the mood is direct, loud, and impossible to ignore.',
         collection: '/collections/chilli-bean',
-        accent: '#e34b44',
+        accent: '#E63946',
+        ink: '#FFF3F4',
+        bg: 'rgba(158, 27, 27, 0.24)',
+        bgStrong: 'rgba(230, 57, 70, 0.16)',
+        glow: 'rgba(230, 57, 70, 0.22)',
+        border: 'rgba(255, 126, 126, 0.22)',
+        panel: 'rgba(255, 245, 246, 0.05)',
+        panelAlt: 'rgba(255, 245, 246, 0.03)',
+        palette: 'Hot red, burnt red, and a flash of lava yellow.',
+        direction: 'Charged, bold, and cleanly aggressive without losing clarity.',
+        ctaCopy: 'Open the Chilli Bean page when you want the loudest match.',
+        gif: "{{ 'chilli_bean_gif.gif' | file_url }}",
       },
       vanilla: {
         name: 'Vanilla Bean',
@@ -824,7 +1056,18 @@
         energy: 'Soft magnetism',
         fit: 'Best when you want elegance, ease, and style without stiffness.',
         collection: '/collections/vanilla-bean',
-        accent: '#d9b86f',
+        accent: '#D4A85A',
+        ink: '#FFF8F0',
+        bg: 'rgba(182, 120, 47, 0.2)',
+        bgStrong: 'rgba(229, 211, 179, 0.18)',
+        glow: 'rgba(229, 211, 179, 0.26)',
+        border: 'rgba(228, 196, 146, 0.24)',
+        panel: 'rgba(255, 249, 240, 0.05)',
+        panelAlt: 'rgba(255, 249, 240, 0.03)',
+        palette: 'Cream silk, soft butter, and warm beige layering.',
+        direction: 'Smooth, mellow, and elevated with softer warmth.',
+        ctaCopy: 'Step into the Vanilla Bean page for the cleanest soft-luxury lane.',
+        gif: "{{ 'vanilla_bean_gif.gif' | file_url }}",
       },
       jelly: {
         name: 'Jelly Bean',
@@ -834,7 +1077,18 @@
         energy: 'Fast and social',
         fit: 'Best for playful days, scene energy, and a look that feels current.',
         collection: '/collections/jelly-bean',
-        accent: '#31b7c5',
+        accent: '#2BB3C0',
+        ink: '#F2FEFF',
+        bg: 'rgba(21, 128, 138, 0.22)',
+        bgStrong: 'rgba(43, 179, 192, 0.16)',
+        glow: 'rgba(43, 179, 192, 0.22)',
+        border: 'rgba(125, 231, 241, 0.24)',
+        panel: 'rgba(242, 254, 255, 0.05)',
+        panelAlt: 'rgba(242, 254, 255, 0.03)',
+        palette: 'Candy cyan, bubble blue, and glossy cool light.',
+        direction: 'Bright, digital, and playful with a cleaner cyan atmosphere.',
+        ctaCopy: 'Jump to the Jelly Bean page for the most animated version of your match.',
+        gif: "{{ 'jelly_bean_gif.gif' | file_url }}",
       },
       green: {
         name: 'Green Bean',
@@ -843,7 +1097,18 @@
         energy: 'Restorative clarity',
         fit: 'Best when you want a reset, softer movement, and easy confidence.',
         collection: '/collections/green-bean',
-        accent: '#4da84a',
+        accent: '#5BBF3A',
+        ink: '#F4FFF0',
+        bg: 'rgba(47, 125, 50, 0.22)',
+        bgStrong: 'rgba(91, 191, 58, 0.16)',
+        glow: 'rgba(91, 191, 58, 0.22)',
+        border: 'rgba(164, 232, 143, 0.24)',
+        panel: 'rgba(244, 255, 240, 0.05)',
+        panelAlt: 'rgba(244, 255, 240, 0.03)',
+        palette: 'Fresh leaf green, soft lime, and airy botanical light.',
+        direction: 'Clean, restorative, and bright with a softer natural wash.',
+        ctaCopy: 'Open the Green Bean page when you want the calmest version of your result.',
+        gif: "{{ 'green_bean_gif.gif' | file_url }}",
       },
     };
 
@@ -909,11 +1174,23 @@
       if (!data) return;
 
       root.style.setProperty('--result-accent', data.accent);
+      root.style.setProperty('--result-ink', data.ink);
+      root.style.setProperty('--result-bg', data.bg);
+      root.style.setProperty('--result-bg-strong', data.bgStrong);
+      root.style.setProperty('--result-glow', data.glow);
+      root.style.setProperty('--result-border', data.border);
+      root.style.setProperty('--result-panel', data.panel);
+      root.style.setProperty('--result-panel-alt', data.panelAlt);
       resultName.textContent = data.name;
       resultDescription.textContent = data.description;
       resultEnergy.textContent = data.energy;
       resultFit.textContent = data.fit;
       resultLink.href = data.collection;
+      resultDirection.textContent = data.direction;
+      resultPalette.textContent = data.palette;
+      resultCtaCopy.textContent = data.ctaCopy;
+      resultGif.src = data.gif;
+      resultGif.alt = data.name;
       resultTraits.innerHTML = '';
 
       data.traits.forEach((trait) => {
