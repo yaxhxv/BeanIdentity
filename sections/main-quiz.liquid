@@ -224,8 +224,7 @@
     min-height: 100%;
     padding: 1.6rem;
     border-radius: 2.2rem;
-    background:
-      radial-gradient(circle at 80% 24%, rgba(198, 169, 105, 0.16), transparent 22%),
+    background: radial-gradient(circle at 80% 24%, rgba(198, 169, 105, 0.16), transparent 22%),
       rgba(255, 255, 255, 0.03);
     border: 1px solid rgba(245, 245, 245, 0.08);
     overflow: hidden;
@@ -560,7 +559,7 @@
       <div class="bean-quiz__panel">
         <div class="bean-quiz__screen is-active" data-quiz-screen="welcome">
           <div class="bean-quiz__welcome-copy">
-            <h2 class="bean-quiz__intro-title">Find the bean that wears like you.</h2>
+            {% comment %} <h2 class="bean-quiz__intro-title">Find the bean that wears like you.</h2> {% endcomment %}
             <p class="bean-quiz__intro-copy">
               Pick the option that feels most instinctive each time. Do not overthink it. The strongest matches usually
               happen fast.
@@ -573,13 +572,15 @@
               <span class="bean-quiz__welcome-pill">2 min</span>
               <span class="bean-quiz__welcome-pill">1 bean match</span>
             </div>
-            <img
-              src="{{ 'bean-green-1.png' | asset_url }}"
-              alt=""
-              aria-hidden="true"
-              class="bean-quiz__welcome-art"
-              loading="lazy"
-            >
+            {% comment %}
+              <img
+                src="{{ 'bean-green-1.png' | asset_url }}"
+                alt=""
+                aria-hidden="true"
+                class="bean-quiz__welcome-art"
+                loading="lazy"
+              >
+            {% endcomment %}
           </div>
         </div>
 

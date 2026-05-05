@@ -40,7 +40,7 @@
   }
 
   #IdentityCopy-{{ section.id }}::before {
-    content: "Five Beans / FIVE PERSONALITIES";
+    content: "";
     position: absolute;
     top: 2.4rem;
     left: 50%;
@@ -164,7 +164,15 @@
   >
   <div class="identity-copy__wrapper">
     {%- if section.settings.headline != blank -%}
-      <h2 class="identity-copy__headline">{{ section.settings.headline | newline_to_br }}</h2>
+      <h2 class="identity-copy__headline">
+        {{
+          section.settings.headline
+          | replace: '<br>', '##BR##'
+          | replace: '<BR>', '##BR##'
+          | escape
+          | replace: '##BR##', '<br>'
+        }}
+      </h2>
     {%- endif -%}
     {%- if section.settings.subline != blank -%}
       <p class="identity-copy__subline">{{ section.settings.subline }}</p>
