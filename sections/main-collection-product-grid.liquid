@@ -158,8 +158,13 @@
     }
 
     @media screen and (min-width: 990px) {
-      .bean-collection-grid .product-grid.grid--4-col-desktop {
-        grid-template-columns: repeat(4, minmax(0, 1fr));
+      .bean-collection-grid .product-grid {
+        display: grid !important;
+        grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+      }
+      .bean-collection-grid .product-grid .grid__item {
+        width: 100% !important;
+        max-width: 100% !important;
       }
     }
 
