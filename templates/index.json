@@ -360,7 +360,7 @@
     "identity_copy_hp": {
       "type": "identity-copy",
       "settings": {
-        "headline": "Five personalities.<br>One Identity.",
+        "headline": "Five personalities.\nOne Identity.",
         "subline": "Bean Identity is built for the versions of you that refuse to dress the same every day.",
         "bg_color": "#EDE7E3",
         "text_color": "#000000",

@@ -182,13 +182,7 @@
   <div class="identity-copy__wrapper">
     {%- if section.settings.headline != blank -%}
       <h2 class="identity-copy__headline">
-        {{
-          section.settings.headline
-          | replace: '<br>', '##BR##'
-          | replace: '<BR>', '##BR##'
-          | escape
-          | replace: '##BR##', '<br>'
-        }}
+        {{ section.settings.headline | escape | newline_to_br }}
       </h2>
     {%- endif -%}
     {%- if section.settings.subline != blank -%}

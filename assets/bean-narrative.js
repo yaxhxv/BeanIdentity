@@ -56,12 +56,18 @@
     if (!headlines.length) return;
 
     headlines.forEach(function (headline) {
-      const fullText = headline.textContent.trim();
-      const words = fullText.split(/\s+/);
+      headline.setAttribute('aria-label', headline.textContent.trim());
 
-      headline.setAttribute('aria-label', fullText);
+      var html = headline.innerHTML.trim();
+      html = html.replace(/<br\s*\/?>/gi, ' ##BR## ');
+      var words = html.split(/\s+/);
+
       headline.innerHTML = words
-        .map(function (w) { return '<span class="bi-word" aria-hidden="true">' + w + '</span>'; })
+        .map(function (w) {
+          if (w === '##BR##') return '<br>';
+          if (!w) return '';
+          return '<span class="bi-word" aria-hidden="true">' + w + '</span>';
+        })
         .join(' ');
 
       const spans = headline.querySelectorAll('.bi-word');

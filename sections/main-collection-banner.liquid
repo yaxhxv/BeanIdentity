@@ -28,15 +28,15 @@
       assign bean_filename = ''
       case active_block.settings.bean_type
         when 'vanilla'
-          assign bean_filename = 'VanillaBeanHero'
+          assign bean_filename = 'VanillaHero'
         when 'green'
-          assign bean_filename = 'GreenBeanHero'
+          assign bean_filename = 'GreenHero'
         when 'coffee'
-          assign bean_filename = 'CoffeeBeanHero'
+          assign bean_filename = 'CoffeeHero'
         when 'jelly'
-          assign bean_filename = 'JellyBeanHero'
+          assign bean_filename = 'JellyHero'
         when 'chilli'
-          assign bean_filename = 'ChilliBeanHero'
+          assign bean_filename = 'ChilliHero'
       endcase
 
       assign image_url_png = bean_filename | append: '.png' | file_url
@@ -46,26 +46,21 @@
     {%- style -%}
       .static-bean-hero-{{ section.id }} {
         width: 100%;
-        max-width: 1600px;
-        margin: 2rem auto;
+        margin: 0;
+        padding: 0;
         display: block;
-        padding: 0 1.6rem;
+        border-radius: 0 !important;
+      }
+      .static-bean-hero-{{ section.id }} a {
+        display: block;
+        border-radius: 0 !important;
       }
       .static-bean-hero-{{ section.id }} img {
         width: 100%;
         height: auto;
         display: block;
-        border-radius: 2rem;
+        border-radius: 0 !important;
         object-fit: cover;
-      }
-      @media screen and (max-width: 749px) {
-        .static-bean-hero-{{ section.id }} {
-          padding: 0;
-          margin: 0;
-        }
-        .static-bean-hero-{{ section.id }} img {
-          border-radius: 0;
-        }
       }
     {%- endstyle -%}
 
