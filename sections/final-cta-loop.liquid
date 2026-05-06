@@ -138,25 +138,63 @@
     }
   }
 
-  .final-cta__bean-gif {
+  /* === DOODLE: top-left diagonal === */
+  .final-cta__doodle--tl {
     position: absolute;
-    right: -3rem;
-    top: 50%;
-    transform: translateY(-50%);
-    width: clamp(240px, 26vw, 360px);
+    top: -3rem;
+    left: -3rem;
+    width: clamp(160px, 20vw, 280px);
     height: auto;
     border-radius: 46% 54% 52% 48% / 54% 46% 54% 46%;
+    transform: rotate(-14deg);
     mix-blend-mode: screen;
-    opacity: 0.4;
+    opacity: 0.28;
     pointer-events: none;
     z-index: 0;
   }
 
+  /* === DOODLE: bottom-right diagonal === */
+  .final-cta__doodle--br {
+    position: absolute;
+    bottom: -3rem;
+    right: -3rem;
+    width: clamp(180px, 22vw, 320px);
+    height: auto;
+    border-radius: 52% 48% 44% 56% / 46% 54% 46% 54%;
+    transform: rotate(10deg);
+    mix-blend-mode: screen;
+    opacity: 0.32;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  @media screen and (max-width: 989px) {
+    .final-cta__doodle--tl {
+      width: clamp(110px, 18vw, 200px);
+      top: -2rem;
+      left: -2rem;
+      opacity: 0.22;
+    }
+    .final-cta__doodle--br {
+      width: clamp(120px, 20vw, 220px);
+      bottom: -2rem;
+      right: -2rem;
+      opacity: 0.24;
+    }
+  }
+
   @media screen and (max-width: 749px) {
-    .final-cta__bean-gif {
-      width: clamp(120px, 36vw, 180px);
+    .final-cta__doodle--tl {
+      width: clamp(80px, 22vw, 130px);
+      top: -1.5rem;
+      left: -1.5rem;
+      opacity: 0.18;
+    }
+    .final-cta__doodle--br {
+      width: clamp(90px, 25vw, 150px);
+      bottom: -1.5rem;
       right: -1.5rem;
-      opacity: 0.3;
+      opacity: 0.18;
     }
   }
 {%- endstyle -%}
@@ -166,14 +204,14 @@
     src="{{ 'VanillaDoodle2.png' | file_url }}"
     alt=""
     aria-hidden="true"
-    style="position:absolute; left:-2rem; bottom:1rem; width:clamp(160px,18vw,260px); height:auto; opacity:0.16; transform:rotate(12deg); pointer-events:none; z-index:0;"
+    class="final-cta__doodle--tl"
     loading="lazy"
   >
   <img
     src="{{ 'JellyDoodle2.png' | file_url }}"
     alt=""
     aria-hidden="true"
-    class="final-cta__bean-gif"
+    class="final-cta__doodle--br"
     loading="lazy"
   >
   <div class="final-cta__wrapper">
