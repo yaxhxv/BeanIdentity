@@ -239,11 +239,18 @@
 
 <div id="Beanagram-{{ section.id }}" class="beanagram-stories">
   <img
-    src="{{ 'green_bean_gif.gif' | file_url }}"
+    src="{{ 'GreenDoodle2.png' | file_url }}"
     alt=""
     aria-hidden="true"
     class="beanagram__bean-gif"
     loading="lazy"
+  >
+  <img
+    src="{{ 'JellyDoodle1.png' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    style="position:absolute; bottom:-3rem; left:-4rem; width:clamp(160px,18vw,260px); height:auto; opacity:0.22; transform:rotate(-12deg); pointer-events:none; z-index:0; mix-blend-mode:screen;"
   >
   <div class="beanagram-header">
     <h2 class="beanagram-title">{{ section.settings.title }}</h2>

@@ -185,11 +185,18 @@
   class="quiz-prompt-section{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}"
 >
   <img
-    src="{{ 'coffee_bean_gif.gif' | file_url }}"
+    src="{{ 'CoffeeDoodle1.png' | file_url }}"
     alt=""
     aria-hidden="true"
     class="quiz-prompt__bean-gif"
     loading="lazy"
+  >
+  <img
+    src="{{ 'CoffeeDoodle2.png' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    style="position:absolute; bottom:-4rem; right:-3rem; width:clamp(160px,20vw,280px); height:auto; opacity:0.18; transform:rotate(10deg) scaleX(-1); pointer-events:none; z-index:0; mix-blend-mode:screen;"
   >
   <div class="quiz-prompt__wrapper">
     {%- if section.settings.headline != blank -%}
