@@ -79,18 +79,7 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
   text-transform: uppercase;
 }
 
-.section-{{ section.id }}-padding::after {
-  content: "";
-  position: absolute;
-  top: 3rem;
-  right: 2rem;
-  width: clamp(140px, 18vw, 240px);
-  height: clamp(140px, 18vw, 240px);
-  background: url('{{ "bean-jelly-1.png" | asset_url }}') center / contain no-repeat;
-  opacity: 0.12;
-  transform: rotate(8deg);
-  pointer-events: none;
-}
+
 
 @media screen and (max-width: 749px) {
   .section-{{ section.id }}-padding {
@@ -115,6 +104,20 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
+  <img
+    src="{{ 'JellyDoodle2.png' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    style="position:absolute; top: -3rem; right: -4rem; width: clamp(160px, 20vw, 280px); height: auto; opacity: 0.78; transform: rotate(15deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;"
+  >
+  <img
+    src="{{ 'VanillaDoodle2.png' | file_url }}"
+    alt=""
+    aria-hidden="true"
+    loading="lazy"
+    style="position:absolute; bottom: -2rem; left: -3rem; width: clamp(180px, 24vw, 320px); height: auto; opacity: 0.75; transform: rotate(-12deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 46% 54% 52% 48% / 54% 46% 54% 46%;"
+  >
   <div class="page-width">
     <div class="image-with-text image-with-text--{{ section.settings.content_layout }} isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == section.settings.section_color_scheme and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">

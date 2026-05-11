@@ -157,7 +157,7 @@
   .final-cta__doodle--br {
     position: absolute;
     bottom: -3rem;
-    right: -3rem;
+    right: -7rem;
     width: clamp(180px, 22vw, 320px);
     height: auto;
     border-radius: 52% 48% 44% 56% / 46% 54% 46% 54%;
@@ -200,20 +200,6 @@
 {%- endstyle -%}
 
 <div id="FinalCTA-{{ section.id }}" class="final-cta-section">
-  <img
-    src="{{ 'VanillaDoodle2.png' | file_url }}"
-    alt=""
-    aria-hidden="true"
-    class="final-cta__doodle--tl"
-    loading="lazy"
-  >
-  <img
-    src="{{ 'JellyDoodle2.png' | file_url }}"
-    alt=""
-    aria-hidden="true"
-    class="final-cta__doodle--br"
-    loading="lazy"
-  >
   <div class="final-cta__wrapper">
     {%- if section.settings.headline != blank -%}
       <h2 class="final-cta__headline">{{ section.settings.headline }}</h2>
