@@ -108,6 +108,42 @@
             {%- endif -%}
 
             <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
+            {% comment %} Shop by Category Filter {% endcomment %}
+            <details
+              id="Details-ShopByCategory-{{ section.id }}"
+              class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
+              open
+            >
+              <summary class="facets__summary caption-large focus-offset">
+                <div>
+                  <span class="facets__summary-label">Shop by Category</span>
+                  {{- 'icon-caret.svg' | inline_asset_content -}}
+                </div>
+              </summary>
+              <div
+                id="Facet-ShopByCategory-{{ section.id }}"
+                class="{% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
+              >
+                <ul class="facets__list{% if filter_type == 'vertical' %} facets__list--vertical{% endif %} list-unstyled" role="list">
+                  <li class="list-menu__item facets__item">
+                    <a href="/collections/t-shirts" class="facets__label facet-checkbox" style="text-decoration: none;">
+                      <span class="facet-checkbox__text">T-shirt</span>
+                    </a>
+                  </li>
+                  <li class="list-menu__item facets__item">
+                    <a href="/collections/hoodies" class="facets__label facet-checkbox" style="text-decoration: none;">
+                      <span class="facet-checkbox__text">Hoodie</span>
+                    </a>
+                  </li>
+                  <li class="list-menu__item facets__item">
+                    <a href="/collections/caps" class="facets__label facet-checkbox" style="text-decoration: none;">
+                      <span class="facet-checkbox__text">Caps</span>
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </details>
+
             {% comment %} Filters for both horizontal and vertical filter {% endcomment %}
             {%- for filter in results.filters -%}
               {% liquid
@@ -507,6 +543,52 @@
               id="FacetsWrapperMobile"
               class="mobile-facets__main has-submenu gradient"
             >
+              {% comment %} Shop by Category Filter Mobile {% endcomment %}
+              <details
+                id="Details-Mobile-ShopByCategory-{{ section.id }}"
+                class="mobile-facets__details js-filter"
+                open
+              >
+                <summary class="mobile-facets__summary focus-inset">
+                  <div>
+                    <span>Shop by Category</span>
+                    <span class="mobile-facets__arrow">
+                      {{- 'icon-arrow.svg' | inline_asset_content -}}
+                    </span>
+                  </div>
+                </summary>
+                <div
+                  id="FacetMobile-ShopByCategory-{{ section.id }}"
+                  class="mobile-facets__submenu gradient"
+                >
+                  <button
+                    class="mobile-facets__close-button link link--text focus-inset"
+                    aria-expanded="true"
+                    type="button"
+                  >
+                    {{- 'icon-arrow.svg' | inline_asset_content -}}
+                    <span>Shop by Category</span>
+                  </button>
+                  <ul class="mobile-facets__list list-unstyled" role="list">
+                    <li class="mobile-facets__item list-menu__item">
+                      <a href="/collections/t-shirts" class="facets__label mobile-facets__label" style="text-decoration: none;">
+                        <span class="facet-checkbox__text">T-shirt</span>
+                      </a>
+                    </li>
+                    <li class="mobile-facets__item list-menu__item">
+                      <a href="/collections/hoodies" class="facets__label mobile-facets__label" style="text-decoration: none;">
+                        <span class="facet-checkbox__text">Hoodie</span>
+                      </a>
+                    </li>
+                    <li class="mobile-facets__item list-menu__item">
+                      <a href="/collections/caps" class="facets__label mobile-facets__label" style="text-decoration: none;">
+                        <span class="facet-checkbox__text">Caps</span>
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+              </details>
+
               {%- if enable_filtering -%}
                 {%- for filter in results.filters -%}
                   {% liquid
