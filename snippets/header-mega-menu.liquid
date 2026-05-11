@@ -89,6 +89,56 @@
           </a>
         {%- endif -%}
       </li>
+      {%- if link.title == 'Shop All' or link.title == 'shop all' -%}
+        <li>
+          <header-menu>
+            <details id="Details-HeaderMenu-ShopByCategory" class="mega-menu">
+              <summary
+                id="HeaderMenu-shop-by-category"
+                class="header__menu-item list-menu__item link focus-inset"
+              >
+                <span>Shop by Category</span>
+                {{- 'icon-caret.svg' | inline_asset_content -}}
+              </summary>
+              <div
+                id="MegaMenu-Content-ShopByCategory"
+                class="mega-menu__content color-{{ section.settings.menu_color_scheme }} gradient motion-reduce global-settings-popup"
+                tabindex="-1"
+              >
+                <ul
+                  class="mega-menu__list page-width mega-menu__list--condensed"
+                  role="list"
+                >
+                  <li>
+                    <a
+                      href="/collections/t-shirts"
+                      class="mega-menu__link mega-menu__link--level-2 link"
+                    >
+                      T-shirt
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/collections/hoodies"
+                      class="mega-menu__link mega-menu__link--level-2 link"
+                    >
+                      Hoodie
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/collections/caps"
+                      class="mega-menu__link mega-menu__link--level-2 link"
+                    >
+                      Caps
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </details>
+          </header-menu>
+        </li>
+      {%- endif -%}
     {%- endfor -%}
   </ul>
 </nav>

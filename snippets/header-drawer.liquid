@@ -132,6 +132,64 @@
                     </a>
                   {%- endif -%}
                 </li>
+                {%- if link.title == 'Shop All' or link.title == 'shop all' -%}
+                  <li>
+                    <details id="Details-menu-drawer-menu-item-ShopByCategory">
+                      <summary
+                        id="HeaderDrawer-shop-by-category"
+                        class="menu-drawer__menu-item list-menu__item link link--text focus-inset"
+                      >
+                        Shop by Category
+                        <span class="svg-wrapper">
+                          {{- 'icon-arrow.svg' | inline_asset_content -}}
+                        </span>
+                        <span class="svg-wrapper">
+                          {{- 'icon-caret.svg' | inline_asset_content -}}
+                        </span>
+                      </summary>
+                      <div
+                        id="link-shop-by-category"
+                        class="menu-drawer__submenu has-submenu gradient motion-reduce"
+                        tabindex="-1"
+                      >
+                        <div class="menu-drawer__inner-submenu">
+                          <button class="menu-drawer__close-button link link--text focus-inset" aria-expanded="true">
+                            <span class="svg-wrapper">
+                              {{- 'icon-arrow.svg' | inline_asset_content -}}
+                            </span>
+                            Shop by Category
+                          </button>
+                          <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
+                            <li>
+                              <a
+                                href="/collections/t-shirts"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                T-shirt
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="/collections/hoodies"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                Hoodie
+                              </a>
+                            </li>
+                            <li>
+                              <a
+                                href="/collections/caps"
+                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                              >
+                                Caps
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </details>
+                  </li>
+                {%- endif -%}
               {%- endfor -%}
             </ul>
           </nav>
