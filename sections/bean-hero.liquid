@@ -42,7 +42,20 @@
     background-position: center;
     transition: transform 12s ease-out;
     z-index: 1;
-    transform: scale(1.05); /* Start slightly zoomed for Ken Burns */
+    transform: scale(1.05);
+    background-image: var(--bg-image);
+  }
+
+  @media screen and (max-width: 749px) {
+    .bean-hero-{{ section.id }} .bean-hero-bg {
+      background-image: var(--bg-image-mobile, var(--bg-image));
+      background-size: {{ section.settings.mobile_image_scaling }};
+      background-repeat: no-repeat;
+      background-position: center;
+      {%- if section.settings.mobile_image_scaling == 'contain' -%}
+        transform: none !important;
+      {%- endif -%}
+    }
   }
 
   .bean-hero-{{ section.id }} .bean-hero-slide.is-active .bean-hero-bg {
@@ -336,7 +349,20 @@
             assign bean_letter_spacing = '0.2em'
         endcase
 
-        assign bg_image_url = bean_filename | file_url
+        assign desktop_image = block.settings.image_desktop
+        assign mobile_image = block.settings.image_mobile
+
+        if desktop_image != blank
+          assign bg_image_url = desktop_image | image_url: width: 2400
+        else
+          assign bg_image_url = bean_filename | file_url
+        endif
+
+        if mobile_image != blank
+          assign mobile_image_url = mobile_image | image_url: width: 1200
+        else
+          assign mobile_image_url = bg_image_url
+        endif
       -%}
       <script>
         console.log('Block {{ forloop.index }} Image:', {{ bg_image_url | json }});
@@ -345,9 +371,9 @@
       <div
         class="bean-hero-slide {% if forloop.first %}is-active{% endif %}"
         {{ block.shopify_attributes }}
-        style="--bean-font: {{ bean_font }}; --bean-letter-spacing: {{ bean_letter_spacing | default: 'normal' }};"
+        style="--bean-font: {{ bean_font }}; --bean-letter-spacing: {{ bean_letter_spacing | default: 'normal' }}; --bg-image: url('{{ bg_image_url }}'); --bg-image-mobile: url('{{ mobile_image_url }}');"
       >
-        <div class="bean-hero-bg" style="background-image: url('{{ bg_image_url }}');"></div>
+        <div class="bean-hero-bg"></div>
         <div class="bean-hero-overlay"></div>
 
         <div class="bean-hero-content">
@@ -490,12 +516,26 @@
       "id": "mobile_height",
       "label": "Mobile Height",
       "options": [
+        { "value": "30", "label": "30vh" },
+        { "value": "40", "label": "40vh" },
         { "value": "50", "label": "50vh" },
         { "value": "60", "label": "60vh" },
         { "value": "70", "label": "70vh" },
-        { "value": "80", "label": "80vh" }
+        { "value": "80", "label": "80vh" },
+        { "value": "90", "label": "90vh" },
+        { "value": "100", "label": "100vh" }
       ],
       "default": "70"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_scaling",
+      "label": "Mobile Image Scaling",
+      "options": [
+        { "value": "cover", "label": "Cover (Fill, may crop)" },
+        { "value": "contain", "label": "Contain (Show full image)" }
+      ],
+      "default": "contain"
     },
     {
       "type": "select",
@@ -556,6 +596,16 @@
             { "value": "chilli", "label": "Chilli Bean" }
           ],
           "default": "vanilla"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_desktop",
+          "label": "Custom Desktop Image (Overrides Bean Type)"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Custom Mobile Image (Optional)"
         },
         {
           "type": "text",

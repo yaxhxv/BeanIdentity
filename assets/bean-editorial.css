@@ -238,6 +238,13 @@ body:not(.editorial-hero-active) .section-header .editorial-header-shell {
   display: block;
 }
 
+@media screen and (max-width: 749px) {
+  .bean-editorial-hero__video,
+  .bean-editorial-hero__image {
+    object-fit: var(--mobile-scaling, cover) !important;
+  }
+}
+
 .bean-editorial-hero__placeholder {
   background:
     linear-gradient(135deg, rgba(var(--bean-muted-gold-rgb), 0.18), rgba(255, 255, 255, 0) 55%),

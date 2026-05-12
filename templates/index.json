@@ -121,10 +121,6 @@
         "bg_color": "#f4f4f4"
       }
     },
-    "visual_transition_divider": {
-      "type": "visual-transition",
-      "settings": {}
-    },
     "quiz_entry_prompt_hp": {
       "type": "quiz-entry-prompt",
       "settings": {
@@ -134,7 +130,11 @@
         "bg_color": "#F5F5F5",
         "text_color": "#000000",
         "button_bg": "#C6A969",
-        "button_text": "#000000"
+        "button_text": "#000000",
+        "padding_top": 120,
+        "padding_bottom": 80,
+        "margin_top": 40,
+        "margin_bottom": 48
       }
     },
     "collection_slider_yzYUYt": {
@@ -232,13 +232,20 @@
           "settings": {
             "product": "the-calm-bean-mindset-edition-acid-washed-oversized-tee"
           }
+        },
+        "product_zW8vXq": {
+          "type": "product",
+          "settings": {
+            "product": "the-classic-bean-premium-hoodie"
+          }
         }
       },
       "block_order": [
         "product_hLUbxF",
         "product_3AzRWL",
         "product_nxRBnx",
-        "product_VcHghL"
+        "product_VcHghL",
+        "product_zW8vXq"
       ],
       "name": "Most Popular Products",
       "settings": {
@@ -664,11 +671,10 @@
   "order": [
     "bean_narrative_inject",
     "hero_banner_clean_NxXFFK",
-    "visual_transition_divider",
-    "identity_copy_hp",
     "quiz_entry_prompt_hp",
-    "collection_slider_yzYUYt",
     "most_popular_products_fJfFYg",
+    "collection_slider_yzYUYt",
+    "identity_copy_hp",
     "beanagram_stories_hp",
     "scrolling_marquee_hp",
     "image_with_text_zep9A9",

@@ -109,6 +109,12 @@
 
             <script src="{{ 'show-more.js' | asset_url }}" defer="defer"></script>
             {% comment %} Shop by Category Filter {% endcomment %}
+            {%- liquid
+              assign product_type_filter = results.filters | where: 'param_name', 'filter.p.product_type' | first
+              assign pt_tshirt = product_type_filter.values | where: 'value', 'T-Shirts' | first
+              assign pt_hoodie = product_type_filter.values | where: 'value', 'Hoodies' | first
+              assign pt_caps = product_type_filter.values | where: 'value', 'Baseball Caps' | first
+            -%}
             <details
               id="Details-ShopByCategory-{{ section.id }}"
               class="{% if filter_type == 'horizontal' %}disclosure-has-popup facets__disclosure{% else %} facets__disclosure-vertical{% endif %} js-filter"
@@ -124,28 +130,114 @@
                 id="Facet-ShopByCategory-{{ section.id }}"
                 class="{% if filter_type == 'horizontal' %}facets__display{% else %}facets__display-vertical{% endif %}"
               >
-                <ul class="facets__list{% if filter_type == 'vertical' %} facets__list--vertical{% endif %} list-unstyled" role="list">
-                  <li class="list-menu__item facets__item">
-                    <a href="/collections/t-shirts" class="facets__label facet-checkbox" style="text-decoration: none;">
-                      <span class="facet-checkbox__text">T-shirt</span>
-                    </a>
-                  </li>
-                  <li class="list-menu__item facets__item">
-                    <a href="/collections/hoodies" class="facets__label facet-checkbox" style="text-decoration: none;">
-                      <span class="facet-checkbox__text">Hoodie</span>
-                    </a>
-                  </li>
-                  <li class="list-menu__item facets__item">
-                    <a href="/collections/caps" class="facets__label facet-checkbox" style="text-decoration: none;">
-                      <span class="facet-checkbox__text">Caps</span>
-                    </a>
-                  </li>
+                <ul
+                  class="facets__list{% if filter_type == 'vertical' %} facets__list--vertical{% endif %} list-unstyled"
+                  role="list"
+                >
+                  {%- if pt_tshirt -%}
+                    <li class="list-menu__item facets__item">
+                      <label for="Filter-pt-tshirt-{{ section.id }}" class="facets__label facet-checkbox">
+                        <input
+                          type="checkbox"
+                          name="{{ pt_tshirt.param_name }}"
+                          value="{{ pt_tshirt.value }}"
+                          id="Filter-pt-tshirt-{{ section.id }}"
+                          {% if pt_tshirt.active %}
+                            checked
+                          {% endif %}
+                          {% if pt_tshirt.count == 0 and pt_tshirt.active == false %}
+                            disabled
+                          {% endif %}
+                        >
+                        {{- 'square.svg' | inline_asset_content -}}
+                        <div class="svg-wrapper">
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                        </div>
+                        <span class="facet-checkbox__text">T-shirt ({{ pt_tshirt.count }})</span>
+                      </label>
+                    </li>
+                  {%- else -%}
+                    <li class="list-menu__item facets__item">
+                      <a
+                        href="/collections/t-shirts"
+                        class="facets__label facet-checkbox"
+                        style="text-decoration: none;"
+                      >
+                        <span class="facet-checkbox__text">T-shirt</span>
+                      </a>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if pt_hoodie -%}
+                    <li class="list-menu__item facets__item">
+                      <label for="Filter-pt-hoodie-{{ section.id }}" class="facets__label facet-checkbox">
+                        <input
+                          type="checkbox"
+                          name="{{ pt_hoodie.param_name }}"
+                          value="{{ pt_hoodie.value }}"
+                          id="Filter-pt-hoodie-{{ section.id }}"
+                          {% if pt_hoodie.active %}
+                            checked
+                          {% endif %}
+                          {% if pt_hoodie.count == 0 and pt_hoodie.active == false %}
+                            disabled
+                          {% endif %}
+                        >
+                        {{- 'square.svg' | inline_asset_content -}}
+                        <div class="svg-wrapper">
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                        </div>
+                        <span class="facet-checkbox__text">Hoodie ({{ pt_hoodie.count }})</span>
+                      </label>
+                    </li>
+                  {%- else -%}
+                    <li class="list-menu__item facets__item">
+                      <a
+                        href="/collections/hoodies"
+                        class="facets__label facet-checkbox"
+                        style="text-decoration: none;"
+                      >
+                        <span class="facet-checkbox__text">Hoodie</span>
+                      </a>
+                    </li>
+                  {%- endif -%}
+
+                  {%- if pt_caps -%}
+                    <li class="list-menu__item facets__item">
+                      <label for="Filter-pt-caps-{{ section.id }}" class="facets__label facet-checkbox">
+                        <input
+                          type="checkbox"
+                          name="{{ pt_caps.param_name }}"
+                          value="{{ pt_caps.value }}"
+                          id="Filter-pt-caps-{{ section.id }}"
+                          {% if pt_caps.active %}
+                            checked
+                          {% endif %}
+                          {% if pt_caps.count == 0 and pt_caps.active == false %}
+                            disabled
+                          {% endif %}
+                        >
+                        {{- 'square.svg' | inline_asset_content -}}
+                        <div class="svg-wrapper">
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                        </div>
+                        <span class="facet-checkbox__text">Caps ({{ pt_caps.count }})</span>
+                      </label>
+                    </li>
+                  {%- else -%}
+                    <li class="list-menu__item facets__item">
+                      <a href="/collections/caps" class="facets__label facet-checkbox" style="text-decoration: none;">
+                        <span class="facet-checkbox__text">Caps</span>
+                      </a>
+                    </li>
+                  {%- endif -%}
                 </ul>
               </div>
             </details>
 
             {% comment %} Filters for both horizontal and vertical filter {% endcomment %}
             {%- for filter in results.filters -%}
+              {%- if filter.param_name == 'filter.p.product_type' -%}{%- continue -%}{%- endif -%}
               {% liquid
                 assign total_active_values = total_active_values | plus: filter.active_values.size
                 assign presentation = filter.presentation | default: default_presentation
@@ -544,6 +636,11 @@
               class="mobile-facets__main has-submenu gradient"
             >
               {% comment %} Shop by Category Filter Mobile {% endcomment %}
+              {%- liquid
+                assign pt_mobile_tshirt = product_type_filter.values | where: 'value', 'T-Shirts' | first
+                assign pt_mobile_hoodie = product_type_filter.values | where: 'value', 'Hoodies' | first
+                assign pt_mobile_caps = product_type_filter.values | where: 'value', 'Baseball Caps' | first
+              -%}
               <details
                 id="Details-Mobile-ShopByCategory-{{ section.id }}"
                 class="mobile-facets__details js-filter"
@@ -571,19 +668,103 @@
                   </button>
                   <ul class="mobile-facets__list list-unstyled" role="list">
                     <li class="mobile-facets__item list-menu__item">
-                      <a href="/collections/t-shirts" class="facets__label mobile-facets__label" style="text-decoration: none;">
-                        <span class="facet-checkbox__text">T-shirt</span>
-                      </a>
+                      {%- if pt_mobile_tshirt -%}
+                        <label
+                          for="Filter-pt-tshirt-mobile-{{ section.id }}"
+                          class="facets__label mobile-facets__label"
+                        >
+                          <input
+                            class="mobile-facets__checkbox"
+                            type="checkbox"
+                            name="{{ pt_mobile_tshirt.param_name }}"
+                            value="{{ pt_mobile_tshirt.value }}"
+                            id="Filter-pt-tshirt-mobile-{{ section.id }}"
+                            {% if pt_mobile_tshirt.active %}
+                              checked
+                            {% endif %}
+                            {% if pt_mobile_tshirt.count == 0 and pt_mobile_tshirt.active == false %}
+                              disabled
+                            {% endif %}
+                          >
+                          <span class="mobile-facets__highlight"></span>
+                          {{- 'square.svg' | inline_asset_content -}}
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                          <span class="facet-checkbox__text">T-shirt ({{ pt_mobile_tshirt.count }})</span>
+                        </label>
+                      {%- else -%}
+                        <a
+                          href="/collections/t-shirts"
+                          class="facets__label mobile-facets__label"
+                          style="text-decoration: none;"
+                        >
+                          <span class="facet-checkbox__text">T-shirt</span>
+                        </a>
+                      {%- endif -%}
                     </li>
                     <li class="mobile-facets__item list-menu__item">
-                      <a href="/collections/hoodies" class="facets__label mobile-facets__label" style="text-decoration: none;">
-                        <span class="facet-checkbox__text">Hoodie</span>
-                      </a>
+                      {%- if pt_mobile_hoodie -%}
+                        <label
+                          for="Filter-pt-hoodie-mobile-{{ section.id }}"
+                          class="facets__label mobile-facets__label"
+                        >
+                          <input
+                            class="mobile-facets__checkbox"
+                            type="checkbox"
+                            name="{{ pt_mobile_hoodie.param_name }}"
+                            value="{{ pt_mobile_hoodie.value }}"
+                            id="Filter-pt-hoodie-mobile-{{ section.id }}"
+                            {% if pt_mobile_hoodie.active %}
+                              checked
+                            {% endif %}
+                            {% if pt_mobile_hoodie.count == 0 and pt_mobile_hoodie.active == false %}
+                              disabled
+                            {% endif %}
+                          >
+                          <span class="mobile-facets__highlight"></span>
+                          {{- 'square.svg' | inline_asset_content -}}
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                          <span class="facet-checkbox__text">Hoodie ({{ pt_mobile_hoodie.count }})</span>
+                        </label>
+                      {%- else -%}
+                        <a
+                          href="/collections/hoodies"
+                          class="facets__label mobile-facets__label"
+                          style="text-decoration: none;"
+                        >
+                          <span class="facet-checkbox__text">Hoodie</span>
+                        </a>
+                      {%- endif -%}
                     </li>
                     <li class="mobile-facets__item list-menu__item">
-                      <a href="/collections/caps" class="facets__label mobile-facets__label" style="text-decoration: none;">
-                        <span class="facet-checkbox__text">Caps</span>
-                      </a>
+                      {%- if pt_mobile_caps -%}
+                        <label for="Filter-pt-caps-mobile-{{ section.id }}" class="facets__label mobile-facets__label">
+                          <input
+                            class="mobile-facets__checkbox"
+                            type="checkbox"
+                            name="{{ pt_mobile_caps.param_name }}"
+                            value="{{ pt_mobile_caps.value }}"
+                            id="Filter-pt-caps-mobile-{{ section.id }}"
+                            {% if pt_mobile_caps.active %}
+                              checked
+                            {% endif %}
+                            {% if pt_mobile_caps.count == 0 and pt_mobile_caps.active == false %}
+                              disabled
+                            {% endif %}
+                          >
+                          <span class="mobile-facets__highlight"></span>
+                          {{- 'square.svg' | inline_asset_content -}}
+                          {{- 'icon-checkmark.svg' | inline_asset_content -}}
+                          <span class="facet-checkbox__text">Caps ({{ pt_mobile_caps.count }})</span>
+                        </label>
+                      {%- else -%}
+                        <a
+                          href="/collections/caps"
+                          class="facets__label mobile-facets__label"
+                          style="text-decoration: none;"
+                        >
+                          <span class="facet-checkbox__text">Caps</span>
+                        </a>
+                      {%- endif -%}
                     </li>
                   </ul>
                 </div>
@@ -591,6 +772,7 @@
 
               {%- if enable_filtering -%}
                 {%- for filter in results.filters -%}
+                  {%- if filter.param_name == 'filter.p.product_type' -%}{%- continue -%}{%- endif -%}
                   {% liquid
                     assign presentation = filter.presentation | default: default_presentation
                     if presentation == 'image'

@@ -10,6 +10,7 @@
   class="bean-editorial-hero color-{{ section.settings.color_scheme }}"
   data-editorial-hero
   aria-label="{{ hero_label | escape }}"
+  style="--mobile-scaling: {{ section.settings.mobile_image_scaling }};"
 >
   <div class="bean-editorial-hero__media" aria-hidden="true">
     {% if hero_video != blank %}
@@ -25,17 +26,28 @@
           playsinline: true
       }}
     {% elsif hero_image != blank %}
-      {{
-        hero_image
-        | image_url: width: 2400
-        | image_tag:
-          class: 'bean-editorial-hero__image',
-          widths: '768, 1200, 1600, 2000, 2400',
-          sizes: '100vw',
-          alt: media_alt,
-          loading: 'eager',
-          fetchpriority: 'high'
-      }}
+      {%- liquid
+        assign mobile_image = section.settings.mobile_image | default: hero_image
+      -%}
+      <picture>
+        <source
+          media="(max-width: 749px)"
+          srcset="{{ mobile_image | image_url: width: 800 }} 1x, {{ mobile_image | image_url: width: 1600 }} 2x"
+        >
+        <source
+          media="(min-width: 750px)"
+          srcset="{{ hero_image | image_url: width: 1600 }} 1x, {{ hero_image | image_url: width: 3200 }} 2x"
+        >
+        {{
+          hero_image
+          | image_url: width: 2400
+          | image_tag:
+            class: 'bean-editorial-hero__image',
+            alt: media_alt,
+            loading: 'eager',
+            fetchpriority: 'high'
+        }}
+      </picture>
     {% else %}
       <div class="bean-editorial-hero__placeholder"></div>
     {% endif %}
@@ -153,7 +165,22 @@
     {
       "type": "image_picker",
       "id": "image",
-      "label": "Fallback image"
+      "label": "Desktop image"
+    },
+    {
+      "type": "image_picker",
+      "id": "mobile_image",
+      "label": "Mobile image (Optional)"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_scaling",
+      "label": "Mobile Image Scaling",
+      "options": [
+        { "value": "cover", "label": "Cover (Fill, may crop)" },
+        { "value": "contain", "label": "Contain (Show full image)" }
+      ],
+      "default": "contain"
     },
     {
       "type": "range",

@@ -31,6 +31,12 @@
       background-color: {{ section.settings.bg_color }};
     {% endif %}
   }
+
+  @media screen and (max-width: 749px) {
+    #Slider-{{ section.id }} .media img {
+      object-fit: var(--mobile-scaling, cover) !important;
+    }
+  }
 {%- endstyle -%}
 
 <slideshow-component
@@ -131,6 +137,7 @@
         <div class="slideshow__media banner__media media{% if block.settings.image == blank %} placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}">
           {%- if block.settings.image -%}
             {%- liquid
+              assign mobile_image = block.settings.image_mobile | default: block.settings.image
               assign height = block.settings.image.width | divided_by: block.settings.image.aspect_ratio | round
               if section.settings.image_behavior == 'ambient'
                 assign sizes = '120vw'
@@ -144,19 +151,29 @@
                 assign fetch_priority = 'high'
               endif
             -%}
-            {%- if forloop.first %}
-              {{
-                block.settings.image
-                | image_url: width: 3840
-                | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority
-              }}
-            {%- else -%}
-              {{
-                block.settings.image
-                | image_url: width: 3840
-                | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths
-              }}
-            {%- endif -%}
+            <picture>
+              <source
+                media="(max-width: 749px)"
+                srcset="{{ mobile_image | image_url: width: 800 }} 1x, {{ mobile_image | image_url: width: 1600 }} 2x"
+              >
+              <source
+                media="(min-width: 750px)"
+                srcset="{{ block.settings.image | image_url: width: 1600 }} 1x, {{ block.settings.image | image_url: width: 3200 }} 2x"
+              >
+              {%- if forloop.first %}
+                {{
+                  block.settings.image
+                  | image_url: width: 3840
+                  | image_tag: height: height, sizes: sizes, widths: widths, fetchpriority: fetch_priority, style: '--mobile-scaling: ' | append: section.settings.mobile_image_scaling
+                }}
+              {%- else -%}
+                {{
+                  block.settings.image
+                  | image_url: width: 3840
+                  | image_tag: loading: 'lazy', height: height, sizes: sizes, widths: widths, style: '--mobile-scaling: ' | append: section.settings.mobile_image_scaling
+                }}
+              {%- endif -%}
+            </picture>
           {%- else -%}
             {%- assign placeholder_slide = forloop.index | modulo: 2 -%}
             {%- if placeholder_slide == 1 -%}
@@ -381,6 +398,16 @@
       "default": true
     },
     {
+      "type": "select",
+      "id": "mobile_image_scaling",
+      "label": "Mobile Image Scaling",
+      "options": [
+        { "value": "cover", "label": "Cover (Fill, may crop)" },
+        { "value": "contain", "label": "Contain (Show full image)" }
+      ],
+      "default": "contain"
+    },
+    {
       "type": "header",
       "content": "t:sections.slideshow.settings.accessibility.content"
     },
@@ -411,6 +438,11 @@
           "type": "image_picker",
           "id": "image",
           "label": "t:sections.slideshow.blocks.slide.settings.image.label"
+        },
+        {
+          "type": "image_picker",
+          "id": "image_mobile",
+          "label": "Mobile image (Optional)"
         },
         {
           "type": "range",
