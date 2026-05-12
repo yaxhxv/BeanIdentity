@@ -49,12 +49,15 @@
     display: flex;
     overflow-x: auto;
     scroll-snap-type: x mandatory;
-    gap: 2rem;
+    gap: 2.5rem;
     padding: 2rem 4rem 4rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
     position: relative;
     z-index: 1;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
   .beanagram-track::-webkit-scrollbar {
@@ -76,6 +79,7 @@
     /* Dynamic Border Accent */
     border-top: 4px solid var(--bean-accent);
     position: relative;
+    text-align: left;
   }
 
   .beanagram-card:hover {
@@ -207,8 +211,9 @@
       border-radius: 2.8rem 2.8rem 3.8rem 3.2rem / 2rem 2rem 2.8rem 2.4rem;
     }
     .beanagram-track {
-      gap: 2rem;
-      padding: 2rem;
+      gap: 1.5rem;
+      padding: 2rem 1.5rem;
+      justify-content: flex-start;
     }
     .beanagram-card {
       flex: 0 0 28rem;
@@ -378,7 +383,9 @@
       "blocks": [
         { "type": "story", "settings": { "handle": "alex_driven", "bean_type": "coffee" } },
         { "type": "story", "settings": { "handle": "sara_heat", "bean_type": "chilli" } },
-        { "type": "story", "settings": { "handle": "neo_zen", "bean_type": "green" } }
+        { "type": "story", "settings": { "handle": "neo_zen", "bean_type": "green" } },
+        { "type": "story", "settings": { "handle": "elena_classic", "bean_type": "vanilla", "story": "Pure, timeless, and unbothered by passing trends. Embracing the Vanilla Bean identity gave me the confidence to celebrate premium simplicity." } },
+        { "type": "story", "settings": { "handle": "marcus_vibe", "bean_type": "jelly", "story": "Unpredictable, vibrant, and always evolving. Being a Jelly Bean means my style adapts to my creative energy without any rules." } }
       ]
     }
   ]

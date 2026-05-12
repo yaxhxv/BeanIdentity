@@ -288,12 +288,30 @@
             "bean_type": "green",
             "story": "Being quiet never meant being empty. I relate to being a Green Bean - mindful and grounded."
           }
+        },
+        "story_4": {
+          "type": "story",
+          "settings": {
+            "handle": "elena_classic",
+            "bean_type": "vanilla",
+            "story": "Pure, timeless, and unbothered by passing trends. Embracing the Vanilla Bean identity gave me the confidence to celebrate premium simplicity."
+          }
+        },
+        "story_5": {
+          "type": "story",
+          "settings": {
+            "handle": "marcus_vibe",
+            "bean_type": "jelly",
+            "story": "Unpredictable, vibrant, and always evolving. Being a Jelly Bean means my style adapts to my creative energy without any rules."
+          }
         }
       },
       "block_order": [
         "story_1",
         "story_2",
-        "story_3"
+        "story_3",
+        "story_4",
+        "story_5"
       ],
       "settings": {
         "title": "The Bean Stories",
