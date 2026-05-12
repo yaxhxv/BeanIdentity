@@ -331,74 +331,171 @@
   .mobile-only { display: none; }
   .desktop-only { display: block; }
 
-  /* Desktop Ratio */
+  /* Base Desktop & Tablet */
   @media (min-width: 768px) {
     .clean-image-wrapper {
       padding-bottom: {{ desktop_ratio }};
       min-height: 62rem;
     }
+    .hero-content-overlay {
+      pointer-events: none;
+    }
+    .hero-copy-stack {
+      pointer-events: auto;
+    }
   }
 
-  /* Mobile Ratio */
+  /* SMALLER DESKTOP (1024px – 1366px) */
+  @media (min-width: 1024px) and (max-width: 1366px) {
+    .hero-headline {
+      font-size: clamp(4.5rem, 9.5vw, 10.5rem);
+    }
+    .hero-content-overlay {
+      padding: clamp(2.5rem, 5vw, 5rem);
+    }
+    .hero-subline {
+      font-size: 1.6rem;
+      max-width: 48rem;
+    }
+  }
+
+  /* TABLET (768px – 1023px) */
+  @media (min-width: 768px) and (max-width: 1023px) {
+    .clean-image-wrapper {
+      min-height: 54rem;
+    }
+    .hero-headline {
+      font-size: clamp(2.8rem, 5.5vw, 5.2rem);
+      line-height: 0.82;
+    }
+    .hero-subline {
+      font-size: 1.45rem;
+      margin-top: 1.5rem;
+      max-width: 42rem;
+    }
+    .hero-content-overlay {
+      padding: 2.5rem 3rem 4rem;
+      justify-content: flex-end;
+    }
+    .clean-img {
+      object-position: 75% center;
+    }
+    .hero-overlay-mask {
+      background: linear-gradient(90deg, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.55) 45%, transparent 100%);
+    }
+    .hero-buttons {
+      margin-top: 2.2rem;
+      gap: 1rem;
+    }
+    .hero-btn {
+      min-height: 4.6rem;
+      padding: 0 2.2rem;
+      font-size: 1.1rem;
+      min-width: 16rem;
+    }
+  }
+
+  /* MOBILE (below 768px) — Stacked Editorial Layout */
   @media (max-width: 767px) {
     .desktop-only { display: none; }
     .mobile-only { display: block; }
 
+    .clean-hero-slide {
+      display: flex;
+      flex-direction: column;
+    }
+
     .clean-image-wrapper {
       padding-bottom: {{ mobile_ratio }};
-      min-height: 67rem;
+      min-height: 36rem;
+      max-height: 50vh;
+      width: 100%;
+      position: relative;
+    }
+
+    .clean-img {
+      object-position: 65% center;
+      transition: none; /* prevent aggressive motion/scaling on mobile */
+    }
+
+    .clean-hero-slide.is-active .clean-img {
+      transform: scale(1.02); /* very subtle premium feel without excessive motion/cropping */
+    }
+
+    .hero-overlay-mask {
+      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
+      opacity: 0.5; /* soft cinematic feel, keep beans fully visible */
+    }
+
+    .hero-bottom-blend {
+      display: none; /* stack layout doesn't blend into absolute text */
+    }
+
+    .hero-content-overlay {
+      position: relative;
+      width: 100%;
+      height: auto;
+      padding: 3rem 2rem 6.5rem;
+      background: #0b0b0b;
+      justify-content: flex-start;
+      pointer-events: auto;
+    }
+
+    .hero-headline {
+      font-size: clamp(2.4rem, 7.5vw, 3.2rem);
+      line-height: 0.95;
+      max-width: 100%;
+      text-align: left;
+      margin-bottom: 1.2rem;
+    }
+
+    .hero-subline {
+      font-size: 1.3rem;
+      line-height: 1.4;
+      max-width: 100%;
+      margin: 1rem 0 2.5rem;
+      color: rgba(245, 245, 245, 0.75);
     }
 
     .hero-buttons {
       flex-direction: column;
       width: 100%;
       align-items: stretch;
+      margin-top: 0;
+      gap: 1.2rem;
     }
 
     .hero-btn {
       width: 100%;
       min-width: unset;
-    }
-
-    .hero-content-overlay {
-      justify-content: flex-end;
-      padding: 3.2rem 2rem 7.2rem;
-    }
-
-    .hero-headline {
-      font-size: clamp(4.4rem, 16vw, 6.8rem);
-      max-width: 10ch;
-    }
-
-    .hero-subline {
-      max-width: 34rem;
-    }
-
-    .hero-overlay-mask {
-      background:
-        linear-gradient(180deg, rgba(0,0,0,0.12) 0%, rgba(0,0,0,0.35) 42%, rgba(0,0,0,0.9) 100%),
-        linear-gradient(90deg, rgba(0,0,0,0.55), rgba(0,0,0,0.05));
+      min-height: 5rem;
+      font-size: 1.15rem;
     }
 
     .clean-image-wrapper::before {
       background-size: 54px 54px;
-      opacity: 0.12;
+      opacity: 0.08;
+    }
+
+    .hero-kicker {
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      gap: 0.8rem;
     }
 
     .hero-kicker::before {
-      width: 3.2rem;
+      width: 2.5rem;
     }
 
     .hero-brand-note {
       display: none;
     }
-
   }
 
   /* NAVIGATION DOTS */
   .clean-hero-dots {
     position: absolute;
-    bottom: 20px;
+    bottom: 18px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -491,36 +588,36 @@
           <div class="hero-overlay-mask"></div>
           <div class="hero-bottom-blend"></div>
 
-          <div class="hero-content-overlay">
-            <div class="hero-copy-stack">
-              <p class="hero-kicker">Bean Identity</p>
-              {% if block.settings.headline != blank %}
-                <h2 class="hero-headline">{{ block.settings.headline }}</h2>
-              {% endif %}
-
-              {% if block.settings.subline != blank %}
-                <p class="hero-subline">{{ block.settings.subline }}</p>
-              {% endif %}
-
-              <div class="hero-buttons">
-                {% if block.settings.button_1_label != blank %}
-                  <a href="{{ block.settings.button_1_link | default: '#' }}" class="hero-btn hero-btn-primary">
-                    {{ block.settings.button_1_label }}
-                  </a>
-                {% endif %}
-
-                {% if block.settings.button_2_label != blank %}
-                  <a href="{{ block.settings.button_2_link | default: '#' }}" class="hero-btn hero-btn-secondary">
-                    {{ block.settings.button_2_label }}
-                  </a>
-                {% endif %}
-              </div>
-            </div>
-          </div>
-
           <div class="hero-brand-note" aria-hidden="true">
             <span><strong>Five Beans.</strong></span>
             <span>Five Personalities.</span>
+          </div>
+        </div>
+
+        <div class="hero-content-overlay">
+          <div class="hero-copy-stack">
+            <p class="hero-kicker">Bean Identity</p>
+            {% if block.settings.headline != blank %}
+              <h2 class="hero-headline">{{ block.settings.headline }}</h2>
+            {% endif %}
+
+            {% if block.settings.subline != blank %}
+              <p class="hero-subline">{{ block.settings.subline }}</p>
+            {% endif %}
+
+            <div class="hero-buttons">
+              {% if block.settings.button_1_label != blank %}
+                <a href="{{ block.settings.button_1_link | default: '#' }}" class="hero-btn hero-btn-primary">
+                  {{ block.settings.button_1_label }}
+                </a>
+              {% endif %}
+
+              {% if block.settings.button_2_label != blank %}
+                <a href="{{ block.settings.button_2_link | default: '#' }}" class="hero-btn hero-btn-secondary">
+                  {{ block.settings.button_2_label }}
+                </a>
+              {% endif %}
+            </div>
           </div>
         </div>
       </div>
