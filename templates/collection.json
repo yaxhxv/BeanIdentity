@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "banner": {
@@ -6,46 +15,31 @@
         "vanilla": {
           "type": "hero_slide",
           "settings": {
-            "bean_type": "vanilla",
-            "kicker": "Energetic. Spontaneous.",
-            "title": "Vanilla Bean",
-            "subtitle": "<p>Go where the map runs out. The best stories never started with a perfect plan. Chase the horizon. Find the hidden gem. Life rewards the ones who actually show up.</p>"
+            "bean_type": "vanilla"
           }
         },
         "chilli": {
           "type": "hero_slide",
           "settings": {
-            "bean_type": "chilli",
-            "kicker": "High Edge. Zero Apology.",
-            "title": "Chilli Bean",
-            "subtitle": "<p>Break the mould. Burn the rulebook.<br>Fitting in was never the goal.<br>Say what you mean. Do what you say.<br>The world doesn't need another copy.<br>Be the original.</p>"
+            "bean_type": "chilli"
           }
         },
         "coffee": {
           "type": "hero_slide",
           "settings": {
-            "bean_type": "coffee",
-            "kicker": "Thoughtful. Grounded.",
-            "title": "Coffee Bean",
-            "subtitle": "<p>Think deeper. Question everything.<br>The world makes more sense when you slow down long enough to understand it.<br>Not everyone will keep up. That's okay.<br>You were never meant to be easy to explain.</p>"
+            "bean_type": "coffee"
           }
         },
         "green": {
           "type": "hero_slide",
           "settings": {
-            "bean_type": "green",
-            "kicker": "Soft Focus. Sharp Instincts.",
-            "title": "Green Bean",
-            "subtitle": "<p>Still waters run deep. Not everyone feels the room the way you do.<br>The calm you carry is not weakness. It's the rarest kind of strength.</p>"
+            "bean_type": "green"
           }
         },
         "jelly": {
           "type": "hero_slide",
           "settings": {
-            "bean_type": "jelly",
-            "kicker": "Playful. Magnetic.",
-            "title": "Jelly Bean",
-            "subtitle": "<p>Live louder. Love harder. Your energy is impossible to ignore.<br>The world lights up when you walk in<br>Never apologise for taking up space</p>"
+            "bean_type": "jelly"
           }
         }
       },

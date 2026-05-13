@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "bean_narrative_inject": {
@@ -127,14 +136,70 @@
         "headline": "WHICH SIDE OF YOU SHOWS UP TODAY?",
         "subline": "Take the identity quiz and meet the bean that matches your mood, edge, and everyday uniform.",
         "button_label": "Start the Quiz",
-        "bg_color": "#F5F5F5",
+        "bg_color": "#f5f5f5",
         "text_color": "#000000",
-        "button_bg": "#C6A969",
+        "button_bg": "#c6a969",
         "button_text": "#000000",
         "padding_top": 120,
         "padding_bottom": 80,
         "margin_top": 40,
         "margin_bottom": 48
+      }
+    },
+    "most_popular_products_fJfFYg": {
+      "type": "most-popular-products",
+      "blocks": {
+        "product_hLUbxF": {
+          "type": "product",
+          "settings": {
+            "product": "unisex-zip-hoodie-1"
+          }
+        },
+        "product_3AzRWL": {
+          "type": "product",
+          "settings": {
+            "product": "unisex-acid-washed-oversized-tee-14"
+          }
+        },
+        "product_nxRBnx": {
+          "type": "product",
+          "settings": {
+            "product": "unisex-hoodie-2"
+          }
+        },
+        "product_VcHghL": {
+          "type": "product",
+          "settings": {
+            "product": "unisex-oversized-classic-t-shirt-34"
+          }
+        },
+        "product_zW8vXq": {
+          "type": "product",
+          "settings": {
+            "product": "unisex-hoodie-4"
+          }
+        }
+      },
+      "block_order": [
+        "product_hLUbxF",
+        "product_3AzRWL",
+        "product_nxRBnx",
+        "product_VcHghL",
+        "product_zW8vXq"
+      ],
+      "name": "Most Popular Products",
+      "settings": {
+        "title": "Community Has Spoken",
+        "description": "The pieces people keep reaching for.",
+        "heading_size": 32,
+        "layout_mode": "carousel",
+        "mobile_cols": "2",
+        "bg_color": "#f5f5f5",
+        "text_color": "#000000",
+        "badge_bg": "#c6a969",
+        "badge_text": "#000000",
+        "padding_top": 60,
+        "padding_bottom": 60
       }
     },
     "collection_slider_yzYUYt": {
@@ -199,67 +264,28 @@
         "subtitle": "Choose Your Identity",
         "enable_autoplay": true,
         "autoplay_speed": 3,
-        "bg_color": "#EDE7E3",
-        "text_color": "#2B2B2B",
+        "bg_color": "#ede7e3",
+        "text_color": "#2b2b2b",
         "heading_size": 22,
         "pt": 16,
         "pb": 0
       }
     },
-    "most_popular_products_fJfFYg": {
-      "type": "most-popular-products",
-      "blocks": {
-        "product_hLUbxF": {
-          "type": "product",
-          "settings": {
-            "product": "the-bold-bean-acid-washed-oversized-tee"
-          }
-        },
-        "product_3AzRWL": {
-          "type": "product",
-          "settings": {
-            "product": "curious-bean-acid-washed-oversized-tee"
-          }
-        },
-        "product_nxRBnx": {
-          "type": "product",
-          "settings": {
-            "product": "the-overthinker-bean-oversized"
-          }
-        },
-        "product_VcHghL": {
-          "type": "product",
-          "settings": {
-            "product": "the-calm-bean-mindset-edition-acid-washed-oversized-tee"
-          }
-        },
-        "product_zW8vXq": {
-          "type": "product",
-          "settings": {
-            "product": "the-classic-bean-premium-hoodie"
-          }
-        }
-      },
-      "block_order": [
-        "product_hLUbxF",
-        "product_3AzRWL",
-        "product_nxRBnx",
-        "product_VcHghL",
-        "product_zW8vXq"
-      ],
-      "name": "Most Popular Products",
+    "identity_copy_hp": {
+      "type": "identity-copy",
       "settings": {
-        "title": "Community Has Spoken",
-        "description": "The pieces people keep reaching for.",
-        "heading_size": 32,
-        "layout_mode": "carousel",
-        "mobile_cols": "2",
-        "bg_color": "#F5F5F5",
+        "headline": "Five personalities.\nOne Identity.",
+        "subline": "Bean Identity is built for the versions of you that refuse to dress the same every day.",
+        "bg_color": "#ede7e3",
         "text_color": "#000000",
-        "badge_bg": "#C6A969",
-        "badge_text": "#000000",
-        "padding_top": 60,
-        "padding_bottom": 60
+        "alignment": "center",
+        "content_width": 1000,
+        "headline_size_desktop": 6,
+        "headline_size_mobile": 3.5,
+        "subline_size_desktop": 1.8,
+        "subline_size_mobile": 1.6,
+        "padding_top": 120,
+        "padding_bottom": 120
       }
     },
     "beanagram_stories_hp": {
@@ -318,8 +344,8 @@
         "subtitle": "Identity notes from the community.",
         "cta_label": "Share Your Bean Story",
         "cta_link": "",
-        "bg_color": "#EDE7E3",
-        "text_color": "#2B2B2B"
+        "bg_color": "#ede7e3",
+        "text_color": "#2b2b2b"
       }
     },
     "scrolling_marquee_hp": {
@@ -369,8 +395,8 @@
         "bean_5"
       ],
       "settings": {
-        "bg_color": "#1A1A1A",
-        "text_color": "#EDE7E3",
+        "bg_color": "#1a1a1a",
+        "text_color": "#ede7e3",
         "separator": "·",
         "font_size": 24,
         "font_size_mobile": 16,
@@ -380,34 +406,6 @@
         "margin_bottom": 0,
         "padding_top": 24,
         "padding_bottom": 24
-      }
-    },
-    "identity_copy_hp": {
-      "type": "identity-copy",
-      "settings": {
-        "headline": "Five personalities.\nOne Identity.",
-        "subline": "Bean Identity is built for the versions of you that refuse to dress the same every day.",
-        "bg_color": "#EDE7E3",
-        "text_color": "#000000",
-        "alignment": "center",
-        "content_width": 1000,
-        "headline_size_desktop": 6,
-        "headline_size_mobile": 3.5,
-        "subline_size_desktop": 1.8,
-        "subline_size_mobile": 1.6,
-        "padding_top": 120,
-        "padding_bottom": 120
-      }
-    },
-    "final_cta_loop_hp": {
-      "type": "final-cta-loop",
-      "settings": {
-        "headline": "Wear the version that feels real.",
-        "subline": "Start with the quiz and enter the Bean Identity Universe",
-        "bg_color": "#121212",
-        "text_color": "#EDE7E3",
-        "primary_btn_bg": "#C6A969",
-        "primary_btn_text": "#000000"
       }
     },
     "image_with_text_zep9A9": {
@@ -454,8 +452,8 @@
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
         "color_scheme": "",
-        "bg_color": "#EDE7E3",
-        "text_color": "#2B2B2B",
+        "bg_color": "#ede7e3",
+        "text_color": "#2b2b2b",
         "padding_top": 36,
         "padding_bottom": 16
       }
@@ -516,7 +514,7 @@
         "heading": "Shop by Bean",
         "description": "<p>Every drop starts with a personality. Pick the one that feels closest today.</p>",
         "heading_align": "center",
-        "bg_color": "#F5F5F5",
+        "bg_color": "#f5f5f5",
         "text_color": "#000000",
         "products_per_row": 4,
         "padding_top": 8,
@@ -569,15 +567,14 @@
         "mobile_content_alignment": "left",
         "section_color_scheme": "",
         "color_scheme": "",
-        "bg_color": "#EDE7E3",
-        "text_color": "#2B2B2B",
+        "bg_color": "#ede7e3",
+        "text_color": "#2b2b2b",
         "padding_top": 36,
         "padding_bottom": 36
       }
     },
     "slideshow_6AdwP4": {
       "type": "slideshow",
-      "disabled": true,
       "blocks": {
         "slide_br6zhC": {
           "type": "slide",
@@ -601,6 +598,7 @@
       "block_order": [
         "slide_br6zhC"
       ],
+      "disabled": true,
       "name": "Slideshow 1",
       "settings": {
         "layout": "full_bleed",
@@ -610,13 +608,13 @@
         "change_slides_speed": 5,
         "image_behavior": "none",
         "show_text_below": false,
+        "mobile_image_scaling": "contain",
         "accessibility_info": "Slideshow about our brand",
-        "bg_color": "#F5F5F5"
+        "bg_color": "#f5f5f5"
       }
     },
     "most_popular_products_a43Rtk": {
       "type": "most-popular-products",
-      "disabled": true,
       "blocks": {
         "product_cDAdNi": {
           "type": "product",
@@ -649,6 +647,7 @@
         "product_mQhht9",
         "product_UBKqTd"
       ],
+      "disabled": true,
       "name": "Most Popular Products 2",
       "settings": {
         "title": "Most Popular",
@@ -656,9 +655,9 @@
         "heading_size": 32,
         "layout_mode": "grid",
         "mobile_cols": "2",
-        "bg_color": "#EDE7E3",
+        "bg_color": "#ede7e3",
         "text_color": "#000000",
-        "badge_bg": "#C6A969",
+        "badge_bg": "#c6a969",
         "badge_text": "#000000",
         "padding_top": 60,
         "padding_bottom": 60
@@ -679,10 +678,21 @@
         "show_date": true,
         "show_author": false,
         "color_scheme": "",
-        "bg_color": "#F5F5F5",
-        "text_color": "#2B2B2B",
+        "bg_color": "#f5f5f5",
+        "text_color": "#2b2b2b",
         "padding_top": 36,
         "padding_bottom": 36
+      }
+    },
+    "final_cta_loop_hp": {
+      "type": "final-cta-loop",
+      "settings": {
+        "headline": "Wear the version that feels real.",
+        "subline": "Start with the quiz and enter the Bean Identity Universe",
+        "bg_color": "#121212",
+        "text_color": "#ede7e3",
+        "primary_btn_bg": "#c6a969",
+        "primary_btn_text": "#000000"
       }
     }
   },

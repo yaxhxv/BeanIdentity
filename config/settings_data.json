@@ -9,7 +9,7 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/Untitled_design_5.png",
+    "logo": "shopify://shop_images/BeanIdentityLogoTMBlack.png",
     "logo_width": 180,
     "type_header_font": "playfair_display_n4",
     "heading_scale": 105,
@@ -139,6 +139,21 @@
         "settings": {
           "color_scheme": "scheme-1"
         }
+      },
+      "newsletter-popup": {
+        "type": "newsletter-popup",
+        "settings": {
+          "heading": "Join the Bean Community",
+          "subtext": "Get exclusive access to the universe. Early drops, community stories, and more."
+        }
+      },
+      "sticky-quiz-cta": {
+        "type": "sticky-quiz-cta",
+        "settings": {
+          "label": "Who are you?",
+          "bg_color": "#c6a969",
+          "text_color": "#000000"
+        }
       }
     },
     "content_for_index": [],
@@ -156,6 +171,11 @@
           "button_vertical_position": "lowest",
           "greeting_message": ""
         }
+      },
+      "14060646107696862457": {
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "disabled": false,
+        "settings": {}
       }
     },
     "color_schemes": {
