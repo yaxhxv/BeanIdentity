@@ -586,6 +586,7 @@
             </div>
           {% endif %}
         {% endif %}
+        <div class="card__content">
         <div class="card__badge {{ settings.badge_position }}">
           {%- if card_product.available == false -%}
             <span
@@ -604,6 +605,7 @@
           {%- endif -%}
         </div>
       </div>
+      <a href="{{ card_product.url }}" class="full-card-link" aria-hidden="true"></a>
     </div>
   </div>
 {%- else -%}

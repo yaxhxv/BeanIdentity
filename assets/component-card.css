@@ -8,6 +8,24 @@
 .card {
   text-decoration: none;
   text-align: var(--text-alignment);
+  position: relative; /* Ensure overlay covers this */
+}
+
+.full-card-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  display: block;
+}
+
+.card-wrapper .quick-add,
+.card-wrapper .card__badge,
+.card-wrapper .card-information {
+  position: relative;
+  z-index: 20; /* Ensure these stay above the full card click */
 }
 
 .card:not(.ratio) {
