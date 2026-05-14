@@ -150,7 +150,7 @@
       "sticky-quiz-cta": {
         "type": "sticky-quiz-cta",
         "settings": {
-          "label": "Who are you?",
+          "label": "Find Out Who You Are",
           "bg_color": "#c6a969",
           "text_color": "#000000"
         }

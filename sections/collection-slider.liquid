@@ -1,7 +1,7 @@
 {% comment %}
-------------------------------------------------------------------------------
-Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
-------------------------------------------------------------------------------
+  ------------------------------------------------------------------------------
+  Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
+  ------------------------------------------------------------------------------
 {% endcomment %}
 
 <style>
@@ -90,7 +90,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     padding-bottom: 24px;
     scrollbar-width: none;
   }
-  
+
   .cc-track::-webkit-scrollbar {
     display: none;
   }
@@ -210,7 +210,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     transition: all 0.2s ease;
     box-shadow: 0 4px 12px rgba(0,0,0,0.08);
   }
-  
+
   .cc-nav-btn:hover {
     background: #C6A969;
     border-color: #C6A969;
@@ -219,7 +219,7 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
 
   .cc-nav-btn.prev { left: 10px; }
   .cc-nav-btn.next { right: 10px; }
-  
+
   .cc-nav-btn svg { width: 20px; height: 20px; fill: currentColor; }
 
   @media (max-width: 767px) {
@@ -250,7 +250,9 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
 
     <div class="cc-carousel-wrapper">
       <button class="cc-nav-btn prev" aria-label="Previous">
-        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+        </svg>
       </button>
 
       <div class="cc-track" id="cc-track-{{ section.id }}">
@@ -273,10 +275,10 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
           <a href="{{ block.settings.url }}" class="cc-card" {{ block.shopify_attributes }}>
             <div class="cc-image-wrapper" style="padding-top: {{ block.settings.aspect_ratio }}%;">
               {% if block.settings.image != blank %}
-                {{ block.settings.image | image_url: width: 600 | image_tag: 
-                  class: 'cc-image', 
-                  alt: block.settings.title, 
-                  loading: 'lazy' 
+                {{
+                  block.settings.image
+                  | image_url: width: 600
+                  | image_tag: class: 'cc-image', alt: block.settings.title, loading: 'lazy'
                 }}
               {% else %}
                 {{ 'collection-1' | placeholder_svg_tag: 'cc-image' }}
@@ -284,14 +286,15 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
             </div>
             <div class="cc-card-title-wrap">
               <div class="cc-card-title">{{ block.settings.title }}</div>
-              <span class="cc-card-note" aria-hidden="true">01</span>
             </div>
           </a>
         {% endfor %}
       </div>
 
       <button class="cc-nav-btn next" aria-label="Next">
-        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+        <svg viewBox="0 0 24 24">
+          <path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+        </svg>
       </button>
     </div>
   </div>
@@ -369,15 +372,23 @@ Collection Carousel – Horizontal Scroll Snap (Fashion Brand)
     { "type": "header", "content": "Content" },
     { "type": "text", "id": "title", "label": "Heading", "default": "Choose what feels like you" },
     { "type": "text", "id": "subtitle", "label": "Subheading", "default": "Pick Your Bean" },
-    
+
     { "type": "header", "content": "Carousel Settings" },
     { "type": "checkbox", "id": "enable_autoplay", "label": "Enable Auto-Sliding", "default": true },
-    { "type": "range", "id": "autoplay_speed", "label": "Auto-Slide Speed (sec)", "min": 3, "max": 10, "step": 1, "default": 5 },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Auto-Slide Speed (sec)",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "default": 5
+    },
 
     { "type": "header", "content": "Colors" },
     { "type": "color", "id": "bg_color", "label": "Background", "default": "#F5F5F5" },
     { "type": "color", "id": "text_color", "label": "Text Color", "default": "#000000" },
-    
+
     { "type": "header", "content": "Layout" },
     { "type": "range", "id": "heading_size", "label": "Heading Size", "min": 20, "max": 60, "step": 2, "default": 28 },
     { "type": "range", "id": "pt", "label": "Padding Top", "min": 0, "max": 100, "step": 4, "default": 60 },

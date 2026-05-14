@@ -407,14 +407,15 @@
 
     .clean-image-wrapper {
       padding-bottom: {{ mobile_ratio }};
-      min-height: 36rem;
-      max-height: 50vh;
+      min-height: 32rem;
+      max-height: {% if section.settings.mobile_image_scaling == 'contain' %}none{% else %}65vh{% endif %};
       width: 100%;
       position: relative;
     }
 
     .clean-img {
       object-position: 65% center;
+      object-fit: {{ section.settings.mobile_image_scaling | default: 'cover' }};
       transition: none; /* prevent aggressive motion/scaling on mobile */
     }
 
@@ -743,6 +744,16 @@
         { "value": "75%", "label": "4:3 (Rectangular)" }
       ],
       "default": "125%"
+    },
+    {
+      "type": "select",
+      "id": "mobile_image_scaling",
+      "label": "Mobile Image Scaling",
+      "options": [
+        { "value": "cover", "label": "Cover (Fill, may crop)" },
+        { "value": "contain", "label": "Contain (Show full image)" }
+      ],
+      "default": "cover"
     },
     {
       "type": "header",

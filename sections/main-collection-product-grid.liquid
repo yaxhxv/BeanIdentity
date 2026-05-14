@@ -154,36 +154,25 @@
     }
 
     .bean-collection-grid .product-grid {
-      gap: 2rem;
+      display: grid !important;
+      grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+      gap: 1.4rem;
+    }
+
+    .bean-collection-grid .product-grid .grid__item {
+      width: 100% !important;
+      max-width: 100% !important;
     }
 
     @media screen and (min-width: 990px) {
       .bean-collection-grid .product-grid {
-        display: grid !important;
         grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+        gap: 2.4rem;
       }
-      .bean-collection-grid .product-grid .grid__item {
-        width: 100% !important;
-        max-width: 100% !important;
-      }
-      .bean-collection-grid .card__heading {
-        font-size: clamp(1.4rem, 1.2vw, 1.6rem) !important;
-        line-height: 1.2 !important;
-        margin-bottom: 1.2rem !important;
-      }
-      .bean-collection-grid .price {
-        font-size: 1.4rem !important;
-      }
-      .bean-collection-grid .card > .card__content .card__information {
-        padding: 2.4rem 2.2rem 2.8rem !important;
-      }
-    }
-
-    .bean-collection-grid .card-wrapper {
-      height: 100%;
     }
 
     .bean-collection-grid .card {
+      position: relative;
       height: 100%;
       border: 1px solid {{ bean_grid_card_border }};
       background: rgba(255,255,255,0.84);
@@ -193,6 +182,34 @@
       transition: transform 0.28s ease, box-shadow 0.28s ease, border-color 0.28s ease;
     }
 
+    /* Aggressive click overlay fix for bean collections */
+    .bean-collection-grid .card__heading a[id^="CardLink-"]::after,
+    .bean-collection-grid .card__heading a[id^="StandardCardNoMediaLink-"]::after {
+      content: "" !important;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      right: 0 !important;
+      bottom: 0 !important;
+      width: auto !important;
+      height: auto !important;
+      transform: none !important;
+      opacity: 0 !important; /* Keep it invisible but clickable */
+      z-index: 100 !important;
+      display: block !important;
+      visibility: visible !important;
+    }
+
+    /* Keep it invisible but still capturing clicks */
+    .bean-collection-grid .card__heading a[id^="CardLink-"]:hover::after,
+    .bean-collection-grid .card__heading a[id^="StandardCardNoMediaLink-"]:hover::after {
+      opacity: 0 !important;
+    }
+
+    .bean-collection-grid .quick-add {
+      position: relative;
+      z-index: 110;
+    }
     .bean-collection-grid .card:hover {
       transform: translateY(-0.4rem);
       box-shadow: 0 2.2rem 4.8rem {{ bean_grid_card_shadow }};
@@ -201,6 +218,12 @@
 
     .bean-collection-grid .card__inner .card__content {
       display: none !important;
+    }
+
+    .bean-collection-grid .card__content,
+    .bean-collection-grid .card__information,
+    .bean-collection-grid .card__heading {
+      position: static !important;
     }
 
     .bean-collection-grid .card > .card__content {

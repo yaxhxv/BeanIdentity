@@ -208,6 +208,7 @@
     position: relative;
     align-self: stretch;
     min-height: 18rem;
+    
   }
 
   .cst-scene-bean img {
@@ -229,8 +230,8 @@
 
   /* --- PRODUCT CARD ITEM --- */
   .cst-card-item {
-    flex: 0 0 66%; /* Mobile: 1.5 items visible (66%) */
-    width: 66%;
+    flex: 0 0 50%; /* Mobile: 2 items visible */
+    width: 50%;
     padding: 0 10px;
     box-sizing: border-box;
     scroll-snap-align: start;
@@ -421,6 +422,12 @@
   }
   .cst-btn-buy:hover {
     background: #A68D53;
+  }
+
+  .cst-card-overlay form,
+  .cst-card-overlay .cst-btn {
+    position: relative;
+    z-index: 20;
   }
 
   /* Product Info */
@@ -681,7 +688,7 @@
                         <a
                           href="{{ product.url }}"
                           class="full-card-link"
-                          style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:1;"
+                          style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:10;"
                         ></a>
                       </div>
                     </div>
@@ -747,7 +754,7 @@
       updateItemsPerView() {
         const width = window.innerWidth;
         if (width < 750) {
-            this.itemsPerView = 1;
+            this.itemsPerView = 2;
             this.isMobile = true;
             this.stop(); // Always stop on mobile
         }

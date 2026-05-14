@@ -121,7 +121,8 @@
       "settings": {
         "section_width": "full-width",
         "desktop_ratio": "56.25%",
-        "mobile_ratio": "125%",
+        "mobile_ratio": "adapt",
+        "mobile_image_scaling": "contain",
         "content_alignment": "center",
         "text_color": "#ffffff",
         "overlay_opacity": 30,
