@@ -31,20 +31,30 @@
     z-index: 0;
   }
 
-  @media screen and (max-width: 749px) {
+  @media screen and (max-width: 989px) {
     .cst-vanilla-gif {
       width: clamp(160px, 42vw, 220px);
-      bottom: -2.5rem;
-      left: -2rem;
+      bottom: 1.5rem;
+      left: -1rem;
     }
 
     .section-{{ section.id }}-padding {
       margin: 0 1rem;
       border-radius: 2.8rem 2.8rem 3.8rem 3.2rem / 2rem 2rem 2.8rem 2.4rem;
+      padding-bottom: 120px !important;
+    }
+
+    .cst-scene-bean {
+      display: none !important;
+    }
+
+    .cst-tab-scene {
+      grid-template-columns: 1fr !important;
+      margin-bottom: 1rem !important;
     }
   }
 
-  @media screen and (min-width: 750px) {
+  @media screen and (min-width: 990px) {
     .section-{{ section.id }}-padding {
       padding-top: {{ section.settings.padding_top }}px;
       padding-bottom: {{ section.settings.padding_bottom }}px;
@@ -165,6 +175,7 @@
     overflow: hidden;
     width: 100%;
     position: relative;
+    z-index: 2;
   }
 
   .cst-tab-scene {
@@ -174,6 +185,7 @@
     gap: 2rem;
     align-items: end;
     margin-bottom: 2rem;
+    z-index: 1;
   }
 
   .cst-scene-copy {
@@ -208,18 +220,17 @@
     position: relative;
     align-self: stretch;
     min-height: 18rem;
-    
   }
 
   .cst-scene-bean img {
     position: absolute;
     right: 0;
-    bottom: -1rem;
+    bottom: -5rem;
     width: 100%;
     max-width: 18rem;
     height: auto;
     filter: drop-shadow(0 1.8rem 3rem rgba(0,0,0,0.14));
-
+    z-index: -1;
   }
 
   .cst-carousel-track {
@@ -661,9 +672,6 @@
                             width="600"
                             height="{{ 600 | divided_by: product.featured_image.aspect_ratio | ceil }}"
                           >
-                          <span class="cst-card-sticker">
-                            {% cycle 'main character', 'too real', 'chaotic pick', 'lowkey fire' %}
-                          </span>
 
                           <div class="cst-card-overlay">
                             {%- if product.available -%}
