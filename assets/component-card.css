@@ -22,10 +22,16 @@
 }
 
 .card-wrapper .quick-add,
-.card-wrapper .card__badge,
-.card-wrapper .card-information {
+.card-wrapper .card__badge {
   position: relative;
   z-index: 20; /* Ensure these stay above the full card click */
+}
+
+.product-card-wrapper .card-information,
+.product-card-wrapper .card__heading,
+.product-card-wrapper .card__heading .full-unstyled-link {
+  position: static;
+  z-index: auto;
 }
 
 .card:not(.ratio) {
