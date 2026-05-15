@@ -8,30 +8,6 @@
 .card {
   text-decoration: none;
   text-align: var(--text-alignment);
-  position: relative; /* Ensure overlay covers this */
-}
-
-.full-card-link {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 10;
-  display: block;
-}
-
-.card-wrapper .quick-add,
-.card-wrapper .card__badge {
-  position: relative;
-  z-index: 20; /* Ensure these stay above the full card click */
-}
-
-.product-card-wrapper .card-information,
-.product-card-wrapper .card__heading,
-.product-card-wrapper .card__heading .full-unstyled-link {
-  position: static;
-  z-index: auto;
 }
 
 .card:not(.ratio) {

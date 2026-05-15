@@ -40,17 +40,7 @@
       assign ratio = 1
     endif
   -%}
-  <div
-    class="card-wrapper product-card-wrapper underline-links-hover"
-    style="position: relative;"
-    data-product-card-url="{{ card_product.url }}"
-  >
-    <a
-      href="{{ card_product.url }}"
-      class="full-card-link"
-      aria-hidden="true"
-      style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 5;"
-    ></a>
+  <div class="card-wrapper product-card-wrapper underline-links-hover">
     <style>
       #CardLink-{{ section_id }}-{{ card_product.id }}::after,
       #StandardCardNoMediaLink-{{ section_id }}-{{ card_product.id }}::after {
@@ -89,27 +79,6 @@
         box-shadow: 0 2rem 5rem rgba(0,0,0,0.08);
       }
     </style>
-    <script>
-      if (!window.__beanProductCardClickBound) {
-        window.__beanProductCardClickBound = true;
-
-        document.addEventListener('click', function (event) {
-          const blockedTarget = event.target.closest(
-            'a, button, input, select, textarea, summary, details, modal-opener, quick-add-modal, .quick-add, .card__badge'
-          );
-
-          if (blockedTarget) return;
-
-          const card = event.target.closest('.product-card-wrapper[data-product-card-url]');
-          if (!card) return;
-
-          const destination = card.getAttribute('data-product-card-url');
-          if (!destination) return;
-
-          window.location.href = destination;
-        });
-      }
-    </script>
     <div
       class="
         card card--{{ settings.card_style }}
@@ -617,6 +586,23 @@
             </div>
           {% endif %}
         {% endif %}
+        <div class="card__badge {{ settings.badge_position }}">
+          {%- if card_product.available == false -%}
+            <span
+              id="Badge-{{ section_id }}-{{ card_product.id }}"
+              class="badge badge--bottom-left color-{{ settings.sold_out_badge_color_scheme }}"
+            >
+              {{- 'products.product.sold_out' | t -}}
+            </span>
+          {%- elsif card_product.compare_at_price > card_product.price and card_product.available -%}
+            <span
+              id="Badge-{{ section_id }}-{{ card_product.id }}"
+              class="badge badge--bottom-left color-{{ settings.sale_badge_color_scheme }}"
+            >
+              {{- 'products.product.on_sale' | t -}}
+            </span>
+          {%- endif -%}
+        </div>
       </div>
     </div>
   </div>
