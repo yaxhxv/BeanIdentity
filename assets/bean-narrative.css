@@ -172,6 +172,12 @@
   transform: translateY(0);
 }
 
+@media screen and (max-width: 989px) {
+  .cst-card-story-layer {
+    display: none !important;
+  }
+}
+
 .cst-story-line {
   font-family: 'Poppins', sans-serif;
   font-size: 1.1rem;
