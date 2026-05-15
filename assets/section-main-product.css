@@ -258,6 +258,15 @@ a.product__text {
   display: none;
 }
 
+.product__tag-subheading {
+  margin: 0.8rem 0 0;
+  color: rgba(var(--color-foreground), 0.56);
+  font-size: 1.4rem;
+  line-height: 1.5;
+  font-weight: 500;
+  letter-spacing: 0.03em;
+}
+
 .product__title + .product__text.caption-with-letter-spacing {
   margin-top: -1.5rem;
 }
