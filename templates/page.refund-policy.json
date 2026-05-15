@@ -1,0 +1,37 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-page",
+      "settings": {
+        "padding_top": 28,
+        "padding_bottom": 0
+      }
+    },
+    "policy": {
+      "type": "rich-text",
+      "blocks": {
+        "content": {
+          "type": "text",
+          "settings": {
+            "text": "<p>This Return, Refund & Exchange Policy (“Policy”) governs the sale of products by <strong>Bean Identity</strong> (“we”, “us”, “our”) through our website and applies to all customers placing orders with us. By placing an order, you agree to be bound by the terms set out below.<\/p><h3>1. NATURE OF PRODUCTS (PRINT-ON-DEMAND)<\/h3><p>All Bean Identity products are made-to-order and printed only after an order is placed. As these products are produced specifically for each customer, returns and exchanges are limited.<\/p><h3>2. ELIGIBILITY FOR RETURNS OR REPLACEMENTS<\/h3><p>We accept returns or provide replacements only under the following circumstances:<\/p><ul><li>Product received is damaged<\/li><li>Product has a manufacturing or printing defect<\/li><li>Incorrect product (wrong design, color, or size) was delivered<\/li><\/ul><p>Requests must be raised within <strong>5 (Five) days<\/strong> from the date of delivery.<\/p><h3>3. NON-ELIGIBLE CASES<\/h3><p>Returns, refunds, or exchanges will <strong>not<\/strong> be accepted in the following situations:<\/p><ul><li>Change of mind or personal preference<\/li><li>Color or print variation due to screen/display differences<\/li><li>Minor variations in print placement within industry-accepted tolerance<\/li><li>Requests raised after the 5-day reporting window<\/li><\/ul><p>Refunds will not be provided for size-related concerns where the correct size ordered by the customer was produced and delivered.<\/p><h3>4. SIZE EXCHANGE POLICY<\/h3><p>Customers are strongly advised to review the size chart provided on the product page before placing an order. However, Bean Identity understands that sizing concerns may occasionally occur. Therefore, we may allow a one-time size exchange under the following conditions:<\/p><ul><li>Exchange request must be raised within <strong>5 (five)<\/strong> days from the date of delivery<\/li><li>Product must be unused, unwashed, undamaged, and in original condition<\/li><li>Exchange is subject to size availability<\/li><li>Customer may be required to bear applicable reverse shipping and reshipping charges<\/li><\/ul><p>Bean Identity reserves the right to reject size exchange requests if the returned product does not meet the above conditions. Size exchange requests are limited to one exchange per order item.<\/p><h3>5. ORDER CANCELLATION<\/h3><p>Orders may be cancelled within 12 hours of placement, provided production has not yet started. Once an order enters the production stage, cancellation will not be possible due to the made-to-order nature of our products.<\/p><h3>6. RETURN & REPLACEMENT REQUEST PROCESS<\/h3><p>To initiate a return or replacement request, customers must contact us within <strong>5 days of delivery<\/strong> at: <br\/><br\/><strong>Email:<\/strong> support@beanidentity.com<br\/><strong>Subject Line:<\/strong> Return \/ Replacement Request – Order #[Order ID]<\/p><p>The request must include:<\/p><ul><li>Order ID<\/li><li>Clear images or video showing the issue<\/li><li>A brief description of the problem<\/li><\/ul><h3>7. VERIFICATION & RESOLUTION<\/h3><p>All requests are subject to verification by our support team. Approved claims will be eligible for a free replacement at no additional cost. For defective or damaged products, physical return may not be required. For size exchanges, customers may be required to return the original product first. If replacement is not feasible, a refund may be issued to the original payment method (5 business days).<\/p><h3>8. SHIPPING CHARGES<\/h3><p>Shipping charges are <strong>non-refundable<\/strong>, except in cases where the product received is defective, damaged, or incorrect.<\/p><h3>9. POLICY ABUSE<\/h3><p>Bean Identity reserves the right to decline returns or replacements if fraudulent activity or abuse is detected.<\/p><h3>10. CHANGES TO THIS POLICY<\/h3><p>Bean Identity reserves the right to modify this policy at any time. Updated versions will be published on this page.<\/p>"
+          }
+        }
+      },
+      "block_order": [
+        "content"
+      ],
+      "settings": {
+        "desktop_content_position": "center",
+        "content_alignment": "left",
+        "color_scheme": "scheme-1",
+        "full_width": false,
+        "padding_top": 0,
+        "padding_bottom": 60
+      }
+    }
+  },
+  "order": [
+    "main",
+    "policy"
+  ]
+}
