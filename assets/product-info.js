@@ -242,20 +242,23 @@ if (!customElements.get('product-info')) {
       updateMedia(html, variantFeaturedMediaId) {
         if (!variantFeaturedMediaId) return;
 
-        const mediaGallerySource = this.querySelector('media-gallery ul');
-        const mediaGalleryDestination = html.querySelector(`media-gallery ul`);
+        const mediaGalleriesSource = this.querySelectorAll('media-gallery ul');
+        const mediaGalleriesDestination = html.querySelectorAll(`media-gallery ul`);
 
-        const refreshSourceData = () => {
-          if (this.hasAttribute('data-zoom-on-hover')) enableZoomOnHover(2);
-          const mediaGallerySourceItems = Array.from(mediaGallerySource.querySelectorAll('li[data-media-id]'));
-          const sourceSet = new Set(mediaGallerySourceItems.map((item) => item.dataset.mediaId));
-          const sourceMap = new Map(
-            mediaGallerySourceItems.map((item, index) => [item.dataset.mediaId, { item, index }])
-          );
-          return [mediaGallerySourceItems, sourceSet, sourceMap];
-        };
+        mediaGalleriesSource.forEach((mediaGallerySource, index) => {
+          const mediaGalleryDestination = mediaGalleriesDestination[index];
+          if (!mediaGallerySource || !mediaGalleryDestination) return;
 
-        if (mediaGallerySource && mediaGalleryDestination) {
+          const refreshSourceData = () => {
+            if (this.hasAttribute('data-zoom-on-hover')) enableZoomOnHover(2);
+            const mediaGallerySourceItems = Array.from(mediaGallerySource.querySelectorAll('li[data-media-id]'));
+            const sourceSet = new Set(mediaGallerySourceItems.map((item) => item.dataset.mediaId));
+            const sourceMap = new Map(
+              mediaGallerySourceItems.map((item, index) => [item.dataset.mediaId, { item, index }])
+            );
+            return [mediaGallerySourceItems, sourceSet, sourceMap];
+          };
+
           let [mediaGallerySourceItems, sourceSet, sourceMap] = refreshSourceData();
           const mediaGalleryDestinationItems = Array.from(
             mediaGalleryDestination.querySelectorAll('li[data-media-id]')
@@ -296,7 +299,7 @@ if (!customElements.get('product-info')) {
               [mediaGallerySourceItems, sourceSet, sourceMap] = refreshSourceData();
             }
           });
-        }
+        });
 
         // set featured media as active in the media gallery
         this.querySelector(`media-gallery`)?.setActiveMedia?.(
