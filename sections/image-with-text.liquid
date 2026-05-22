@@ -90,6 +90,11 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
   .section-{{ section.id }}-padding .image-with-text {
     border-radius: 2.4rem;
   }
+
+  .section-{{ section.id }}-padding .iwt-vanilla-doodle,
+  .section-{{ section.id }}-padding .iwt-jelly-doodle {
+    display: none !important;
+  }
 }
 {%- endstyle -%}
 
@@ -109,6 +114,7 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
     alt=""
     aria-hidden="true"
     loading="lazy"
+    class="iwt-jelly-doodle"
     style="position:absolute; top: -3rem; right: -4rem; width: clamp(160px, 20vw, 280px); height: auto; opacity: 0.78; transform: rotate(15deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;"
   >
   <img
@@ -116,6 +122,7 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
     alt=""
     aria-hidden="true"
     loading="lazy"
+    class="iwt-vanilla-doodle"
     style="position:absolute; bottom: -2rem; left: -3rem; width: clamp(180px, 24vw, 320px); height: auto; opacity: 0.75; transform: rotate(-12deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 46% 54% 52% 48% / 54% 46% 54% 46%;"
   >
   <div class="page-width">

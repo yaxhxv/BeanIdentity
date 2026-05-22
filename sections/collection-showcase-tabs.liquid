@@ -612,16 +612,24 @@
 
   /* --- CUSTOM MOBILE DOODLE OVERRIDES --- */
   @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding {
+      padding-bottom: 170px !important;
+    }
+
     .cst-doodle--green-2 {
       display: none !important; /* Hide GreenDoodle2 on mobile screen */
     }
 
     .cst-doodle--jelly-1 {
-      bottom: 1.5rem;
+      bottom: 0.5rem !important;
       right: 0.5rem;
       width: clamp(110px, 25vw, 150px);
       opacity: 0.85;
       z-index: 2; /* Clearly visible on top */
+    }
+
+    .cst-vanilla-gif {
+      display: none !important;
     }
   }
 {%- endstyle -%}
