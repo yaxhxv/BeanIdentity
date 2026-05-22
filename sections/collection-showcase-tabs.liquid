@@ -550,6 +550,74 @@
         font-size: 1.2rem;
      }
   }
+
+  /* --- DOODLE STYLES --- */
+  .cst-doodle {
+    position: absolute;
+    height: auto;
+    pointer-events: none;
+    z-index: 0;
+    mix-blend-mode: multiply;
+  }
+
+  .cst-doodle--green-2 {
+    top: -2rem;
+    right: -3rem;
+    width: clamp(180px, 24vw, 320px);
+    opacity: 0.75;
+    transform: rotate(10deg);
+    border-radius: 44% 56% 58% 42% / 48% 44% 56% 52%;
+  }
+
+  .cst-doodle--jelly-1 {
+    bottom: 4rem;
+    right: -4rem;
+    width: clamp(160px, 20vw, 280px);
+    opacity: 0.70;
+    transform: rotate(-15deg);
+    border-radius: 48% 52% 44% 56% / 52% 44% 56% 48%;
+  }
+
+  /* --- CUSTOM TABLET DOODLE OVERRIDES --- */
+  @media screen and (min-width: 750px) and (max-width: 989px) {
+    .section-{{ section.id }}-padding {
+      padding-top: calc({{ section.settings.padding_top }}px + 3rem) !important;
+      padding-bottom: calc({{ section.settings.padding_bottom }}px + 3rem) !important;
+    }
+
+    .cst-doodle {
+      z-index: 2; /* Put doodles on top of background/text container */
+    }
+
+    .cst-doodle--green-2 {
+      top: 1rem;
+      right: 1rem;
+      width: clamp(140px, 18vw, 200px);
+      opacity: 0.85;
+    }
+
+    .cst-doodle--jelly-1 {
+      bottom: 3rem;
+      right: 1rem;
+      width: clamp(130px, 18vw, 180px);
+      opacity: 0.85;
+    }
+  }
+
+  /* --- CUSTOM MOBILE DOODLE OVERRIDES --- */
+  @media screen and (max-width: 749px) {
+    .cst-doodle--green-2 {
+      display: none !important; /* Hide GreenDoodle2 on mobile screen */
+    }
+
+    .cst-doodle--jelly-1 {
+      bottom: 1.5rem;
+      right: 0.5rem;
+      width: clamp(110px, 25vw, 150px);
+      opacity: 0.85;
+      z-index: 2; /* Clearly visible on top */
+    }
+  }
 {%- endstyle -%}
 
 <div class="section-{{ section.id }}-padding" style="background-color: {{ section.settings.bg_color }};">
@@ -566,14 +634,14 @@
     alt=""
     aria-hidden="true"
     loading="lazy"
-    style="position:absolute; top: -2rem; right: -3rem; width: clamp(180px, 24vw, 320px); height: auto; opacity: 0.75; transform: rotate(10deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 44% 56% 58% 42% / 48% 44% 56% 52%;"
+    class="cst-doodle cst-doodle--green-2"
   >
   <img
     src="{{ 'JellyDoodle1.png' | file_url }}"
     alt=""
     aria-hidden="true"
     loading="lazy"
-    style="position:absolute; bottom: 4rem; right: -4rem; width: clamp(160px, 20vw, 280px); height: auto; opacity: 0.70; transform: rotate(-15deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 48% 52% 44% 56% / 52% 44% 56% 48%;"
+    class="cst-doodle cst-doodle--jelly-1"
   >
   <div class="cst-container">
     <!-- Header -->
