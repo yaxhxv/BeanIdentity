@@ -102,8 +102,32 @@
                 <div class="product__title" {{ block.shopify_attributes }}>
                   <h2>{{ product.title | escape }}</h2>
                   {%- if product.tags.size > 0 -%}
+                    {%- liquid
+                      assign product_type_tag = blank
+                      assign bean_name_tag = blank
+                      for tag in product.tags
+                        assign tag_downcase = tag | downcase
+                        if tag_downcase contains 'bean'
+                          assign bean_name_tag = tag
+                        else
+                          assign product_type_tag = tag
+                        endif
+                      endfor
+                      
+                      if product_type_tag == blank and product.type != blank
+                        assign product_type_tag = product.type
+                      endif
+                    -%}
                     <p class="product__tag-subheading">
-                      {{ product.tags | join: ' · ' | escape }}
+                      {%- if product_type_tag != blank and bean_name_tag != blank -%}
+                        {{ product_type_tag | escape }} · {{ bean_name_tag | escape }}
+                      {%- elsif product_type_tag != blank -%}
+                        {{ product_type_tag | escape }}
+                      {%- elsif bean_name_tag != blank -%}
+                        {{ bean_name_tag | escape }}
+                      {%- else -%}
+                        {{ product.tags | join: ' · ' | escape }}
+                      {%- endif -%}
                     </p>
                   {%- endif -%}
                   <a href="{{ product.url }}" class="product__title">

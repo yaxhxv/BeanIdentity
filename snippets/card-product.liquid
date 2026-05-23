@@ -194,8 +194,32 @@
               </a>
             </h3>
             {%- if card_product.tags.size > 0 -%}
+              {%- liquid
+                assign product_type_tag = blank
+                assign bean_name_tag = blank
+                for tag in card_product.tags
+                  assign tag_downcase = tag | downcase
+                  if tag_downcase contains 'bean'
+                    assign bean_name_tag = tag
+                  else
+                    assign product_type_tag = tag
+                  endif
+                endfor
+                
+                if product_type_tag == blank and card_product.type != blank
+                  assign product_type_tag = card_product.type
+                endif
+              -%}
               <p class="product__tag-subheading">
-                {{ card_product.tags | join: ' · ' | escape }}
+                {%- if product_type_tag != blank and bean_name_tag != blank -%}
+                  {{ product_type_tag | escape }} · {{ bean_name_tag | escape }}
+                {%- elsif product_type_tag != blank -%}
+                  {{ product_type_tag | escape }}
+                {%- elsif bean_name_tag != blank -%}
+                  {{ bean_name_tag | escape }}
+                {%- else -%}
+                  {{ card_product.tags | join: ' · ' | escape }}
+                {%- endif -%}
               </p>
             {%- endif -%}
           </div>
@@ -236,8 +260,32 @@
             </a>
           </h3>
           {%- if card_product.tags.size > 0 -%}
+            {%- liquid
+              assign product_type_tag = blank
+              assign bean_name_tag = blank
+              for tag in card_product.tags
+                assign tag_downcase = tag | downcase
+                if tag_downcase contains 'bean'
+                  assign bean_name_tag = tag
+                else
+                  assign product_type_tag = tag
+                endif
+              endfor
+              
+              if product_type_tag == blank and card_product.type != blank
+                assign product_type_tag = card_product.type
+              endif
+            -%}
             <p class="product__tag-subheading">
-              {{ card_product.tags | join: ' · ' | escape }}
+              {%- if product_type_tag != blank and bean_name_tag != blank -%}
+                {{ product_type_tag | escape }} · {{ bean_name_tag | escape }}
+              {%- elsif product_type_tag != blank -%}
+                {{ product_type_tag | escape }}
+              {%- elsif bean_name_tag != blank -%}
+                {{ bean_name_tag | escape }}
+              {%- else -%}
+                {{ card_product.tags | join: ' · ' | escape }}
+              {%- endif -%}
             </p>
           {%- endif -%}
           <div class="card-information">
