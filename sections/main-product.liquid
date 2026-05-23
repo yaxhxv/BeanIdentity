@@ -75,6 +75,78 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
+  {%- liquid
+    assign is_tshirt = false
+    assign product_type_downcase = product.type | downcase
+    assign product_title_downcase = product.title | downcase
+    if product_type_downcase contains 'tee' or product_type_downcase contains 't-shirt' or product_type_downcase contains 'tshirt' or product_type_downcase contains 't shirt'
+      assign is_tshirt = true
+    endif
+    if product_title_downcase contains 'tee' or product_title_downcase contains 't-shirt' or product_title_downcase contains 'tshirt' or product_title_downcase contains 't shirt'
+      assign is_tshirt = true
+    endif
+    for tag in product.tags
+      assign tag_downcase = tag | downcase
+      if tag_downcase contains 'tee' or tag_downcase contains 't-shirt' or tag_downcase contains 'tshirt' or tag_downcase contains 't shirt'
+        assign is_tshirt = true
+      endif
+    endfor
+
+    assign is_hoodie = false
+    if product_type_downcase contains 'hoodie' or product_type_downcase contains 'hoodies'
+      assign is_hoodie = true
+    endif
+    if product_title_downcase contains 'hoodie' or product_title_downcase contains 'hoodies'
+      assign is_hoodie = true
+    endif
+    for tag in product.tags
+      assign tag_downcase = tag | downcase
+      if tag_downcase contains 'hoodie' or tag_downcase contains 'hoodies'
+        assign is_hoodie = true
+      endif
+    endfor
+
+    assign is_cap = false
+    if product_type_downcase contains 'cap' or product_type_downcase contains 'caps' or product_type_downcase contains 'hat' or product_type_downcase contains 'hats'
+      assign is_cap = true
+    endif
+    if product_title_downcase contains 'cap' or product_title_downcase contains 'caps' or product_title_downcase contains 'hat' or product_title_downcase contains 'hats'
+      assign is_cap = true
+    endif
+    for tag in product.tags
+      assign tag_downcase = tag | downcase
+      if tag_downcase contains 'cap' or tag_downcase contains 'caps' or tag_downcase contains 'hat' or tag_downcase contains 'hats'
+        assign is_cap = true
+      endif
+    endfor
+
+    assign size_chart_override_url = blank
+    if is_tshirt
+      if images['Tshirt_Size_Chart.png'] != blank
+        assign size_chart_override_url = images['Tshirt_Size_Chart.png'] | image_url: width: 1200
+      elsif images['Tshirt_Size_Chart.jpg'] != blank
+        assign size_chart_override_url = images['Tshirt_Size_Chart.jpg'] | image_url: width: 1200
+      elsif images['Tshirt_Size_Chart.webp'] != blank
+        assign size_chart_override_url = images['Tshirt_Size_Chart.webp'] | image_url: width: 1200
+      elsif images['Tshirt_Size_Chart.jpeg'] != blank
+        assign size_chart_override_url = images['Tshirt_Size_Chart.jpeg'] | image_url: width: 1200
+      else
+        assign size_chart_override_url = 'Tshirt_Size_Chart.png' | file_img_url: 'master'
+      endif
+    elsif is_hoodie
+      if images['Hoodie_Size_Chart.png'] != blank
+        assign size_chart_override_url = images['Hoodie_Size_Chart.png'] | image_url: width: 1200
+      elsif images['Hoodie_Size_Chart.jpg'] != blank
+        assign size_chart_override_url = images['Hoodie_Size_Chart.jpg'] | image_url: width: 1200
+      elsif images['Hoodie_Size_Chart.webp'] != blank
+        assign size_chart_override_url = images['Hoodie_Size_Chart.webp'] | image_url: width: 1200
+      elsif images['Hoodie_Size_Chart.jpeg'] != blank
+        assign size_chart_override_url = images['Hoodie_Size_Chart.jpeg'] | image_url: width: 1200
+      else
+        assign size_chart_override_url = 'Hoodie_Size_Chart.png' | file_img_url: 'master'
+      endif
+    endif
+  -%}
   <div class="page-width">
     <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
       <div class="grid__item product__media-wrapper">
@@ -241,6 +313,9 @@
               {%- when 'custom_liquid' -%}
                 {{ block.settings.custom_liquid }}
               {%- when 'collapsible_tab' -%}
+                {%- if is_cap and block.settings.page.handle == 'size-chart' or block.settings.heading == 'Size Chart' -%}
+                  {%- continue -%}
+                {%- endif -%}
                 <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
                   <details id="Details-{{ block.id }}-{{ section.id }}">
                     <summary>
@@ -254,7 +329,40 @@
                     </summary>
                     <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
                       {{ block.settings.content }}
-                      {{ block.settings.page.content }}
+                      {%- if block.settings.page.handle == 'size-chart' and size_chart_override_url != blank -%}
+                        <div class="size-chart-wrapper">
+                          <script>
+                            (function() {
+                              function replaceImage() {
+                                var accordion = document.getElementById("ProductAccordion-{{ block.id }}-{{ section.id }}");
+                                if (accordion) {
+                                  var img = accordion.querySelector("img");
+                                  if (img) {
+                                    img.src = "{{ size_chart_override_url }}";
+                                    img.srcset = "{{ size_chart_override_url }}";
+                                    return true;
+                                  }
+                                }
+                                return false;
+                              }
+                              if (!replaceImage()) {
+                                document.addEventListener("DOMContentLoaded", replaceImage);
+                                var checkInterval = setInterval(function() {
+                                  if (replaceImage()) {
+                                    clearInterval(checkInterval);
+                                  }
+                                }, 100);
+                                setTimeout(function() {
+                                  clearInterval(checkInterval);
+                                }, 3000);
+                              }
+                            })();
+                          </script>
+                          {{ block.settings.page.content }}
+                        </div>
+                      {%- else -%}
+                        {{ block.settings.page.content }}
+                      {%- endif -%}
                     </div>
                   </details>
                 </div>
@@ -486,6 +594,9 @@
                   {%- endif -%}
                 </div>
               {%- when 'popup' -%}
+                {%- if is_cap and block.settings.page.handle == 'size-chart' or block.settings.text == 'Size Chart' -%}
+                  {%- continue -%}
+                {%- endif -%}
                 <modal-opener
                   class="product-popup-modal__opener quick-add-hidden"
                   data-modal="#PopupModal-{{ block.id }}"
@@ -719,6 +830,9 @@
 
     {% assign popups = section.blocks | where: 'type', 'popup' %}
     {%- for block in popups -%}
+      {%- if is_cap and block.settings.page.handle == 'size-chart' or block.settings.text == 'Size Chart' -%}
+        {%- continue -%}
+      {%- endif -%}
       <modal-dialog id="PopupModal-{{ block.id }}" class="product-popup-modal" {{ block.shopify_attributes }}>
         <div
           role="dialog"
@@ -737,7 +851,40 @@
           </button>
           <div class="product-popup-modal__content-info">
             <h1 class="h2">{{ block.settings.page.title | escape }}</h1>
-            {{ block.settings.page.content }}
+            {%- if block.settings.page.handle == 'size-chart' and size_chart_override_url != blank -%}
+              <div class="size-chart-wrapper-modal" id="PopupModalContent-{{ block.id }}-{{ section.id }}">
+                <script>
+                  (function() {
+                    function replaceImage() {
+                      var modalContent = document.getElementById("PopupModalContent-{{ block.id }}-{{ section.id }}");
+                      if (modalContent) {
+                        var img = modalContent.querySelector("img");
+                        if (img) {
+                          img.src = "{{ size_chart_override_url }}";
+                          img.srcset = "{{ size_chart_override_url }}";
+                          return true;
+                        }
+                      }
+                      return false;
+                    }
+                    if (!replaceImage()) {
+                      document.addEventListener("DOMContentLoaded", replaceImage);
+                      var checkInterval = setInterval(function() {
+                        if (replaceImage()) {
+                          clearInterval(checkInterval);
+                        }
+                      }, 100);
+                      setTimeout(function() {
+                        clearInterval(checkInterval);
+                      }, 3000);
+                    }
+                  })();
+                </script>
+                {{ block.settings.page.content }}
+              </div>
+            {%- else -%}
+              {{ block.settings.page.content }}
+            {%- endif -%}
           </div>
         </div>
       </modal-dialog>
