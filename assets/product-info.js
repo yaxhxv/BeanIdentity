@@ -217,6 +217,7 @@ if (!customElements.get('product-info')) {
         ).forEach((productForm) => {
           const input = productForm.querySelector('input[name="id"]');
           input.value = variantId ?? '';
+          input.removeAttribute('disabled');
           input.dispatchEvent(new Event('change', { bubbles: true }));
         });
       }
