@@ -46,7 +46,7 @@ if (!customElements.get('product-info')) {
       }
 
       disconnectedCallback() {
-        this.onVariantChangeUnsubscriber();
+        this.onVariantChangeUnsubscriber?.();
         this.cartUpdateUnsubscriber?.();
       }
 
@@ -91,18 +91,15 @@ if (!customElements.get('product-info')) {
 
           const selector = updateFullPage ? "product-info[id^='MainProduct']" : 'product-info';
           const variant = this.getSelectedVariant(html.querySelector(selector));
-          this.updateURL(productUrl, variant?.id);
 
           if (updateFullPage) {
-            document.querySelector('head title').innerHTML = html.querySelector('head title').innerHTML;
-
-            HTMLUpdateUtility.viewTransition(
-              document.querySelector('main'),
-              html.querySelector('main'),
-              this.preProcessHtmlCallbacks,
-              this.postProcessHtmlCallbacks
-            );
+            // Force a hard reload / cache-bypass URL redirect to the new product page
+            const queryParams = [];
+            if (variant?.id) queryParams.push(`variant=${variant.id}`);
+            queryParams.push(`nocache=${Date.now()}`);
+            window.location.href = `${productUrl}?${queryParams.join('&')}`;
           } else {
+            this.updateURL(productUrl, variant?.id);
             HTMLUpdateUtility.viewTransition(
               this,
               html.querySelector('product-info'),
@@ -178,7 +175,7 @@ if (!customElements.get('product-info')) {
           this.updateMedia(html, variant?.featured_media?.id);
 
           const updateSourceFromDestination = (id, shouldHide = (source) => false) => {
-            const source = html.getElementById(`${id}-${this.sectionId}`);
+            const source = html.getElementById(`${id}-${this.sectionId}`) || html.querySelector(`[id^="${id}-"]`);
             const destination = this.querySelector(`#${id}-${this.dataset.section}`);
             if (source && destination) {
               destination.innerHTML = source.innerHTML;
@@ -196,8 +193,10 @@ if (!customElements.get('product-info')) {
           this.querySelector(`#Quantity-Rules-${this.dataset.section}`)?.classList.remove('hidden');
           this.querySelector(`#Volume-Note-${this.dataset.section}`)?.classList.remove('hidden');
 
+          const buttonElement = html.getElementById(`ProductSubmitButton-${this.sectionId}`) || html.querySelector('[id^="ProductSubmitButton-"]');
+          const isSoldOut = buttonElement ? buttonElement.hasAttribute('disabled') : !variant.available;
           this.productForm?.toggleSubmitButton(
-            html.getElementById(`ProductSubmitButton-${this.sectionId}`)?.hasAttribute('disabled') ?? true,
+            isSoldOut,
             window.variantStrings.soldOut
           );
 
@@ -216,9 +215,11 @@ if (!customElements.get('product-info')) {
           `#product-form-${this.dataset.section}, #product-form-installment-${this.dataset.section}`
         ).forEach((productForm) => {
           const input = productForm.querySelector('input[name="id"]');
-          input.value = variantId ?? '';
-          input.removeAttribute('disabled');
-          input.dispatchEvent(new Event('change', { bubbles: true }));
+          if (input) {
+            input.value = variantId ?? '';
+            input.removeAttribute('disabled');
+            input.dispatchEvent(new Event('change', { bubbles: true }));
+          }
         });
       }
 
@@ -358,7 +359,8 @@ if (!customElements.get('product-info')) {
         if (!this.quantityInput) return;
         this.setQuantityBoundries();
 
-        const quantityFormUpdated = html.getElementById(`Quantity-Form-${sectionId}`);
+        const quantityFormUpdated = html.getElementById(`Quantity-Form-${sectionId}`) || html.querySelector('[id^="Quantity-Form-"]');
+        if (!quantityFormUpdated) return;
         const selectors = ['.quantity__input', '.quantity__rules', '.quantity__label'];
         for (let selector of selectors) {
           const current = this.quantityForm.querySelector(selector);
@@ -431,3 +433,9 @@ if (!customElements.get('product-info')) {
     }
   );
 }
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted || (window.performance && window.performance.navigation && window.performance.navigation.type === 2)) {
+    window.location.reload();
+  }
+});

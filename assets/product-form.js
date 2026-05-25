@@ -6,13 +6,19 @@ if (!customElements.get('product-form')) {
         super();
 
         this.form = this.querySelector('form');
-        this.variantIdInput.disabled = false;
-        this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
+        if (this.form) {
+          if (this.variantIdInput) {
+            this.variantIdInput.disabled = false;
+          }
+          this.form.addEventListener('submit', this.onSubmitHandler.bind(this));
+        }
+
         this.cart = document.querySelector('cart-notification') || document.querySelector('cart-drawer');
         this.submitButton = this.querySelector('[type="submit"]');
-        this.submitButtonText = this.submitButton.querySelector('span');
-
-        if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
+        if (this.submitButton) {
+          this.submitButtonText = this.submitButton.querySelector('span');
+          if (document.querySelector('cart-drawer')) this.submitButton.setAttribute('aria-haspopup', 'dialog');
+        }
 
         this.hideErrors = this.dataset.hideErrors === 'true';
       }
