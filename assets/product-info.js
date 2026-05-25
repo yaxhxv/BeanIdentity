@@ -162,51 +162,16 @@ if (!customElements.get('product-info')) {
         return (html) => {
           const variant = this.getSelectedVariant(html);
 
-          this.pickupAvailability?.update(variant);
-          this.updateOptionValues(html);
-          this.updateURL(productUrl, variant?.id);
-          this.updateVariantInputs(variant?.id);
-
           if (!variant) {
             this.setUnavailable();
             return;
           }
 
-          this.updateMedia(html, variant?.featured_media?.id);
-
-          const updateSourceFromDestination = (id, shouldHide = (source) => false) => {
-            const source = html.getElementById(`${id}-${this.sectionId}`) || html.querySelector(`[id^="${id}-"]`);
-            const destination = this.querySelector(`#${id}-${this.dataset.section}`);
-            if (source && destination) {
-              destination.innerHTML = source.innerHTML;
-              destination.classList.toggle('hidden', shouldHide(source));
-            }
-          };
-
-          updateSourceFromDestination('price');
-          updateSourceFromDestination('Sku', ({ classList }) => classList.contains('hidden'));
-          updateSourceFromDestination('Inventory', ({ innerText }) => innerText === '');
-          updateSourceFromDestination('Volume');
-          updateSourceFromDestination('Price-Per-Item', ({ classList }) => classList.contains('hidden'));
-
-          this.updateQuantityRules(this.sectionId, html);
-          this.querySelector(`#Quantity-Rules-${this.dataset.section}`)?.classList.remove('hidden');
-          this.querySelector(`#Volume-Note-${this.dataset.section}`)?.classList.remove('hidden');
-
-          const buttonElement = html.getElementById(`ProductSubmitButton-${this.sectionId}`) || html.querySelector('[id^="ProductSubmitButton-"]');
-          const isSoldOut = buttonElement ? buttonElement.hasAttribute('disabled') : !variant.available;
-          this.productForm?.toggleSubmitButton(
-            isSoldOut,
-            window.variantStrings.soldOut
-          );
-
-          publish(PUB_SUB_EVENTS.variantChange, {
-            data: {
-              sectionId: this.sectionId,
-              html,
-              variant,
-            },
-          });
+          // Force a hard reload of the page with the newly selected variant
+          const queryParams = [];
+          if (variant.id) queryParams.push(`variant=${variant.id}`);
+          queryParams.push(`nocache=${Date.now()}`);
+          window.location.href = `${productUrl}?${queryParams.join('&')}`;
         };
       }
 
