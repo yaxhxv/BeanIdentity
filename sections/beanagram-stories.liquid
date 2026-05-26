@@ -167,6 +167,7 @@
     display: inline-block;
     padding: 1.5rem 4rem;
     border: 1px solid #C6A969;
+    background: transparent;
     text-decoration: none;
     font-weight: 700;
     color: #f5f5f5;
@@ -174,7 +175,8 @@
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    display: none;
+    cursor: pointer;
+    font-family: inherit;
   }
 
   .beanagram-cta:hover {
@@ -241,6 +243,496 @@
       right: -2.5rem;
     }
   }
+
+  /* --- STORY SUBMISSION MODAL CSS --- */
+  :root {
+    --active-accent: #A67C52;
+    --active-accent-rgb: 166, 124, 82;
+  }
+
+  .story-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    padding: 2rem;
+  }
+
+  .story-modal-overlay.open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .story-modal-container {
+    background: #141414;
+    border: 1px solid rgba(245, 245, 245, 0.08);
+    border-top: 4px solid var(--active-accent);
+    border-radius: 2.8rem;
+    width: 100%;
+    max-width: 680px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+    box-shadow: 0 4rem 10rem rgba(0, 0, 0, 0.6);
+    transform: scale(0.92) translateY(2rem);
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    padding: 4rem;
+    color: #f5f5f5;
+  }
+
+  .story-modal-overlay.open .story-modal-container {
+    transform: scale(1) translateY(0);
+  }
+
+  .story-modal-close {
+    position: absolute;
+    top: 2.5rem;
+    right: 2.5rem;
+    background: none;
+    border: none;
+    font-size: 3.5rem;
+    color: rgba(245, 245, 245, 0.4);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 5;
+  }
+
+  .story-modal-close:hover {
+    color: #f5f5f5;
+    transform: rotate(90deg);
+  }
+
+  .story-modal-title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.4rem, 4vw, 3.4rem);
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem 0;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 0%, rgba(255,255,255,0.7) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .story-modal-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    color: rgba(245,245,245,0.6);
+    margin: 0 0 3.5rem 0;
+    line-height: 1.6;
+  }
+
+  .story-form-scroll {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .form-row {
+    display: flex;
+    gap: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    min-width: 0;
+  }
+
+  .form-group label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(245, 245, 245, 0.8);
+    text-transform: uppercase;
+  }
+
+  .label-optional {
+    font-size: 0.9rem;
+    opacity: 0.5;
+  }
+
+  .form-group input[type="text"],
+  .form-group input[type="email"],
+  .form-group textarea {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    padding: 1.4rem 1.8rem;
+    color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background 0.25s ease;
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus {
+    outline: none;
+    border-color: var(--active-accent);
+    box-shadow: 0 0 0 3px rgba(var(--active-accent-rgb), 0.18);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .bean-pills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+  }
+
+  .bean-pill-label {
+    position: relative;
+    cursor: pointer;
+  }
+
+  .bean-pill-label input {
+    position: absolute;
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .bean-pill-label span {
+    display: inline-block;
+    padding: 0.8rem 1.6rem;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+    color: rgba(245, 245, 245, 0.7);
+  }
+
+  .bean-pill-label.coffee:hover span, .bean-pill-label.coffee input:checked + span {
+    background: rgba(166, 124, 82, 0.16);
+    border-color: #A67C52;
+    color: #FFF;
+  }
+
+  .bean-pill-label.chilli:hover span, .bean-pill-label.chilli input:checked + span {
+    background: rgba(211, 47, 47, 0.16);
+    border-color: #D32F2F;
+    color: #FFF;
+  }
+
+  .bean-pill-label.vanilla:hover span, .bean-pill-label.vanilla input:checked + span {
+    background: rgba(255, 249, 196, 0.12);
+    border-color: #FFF9C4;
+    color: #FFF;
+  }
+
+  .bean-pill-label.jelly:hover span, .bean-pill-label.jelly input:checked + span {
+    background: rgba(240, 98, 146, 0.16);
+    border-color: #F06292;
+    color: #FFF;
+  }
+
+  .bean-pill-label.green:hover span, .bean-pill-label.green input:checked + span {
+    background: rgba(56, 142, 60, 0.16);
+    border-color: #388E3C;
+    color: #FFF;
+  }
+
+  .label-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .word-counter {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgba(245, 245, 245, 0.4);
+    transition: color 0.2s ease;
+  }
+
+  .word-counter.limit-exceeded {
+    color: #D32F2F;
+    font-weight: 700;
+  }
+
+  .media-upload-row {
+    margin-top: 1rem;
+  }
+
+  .media-dropzone {
+    border: 2px dashed rgba(255, 255, 255, 0.12);
+    background: rgba(255, 255, 255, 0.01);
+    border-radius: 1.4rem;
+    padding: 2.2rem 1.8rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.25s cubic-bezier(0.25, 1, 0.5, 1), background 0.25s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .media-dropzone:hover {
+    border-color: var(--active-accent);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .dropzone-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+    color: rgba(245, 245, 245, 0.5);
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  .dropzone-prompt svg {
+    width: 2.4rem;
+    height: 2.4rem;
+    fill: currentColor;
+  }
+
+  .media-previews-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1.2rem;
+  }
+
+  .preview-item {
+    position: relative;
+    width: 6.8rem;
+    height: 6.8rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: #000;
+  }
+
+  .preview-item img,
+  .preview-item video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preview-remove-btn {
+    position: absolute;
+    top: 0.3rem;
+    right: 0.3rem;
+    width: 1.8rem;
+    height: 1.8rem;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.85);
+    color: #fff;
+    border: none;
+    font-size: 1.1rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    line-height: 1;
+    transition: background 0.2s ease, transform 0.2s ease;
+  }
+
+  .preview-remove-btn:hover {
+    background: #D32F2F;
+    transform: scale(1.1);
+  }
+
+  .story-submit-btn {
+    width: 100%;
+    margin-top: 2.5rem;
+    padding: 1.6rem;
+    border: 1px solid var(--active-accent);
+    background: transparent;
+    color: #f5f5f5;
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    border-radius: 1.4rem;
+    cursor: pointer;
+    text-transform: uppercase;
+    transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .story-submit-btn:hover:not(:disabled) {
+    background: var(--active-accent);
+    color: #000000;
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 3rem rgba(var(--active-accent-rgb), 0.2);
+  }
+
+  .story-submit-btn:disabled {
+    opacity: 0.3;
+    cursor: not-allowed;
+  }
+
+  .upload-progress-container {
+    margin-top: 2.5rem;
+    text-align: center;
+  }
+
+  .progress-bar-wrapper {
+    background: rgba(255, 255, 255, 0.08);
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 1.2rem;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--active-accent);
+    transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+    border-radius: 4px;
+  }
+
+  .progress-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: rgba(245, 245, 245, 0.7);
+  }
+
+  .story-success-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #141414;
+    border-radius: 2.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem;
+    text-align: center;
+    z-index: 10;
+  }
+
+  .success-icon-wrapper {
+    width: 6.8rem;
+    height: 6.8rem;
+    border-radius: 50%;
+    background: rgba(56, 142, 60, 0.12);
+    border: 2px solid #388E3C;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 2.5rem;
+    color: #388E3C;
+    animation: scaleUp 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  .success-icon-wrapper svg {
+    width: 3.4rem;
+    height: 3.4rem;
+    fill: currentColor;
+  }
+
+  .story-success-overlay h4 {
+    font-family: var(--font-heading-family);
+    font-size: 2.6rem;
+    font-weight: 900;
+    margin: 0 0 1rem 0;
+    color: #f5f5f5;
+  }
+
+  .story-success-overlay p {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.4rem;
+    color: rgba(245, 245, 245, 0.6);
+    max-width: 400px;
+    margin: 0 0 3rem 0;
+    line-height: 1.6;
+  }
+
+  .story-success-close-btn {
+    padding: 1.4rem 3.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    background: transparent;
+    color: #f5f5f5;
+    font-weight: 700;
+    font-size: 1.3rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .story-success-close-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  /* --- CUSTOM DYNAMIC CAROUSEL DOCK CARDS --- */
+  .story-card-images {
+    display: flex;
+    gap: 0.8rem;
+    margin-top: 1.8rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-radius: 0.8rem;
+  }
+  .story-card-images::-webkit-scrollbar {
+    display: none;
+  }
+  .story-card-images img {
+    width: 6.8rem;
+    height: 6.8rem;
+    object-fit: cover;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+  }
+
+  .story-card-video {
+    margin-top: 1.8rem;
+    border-radius: 1.4rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    position: relative;
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    background: #000;
+  }
+
+  .story-card-video video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  @keyframes scaleUp {
+    0% { transform: scale(0.5); opacity: 0; }
+    100% { transform: scale(1); opacity: 1; }
+  }
+
+  @media screen and (max-width: 749px) {
+    .story-modal-container {
+      padding: 3rem 2.2rem;
+      border-radius: 2.2rem;
+    }
+    .form-row {
+      flex-direction: column;
+      gap: 1.8rem;
+      margin-bottom: 1.8rem;
+    }
+    .media-upload-row {
+      gap: 1.8rem;
+    }
+  }
 {%- endstyle -%}
 
 <div id="Beanagram-{{ section.id }}" class="beanagram-stories">
@@ -296,9 +788,507 @@
   </div>
 
   <div class="beanagram-cta-wrapper">
-    <a href="{{ section.settings.cta_link }}" class="beanagram-cta">{{ section.settings.cta_label }}</a>
+    <button type="button" class="beanagram-cta" id="open-story-modal">{{ section.settings.cta_label }}</button>
   </div>
 </div>
+
+<!-- Stories Submission Modal Overlay -->
+<div id="story-modal" class="story-modal-overlay">
+  <div class="story-modal-container">
+    <button type="button" class="story-modal-close" id="close-story-modal">&times;</button>
+
+    <div class="story-modal-form-wrapper">
+      <h3 class="story-modal-title">SHARE YOUR BEAN STORY</h3>
+      <p class="story-modal-subtitle">
+        Meet the real people wearing their true identities. Show the world who you are.
+      </p>
+
+      <form id="story-submission-form" class="story-form-scroll" enctype="multipart/form-data">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="story-name">FULL NAME *</label>
+            <input type="text" id="story-name" name="name" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="story-email">EMAIL ADDRESS *</label>
+            <input type="email" id="story-email" name="email" required placeholder="Enter your email">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="story-handle">INSTAGRAM HANDLE <span class="label-optional">(OPTIONAL)</span></label>
+            <input type="text" id="story-handle" name="handle" placeholder="e.g. alex_driven">
+          </div>
+          <div class="form-group">
+            <label>WHICH BEAN ARE YOU? *</label>
+            <div class="bean-pills-container">
+              <label class="bean-pill-label coffee">
+                <input type="radio" name="beanType" value="coffee" checked>
+                <span>Coffee</span>
+              </label>
+              <label class="bean-pill-label chilli">
+                <input type="radio" name="beanType" value="chilli">
+                <span>Chilli</span>
+              </label>
+              <label class="bean-pill-label vanilla">
+                <input type="radio" name="beanType" value="vanilla">
+                <span>Vanilla</span>
+              </label>
+              <label class="bean-pill-label jelly">
+                <input type="radio" name="beanType" value="jelly">
+                <span>Jelly</span>
+              </label>
+              <label class="bean-pill-label green">
+                <input type="radio" name="beanType" value="green">
+                <span>Green</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="label-wrapper">
+            <label for="story-text">YOUR STORY *</label>
+            <span id="word-counter" class="word-counter">0 / 150 words</span>
+          </div>
+          <textarea
+            id="story-text"
+            name="story"
+            required
+            placeholder="Describe how your bean identity changed how you express yourself every day..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <!-- Media Upload Zone -->
+        <div class="form-row media-upload-row">
+          <div class="form-group">
+            <label>UPLOAD PHOTOS <span class="label-optional">(UP TO 3, OPTIONAL)</span></label>
+            <div class="media-dropzone" id="images-dropzone">
+              <input type="file" id="story-images-input" accept="image/*" multiple style="display:none;">
+              <div class="dropzone-prompt">
+                <svg viewBox="0 0 24 24">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                <span>Add Photos</span>
+              </div>
+            </div>
+            <div class="media-previews-container" id="images-previews"></div>
+          </div>
+
+          <div class="form-group">
+            <label>UPLOAD VIDEO <span class="label-optional">(1 VIDEO, OPTIONAL)</span></label>
+            <div class="media-dropzone" id="video-dropzone">
+              <input type="file" id="story-video-input" accept="video/*" style="display:none;">
+              <div class="dropzone-prompt" id="video-dropzone-prompt">
+                <svg viewBox="0 0 24 24">
+                  <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
+                </svg>
+                <span>Add Video</span>
+              </div>
+            </div>
+            <div class="media-previews-container" id="video-preview"></div>
+          </div>
+        </div>
+
+        <button type="submit" class="story-submit-btn" id="story-submit-button">SUBMIT STORY</button>
+      </form>
+
+      <!-- Upload Progress Bar -->
+      <div id="story-upload-progress" class="upload-progress-container" style="display:none;">
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+        <p class="progress-text" id="progress-text">Uploading your story & media...</p>
+      </div>
+
+      <!-- Success Overlay -->
+      <div id="story-success-message" class="story-success-overlay" style="display:none;">
+        <div class="success-icon-wrapper">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+        </div>
+        <h4>STORY RECEIVED!</h4>
+        <p>
+          Thank you for sharing your true identity. Once our team approves your story, it will appear dynamically on our
+          homepage queue!
+        </p>
+        <button type="button" class="story-success-close-btn" id="close-success-modal">CLOSE</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const BACKEND_URL = 'http://localhost:5000';
+
+    // Elements
+    const openModalBtn = document.getElementById('open-story-modal');
+    const closeModalBtn = document.getElementById('close-story-modal');
+    const modalOverlay = document.getElementById('story-modal');
+    const storyForm = document.getElementById('story-submission-form');
+    const textarea = document.getElementById('story-text');
+    const wordCounter = document.getElementById('word-counter');
+    const submitBtn = document.getElementById('story-submit-button');
+    const progressContainer = document.getElementById('story-upload-progress');
+    const progressFill = document.getElementById('progress-bar-fill');
+    const successOverlay = document.getElementById('story-success-message');
+    const successCloseBtn = document.getElementById('close-success-modal');
+
+    // Media Elements
+    const imagesDropzone = document.getElementById('images-dropzone');
+    const imagesInput = document.getElementById('story-images-input');
+    const imagesPreviews = document.getElementById('images-previews');
+
+    const videoDropzone = document.getElementById('video-dropzone');
+    const videoInput = document.getElementById('story-video-input');
+    const videoPreview = document.getElementById('video-preview');
+    const videoPrompt = document.getElementById('video-dropzone-prompt');
+
+    // State
+    let selectedImages = [];
+    let selectedVideo = null;
+
+    // 1. OPEN / CLOSE MODAL
+    if (openModalBtn) {
+      openModalBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        modalOverlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      });
+    }
+
+    const closeModal = () => {
+      modalOverlay.classList.remove('open');
+      document.body.style.overflow = '';
+      resetForm();
+    };
+
+    if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
+
+    modalOverlay.addEventListener('click', (e) => {
+      if (e.target === modalOverlay) closeModal();
+    });
+
+    if (successCloseBtn) successCloseBtn.addEventListener('click', closeModal);
+
+    // 2. DYNAMIC THEME ACCENTS BASED ON RADIO SELECTION
+    const accentColors = {
+      coffee: { hex: '#A67C52', rgb: '166, 124, 82' },
+      chilli: { hex: '#D32F2F', rgb: '211, 47, 47' },
+      vanilla: { hex: '#FFF9C4', rgb: '255, 249, 196' },
+      jelly: { hex: '#F06292', rgb: '240, 98, 146' },
+      green: { hex: '#388E3C', rgb: '56, 142, 60' },
+    };
+
+    const updateThemeAccent = (beanType) => {
+      const accent = accentColors[beanType] || accentColors.coffee;
+      document.documentElement.style.setProperty('--active-accent', accent.hex);
+      document.documentElement.style.setProperty('--active-accent-rgb', accent.rgb);
+    };
+
+    document.querySelectorAll('input[name="beanType"]').forEach((radio) => {
+      radio.addEventListener('change', (e) => {
+        updateThemeAccent(e.target.value);
+      });
+    });
+
+    // 3. WORD COUNT VALIDATION
+    const maxWords = 150;
+    textarea.addEventListener('input', () => {
+      const text = textarea.value.trim();
+      const words = text === '' ? 0 : text.split(/\s+/).length;
+      wordCounter.textContent = `${words} / ${maxWords} words`;
+
+      if (words > maxWords) {
+        wordCounter.classList.add('limit-exceeded');
+        submitBtn.disabled = true;
+      } else {
+        wordCounter.classList.remove('limit-exceeded');
+        submitBtn.disabled = false;
+      }
+    });
+
+    // 4. IMAGE UPLOAD INTERACTION & PREVIEWS
+    imagesDropzone.addEventListener('click', () => imagesInput.click());
+
+    imagesInput.addEventListener('change', (e) => {
+      const files = Array.from(e.target.files);
+
+      // Max 3 images validation
+      files.forEach((file) => {
+        if (selectedImages.length < 3 && !selectedImages.some((f) => f.name === file.name)) {
+          selectedImages.push(file);
+        }
+      });
+
+      renderImagePreviews();
+      imagesInput.value = ''; // Reset files input
+    });
+
+    const renderImagePreviews = () => {
+      imagesPreviews.innerHTML = '';
+      selectedImages.forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const item = document.createElement('div');
+          item.className = 'preview-item';
+          item.innerHTML = `
+          <img src="${e.target.result}" alt="Apparel Wearer preview">
+          <button type="button" class="preview-remove-btn" data-index="${index}">&times;</button>
+        `;
+          imagesPreviews.appendChild(item);
+
+          // Remove button handler
+          item.querySelector('.preview-remove-btn').addEventListener('click', (e) => {
+            const idx = parseInt(e.target.getAttribute('data-index'));
+            selectedImages.splice(idx, 1);
+            renderImagePreviews();
+          });
+        };
+        reader.readAsDataURL(file);
+      });
+
+      if (selectedImages.length >= 3) {
+        imagesDropzone.style.opacity = '0.5';
+        imagesDropzone.style.pointerEvents = 'none';
+      } else {
+        imagesDropzone.style.opacity = '1';
+        imagesDropzone.style.pointerEvents = 'auto';
+      }
+    };
+
+    // 5. VIDEO UPLOAD INTERACTION & PREVIEWS
+    videoDropzone.addEventListener('click', () => videoInput.click());
+
+    videoInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        selectedVideo = e.target.files[0];
+        renderVideoPreview();
+      }
+      videoInput.value = '';
+    });
+
+    const renderVideoPreview = () => {
+      videoPreview.innerHTML = '';
+      if (selectedVideo) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const item = document.createElement('div');
+          item.className = 'preview-item';
+          item.style.width = '100%';
+          item.style.height = '120px';
+          item.innerHTML = `
+          <video src="${e.target.result}" muted playsinline></video>
+          <button type="button" class="preview-remove-btn">&times;</button>
+        `;
+          videoPreview.appendChild(item);
+
+          videoPrompt.style.display = 'none';
+          videoDropzone.style.pointerEvents = 'none';
+
+          item.querySelector('.preview-remove-btn').addEventListener('click', () => {
+            selectedVideo = null;
+            videoPreview.innerHTML = '';
+            videoPrompt.style.display = 'flex';
+            videoDropzone.style.pointerEvents = 'auto';
+          });
+        };
+        reader.readAsDataURL(selectedVideo);
+      }
+    };
+
+    // 6. FORM SUBMISSION VIA FETCH & PROGRESS ANIMATION
+    storyForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      submitBtn.disabled = true;
+      storyForm.style.display = 'none';
+      progressContainer.style.display = 'block';
+
+      // Simulate uploading progress
+      let progress = 0;
+      const progressInterval = setInterval(() => {
+        progress += (100 - progress) * 0.15; // Asymptotic approach to 98%
+        if (progress > 95) progress = 95;
+        progressFill.style.width = `${progress}%`;
+      }, 200);
+
+      // Build FormData
+      const formData = new FormData(storyForm);
+
+      // Clear and append actual verified media items
+      formData.delete('images');
+      selectedImages.forEach((file) => {
+        formData.append('images', file);
+      });
+
+      formData.delete('video');
+      if (selectedVideo) {
+        formData.append('video', selectedVideo);
+      }
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stories/submit`, {
+          method: 'POST',
+          body: formData,
+        });
+
+        const result = await response.json();
+        clearInterval(progressInterval);
+
+        if (response.ok) {
+          progressFill.style.width = '100%';
+          setTimeout(() => {
+            progressContainer.style.display = 'none';
+            successOverlay.style.display = 'flex';
+          }, 300);
+        } else {
+          alert(result.error || 'Failed to submit story. Please try again.');
+          clearInterval(progressInterval);
+          submitBtn.disabled = false;
+          progressContainer.style.display = 'none';
+          storyForm.style.display = 'flex';
+        }
+      } catch (err) {
+        console.error(err);
+        clearInterval(progressInterval);
+        alert('Unable to connect to the stories service. Please ensure the backend is running.');
+        submitBtn.disabled = false;
+        progressContainer.style.display = 'none';
+        storyForm.style.display = 'flex';
+      }
+    });
+
+    const resetForm = () => {
+      storyForm.reset();
+      storyForm.style.display = 'flex';
+      progressContainer.style.display = 'none';
+      successOverlay.style.display = 'none';
+      progressFill.style.width = '0%';
+
+      selectedImages = [];
+      selectedVideo = null;
+      imagesPreviews.innerHTML = '';
+      videoPreview.innerHTML = '';
+      videoPrompt.style.display = 'flex';
+
+      imagesDropzone.style.opacity = '1';
+      imagesDropzone.style.pointerEvents = 'auto';
+      videoDropzone.style.pointerEvents = 'auto';
+
+      wordCounter.textContent = '0 / 150 words';
+      wordCounter.classList.remove('limit-exceeded');
+      submitBtn.disabled = false;
+
+      updateThemeAccent('coffee');
+    };
+
+    // 7. DYNAMIC STORIES QUEUE LOADER (5 APPROVED AT A TIME)
+    const getBeanBadgeColor = (type) => {
+      const colors = {
+        coffee: '#A67C52',
+        chilli: '#D32F2F',
+        vanilla: '#FFF9C4',
+        jelly: '#F06292',
+        green: '#388E3C',
+      };
+      return colors[type] || '#A67C52';
+    };
+
+    const loadApprovedStories = async () => {
+      const track = document.querySelector('.beanagram-track');
+      if (!track) return;
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stories/approved`);
+        if (!response.ok) return; // Fallback to Liquid static blocks
+
+        const stories = await response.json();
+        if (!stories || stories.length === 0) return; // Keep Liquid blocks if queue is empty
+
+        // Clear carousel track
+        track.innerHTML = '';
+
+        stories.forEach((story) => {
+          const beanColor = getBeanBadgeColor(story.beanType);
+
+          // Setup Media Markup
+          let mediaMarkup = '';
+
+          // Slider images markup
+          if (story.media && story.media.images && story.media.images.length > 0) {
+            mediaMarkup += `
+            <div class="story-card-images">
+              ${story.media.images.map((img) => `<img src="${img}" alt="Customer styling wearing apparel">`).join('')}
+            </div>
+          `;
+          }
+
+          // Video player markup
+          if (story.media && story.media.video) {
+            mediaMarkup += `
+            <div class="story-card-video">
+              <video src="${story.media.video}" controls muted playsinline></video>
+            </div>
+          `;
+          }
+
+          const card = document.createElement('div');
+          card.className = 'beanagram-card';
+          card.setAttribute('style', `--bean-accent: ${beanColor};`);
+
+          // Handle instagram handle fallback
+          const handleLabel = story.handle ? `@${story.handle}` : story.name;
+
+          card.innerHTML = `
+          <div class="beanagram-card__header">
+            <div class="beanagram-card__avatar">
+              ${
+                story.media && story.media.images && story.media.images.length > 0
+                  ? `
+                <img src="${story.media.images[0]}" alt="${story.name}">
+              `
+                  : `
+                <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#222;">
+                  <svg class="beanagram-card__icon" viewBox="0 0 24 24" style="fill: ${beanColor};">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+                  </svg>
+                </div>
+              `
+              }
+            </div>
+            <div class="beanagram-card__user-info">
+              <span class="beanagram-card__handle">${handleLabel}</span>
+              <span class="beanagram-card__bean-badge" style="color: ${beanColor};">${story.beanType} Bean</span>
+            </div>
+          </div>
+          <p class="beanagram-card__story">"${story.story}"</p>
+          ${mediaMarkup}
+          <div class="beanagram-card__footer">
+            <svg class="beanagram-card__icon" viewBox="0 0 24 24" style="fill: ${beanColor};">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+            Authenticated Identity
+          </div>
+        `;
+
+          track.appendChild(card);
+        });
+      } catch (err) {
+        console.warn(
+          'Could not dynamically load approved stories from backend queue. Falling back to default static Liquid cards.',
+          err
+        );
+      }
+    };
+
+    loadApprovedStories();
+  });
+</script>
 
 {% schema %}
 {

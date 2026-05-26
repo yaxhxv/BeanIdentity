@@ -1,0 +1,1496 @@
+{% comment %}
+  SECTION: ADMIN PORTAL SPA
+  - Single Page Application admin portal for moderating stories, returns, and sizing.
+  - Fully hosted on Shopify, avoiding any front-end server deployments.
+{% endcomment %}
+
+{%- style -%}
+  /* --- DESIGN SYSTEM & VARIABLES --- */
+  #AdminPortal-{{ section.id }} {
+    --font-heading: 'Outfit', sans-serif;
+    --font-body: 'Poppins', sans-serif;
+
+    --bg-main: #090909;
+    --bg-sidebar: #101010;
+    --bg-card: #141414;
+    --bg-input: #1a1a1a;
+
+    --border-color: rgba(255, 255, 255, 0.08);
+    --text-main: #f5f5f5;
+    --text-muted: rgba(245, 245, 245, 0.55);
+
+    --accent-gold: #C6A969;
+    --accent-gold-rgb: 198, 169, 105;
+    --accent-green: #388E3C;
+    --accent-red: #D32F2F;
+
+    --active-accent: #A67C52;
+    --active-accent-rgb: 166, 124, 82;
+
+    display: block;
+    width: 100%;
+    min-height: 100vh;
+    background-color: var(--bg-main);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    position: relative;
+  }
+
+  #AdminPortal-{{ section.id }} * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* Custom Scrollbars */
+  #AdminPortal-{{ section.id }} ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  #AdminPortal-{{ section.id }} ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  #AdminPortal-{{ section.id }} ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 3px;
+  }
+  #AdminPortal-{{ section.id }} ::-webkit-scrollbar-thumb:hover {
+    background: var(--accent-gold);
+  }
+
+  /* ==========================================================================
+     AUTH GATE GATEKEEPER SCREEN
+     ========================================================================== */
+  .auth-gate-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at 50% 50%, #1c1810 0%, #090909 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 99999;
+    padding: 2rem;
+  }
+
+  .auth-gate-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--accent-gold);
+    border-radius: 2.4rem;
+    padding: 4.5rem 4rem;
+    width: 100%;
+    max-width: 460px;
+    box-shadow: 0 4rem 10rem rgba(0, 0, 0, 0.6);
+    animation: modalEnter 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+  }
+
+  @keyframes modalEnter {
+    0% { transform: scale(0.92) translateY(2rem); opacity: 0; }
+    100% { transform: scale(1) translateY(0); opacity: 1; }
+  }
+
+  .auth-gate-header {
+    text-align: center;
+    margin-bottom: 3.5rem;
+  }
+
+  .auth-brand {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+    display: block;
+    margin-bottom: 1rem;
+  }
+
+  .auth-gate-header h2 {
+    font-family: var(--font-heading);
+    font-size: 2.8rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    margin-bottom: 1.2rem;
+  }
+
+  .auth-gate-header p {
+    font-size: 1.3rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .form-group label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(245, 245, 245, 0.7);
+  }
+
+  .form-group input {
+    background: var(--bg-input);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.2rem;
+    padding: 1.5rem 1.8rem;
+    color: #fff;
+    font-family: inherit;
+    font-size: 1.5rem;
+    letter-spacing: 0.1em;
+    transition: all 0.25s ease;
+  }
+
+  .form-group input:focus {
+    outline: none;
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px rgba(var(--accent-gold-rgb), 0.18);
+  }
+
+  .auth-error-msg {
+    color: var(--accent-red);
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-align: center;
+    animation: shake 0.35s ease;
+  }
+
+  @keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+
+  .auth-submit-btn {
+    width: 100%;
+    padding: 1.6rem;
+    border: 1px solid var(--accent-gold);
+    background: transparent;
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.4rem;
+    letter-spacing: 0.05em;
+    border-radius: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .auth-submit-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+    transform: translateY(-2px);
+    box-shadow: 0 1rem 3rem rgba(var(--accent-gold-rgb), 0.2);
+  }
+
+  /* ==========================================================================
+     MAIN DASHBOARD GRID LAYOUT
+     ========================================================================== */
+  .admin-dashboard-layout {
+    display: flex;
+    width: 100%;
+    min-height: 80vh;
+    background-color: var(--bg-main);
+    position: relative;
+  }
+
+  /* Left Sidebar Menu Drawer */
+  .admin-sidebar {
+    width: 260px;
+    background-color: var(--bg-sidebar);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    padding: 5rem 3rem;
+    flex-shrink: 0;
+  }
+
+  .sidebar-brand-wrapper {
+    margin-bottom: 5rem;
+    padding-left: 1rem;
+  }
+
+  .sidebar-logo {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    display: block;
+    color: #FFF;
+  }
+
+  .sidebar-badge {
+    display: inline-block;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--accent-gold);
+    text-transform: uppercase;
+    margin-top: 0.4rem;
+  }
+
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+    flex-grow: 1;
+  }
+
+  .menu-item {
+    width: 100%;
+    background: transparent;
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    padding: 1.4rem 1.6rem;
+    border-radius: 1.2rem;
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: all 0.25s ease;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 1.4rem;
+  }
+
+  .menu-icon {
+    width: 2.2rem;
+    height: 2.2rem;
+    fill: currentColor;
+  }
+
+  .menu-item:hover {
+    background: rgba(255, 255, 255, 0.03);
+    color: var(--text-main);
+  }
+
+  .menu-item.active {
+    background: rgba(var(--accent-gold-rgb), 0.08);
+    border: 1px solid rgba(var(--accent-gold-rgb), 0.15);
+    color: var(--accent-gold);
+  }
+
+  .sidebar-footer {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2.5rem;
+  }
+
+  .admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    padding: 0 1rem;
+  }
+
+  .admin-avatar {
+    width: 4rem;
+    height: 4rem;
+    background: var(--accent-gold);
+    color: #000;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-heading);
+    font-weight: 900;
+    font-size: 1.8rem;
+  }
+
+  .admin-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+  }
+
+  .admin-name {
+    font-weight: 600;
+    font-size: 1.3rem;
+    color: var(--text-main);
+  }
+
+  .admin-role {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+  }
+
+  .logout-btn {
+    width: 100%;
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: var(--text-muted);
+    padding: 1.2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    transition: all 0.25s ease;
+  }
+
+  .logout-icon {
+    width: 1.6rem;
+    height: 1.6rem;
+    fill: currentColor;
+  }
+
+  .logout-btn:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+    background: rgba(211, 47, 47, 0.05);
+  }
+
+  /* ==========================================================================
+     MAIN DASHBOARD VIEWS GRID
+     ========================================================================== */
+  .admin-main-content {
+    flex-grow: 1;
+    padding: 5rem 8rem;
+    min-width: 0;
+  }
+
+  .tab-view {
+    display: none;
+    animation: fadeIn 0.3s ease both;
+  }
+
+  .tab-view.active {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(1rem); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .view-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 3rem;
+    margin-bottom: 4rem;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 3.5rem;
+  }
+
+  .view-header h1 {
+    font-family: var(--font-heading);
+    font-size: 3.2rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.8rem;
+    text-transform: uppercase;
+    color: #FFF;
+    text-align: left;
+  }
+
+  .view-header p {
+    font-size: 1.4rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 780px;
+    text-align: left;
+  }
+
+  /* Metrics counters */
+  .metrics-row {
+    display: flex;
+    gap: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .metric-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 1.6rem;
+    padding: 1.8rem 2.4rem;
+    min-width: 150px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+  }
+
+  .metric-num {
+    font-family: var(--font-heading);
+    font-size: 3.6rem;
+    font-weight: 900;
+    color: var(--accent-gold);
+    line-height: 1;
+    display: block;
+    margin-bottom: 0.4rem;
+  }
+
+  .metric-lbl {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase;
+  }
+
+  /* Moderation Tabs Navigation Buttons */
+  .module-nav-tabs {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 3rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 1.5rem;
+  }
+
+  .sub-tab {
+    background: transparent;
+    border: none;
+    color: var(--text-muted);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.4rem;
+    padding: 0.8rem 1.6rem;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.2s ease;
+  }
+
+  .sub-tab:hover {
+    color: var(--text-main);
+  }
+
+  .sub-tab.active {
+    color: var(--accent-gold);
+  }
+
+  .sub-tab.active::after {
+    content: "";
+    position: absolute;
+    bottom: -1.7rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--accent-gold);
+  }
+
+  /* Loading indicators */
+  .loading-state, .error-state, .empty-state {
+    text-align: center;
+    padding: 8rem 2rem;
+    font-size: 1.6rem;
+    color: var(--text-muted);
+    font-weight: 600;
+    width: 100%;
+  }
+
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+  }
+
+  .empty-icon {
+    width: 5.6rem;
+    height: 5.6rem;
+    fill: rgba(255,255,255,0.15);
+  }
+
+  /* Dynamic Cards Grid */
+  .cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 4rem;
+    max-width: 1100px;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  /* ==========================================================================
+     MODERATION STORY CARD GRID COMPONENT
+     ========================================================================== */
+  .admin-story-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-top: 4px solid var(--bean-accent, var(--accent-gold));
+    border-radius: 2.8rem;
+    padding: 4rem 5rem;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.35);
+    display: flex;
+    flex-direction: row;
+    gap: 5rem;
+    position: relative;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
+    align-items: stretch;
+  }
+
+  .admin-story-card.no-media {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .card-left-section {
+    flex: 1.4;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-width: 0;
+  }
+
+  .card-right-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    border-left: 1px solid var(--border-color);
+    padding-left: 5rem;
+    justify-content: flex-start;
+    gap: 2rem;
+    min-width: 340px;
+  }
+
+  .right-section-label {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgba(245, 245, 245, 0.4);
+    text-transform: uppercase;
+    display: block;
+    text-align: left;
+  }
+
+  .admin-story-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--bean-accent, var(--accent-gold));
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.4);
+  }
+
+  .admin-story-card.fading-out {
+    opacity: 0;
+    transform: scale(0.92) translateY(-10px);
+  }
+
+  .card-header-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .card-avatar {
+    width: 4.8rem;
+    height: 4.8rem;
+    border-radius: 50%;
+    border: 2px solid var(--bean-accent, var(--accent-gold));
+    overflow: hidden;
+    background: rgba(255,255,255,0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-avatar svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    fill: var(--bean-accent, var(--accent-gold));
+  }
+
+  .card-title-meta {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    text-align: left;
+  }
+
+  .card-user-name {
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--text-main);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .card-user-meta {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+  }
+
+  .card-handle-badge {
+    color: #fff;
+    font-weight: 600;
+  }
+
+  .card-bean-badge {
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--bean-accent, var(--accent-gold));
+  }
+
+  .card-timestamp {
+    font-size: 1.1rem;
+    color: rgba(245, 245, 245, 0.28);
+    font-weight: 600;
+    text-align: right;
+    flex-shrink: 0;
+    align-self: flex-start;
+    margin-top: 0.3rem;
+  }
+
+  .card-story-body {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    color: rgba(245, 245, 245, 0.85);
+    margin-bottom: 2rem;
+    font-style: italic;
+    flex-grow: 1;
+    white-space: pre-wrap;
+    text-align: left;
+  }
+
+  /* Card Media Galleries */
+  .card-media-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  .card-image-slider {
+    display: flex;
+    gap: 1rem;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  .card-image-slider::-webkit-scrollbar {
+    display: none;
+  }
+
+  .card-image-slider img {
+    width: 9.5rem;
+    height: 9.5rem;
+    object-fit: cover;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+
+  .card-image-slider img:hover {
+    transform: scale(1.05);
+    border-color: var(--bean-accent);
+  }
+
+  .card-video-player {
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    border-radius: 1.6rem;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: #000;
+  }
+
+  .card-video-player video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* Action Controls Panel */
+  .card-action-bar {
+    border-top: 1px solid var(--border-color);
+    padding-top: 2rem;
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  .card-btn {
+    flex: 1;
+    padding: 1.2rem;
+    border-radius: 1rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    cursor: pointer;
+    background: transparent;
+    transition: all 0.25s ease;
+  }
+
+  .card-btn.approve {
+    border: 1px solid var(--accent-green);
+    color: var(--accent-green);
+  }
+
+  .card-btn.approve:hover {
+    background: var(--accent-green);
+    color: #fff;
+    box-shadow: 0 1rem 2rem rgba(56, 142, 60, 0.15);
+  }
+
+  .card-btn.reject {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+  }
+
+  .card-btn.reject:hover {
+    border-color: var(--accent-red);
+    color: var(--accent-red);
+    background: rgba(211, 47, 47, 0.05);
+  }
+
+  /* ==========================================================================
+     PLACEHOLDER CONSOLE SCREEN
+     ========================================================================== */
+  .placeholder-module-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 2.8rem;
+    padding: 6rem;
+    text-align: center;
+    max-width: 600px;
+    margin: 4rem auto;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    animation: modalEnter 0.4s ease;
+  }
+
+  .placeholder-graphic {
+    width: 8rem;
+    height: 8rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 2px dashed rgba(255, 255, 255, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--accent-gold);
+  }
+
+  .placeholder-graphic svg {
+    width: 3.6rem;
+    height: 3.6rem;
+    fill: currentColor;
+  }
+
+  .placeholder-module-card h3 {
+    font-family: var(--font-heading);
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #FFF;
+  }
+
+  .placeholder-module-card p {
+    font-size: 1.35rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+  }
+
+  .placeholder-action-btn {
+    margin-top: 1rem;
+    padding: 1.2rem 3rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    color: var(--text-main);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    border-radius: 1rem;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .placeholder-action-btn:hover {
+    background: var(--accent-gold);
+    color: #000;
+    border-color: var(--accent-gold);
+  }
+
+  /* ==========================================================================
+     RESPONSIVE DESIGN ADAPTATIONS
+     ========================================================================== */
+  @media screen and (max-width: 1024px) {
+    .admin-dashboard-layout {
+      padding: 2rem 1rem;
+    }
+    .admin-dashboard-wrapper {
+      flex-direction: column;
+      border-radius: 2rem;
+    }
+    .admin-sidebar {
+      width: 100%;
+      height: auto;
+      border-right: none;
+      border-bottom: 1px solid var(--border-color);
+      padding: 2.5rem 2rem;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .sidebar-brand-wrapper {
+      margin-bottom: 0;
+    }
+    .sidebar-menu {
+      flex-direction: row;
+      flex-grow: 0;
+      gap: 1rem;
+    }
+    .sidebar-footer {
+      border-top: none;
+      padding-top: 0;
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+    .admin-profile {
+      margin-bottom: 0;
+    }
+    .logout-btn {
+      width: auto;
+      padding: 1rem 1.6rem;
+    }
+    .admin-main-content {
+      padding: 4rem 2.5rem;
+    }
+    .admin-story-card {
+      flex-direction: column;
+      gap: 2.5rem;
+      padding: 2.5rem;
+    }
+    .card-right-section {
+      border-left: none;
+      padding-left: 0;
+      min-width: 0;
+    }
+  }
+
+  @media screen and (max-width: 768px) {
+    .sidebar-menu span, .admin-meta, .logout-btn span {
+      display: none;
+    }
+    .menu-item {
+      padding: 1rem;
+      justify-content: center;
+    }
+    .logout-btn {
+      padding: 1rem;
+    }
+    .view-header {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    .metrics-row {
+      width: 100%;
+    }
+    .metric-card {
+      flex: 1;
+    }
+  }
+{%- endstyle -%}
+
+<div id="AdminPortal-{{ section.id }}">
+  <!-- AUTH GATE SCREEN -->
+  <div id="auth-gate" class="auth-gate-overlay">
+    <div class="auth-gate-card">
+      <div class="auth-gate-header">
+        <span class="auth-brand">BEAN IDENTITY</span>
+        <h2>ADMIN PORTAL</h2>
+        <p>Please enter your pre-shared Administrator Secret Key to access the moderation systems.</p>
+      </div>
+
+      <form id="auth-form">
+        <div class="form-group">
+          <label for="admin-secret-input">SECRET ACCESS KEY</label>
+          <input type="password" id="admin-secret-input" required placeholder="•••••••••••••••••••••">
+        </div>
+        <div id="auth-error" class="auth-error-msg" style="display: none;">Invalid Access Key. Access Denied.</div>
+        <button type="submit" class="auth-submit-btn">AUTHORIZE ACCESS</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- MAIN ADMIN DASHBOARD -->
+  <div id="admin-panel" class="admin-dashboard-layout" style="display: none;">
+    <!-- LEFT SIDEBAR -->
+    <aside class="admin-sidebar">
+      <div class="sidebar-brand-wrapper">
+        <span class="sidebar-logo">BEAN IDENTITY</span>
+        <span class="sidebar-badge">ADMIN CONTROL</span>
+      </div>
+
+      <nav class="sidebar-menu">
+        <button type="button" class="menu-item active" data-tab="stories">
+          <svg viewBox="0 0 24 24" class="menu-icon">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          <span>Bean Stories</span>
+        </button>
+
+        <button type="button" class="menu-item" data-tab="returns">
+          <svg viewBox="0 0 24 24" class="menu-icon">
+            <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+          </svg>
+          <span>Returns & Exchanges</span>
+        </button>
+
+        <button type="button" class="menu-item" data-tab="sizes">
+          <svg viewBox="0 0 24 24" class="menu-icon">
+            <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H3V8h18v8zM6 9h2v6H6zm10 0h2v6h-2z"/>
+          </svg>
+          <span>Sizing Sync</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="admin-profile">
+          <div class="admin-avatar">A</div>
+          <div class="admin-meta">
+            <span class="admin-name">Root Admin</span>
+            <span class="admin-role">Superuser</span>
+          </div>
+        </div>
+        <button type="button" class="logout-btn" id="logout-button">
+          <svg viewBox="0 0 24 24" class="logout-icon">
+            <path d="M16 17v-3H9v-4h7V7l5 5-5 5M14 2a2 2 0 0 0-2-2H2C.9 0 0 .9 0 2v20a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4h-2v4H2V2h10v4h2V2z"/>
+          </svg>
+          <span>LOG OUT</span>
+        </button>
+      </div>
+    </aside>
+
+    <!-- MAIN PANEL VIEWPORT -->
+    <main class="admin-main-content">
+      <!-- MODULE A: BEAN STORIES MODERATION -->
+      <section id="tab-stories" class="tab-view active">
+        <div class="view-header">
+          <div>
+            <h1>BEAN STORIES MODERATION</h1>
+            <p>
+              Review customer identity stories, styles, and media submissions before they go live on the homepage
+              carousel queue.
+            </p>
+          </div>
+
+          <div class="metrics-row">
+            <div class="metric-card">
+              <span class="metric-num" id="stories-pending-badge">0</span>
+              <span class="metric-lbl">Pending Review</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num" id="stories-approved-badge">0</span>
+              <span class="metric-lbl">Active Approved</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Stories Module Navigation Tabs -->
+        <div class="module-nav-tabs">
+          <button type="button" class="sub-tab active" data-subtab="pending">Pending Queue</button>
+          <button type="button" class="sub-tab" data-subtab="approved">Approved</button>
+          <button type="button" class="sub-tab" data-subtab="rejected">Rejected</button>
+        </div>
+
+        <!-- Dynamic Stories Cards Grid -->
+        <div id="stories-grid" class="cards-grid">
+          <div class="loading-state">Loading stories...</div>
+        </div>
+      </section>
+
+      <!-- MODULE B: RETURNS & EXCHANGES (Placeholder) -->
+      <section id="tab-returns" class="tab-view">
+        <div class="view-header">
+          <div>
+            <h1>RETURNS & EXCHANGES PORTAL</h1>
+            <p>
+              Moderation console for order return processing, automated 5-day delivery window checks, and media
+              compliance audits.
+            </p>
+          </div>
+        </div>
+
+        <div class="placeholder-module-card">
+          <div class="placeholder-graphic">
+            <svg viewBox="0 0 24 24">
+              <path d="M19 8l-4 4h3c0 3.31-2.69 6-6 6-1.01 0-1.97-.25-2.8-.7l-1.46 1.46C8.97 19.54 10.43 20 12 20c4.42 0 8-3.58 8-8h3l-4-4zM6 12c0-3.31 2.69-6 6-6 1.01 0 1.97.25 2.8.7l1.46-1.46C15.03 4.46 13.57 4 12 4c-4.42 0-8 3.58-8 8H1l4 4 4-4H6z"/>
+            </svg>
+          </div>
+          <h3>Returns Management is Coming Soon</h3>
+          <p>
+            This module will load all customer returns, inspect uploaded tags and packaging quality images, audit
+            returns delivery dates, and initiate reshipping size exchanges.
+          </p>
+          <button type="button" class="placeholder-action-btn">Request Integration Scope</button>
+        </div>
+      </section>
+
+      <!-- MODULE C: SIZING SYNC (Placeholder) -->
+      <section id="tab-sizes" class="tab-view">
+        <div class="view-header">
+          <div>
+            <h1>SHOPIFY SIZING SYNC MODULE</h1>
+            <p>
+              Manage real-time inventory quantity filters and dynamically sync sizes directly with the Shopify backend
+              API.
+            </p>
+          </div>
+        </div>
+
+        <div class="placeholder-module-card">
+          <div class="placeholder-graphic">
+            <svg viewBox="0 0 24 24">
+              <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H3V8h18v8zM6 9h2v6H6zm10 0h2v6h-2z"/>
+            </svg>
+          </div>
+          <h3>Sizing Synchronizer is Coming Soon</h3>
+          <p>
+            This interface will query Shopify variants, audit sizing availability in real-time, and allow admins to
+            toggle size options in frontend return forms dynamically.
+          </p>
+          <button type="button" class="placeholder-action-btn">Initialize Connection Settings</button>
+        </div>
+      </section>
+    </main>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    // CONFIGURABLE BACKEND URL FROM THEME SCHEMAS
+    const BACKEND_URL = '{{ section.settings.backend_api_url }}';
+
+    // Authentication Key State
+    let adminSecretKey = localStorage.getItem('bean_admin_secret') || '';
+
+    // Core DOM Elements
+    const authGate = document.getElementById('auth-gate');
+    const authForm = document.getElementById('auth-form');
+    const secretInput = document.getElementById('admin-secret-input');
+    const authError = document.getElementById('auth-error');
+
+    const adminPanel = document.getElementById('admin-panel');
+    const logoutButton = document.getElementById('logout-button');
+    const menuItems = document.querySelectorAll('.menu-item');
+    const tabViews = document.querySelectorAll('.tab-view');
+
+    // Stories Module DOM Elements
+    const storiesPendingBadge = document.getElementById('stories-pending-badge');
+    const storiesApprovedBadge = document.getElementById('stories-approved-badge');
+    const storiesSubTabs = document.querySelectorAll('.sub-tab');
+    const storiesGrid = document.getElementById('stories-grid');
+
+    // State Management
+    let activeTab = 'stories';
+    let activeStoriesSubTab = 'pending';
+
+    // ==========================================================================
+    // AUTHENTICATION CONTROLLER (GATEKEEPER)
+    // ==========================================================================
+    const checkStoredAuth = async () => {
+      if (adminSecretKey) {
+        const isValid = await validateSecretKey(adminSecretKey);
+        if (isValid) {
+          openDashboard();
+        } else {
+          localStorage.removeItem('bean_admin_secret');
+          adminSecretKey = '';
+          showAuthGate();
+        }
+      } else {
+        showAuthGate();
+      }
+    };
+
+    const validateSecretKey = async (key) => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stories/admin/all?limit=1`, {
+          headers: {
+            'x-admin-key': key,
+          },
+        });
+        return response.ok;
+      } catch (err) {
+        console.error('Auth validation failed due to network error:', err);
+        return false;
+      }
+    };
+
+    const showAuthGate = () => {
+      authGate.style.display = 'flex';
+      adminPanel.style.display = 'none';
+      secretInput.value = '';
+      secretInput.focus();
+    };
+
+    const openDashboard = () => {
+      authGate.style.display = 'none';
+      adminPanel.style.display = 'flex';
+
+      // Initialize Dashboard data
+      loadModuleData(activeTab);
+      updateStatsBadges();
+    };
+
+    authForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const enteredKey = secretInput.value.trim();
+      authError.style.display = 'none';
+
+      const isValid = await validateSecretKey(enteredKey);
+      if (isValid) {
+        adminSecretKey = enteredKey;
+        localStorage.setItem('bean_admin_secret', enteredKey);
+        openDashboard();
+      } else {
+        authError.style.display = 'block';
+        authError.textContent = 'Invalid Access Key. Authorization Denied.';
+        secretInput.focus();
+      }
+    });
+
+    logoutButton.addEventListener('click', () => {
+      localStorage.removeItem('bean_admin_secret');
+      adminSecretKey = '';
+      showAuthGate();
+    });
+
+    // ==========================================================================
+    // SINGLE PAGE APPLICATION (SPA) TAB ROUTER
+    // ==========================================================================
+    menuItems.forEach((item) => {
+      item.addEventListener('click', () => {
+        const targetTab = item.getAttribute('data-tab');
+
+        // Update sidebar active menu style
+        menuItems.forEach((i) => i.classList.remove('active'));
+        item.classList.add('active');
+
+        // Update viewport visibility
+        tabViews.forEach((view) => view.classList.remove('active'));
+        document.getElementById(`tab-${targetTab}`).classList.add('active');
+
+        activeTab = targetTab;
+        loadModuleData(targetTab);
+      });
+    });
+
+    const loadModuleData = (tabName) => {
+      if (tabName === 'stories') {
+        loadStories();
+      }
+    };
+
+    // ==========================================================================
+    // STORIES MODULE CONTROLLER (MODERATION BOARD)
+    // ==========================================================================
+
+    // Stories subtabs listener
+    storiesSubTabs.forEach((subtab) => {
+      subtab.addEventListener('click', () => {
+        storiesSubTabs.forEach((s) => s.classList.remove('active'));
+        subtab.classList.add('active');
+
+        activeStoriesSubTab = subtab.getAttribute('data-subtab');
+        loadStories();
+      });
+    });
+
+    // Helper colors mapping
+    const getBeanBadgeColor = (type) => {
+      const colors = {
+        coffee: '#A67C52',
+        chilli: '#D32F2F',
+        vanilla: '#FFF9C4',
+        jelly: '#F06292',
+        green: '#388E3C',
+      };
+      return colors[type] || '#A67C52';
+    };
+
+    // Update pending & approved count stats badges
+    const updateStatsBadges = async () => {
+      if (!adminSecretKey) return;
+      try {
+        // Pending count
+        const resPending = await fetch(`${BACKEND_URL}/api/stories/admin/all?status=pending&limit=1`, {
+          headers: { 'x-admin-key': adminSecretKey },
+        });
+        if (resPending.ok) {
+          const data = await resPending.json();
+          storiesPendingBadge.textContent = data.total;
+        }
+
+        // Approved count
+        const resApproved = await fetch(`${BACKEND_URL}/api/stories/admin/all?status=approved&limit=1`, {
+          headers: { 'x-admin-key': adminSecretKey },
+        });
+        if (resApproved.ok) {
+          const data = await resApproved.json();
+          storiesApprovedBadge.textContent = data.total;
+        }
+      } catch (err) {
+        console.warn('Could not retrieve statistics counts', err);
+      }
+    };
+
+    const loadStories = async () => {
+      storiesGrid.innerHTML = '<div class="loading-state">Fetching stories from queue...</div>';
+
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stories/admin/all?status=${activeStoriesSubTab}&limit=50`, {
+          headers: {
+            'x-admin-key': adminSecretKey,
+          },
+        });
+
+        if (!response.ok) {
+          if (response.status === 401) {
+            logoutButton.click();
+            return;
+          }
+          storiesGrid.innerHTML = `<div class="error-state">Failed to fetch stories (HTTP ${response.status})</div>`;
+          return;
+        }
+
+        const data = await response.json();
+        const stories = data.stories;
+
+        if (!stories || stories.length === 0) {
+          storiesGrid.innerHTML = `
+          <div class="empty-state">
+            <svg class="empty-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/></svg>
+            <h3>No Stories Found</h3>
+            <p>There are currently no stories in the "${activeStoriesSubTab}" review status.</p>
+          </div>
+        `;
+          return;
+        }
+
+        storiesGrid.innerHTML = ''; // Clear loader
+
+        stories.forEach((story) => {
+          const beanColor = getBeanBadgeColor(story.beanType);
+          const card = document.createElement('div');
+          card.className = 'admin-story-card';
+          card.setAttribute('style', `--bean-accent: ${beanColor};`);
+          card.setAttribute('data-id', story._id);
+
+          // Date layout
+          const dateStr = new Date(story.createdAt).toLocaleDateString('en-US', {
+            month: 'short',
+            day: 'numeric',
+            year: 'numeric',
+          });
+
+          // Media Slider Markup
+          let mediaMarkup = '';
+          if ((story.media.images && story.media.images.length > 0) || story.media.video) {
+            mediaMarkup += `<div class="card-media-gallery">`;
+
+            // Image thumbnails
+            if (story.media.images && story.media.images.length > 0) {
+              mediaMarkup += `
+              <div class="card-image-slider">
+                ${story.media.images
+                  .map((img) => `<img src="${img}" alt="Wearer style" onclick="window.open('${img}', '_blank')">`)
+                  .join('')}
+              </div>
+            `;
+            }
+
+            // Video player
+            if (story.media.video) {
+              mediaMarkup += `
+              <div class="card-video-player">
+                <video src="${story.media.video}" controls muted playsinline></video>
+              </div>
+            `;
+            }
+
+            mediaMarkup += `</div>`;
+          }
+
+          // Action Buttons Markup (Only show review options in pending review)
+          let actionsMarkup = '';
+          if (story.status === 'pending') {
+            actionsMarkup = `
+            <div class="card-action-bar">
+              <button type="button" class="card-btn approve" data-action="approve">APPROVE</button>
+              <button type="button" class="card-btn reject" data-action="reject">REJECT</button>
+            </div>
+          `;
+          } else if (story.status === 'approved') {
+            actionsMarkup = `
+            <div class="card-action-bar">
+              <button type="button" class="card-btn reject" data-action="reject">MOVE TO REJECTED</button>
+            </div>
+          `;
+          } else if (story.status === 'rejected') {
+            actionsMarkup = `
+            <div class="card-action-bar">
+              <button type="button" class="card-btn approve" data-action="approve">RESTORE & APPROVE</button>
+            </div>
+          `;
+          }
+
+          // Instagram handle fallback
+          const handleLabel = story.handle
+            ? `<span class="card-handle-badge">@${story.handle}</span>`
+            : `<span class="card-handle-badge text-muted">No Handle</span>`;
+
+          let cardContent = '';
+
+          if ((story.media.images && story.media.images.length > 0) || story.media.video) {
+            // SPLIT LAYOUT (has media)
+            cardContent = `
+            <div class="card-left-section">
+              <div class="card-header-wrapper">
+                <div class="card-avatar">
+                  ${
+                    story.media.images && story.media.images.length > 0
+                      ? `
+                    <img src="${story.media.images[0]}" alt="${story.name}">
+                  `
+                      : `
+                    <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                  `
+                  }
+                </div>
+                <div class="card-title-meta">
+                  <span class="card-user-name" title="${story.name}">${story.name}</span>
+                  <div class="card-user-meta" style="margin-top: 0.2rem;">
+                    ${handleLabel}
+                    <span>•</span>
+                    <span class="card-bean-badge">${story.beanType} Bean</span>
+                  </div>
+                </div>
+                <div class="card-timestamp">${dateStr}</div>
+              </div>
+              
+              <div class="card-story-body">"${story.story}"</div>
+              
+              ${actionsMarkup}
+            </div>
+            <div class="card-right-section">
+              <span class="right-section-label">Media Attachments</span>
+              ${mediaMarkup}
+            </div>
+          `;
+          } else {
+            // STANDARD COMPACT LAYOUT (no media)
+            card.classList.add('no-media');
+            cardContent = `
+            <div class="card-header-wrapper">
+              <div class="card-avatar">
+                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+              </div>
+              <div class="card-title-meta">
+                <span class="card-user-name" title="${story.name}">${story.name}</span>
+                <div class="card-user-meta" style="margin-top: 0.2rem;">
+                  ${handleLabel}
+                  <span>•</span>
+                  <span class="card-bean-badge">${story.beanType} Bean</span>
+                </div>
+              </div>
+              <div class="card-timestamp">${dateStr}</div>
+            </div>
+            
+            <div class="card-story-body">"${story.story}"</div>
+            
+            ${actionsMarkup}
+          `;
+          }
+
+          card.innerHTML = cardContent;
+
+          storiesGrid.appendChild(card);
+
+          // Bind Button Click Events
+          card.querySelectorAll('.card-btn').forEach((btn) => {
+            btn.addEventListener('click', async (e) => {
+              const action = btn.getAttribute('data-action');
+              const storyId = story._id;
+              await moderateStory(storyId, action, card);
+            });
+          });
+        });
+      } catch (err) {
+        console.error(err);
+        storiesGrid.innerHTML = '<div class="error-state">Error connecting to server. Please try again.</div>';
+      }
+    };
+
+    const moderateStory = async (storyId, action, cardElement) => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stories/admin/${storyId}/review`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': adminSecretKey,
+          },
+          body: JSON.stringify({ action }),
+        });
+
+        if (response.ok) {
+          // Play smooth fade out transition
+          cardElement.classList.add('fading-out');
+          setTimeout(() => {
+            cardElement.remove();
+            updateStatsBadges();
+
+            if (storiesGrid.children.length === 0) {
+              loadStories();
+            }
+          }, 300);
+        } else {
+          const result = await response.json();
+          alert(result.error || 'Failed to moderate story.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error connecting to server to save moderation review.');
+      }
+    };
+
+    // Run Check Auth on Load
+    checkStoredAuth();
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Admin Portal",
+  "settings": [
+    {
+      "type": "text",
+      "id": "backend_api_url",
+      "label": "Express Backend API Base URL",
+      "default": "http://localhost:5000",
+      "info": "The full base URL of your hosted Express backend service (e.g. http://localhost:5000 or https://api.yourdomain.com)"
+    }
+  ]
+}
+{% endschema %}
