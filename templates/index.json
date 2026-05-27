@@ -20,6 +20,7 @@
           "type": "slide",
           "settings": {
             "image_d": "shopify://shop_images/hero1.png",
+            "image_m": "shopify://shop_images/Bean_Hero_1_Mobile.png",
             "headline": "Wear who you are",
             "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
             "button_1_label": "Find your Bean",
@@ -32,6 +33,7 @@
           "type": "slide",
           "settings": {
             "image_d": "shopify://shop_images/hero2.png",
+            "image_m": "shopify://shop_images/Bean_Hero_2_Mobile.png",
             "headline": "Wear who you are",
             "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
             "button_1_label": "Find your Bean",
@@ -44,6 +46,7 @@
           "type": "slide",
           "settings": {
             "image_d": "shopify://shop_images/hero3.png",
+            "image_m": "shopify://shop_images/Bean_Hero_3_Mobile.png",
             "headline": "Wear who you are",
             "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
             "button_1_label": "Find your Bean",

@@ -13,6 +13,7 @@
     --bg-main: #090909;
     --bg-sidebar: #101010;
     --bg-card: #141414;
+    --bg-card-alt: #181818;
     --bg-input: #1a1a1a;
 
     --border-color: rgba(255, 255, 255, 0.08);
@@ -31,15 +32,31 @@
     width: 100%;
     min-height: 100vh;
     background-color: var(--bg-main);
+    background-image:
+      radial-gradient(circle at top left, rgba(var(--accent-gold-rgb), 0.12), transparent 26%),
+      radial-gradient(circle at top right, rgba(255, 255, 255, 0.04), transparent 24%),
+      linear-gradient(180deg, #080808 0%, #0d0d0d 100%);
     color: var(--text-main);
     font-family: var(--font-body);
     position: relative;
+    padding: 3.2rem clamp(1.6rem, 2.8vw, 3.2rem) 5rem;
+    overflow: hidden;
   }
 
   #AdminPortal-{{ section.id }} * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+  }
+
+  #AdminPortal-{{ section.id }}::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.02), transparent 38%),
+      radial-gradient(circle at 50% 0%, rgba(var(--accent-gold-rgb), 0.06), transparent 42%);
+    pointer-events: none;
   }
 
   /* Custom Scrollbars */
@@ -196,25 +213,36 @@
   .admin-dashboard-layout {
     display: flex;
     width: 100%;
-    min-height: 80vh;
-    background-color: var(--bg-main);
+    max-width: 1480px;
+    min-height: calc(100vh - 8rem);
+    margin: 0 auto;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.02), transparent 16%),
+      var(--bg-main);
     position: relative;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 3.2rem;
+    overflow: hidden;
+    box-shadow: 0 3rem 8rem rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(14px);
   }
 
   /* Left Sidebar Menu Drawer */
   .admin-sidebar {
-    width: 260px;
-    background-color: var(--bg-sidebar);
+    width: 290px;
+    background:
+      linear-gradient(180deg, rgba(var(--accent-gold-rgb), 0.08), transparent 22%),
+      var(--bg-sidebar);
     border-right: 1px solid var(--border-color);
     display: flex;
     flex-direction: column;
-    padding: 5rem 3rem;
+    padding: 4rem 2.4rem 3rem;
     flex-shrink: 0;
   }
 
   .sidebar-brand-wrapper {
-    margin-bottom: 5rem;
-    padding-left: 1rem;
+    margin-bottom: 4rem;
+    padding: 0 0.8rem;
   }
 
   .sidebar-logo {
@@ -239,7 +267,7 @@
   .sidebar-menu {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 1rem;
     flex-grow: 1;
   }
 
@@ -250,14 +278,15 @@
     display: flex;
     align-items: center;
     gap: 1.5rem;
-    padding: 1.4rem 1.6rem;
-    border-radius: 1.2rem;
+    padding: 1.5rem 1.6rem;
+    border-radius: 1.6rem;
     color: var(--text-muted);
     cursor: pointer;
     transition: all 0.25s ease;
     font-family: inherit;
     font-weight: 600;
     font-size: 1.4rem;
+    border: 1px solid transparent;
   }
 
   .menu-icon {
@@ -267,19 +296,22 @@
   }
 
   .menu-item:hover {
-    background: rgba(255, 255, 255, 0.03);
+    background: rgba(255, 255, 255, 0.04);
     color: var(--text-main);
+    transform: translateX(3px);
   }
 
   .menu-item.active {
-    background: rgba(var(--accent-gold-rgb), 0.08);
-    border: 1px solid rgba(var(--accent-gold-rgb), 0.15);
+    background: linear-gradient(90deg, rgba(var(--accent-gold-rgb), 0.16), rgba(var(--accent-gold-rgb), 0.04));
+    border: 1px solid rgba(var(--accent-gold-rgb), 0.18);
     color: var(--accent-gold);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
   }
 
   .sidebar-footer {
     border-top: 1px solid var(--border-color);
-    padding-top: 2.5rem;
+    padding-top: 2.4rem;
+    margin-top: 2rem;
   }
 
   .admin-profile {
@@ -356,13 +388,19 @@
      ========================================================================== */
   .admin-main-content {
     flex-grow: 1;
-    padding: 5rem 8rem;
+    padding: 4rem clamp(2.4rem, 4vw, 5.6rem) 5rem;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
   }
 
   .tab-view {
     display: none;
     animation: fadeIn 0.3s ease both;
+    width: 100%;
+    max-width: 1220px;
+    margin: 0 auto;
+    padding: 1.2rem 0 0;
   }
 
   .tab-view.active {
@@ -378,113 +416,152 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 3rem;
-    margin-bottom: 4rem;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 3.5rem;
+    gap: 4rem;
+    margin-bottom: 3.6rem;
+    padding: 3.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2.8rem;
+    background:
+      linear-gradient(135deg, rgba(var(--accent-gold-rgb), 0.08), transparent 38%),
+      rgba(255, 255, 255, 0.02);
+    box-shadow: 0 1.8rem 4rem rgba(0, 0, 0, 0.24);
+  }
+
+  .view-heading-group {
+    display: flex;
+    flex-direction: column;
+    gap: 1.2rem;
+    min-width: 0;
+  }
+
+  .view-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.8rem;
+    width: fit-content;
+    padding: 0.8rem 1.3rem;
+    border-radius: 999px;
+    border: 1px solid rgba(var(--accent-gold-rgb), 0.18);
+    background: rgba(var(--accent-gold-rgb), 0.1);
+    color: var(--accent-gold);
+    font-size: 1.05rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
   }
 
   .view-header h1 {
     font-family: var(--font-heading);
-    font-size: 3.2rem;
+    font-size: clamp(3rem, 3vw, 4rem);
     font-weight: 900;
-    letter-spacing: -0.01em;
-    margin-bottom: 0.8rem;
+    letter-spacing: -0.02em;
     text-transform: uppercase;
     color: #FFF;
     text-align: left;
+    line-height: 1.05;
   }
 
   .view-header p {
-    font-size: 1.4rem;
+    font-size: 1.45rem;
     color: var(--text-muted);
-    line-height: 1.6;
-    max-width: 780px;
+    line-height: 1.75;
+    letter-spacing: 0.01em;
+    max-width: 720px;
     text-align: left;
   }
 
   /* Metrics counters */
   .metrics-row {
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
     flex-shrink: 0;
+    flex-wrap: wrap;
+    justify-content: flex-end;
   }
 
   .metric-card {
-    background: var(--bg-card);
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
     border: 1px solid var(--border-color);
-    border-radius: 1.6rem;
-    padding: 1.8rem 2.4rem;
-    min-width: 150px;
+    border-radius: 2rem;
+    padding: 2rem 2.4rem;
+    min-width: 180px;
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 12px 35px rgba(0, 0, 0, 0.2);
   }
 
   .metric-num {
     font-family: var(--font-heading);
-    font-size: 3.6rem;
+    font-size: 3.8rem;
     font-weight: 900;
     color: var(--accent-gold);
     line-height: 1;
     display: block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.6rem;
   }
 
   .metric-lbl {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     color: var(--text-muted);
     text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   /* Moderation Tabs Navigation Buttons */
   .module-nav-tabs {
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-    padding-bottom: 1.5rem;
+    gap: 1rem;
+    margin-bottom: 3.2rem;
+    padding: 0.8rem;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    width: fit-content;
+    flex-wrap: wrap;
   }
 
   .sub-tab {
     background: transparent;
-    border: none;
+    border: 1px solid transparent;
     color: var(--text-muted);
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.4rem;
-    padding: 0.8rem 1.6rem;
+    font-size: 1.25rem;
+    padding: 1.15rem 1.8rem;
     cursor: pointer;
     position: relative;
-    transition: color 0.2s ease;
+    transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    border-radius: 1.4rem;
   }
 
   .sub-tab:hover {
     color: var(--text-main);
+    background: rgba(255, 255, 255, 0.03);
   }
 
   .sub-tab.active {
     color: var(--accent-gold);
+    background: rgba(var(--accent-gold-rgb), 0.1);
+    border-color: rgba(var(--accent-gold-rgb), 0.18);
   }
 
   .sub-tab.active::after {
-    content: "";
-    position: absolute;
-    bottom: -1.7rem;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--accent-gold);
+    content: none;
   }
 
   /* Loading indicators */
   .loading-state, .error-state, .empty-state {
     text-align: center;
-    padding: 8rem 2rem;
+    padding: 7rem 3rem;
     font-size: 1.6rem;
     color: var(--text-muted);
     font-weight: 600;
     width: 100%;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 2.8rem;
   }
 
   .empty-state {
@@ -504,25 +581,27 @@
   .cards-grid {
     display: flex;
     flex-direction: column;
-    gap: 4rem;
-    max-width: 1100px;
+    gap: 3rem;
+    max-width: 1180px;
     width: 100%;
-    margin: 0 auto;
+    padding-bottom: 1.2rem;
   }
 
   /* ==========================================================================
      MODERATION STORY CARD GRID COMPONENT
      ========================================================================== */
   .admin-story-card {
-    background: var(--bg-card);
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.035), transparent 24%),
+      var(--bg-card);
     border: 1px solid var(--border-color);
     border-top: 4px solid var(--bean-accent, var(--accent-gold));
-    border-radius: 2.8rem;
-    padding: 4rem 5rem;
-    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.35);
+    border-radius: 3rem;
+    padding: 3.4rem;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.32);
     display: flex;
     flex-direction: row;
-    gap: 5rem;
+    gap: 3.6rem;
     position: relative;
     transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, opacity 0.3s ease;
     align-items: stretch;
@@ -530,7 +609,7 @@
 
   .admin-story-card.no-media {
     flex-direction: column;
-    gap: 2.5rem;
+    gap: 2.8rem;
   }
 
   .card-left-section {
@@ -546,26 +625,27 @@
     display: flex;
     flex-direction: column;
     border-left: 1px solid var(--border-color);
-    padding-left: 5rem;
+    padding-left: 3.6rem;
     justify-content: flex-start;
     gap: 2rem;
-    min-width: 340px;
+    min-width: 320px;
   }
 
   .right-section-label {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     font-weight: 700;
-    letter-spacing: 0.05em;
-    color: rgba(245, 245, 245, 0.4);
+    letter-spacing: 0.12em;
+    color: rgba(245, 245, 245, 0.45);
     text-transform: uppercase;
     display: block;
     text-align: left;
+    margin-bottom: 0.8rem;
   }
 
   .admin-story-card:hover {
     transform: translateY(-4px);
     border-color: var(--bean-accent, var(--accent-gold));
-    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2.6rem 5.5rem rgba(0, 0, 0, 0.38);
   }
 
   .admin-story-card.fading-out {
@@ -575,14 +655,14 @@
 
   .card-header-wrapper {
     display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    margin-bottom: 2rem;
+    align-items: flex-start;
+    gap: 1.8rem;
+    margin-bottom: 2.4rem;
   }
 
   .card-avatar {
-    width: 4.8rem;
-    height: 4.8rem;
+    width: 5.6rem;
+    height: 5.6rem;
     border-radius: 50%;
     border: 2px solid var(--bean-accent, var(--accent-gold));
     overflow: hidden;
@@ -600,8 +680,8 @@
   }
 
   .card-avatar svg {
-    width: 2.2rem;
-    height: 2.2rem;
+    width: 2.4rem;
+    height: 2.4rem;
     fill: var(--bean-accent, var(--accent-gold));
   }
 
@@ -615,20 +695,22 @@
 
   .card-user-name {
     font-weight: 700;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     color: var(--text-main);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    letter-spacing: -0.01em;
   }
 
   .card-user-meta {
-    font-size: 1.1rem;
+    font-size: 1.25rem;
     color: var(--text-muted);
     display: flex;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.8rem;
     flex-wrap: wrap;
+    margin-top: 0.4rem;
   }
 
   .card-handle-badge {
@@ -639,44 +721,53 @@
   .card-bean-badge {
     text-transform: uppercase;
     font-weight: 700;
-    letter-spacing: 0.05em;
+    letter-spacing: 0.06em;
     color: var(--bean-accent, var(--accent-gold));
   }
 
   .card-timestamp {
-    font-size: 1.1rem;
-    color: rgba(245, 245, 245, 0.28);
-    font-weight: 600;
+    font-size: 1.15rem;
+    color: rgba(245, 245, 245, 0.55);
+    font-weight: 700;
     text-align: right;
     flex-shrink: 0;
     align-self: flex-start;
-    margin-top: 0.3rem;
+    margin-top: 0.2rem;
+    padding: 0.8rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
   }
 
   .card-story-body {
-    font-size: 1.4rem;
-    line-height: 1.6;
-    color: rgba(245, 245, 245, 0.85);
-    margin-bottom: 2rem;
+    font-size: 1.55rem;
+    line-height: 1.9;
+    color: rgba(245, 245, 245, 0.88);
+    margin-bottom: 2.8rem;
     font-style: italic;
     flex-grow: 1;
     white-space: pre-wrap;
     text-align: left;
+    letter-spacing: 0.01em;
+    padding: 2.4rem;
+    border-radius: 2.2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
   }
 
   /* Card Media Galleries */
   .card-media-gallery {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 2.2rem;
     width: 100%;
   }
 
   .card-image-slider {
     display: flex;
-    gap: 1rem;
+    gap: 1.5rem;
     overflow-x: auto;
-    padding-bottom: 0.5rem;
+    padding-bottom: 0.8rem;
     scrollbar-width: none;
     -ms-overflow-style: none;
   }
@@ -685,25 +776,25 @@
   }
 
   .card-image-slider img {
-    width: 9.5rem;
-    height: 9.5rem;
+    width: 9.2rem;
+    height: 9.2rem;
     object-fit: cover;
-    border-radius: 1.2rem;
+    border-radius: 1.6rem;
     border: 1px solid rgba(255, 255, 255, 0.08);
     flex-shrink: 0;
     cursor: pointer;
-    transition: transform 0.2s ease, border-color 0.2s ease;
+    transition: transform 0.25s ease, border-color 0.25s ease;
   }
 
   .card-image-slider img:hover {
-    transform: scale(1.05);
+    transform: scale(1.04) translateY(-2px);
     border-color: var(--bean-accent);
   }
 
   .card-video-player {
     width: 100%;
     aspect-ratio: 16 / 10;
-    border-radius: 1.6rem;
+    border-radius: 2.2rem;
     overflow: hidden;
     border: 1px solid rgba(255, 255, 255, 0.08);
     background: #000;
@@ -718,19 +809,21 @@
   /* Action Controls Panel */
   .card-action-bar {
     border-top: 1px solid var(--border-color);
-    padding-top: 2rem;
+    padding-top: 2.4rem;
     display: flex;
-    gap: 1.5rem;
+    gap: 2rem;
+    flex-wrap: wrap;
   }
 
   .card-btn {
     flex: 1;
-    padding: 1.2rem;
-    border-radius: 1rem;
+    min-width: 180px;
+    padding: 1.5rem 2rem;
+    border-radius: 1.4rem;
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.2rem;
-    letter-spacing: 0.05em;
+    font-size: 1.3rem;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     cursor: pointer;
     background: transparent;
@@ -763,18 +856,20 @@
      PLACEHOLDER CONSOLE SCREEN
      ========================================================================== */
   .placeholder-module-card {
-    background: var(--bg-card);
+    background:
+      linear-gradient(180deg, rgba(var(--accent-gold-rgb), 0.08), transparent 30%),
+      var(--bg-card);
     border: 1px solid var(--border-color);
-    border-radius: 2.8rem;
-    padding: 6rem;
-    text-align: center;
-    max-width: 600px;
-    margin: 4rem auto;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
+    border-radius: 3.2rem;
+    padding: 5rem 4.5rem;
+    text-align: left;
+    max-width: 760px;
+    margin: 2rem 0 0;
+    box-shadow: 0 25px 60px rgba(0,0,0,0.25);
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 2rem;
+    align-items: flex-start;
+    gap: 2.4rem;
     animation: modalEnter 0.4s ease;
   }
 
@@ -798,30 +893,33 @@
 
   .placeholder-module-card h3 {
     font-family: var(--font-heading);
-    font-size: 2.2rem;
+    font-size: 2.6rem;
     font-weight: 800;
     letter-spacing: -0.01em;
     color: #FFF;
+    margin-bottom: 0.5rem;
   }
 
   .placeholder-module-card p {
-    font-size: 1.35rem;
+    font-size: 1.45rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.8;
+    max-width: 56rem;
   }
 
   .placeholder-action-btn {
-    margin-top: 1rem;
-    padding: 1.2rem 3rem;
+    margin-top: 1.5rem;
+    padding: 1.6rem 3.5rem;
     background: rgba(255,255,255,0.04);
     border: 1px solid rgba(255,255,255,0.12);
     color: var(--text-main);
     font-family: var(--font-heading);
     font-weight: 700;
-    font-size: 1.2rem;
-    border-radius: 1rem;
+    font-size: 1.3rem;
+    border-radius: 1.4rem;
     cursor: pointer;
     transition: all 0.25s ease;
+    letter-spacing: 0.08em;
   }
 
   .placeholder-action-btn:hover {
@@ -835,11 +933,8 @@
      ========================================================================== */
   @media screen and (max-width: 1024px) {
     .admin-dashboard-layout {
-      padding: 2rem 1rem;
-    }
-    .admin-dashboard-wrapper {
-      flex-direction: column;
-      border-radius: 2rem;
+      min-height: auto;
+      border-radius: 2.4rem;
     }
     .admin-sidebar {
       width: 100%;
@@ -874,7 +969,14 @@
       padding: 1rem 1.6rem;
     }
     .admin-main-content {
-      padding: 4rem 2.5rem;
+      padding: 3rem 2.2rem 3.5rem;
+    }
+    .tab-view {
+      max-width: none;
+      padding-top: 0.6rem;
+    }
+    .view-header {
+      padding: 2.6rem;
     }
     .admin-story-card {
       flex-direction: column;
@@ -889,6 +991,9 @@
   }
 
   @media screen and (max-width: 768px) {
+    #AdminPortal-{{ section.id }} {
+      padding: 2rem 1rem 3rem;
+    }
     .sidebar-menu span, .admin-meta, .logout-btn span {
       display: none;
     }
@@ -902,12 +1007,36 @@
     .view-header {
       flex-direction: column;
       gap: 2rem;
+      padding: 2.2rem;
+      margin-bottom: 2.6rem;
     }
     .metrics-row {
       width: 100%;
+      justify-content: stretch;
     }
     .metric-card {
       flex: 1;
+      min-width: 0;
+    }
+    .module-nav-tabs {
+      width: 100%;
+      margin-bottom: 2.6rem;
+    }
+    .sub-tab {
+      flex: 1 1 calc(50% - 1rem);
+      text-align: center;
+    }
+    .card-header-wrapper {
+      flex-wrap: wrap;
+    }
+    .card-timestamp {
+      text-align: left;
+    }
+    .card-story-body {
+      padding: 1.8rem;
+    }
+    .placeholder-module-card {
+      padding: 3.2rem 2.4rem;
     }
   }
 {%- endstyle -%}
@@ -987,7 +1116,8 @@
       <!-- MODULE A: BEAN STORIES MODERATION -->
       <section id="tab-stories" class="tab-view active">
         <div class="view-header">
-          <div>
+          <div class="view-heading-group">
+            <span class="view-eyebrow">Content Moderation</span>
             <h1>BEAN STORIES MODERATION</h1>
             <p>
               Review customer identity stories, styles, and media submissions before they go live on the homepage
@@ -1023,7 +1153,8 @@
       <!-- MODULE B: RETURNS & EXCHANGES (Placeholder) -->
       <section id="tab-returns" class="tab-view">
         <div class="view-header">
-          <div>
+          <div class="view-heading-group">
+            <span class="view-eyebrow">Operations</span>
             <h1>RETURNS & EXCHANGES PORTAL</h1>
             <p>
               Moderation console for order return processing, automated 5-day delivery window checks, and media
@@ -1050,7 +1181,8 @@
       <!-- MODULE C: SIZING SYNC (Placeholder) -->
       <section id="tab-sizes" class="tab-view">
         <div class="view-header">
-          <div>
+          <div class="view-heading-group">
+            <span class="view-eyebrow">Catalog Sync</span>
             <h1>SHOPIFY SIZING SYNC MODULE</h1>
             <p>
               Manage real-time inventory quantity filters and dynamically sync sizes directly with the Shopify backend
