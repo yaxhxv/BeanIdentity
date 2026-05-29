@@ -733,6 +733,148 @@
       gap: 1.8rem;
     }
   }
+
+  /* --- BEAN STORY COPY DESIGN --- */
+  .bean-story-modal-content {
+    text-align: center;
+    padding-top: 1.5rem;
+  }
+
+  .bean-story-headline {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3rem, 5vw, 4.8rem);
+    font-weight: 900;
+    line-height: 1.1;
+    margin: 0 0 2.5rem 0;
+    text-transform: uppercase;
+    background: linear-gradient(135deg, #ffffff 0%, #C6A969 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: -0.02em;
+  }
+
+  .bean-story-body {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    line-height: 1.7;
+    color: rgba(245, 245, 245, 0.85);
+    margin-bottom: 3.5rem;
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .bean-story-body p {
+    margin: 0 0 2rem 0;
+  }
+
+  .bean-story-body p:last-child {
+    margin-bottom: 0;
+  }
+
+  .bean-story-email-card {
+    background: rgba(198, 169, 105, 0.06);
+    border: 1px solid rgba(198, 169, 105, 0.2);
+    border-radius: 2rem;
+    padding: 3rem;
+    margin: 4rem auto;
+    max-width: 480px;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .bean-story-email-card:hover {
+    background: rgba(198, 169, 105, 0.1);
+    border-color: rgba(198, 169, 105, 0.4);
+    transform: translateY(-0.3rem);
+    box-shadow: 0 1.5rem 3.5rem rgba(0, 0, 0, 0.3);
+  }
+
+  .bean-story-email-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, transparent, #C6A969, transparent);
+  }
+
+  .bean-story-email-label {
+    display: block;
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    color: #C6A969;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+  }
+
+  .bean-story-email-link {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-weight: 700;
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .bean-story-email-link:hover {
+    color: #C6A969;
+  }
+
+  .bean-story-brief {
+    font-family: var(--font-heading-family);
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: #ffffff;
+    margin: 3.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .bean-story-brief span {
+    color: #C6A969;
+  }
+
+  .bean-story-fineprint {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    color: rgba(245, 245, 245, 0.45);
+    border-top: 1px solid rgba(245, 245, 245, 0.08);
+    padding-top: 2.5rem;
+    margin-top: 4rem;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .bean-story-copy-btn {
+    background: transparent;
+    border: 1px solid rgba(245, 245, 245, 0.2);
+    color: rgba(245, 245, 245, 0.7);
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.8rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-top: 1.2rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+
+  .bean-story-copy-btn:hover {
+    border-color: #C6A969;
+    color: #ffffff;
+    background: rgba(198, 169, 105, 0.1);
+  }
 {%- endstyle -%}
 
 <div id="Beanagram-{{ section.id }}" class="beanagram-stories">
@@ -797,6 +939,42 @@
   <div class="story-modal-container">
     <button type="button" class="story-modal-close" id="close-story-modal">&times;</button>
 
+    <!-- NEW GORGEOUS BEAN STORY CONTENT -->
+    <div class="bean-story-modal-content">
+      <h3 class="bean-story-headline">What's your bean story?</h3>
+      
+      <div class="bean-story-body">
+        <p>Every bean has a story. And we want to hear yours.</p>
+        <p>Tell us which bean are you? And what made you so sure?</p>
+        <p>And the best ones will make it to our wall.</p>
+      </div>
+
+      <div class="bean-story-email-card">
+        <span class="bean-story-email-label">Write to us at</span>
+        <a href="mailto:Support@beanidentity.com" class="bean-story-email-link">Support@beanidentity.com</a>
+        <br>
+        <button type="button" class="bean-story-copy-btn" id="copy-email-btn">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+            <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+          </svg>
+          <span>Copy Email</span>
+        </button>
+      </div>
+
+      <div class="bean-story-brief">
+        Keep it real. Keep it you. <span>That's the only brief.</span>
+      </div>
+
+      <p class="bean-story-fineprint">
+        Selected stories will be featured on the Bean Identity website and social media.<br>
+        By writing to us you give us permission to share your story.<br>
+        We'll always credit you :)
+      </p>
+    </div>
+
+    {% comment %}
+    <!-- ORIGINAL BACKEND INTEGRATION FORM - COMMENTED OUT BUT PRESERVED -->
     <div class="story-modal-form-wrapper">
       <h3 class="story-modal-title">SHARE YOUR BEAN STORY</h3>
       <p class="story-modal-subtitle">
@@ -918,6 +1096,7 @@
         <button type="button" class="story-success-close-btn" id="close-success-modal">CLOSE</button>
       </div>
     </div>
+    {% endcomment %}
   </div>
 </div>
 
@@ -948,9 +1127,11 @@
     const videoPreview = document.getElementById('video-preview');
     const videoPrompt = document.getElementById('video-dropzone-prompt');
 
-    // State
+    // State (Commented out backend form state variables to prevent unused vars warning, but preserved)
+    /*
     let selectedImages = [];
     let selectedVideo = null;
+    */
 
     // 1. OPEN / CLOSE MODAL
     if (openModalBtn) {
@@ -964,7 +1145,7 @@
     const closeModal = () => {
       modalOverlay.classList.remove('open');
       document.body.style.overflow = '';
-      resetForm();
+      // resetForm(); // Commented out to avoid errors since form is disabled
     };
 
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
@@ -975,6 +1156,33 @@
 
     if (successCloseBtn) successCloseBtn.addEventListener('click', closeModal);
 
+    // Interactive copy email to clipboard logic
+    const copyBtn = document.getElementById('copy-email-btn');
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        navigator.clipboard.writeText('Support@beanidentity.com').then(() => {
+          const btnText = copyBtn.querySelector('span');
+          if (btnText) {
+            const originalText = btnText.textContent;
+            btnText.textContent = 'Copied!';
+            copyBtn.style.borderColor = '#388E3C';
+            copyBtn.style.color = '#388E3C';
+            setTimeout(() => {
+              btnText.textContent = originalText;
+              copyBtn.style.borderColor = '';
+              copyBtn.style.color = '';
+            }, 2000);
+          }
+        }).catch(err => {
+          console.error('Failed to copy text: ', err);
+        });
+      });
+    }
+
+    /* =========================================================================
+       ORIGINAL BACKEND API INTEGRATION - COMMENTED OUT BUT FULLY PRESERVED
+       =========================================================================
+       
     // 2. DYNAMIC THEME ACCENTS BASED ON RADIO SELECTION
     const accentColors = {
       coffee: { hex: '#A67C52', rgb: '166, 124, 82' },
@@ -1287,6 +1495,7 @@
     };
 
     loadApprovedStories();
+    ========================================================================= */
   });
 </script>
 
