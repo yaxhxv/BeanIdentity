@@ -79,8 +79,6 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
   text-transform: uppercase;
 }
 
-
-
 @media screen and (max-width: 749px) {
   .section-{{ section.id }}-padding {
     margin: 0 1rem;
@@ -130,24 +128,66 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
       <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">
         <div class="image-with-text__media-item image-with-text__media-item--{{ section.settings.desktop_image_width }} image-with-text__media-item--{{ section.settings.desktop_content_position }} grid__item">
           <div
-            class="image-with-text__media image-with-text__media--{{ section.settings.height }} global-media-settings{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% else %} background-transparent{% endunless %}{% if section.settings.image != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}"
-            {% if section.settings.height == 'adapt' and section.settings.image != blank %}
-              style="padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"
+            class="image-with-text__media image-with-text__media--{{ section.settings.height }} global-media-settings{% unless remove_color_classes %} gradient color-{{ section.settings.color_scheme }}{% else %} background-transparent{% endunless %}{% if section.settings.image != blank or section.settings.video != blank or section.settings.video_filename != blank or section.settings.video_url != blank %} media{% else %} image-with-text__media--placeholder placeholder{% endif %}{% if section.settings.image_behavior != 'none' %} animate--{{ section.settings.image_behavior }}{% endif %}"
+            {% if section.settings.height == 'adapt' %}
+              {% if section.settings.video != blank %}
+                style="padding-bottom: {{ 1 | divided_by: section.settings.video.aspect_ratio | times: 100 }}%;"
+              {% elsif section.settings.image != blank %}
+                style="padding-bottom: {{ 1 | divided_by: section.settings.image.aspect_ratio | times: 100 }}%;"
+              {% else %}
+                style="padding-bottom: 56.25%;"
+              {% endif %}
             {% endif %}
           >
-            {%- if section.settings.image != blank -%}
+            {%- liquid
+              assign video_src = ''
+              if section.settings.video != blank
+                for source in section.settings.video.sources
+                  if source.format == 'mp4'
+                    assign video_src = source.url
+                    break
+                  endif
+                endfor
+                if video_src == blank
+                  assign video_src = section.settings.video.sources[0].url
+                endif
+              elsif section.settings.video_url != blank
+                assign video_src = section.settings.video_url
+              elsif section.settings.video_filename != blank
+                if section.settings.video_filename contains '.'
+                  assign video_src = section.settings.video_filename | file_url
+                else
+                  assign video_src = section.settings.video_filename | append: '.mp4' | file_url
+                endif
+              endif
+            -%}
+
+            {%- if video_src != blank -%}
+              <video
+                autoplay
+                loop
+                muted
+                playsinline
+                class="image-with-text__video"
+                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
+                aria-label="{{ section.settings.image.alt | default: 'Bean Identity brand movie' | escape }}"
+              >
+                <source src="{{ video_src }}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>
+            {%- elsif section.settings.image != blank -%}
               {%- if section.settings.image_behavior == 'ambient' or section.settings.image_behavior == 'zoom-in' -%}
                 {%- assign widths = '198, 432, 642, 900, 1284, 1800' -%}
                 {%- capture sizes -%}
-              (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 1.6667 }}px,
-              (min-width: 750px) calc((100vw - 130px) / 1.667), calc((100vw - 50px) / 1.667)
-            {%- endcapture -%}
+                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 1.6667 }}px,
+                  (min-width: 750px) calc((100vw - 130px) / 1.667), calc((100vw - 50px) / 1.667)
+                {%- endcapture -%}
               {%- else -%}
                 {%- assign widths = '165, 360, 535, 750, 1070, 1500' -%}
                 {%- capture sizes -%}
-              (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
-              (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
-            {%- endcapture -%}
+                  (min-width: {{ settings.page_width }}px) {{ settings.page_width | minus: 100 | divided_by: 2 }}px,
+                  (min-width: 750px) calc((100vw - 130px) / 2), calc((100vw - 50px) / 2)
+                {%- endcapture -%}
               {%- endif -%}
               {{
                 section.settings.image
@@ -219,6 +259,22 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
       "type": "image_picker",
       "id": "image",
       "label": "t:sections.image-with-text.settings.image.label"
+    },
+    {
+      "type": "video",
+      "id": "video",
+      "label": "Video (Alternative to Image)"
+    },
+    {
+      "type": "text",
+      "id": "video_filename",
+      "label": "Video Filename (Alternative, e.g. BeanIdentityMovie)",
+      "default": "BeanIdentityMovie"
+    },
+    {
+      "type": "text",
+      "id": "video_url",
+      "label": "Direct Video URL"
     },
     {
       "type": "select",

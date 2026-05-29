@@ -590,6 +590,7 @@
       "name": "Image with Text 1",
       "settings": {
         "image": "shopify://shop_images/6c3c9237-cef4-4407-87b9-f7d6efe28b79.png",
+        "video_filename": "BeanIdentityMovie",
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
