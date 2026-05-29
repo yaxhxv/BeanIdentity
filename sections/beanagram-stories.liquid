@@ -813,14 +813,16 @@
 
   .bean-story-email-link {
     font-family: var(--font-heading-family);
-    font-size: clamp(2rem, 3.5vw, 2.8rem);
+    font-size: clamp(1.4rem, 4.8vw, 2.8rem);
     font-weight: 700;
     color: #ffffff;
     text-decoration: none;
     transition: color 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    gap: 1rem;
+    display: inline-block;
+    word-break: break-all;
+    max-width: 100%;
+    text-align: center;
+    line-height: 1.2;
   }
 
   .bean-story-email-link:hover {
@@ -874,6 +876,31 @@
     border-color: #C6A969;
     color: #ffffff;
     background: rgba(198, 169, 105, 0.1);
+  }
+
+  /* Mobile optimization for stories contact modal */
+  @media screen and (max-width: 749px) {
+    .bean-story-email-card {
+      padding: 2rem 1.5rem;
+      margin: 2.5rem auto;
+      border-radius: 1.6rem;
+    }
+    .bean-story-headline {
+      margin-bottom: 2rem;
+    }
+    .bean-story-body {
+      font-size: 1.5rem;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+    }
+    .bean-story-brief {
+      font-size: 1.8rem;
+      margin: 2.5rem 0;
+    }
+    .bean-story-fineprint {
+      margin-top: 2.5rem;
+      padding-top: 2rem;
+    }
   }
 {%- endstyle -%}
 
