@@ -1,0 +1,820 @@
+{% comment %}
+  SECTION: PREMIUM CINEMATIC VIDEO BANNER (Responsive & Multi-Aspect Ratio)
+  - Features high-end custom aspect ratio settings for Desktop and Mobile.
+  - Supports Dual Video Pickers (for Desktop vs Mobile portrait videos).
+  - Offers a smart text fallback for direct URLs and filenames (using file_url).
+  - Elegant glassmorphism overlay controls, optional typography layer, and micro-animations.
+{% endcomment %}
+
+{{ 'video-section.css' | asset_url | stylesheet_tag }}
+{{ 'component-deferred-media.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  #BeanCinematicVideo-{{ section.id }} {
+    --aspect-ratio-desktop: {{ section.settings.aspect_ratio_desktop }};
+    --aspect-ratio-mobile: {{ section.settings.aspect_ratio_mobile }};
+    --video-fit: {{ section.settings.video_fit }};
+    --overlay-opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+    --border-radius: {{ section.settings.border_radius }}px;
+    --spacing-top: {{ section.settings.margin_top }}px;
+    --spacing-bottom: {{ section.settings.margin_bottom }}px;
+    --padding-top: {{ section.settings.padding_top }}px;
+    --padding-bottom: {{ section.settings.padding_bottom }}px;
+    --max-width: {% if section.settings.container_width == 'full-bleed' %}100vw{% else %}var(--bean-page-max-width, 1600px){% endif %};
+    
+    margin-top: var(--spacing-top);
+    margin-bottom: var(--spacing-bottom);
+    padding-top: var(--padding-top);
+    padding-bottom: var(--padding-bottom);
+    background-color: {{ section.settings.bg_color }};
+  }
+
+  .bean-cinematic-wrapper {
+    width: 100%;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    {%- if section.settings.container_width != 'full-bleed' -%}
+      padding-left: clamp(2rem, 4vw, 5.6rem);
+      padding-right: clamp(2rem, 4vw, 5.6rem);
+    {%- endif -%}
+  }
+
+  .bean-cinematic-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    border-radius: var(--border-radius);
+    box-shadow: {{ section.settings.box_shadow }};
+    background-color: #000;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    isolation: isolate;
+  }
+
+  /* Desktop Aspect Ratio calculation */
+  @media screen and (min-width: 750px) {
+    .bean-cinematic-container {
+      {%- if section.settings.aspect_ratio_desktop == 'adapt' -%}
+        {%- if section.settings.video_desktop != blank -%}
+          padding-bottom: {{ 1 | divided_by: section.settings.video_desktop.aspect_ratio | times: 100 }}%;
+        {%- else -%}
+          padding-bottom: 56.25%; /* default 16:9 fallback */
+        {%- endif -%}
+      {%- else -%}
+        padding-bottom: calc(100% / (var(--aspect-ratio-desktop)));
+      {%- endif -%}
+    }
+  }
+
+  /* Mobile Aspect Ratio calculation */
+  @media screen and (max-width: 749px) {
+    .bean-cinematic-container {
+      {%- if section.settings.aspect_ratio_mobile == 'adapt' -%}
+        {%- if section.settings.video_mobile != blank -%}
+          padding-bottom: {{ 1 | divided_by: section.settings.video_mobile.aspect_ratio | times: 100 }}%;
+        {%- elsif section.settings.video_desktop != blank -%}
+          padding-bottom: {{ 1 | divided_by: section.settings.video_desktop.aspect_ratio | times: 100 }}%;
+        {%- else -%}
+          padding-bottom: 100%; /* default 1:1 mobile fallback */
+        {%- endif -%}
+      {%- else -%}
+        padding-bottom: calc(100% / (var(--aspect-ratio-mobile)));
+      {%- endif -%}
+    }
+  }
+
+  .bean-cinematic-media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: var(--video-fit);
+    display: block;
+    border: 0;
+    transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .bean-cinematic-container:hover .bean-cinematic-media {
+    {%- if section.settings.enable_hover_zoom -%}
+      transform: scale(1.03);
+    {%- endif -%}
+  }
+
+  /* Responsive Display toggle for Desktop vs Mobile video elements */
+  {%- if section.settings.video_mobile != blank or section.settings.video_url_mobile != blank or section.settings.video_filename_mobile != blank -%}
+    @media screen and (min-width: 750px) {
+      .bean-cinematic-media--mobile {
+        display: none !important;
+      }
+    }
+    @media screen and (max-width: 749px) {
+      .bean-cinematic-media--desktop {
+        display: none !important;
+      }
+    }
+  {%- endif -%}
+
+  /* Tint Layer */
+  .bean-cinematic-tint {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 100%);
+    opacity: var(--overlay-opacity);
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.4s ease;
+  }
+
+  .bean-cinematic-container:hover .bean-cinematic-tint {
+    opacity: calc(var(--overlay-opacity) + 0.1);
+  }
+
+  /* Text Overlay Layer */
+  .bean-cinematic-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: {{ section.settings.content_position_vertical }};
+    align-items: {{ section.settings.content_position_horizontal }};
+    padding: clamp(2rem, 5vw, 6rem);
+    color: #ffffff;
+    pointer-events: none;
+  }
+
+  .bean-cinematic-content {
+    max-width: 65rem;
+    width: 100%;
+    text-align: {{ section.settings.text_align }};
+    pointer-events: auto;
+  }
+
+  .bean-cinematic-eyebrow {
+    font-family: var(--bean-heading-font, 'Space Grotesk', sans-serif);
+    font-size: clamp(1.1rem, 1.5vw, 1.4rem);
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--bean-muted-gold, #c6a969);
+    margin-bottom: 1.2rem;
+    line-height: 1.2;
+  }
+
+  .bean-cinematic-heading {
+    font-family: var(--bean-heading-font, 'Space Grotesk', sans-serif);
+    font-size: clamp(3.2rem, 5.5vw, 7.2rem);
+    font-weight: 700;
+    line-height: 0.9;
+    letter-spacing: -0.05em;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin: 0 0 1.6rem 0;
+    text-wrap: balance;
+  }
+
+  .bean-cinematic-subline {
+    font-family: var(--bean-body-font, 'Manrope', sans-serif);
+    font-size: clamp(1.4rem, 1.8vw, 1.8rem);
+    line-height: 1.5;
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0 0 2.8rem 0;
+    text-wrap: balance;
+  }
+
+  .bean-cinematic-actions {
+    display: inline-flex;
+    flex-wrap: wrap;
+    gap: 1.6rem;
+    justify-content: {% if section.settings.text_align == 'center' %}center{% elsif section.settings.text_align == 'right' %}flex-end{% else %}flex-start{% endif %};
+  }
+
+  /* Glassmorphism Controls */
+  .bean-cinematic-controls {
+    position: absolute;
+    bottom: clamp(1.5rem, 3vw, 3rem);
+    right: clamp(1.5rem, 3vw, 3rem);
+    z-index: 3;
+    display: flex;
+    gap: 1rem;
+    pointer-events: auto;
+  }
+
+  .bean-cinematic-btn {
+    width: clamp(4rem, 5vw, 4.8rem);
+    height: clamp(4rem, 5vw, 4.8rem);
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  }
+
+  .bean-cinematic-btn:hover {
+    background: rgba(255, 255, 255, 0.95);
+    color: #000000;
+    border-color: #ffffff;
+    transform: scale(1.08);
+  }
+
+  .bean-cinematic-btn svg {
+    width: 1.8rem;
+    height: 1.8rem;
+    fill: currentColor;
+    transition: transform 0.32s ease;
+  }
+
+  /* Play Icon Customization */
+  .bean-cinematic-btn svg.icon-play {
+    transform: translateX(1px);
+  }
+
+  @media screen and (max-width: 749px) {
+    .bean-cinematic-overlay {
+      padding: 2.4rem;
+    }
+    .bean-cinematic-controls {
+      bottom: 1.6rem;
+      right: 1.6rem;
+    }
+  }
+{%- endstyle -%}
+
+{%- liquid
+  # Resolve Desktop Video URL
+  assign video_url_d = ''
+  if section.settings.video_desktop != blank
+    # native video picker
+    for source in section.settings.video_desktop.sources
+      if source.format == 'mp4'
+        assign video_url_d = source.url
+        break
+      endif
+    endfor
+    if video_url_d == blank
+      assign video_url_d = section.settings.video_desktop.sources[0].url
+    endif
+  elsif section.settings.video_url_desktop != blank
+    # direct video URL setting
+    assign video_url_d = section.settings.video_url_desktop
+  elsif section.settings.video_filename_desktop != blank
+    # file fallback
+    if section.settings.video_filename_desktop contains '.'
+      assign video_url_d = section.settings.video_filename_desktop | file_url
+    else
+      assign video_url_d = section.settings.video_filename_desktop | append: '.mp4' | file_url
+    endif
+  else
+    # smart automatic lookups
+    assign video_url_d = 'BeanIdentityMovie.mp4' | file_url
+  endif
+
+  # Resolve Mobile Video URL
+  assign video_url_m = ''
+  if section.settings.video_mobile != blank
+    for source in section.settings.video_mobile.sources
+      if source.format == 'mp4'
+        assign video_url_m = source.url
+        break
+      endif
+    endfor
+    if video_url_m == blank
+      assign video_url_m = section.settings.video_mobile.sources[0].url
+    endif
+  elsif section.settings.video_url_mobile != blank
+    assign video_url_m = section.settings.video_url_mobile
+  elsif section.settings.video_filename_mobile != blank
+    if section.settings.video_filename_mobile contains '.'
+      assign video_url_m = section.settings.video_filename_mobile | file_url
+    else
+      assign video_url_m = section.settings.video_filename_mobile | append: '.mp4' | file_url
+    endif
+  endif
+
+  # Setup video element loop, controls, autoplay configurations
+  assign autoplay_attr = 'autoplay'
+  if section.settings.enable_autoplay == false
+    assign autoplay_attr = ''
+  endif
+
+  assign loop_attr = 'loop'
+  if section.settings.enable_loop == false
+    assign loop_attr = ''
+  endif
+
+  assign muted_attr = 'muted'
+  if section.settings.start_muted == false
+    assign muted_attr = ''
+  endif
+-%}
+
+<section id="BeanCinematicVideo-{{ section.id }}" class="bean-cinematic-section">
+  <div class="bean-cinematic-wrapper">
+    <div class="bean-cinematic-container">
+      
+      {%- comment -%} Desktop Video Player {%- endcomment -%}
+      {%- if video_url_d != blank -%}
+        <video
+          id="Video-D-{{ section.id }}"
+          class="bean-cinematic-media bean-cinematic-media--desktop"
+          {{ autoplay_attr }}
+          {{ loop_attr }}
+          {{ muted_attr }}
+          playsinline
+          preload="auto"
+          aria-label="{{ section.settings.video_alt | default: 'Bean Identity Cinematic Video' | escape }}"
+        >
+          <source src="{{ video_url_d }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {%- endif -%}
+
+      {%- comment -%} Mobile Video Player (Optional) {%- endcomment -%}
+      {%- if video_url_m != blank -%}
+        <video
+          id="Video-M-{{ section.id }}"
+          class="bean-cinematic-media bean-cinematic-media--mobile"
+          {{ autoplay_attr }}
+          {{ loop_attr }}
+          {{ muted_attr }}
+          playsinline
+          preload="auto"
+          aria-label="{{ section.settings.video_alt | default: 'Bean Identity Cinematic Video' | escape }}"
+        >
+          <source src="{{ video_url_m }}" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+      {%- endif -%}
+
+      {%- comment -%} Background Tint Overlay {%- endcomment -%}
+      <div class="bean-cinematic-tint"></div>
+
+      {%- comment -%} Typography Content Overlay {%- endcomment -%}
+      {%- if section.settings.eyebrow != blank or section.settings.heading != blank or section.settings.subline != blank or section.settings.button_1_label != blank -%}
+        <div class="bean-cinematic-overlay">
+          <div class="bean-cinematic-content">
+            {%- if section.settings.eyebrow != blank -%}
+              <p class="bean-cinematic-eyebrow">{{ section.settings.eyebrow | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.heading != blank -%}
+              <h2 class="bean-cinematic-heading">{{ section.settings.heading | escape }}</h2>
+            {%- endif -%}
+            {%- if section.settings.subline != blank -%}
+              <p class="bean-cinematic-subline">{{ section.settings.subline | escape }}</p>
+            {%- endif -%}
+            {%- if section.settings.button_1_label != blank or section.settings.button_2_label != blank -%}
+              <div class="bean-cinematic-actions">
+                {%- if section.settings.button_1_label != blank -%}
+                  <a href="{{ section.settings.button_1_link | default: '/collections/all' }}" class="bean-button">
+                    {{ section.settings.button_1_label | escape }}
+                  </a>
+                {%- endif -%}
+                {%- if section.settings.button_2_label != blank -%}
+                  <a href="{{ section.settings.button_2_link | default: '/pages/which-bean-are-you' }}" class="bean-button bean-button--secondary" style="border-color: #ffffff; color: #ffffff;">
+                    {{ section.settings.button_2_label | escape }}
+                  </a>
+                {%- endif -%}
+              </div>
+            {%- endif -%}
+          </div>
+        </div>
+      {%- endif -%}
+
+      {%- comment -%} Floating Glassmorphism Player Controls {%- endcomment -%}
+      {%- if section.settings.show_custom_controls -%}
+        <div class="bean-cinematic-controls">
+          {%- if section.settings.enable_autoplay -%}
+            <button id="PlayBtn-{{ section.id }}" class="bean-cinematic-btn" aria-label="Pause Video" type="button">
+              {%- comment -%} Pause Icon {%- endcomment -%}
+              <svg id="PauseIcon-{{ section.id }}" class="icon-pause" viewBox="0 0 24 24">
+                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+              </svg>
+              {%- comment -%} Play Icon (Hidden initially) {%- endcomment -%}
+              <svg id="PlayIcon-{{ section.id }}" class="icon-play" viewBox="0 0 24 24" style="display: none;">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </button>
+          {%- endif -%}
+          
+          <button id="MuteBtn-{{ section.id }}" class="bean-cinematic-btn" aria-label="Unmute Video" type="button">
+            {%- comment -%} Muted Icon {%- endcomment -%}
+            <svg id="MutedIcon-{{ section.id }}" class="icon-muted" viewBox="0 0 24 24">
+              <path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.03c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/>
+            </svg>
+            {%- comment -%} Unmuted Icon (Hidden initially) {%- endcomment -%}
+            <svg id="UnmutedIcon-{{ section.id }}" class="icon-unmuted" viewBox="0 0 24 24" style="display: none;">
+              <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+            </svg>
+          </button>
+        </div>
+
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            const sectionId = "{{ section.id }}";
+            const videoD = document.getElementById(`Video-D-${sectionId}`);
+            const videoM = document.getElementById(`Video-M-${sectionId}`);
+            const playBtn = document.getElementById(`PlayBtn-${sectionId}`);
+            const muteBtn = document.getElementById(`MuteBtn-${sectionId}`);
+            
+            const pauseIcon = document.getElementById(`PauseIcon-${sectionId}`);
+            const playIcon = document.getElementById(`PlayIcon-${sectionId}`);
+            const mutedIcon = document.getElementById(`MutedIcon-${sectionId}`);
+            const unmutedIcon = document.getElementById(`UnmutedIcon-${sectionId}`);
+
+            function getActiveVideo() {
+              if (videoM && window.getComputedStyle(videoM).display !== 'none') {
+                return videoM;
+              }
+              return videoD;
+            }
+
+            // Sync play state UI
+            function updatePlayUI(isPaused) {
+              if (!playBtn) return;
+              if (isPaused) {
+                pauseIcon.style.display = 'none';
+                playIcon.style.display = 'block';
+                playBtn.setAttribute('aria-label', 'Play Video');
+              } else {
+                pauseIcon.style.display = 'block';
+                playIcon.style.display = 'none';
+                playBtn.setAttribute('aria-label', 'Pause Video');
+              }
+            }
+
+            // Sync mute state UI
+            function updateMuteUI(isMuted) {
+              if (!muteBtn) return;
+              if (isMuted) {
+                mutedIcon.style.display = 'block';
+                unmutedIcon.style.display = 'none';
+                muteBtn.setAttribute('aria-label', 'Unmute Video');
+              } else {
+                mutedIcon.style.display = 'none';
+                unmutedIcon.style.display = 'block';
+                muteBtn.setAttribute('aria-label', 'Mute Video');
+              }
+            }
+
+            // Toggle Play/Pause
+            if (playBtn) {
+              playBtn.addEventListener('click', function() {
+                const activeVideo = getActiveVideo();
+                if (!activeVideo) return;
+                
+                if (activeVideo.paused) {
+                  activeVideo.play().then(() => {
+                    updatePlayUI(false);
+                  }).catch(err => console.log('Autoplay play blocked: ', err));
+                } else {
+                  activeVideo.pause();
+                  updatePlayUI(true);
+                }
+              });
+            }
+
+            // Toggle Mute/Unmute
+            if (muteBtn) {
+              // Initialize based on current settings state
+              const initialVideo = getActiveVideo();
+              if (initialVideo) {
+                updateMuteUI(initialVideo.muted);
+              }
+
+              muteBtn.addEventListener('click', function() {
+                const activeVideo = getActiveVideo();
+                if (!activeVideo) return;
+                
+                const nextMuteState = !activeVideo.muted;
+                
+                // Set for both mobile & desktop so state is kept on window resize
+                if (videoD) videoD.muted = nextMuteState;
+                if (videoM) videoM.muted = nextMuteState;
+                
+                updateMuteUI(nextMuteState);
+              });
+            }
+
+            // Listen to browser native events to keep UI always accurate
+            if (videoD) {
+              videoD.addEventListener('play', () => updatePlayUI(false));
+              videoD.addEventListener('pause', () => updatePlayUI(true));
+              videoD.addEventListener('volumechange', () => updateMuteUI(videoD.muted));
+            }
+            if (videoM) {
+              videoM.addEventListener('play', () => updatePlayUI(false));
+              videoM.addEventListener('pause', () => updatePlayUI(true));
+              videoM.addEventListener('volumechange', () => updateMuteUI(videoM.muted));
+            }
+          });
+        </script>
+      {%- endif -%}
+
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bean Cinematic Video",
+  "tag": "section",
+  "class": "section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "header",
+      "content": "Video Configurations"
+    },
+    {
+      "type": "video",
+      "id": "video_desktop",
+      "label": "Desktop Video (16:9 or 21:9)"
+    },
+    {
+      "type": "video",
+      "id": "video_mobile",
+      "label": "Mobile Video (Vertical 9:16 or Square 1:1, Optional)"
+    },
+    {
+      "type": "text",
+      "id": "video_alt",
+      "label": "Video Alt Text / Description (SEO)",
+      "default": "Bean Identity brand movie - BeanIdentityMovie"
+    },
+    {
+      "type": "header",
+      "content": "Alternative Custom Fallbacks",
+      "info": "Used if no native videos are selected above. Helpful to load from Shopify Settings > Files directly."
+    },
+    {
+      "type": "text",
+      "id": "video_filename_desktop",
+      "label": "Desktop File Name (e.g. bean-identity.mp4)",
+      "default": "BeanIdentityMovie.mp4"
+    },
+    {
+      "type": "text",
+      "id": "video_filename_mobile",
+      "label": "Mobile File Name (e.g. bean-identity-mobile.mp4)"
+    },
+    {
+      "type": "text",
+      "id": "video_url_desktop",
+      "label": "Direct Desktop Video URL"
+    },
+    {
+      "type": "text",
+      "id": "video_url_mobile",
+      "label": "Direct Mobile Video URL"
+    },
+    {
+      "type": "header",
+      "content": "Responsiveness & Sizing"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_desktop",
+      "label": "Desktop Aspect Ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to Video" },
+        { "value": "2.333", "label": "21:9 Widescreen (Cinematic)" },
+        { "value": "1.777", "label": "16:9 Standard" },
+        { "value": "1.6", "label": "16:10 Laptop" },
+        { "value": "1.333", "label": "4:3 Classic" },
+        { "value": "1", "label": "1:1 Square" }
+      ],
+      "default": "2.333"
+    },
+    {
+      "type": "select",
+      "id": "aspect_ratio_mobile",
+      "label": "Mobile Aspect Ratio",
+      "options": [
+        { "value": "adapt", "label": "Adapt to Video" },
+        { "value": "1.777", "label": "16:9 Standard" },
+        { "value": "1", "label": "1:1 Square" },
+        { "value": "0.8", "label": "4:5 Vertical (Instagram)" },
+        { "value": "0.5625", "label": "9:16 Portrait (TikTok/Shorts)" }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "select",
+      "id": "video_fit",
+      "label": "Video Fit Mode",
+      "options": [
+        { "value": "cover", "label": "Cover (Fill, may crop to fit)" },
+        { "value": "contain", "label": "Contain (Display full video with margins)" }
+      ],
+      "default": "cover"
+    },
+    {
+      "type": "select",
+      "id": "container_width",
+      "label": "Section Width",
+      "options": [
+        { "value": "full-bleed", "label": "Full Width (Edge-to-Edge)" },
+        { "value": "page-width", "label": "Page Contained" }
+      ],
+      "default": "full-bleed"
+    },
+    {
+      "type": "range",
+      "id": "border_radius",
+      "label": "Border Radius",
+      "min": 0,
+      "max": 40,
+      "step": 4,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "text",
+      "id": "box_shadow",
+      "label": "Custom Shadow CSS",
+      "default": "none"
+    },
+    {
+      "type": "header",
+      "content": "Player Settings"
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_autoplay",
+      "label": "Autoplay Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_loop",
+      "label": "Loop Video",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "start_muted",
+      "label": "Start Muted (Required for Autoplay)",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_custom_controls",
+      "label": "Show Modern Glassmorphism Controls",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_hover_zoom",
+      "label": "Enable Slight Zoom on Hover",
+      "default": false
+    },
+    {
+      "type": "header",
+      "content": "Aesthetics & Text Overlay"
+    },
+    {
+      "type": "color",
+      "id": "bg_color",
+      "label": "Section Background",
+      "default": "#f5f5f5"
+    },
+    {
+      "type": "range",
+      "id": "overlay_opacity",
+      "label": "Overlay Tint Opacity",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "default": 30,
+      "unit": "%"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow Text"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading Text"
+    },
+    {
+      "type": "textarea",
+      "id": "subline",
+      "label": "Subline Copy"
+    },
+    {
+      "type": "select",
+      "id": "text_align",
+      "label": "Text Alignment",
+      "options": [
+        { "value": "left", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "right", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_vertical",
+      "label": "Vertical Position",
+      "options": [
+        { "value": "flex-start", "label": "Top" },
+        { "value": "center", "label": "Middle" },
+        { "value": "flex-end", "label": "Bottom" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "select",
+      "id": "content_position_horizontal",
+      "label": "Horizontal Position",
+      "options": [
+        { "value": "flex-start", "label": "Left" },
+        { "value": "center", "label": "Center" },
+        { "value": "flex-end", "label": "Right" }
+      ],
+      "default": "center"
+    },
+    {
+      "type": "text",
+      "id": "button_1_label",
+      "label": "Primary Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_1_link",
+      "label": "Primary Button Link"
+    },
+    {
+      "type": "text",
+      "id": "button_2_label",
+      "label": "Secondary Button Label"
+    },
+    {
+      "type": "url",
+      "id": "button_2_link",
+      "label": "Secondary Button Link"
+    },
+    {
+      "type": "header",
+      "content": "Section Spacing"
+    },
+    {
+      "type": "range",
+      "id": "margin_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "margin_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Margin Bottom",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Top",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding Bottom",
+      "default": 0
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bean Cinematic Video"
+    }
+  ]
+}
+{% endschema %}

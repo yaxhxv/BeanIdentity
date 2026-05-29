@@ -534,6 +534,28 @@
         "padding_bottom": 24
       }
     },
+    "bean_cinematic_video_hp": {
+      "type": "bean-cinematic-video",
+      "settings": {
+        "video_alt": "Bean Identity brand movie - BeanIdentityMovie",
+        "video_filename_desktop": "BeanIdentityMovie",
+        "aspect_ratio_desktop": "2.333",
+        "aspect_ratio_mobile": "1",
+        "video_fit": "cover",
+        "container_width": "full-bleed",
+        "border_radius": 0,
+        "enable_autoplay": true,
+        "enable_loop": true,
+        "start_muted": true,
+        "show_custom_controls": true,
+        "bg_color": "#1a1a1a",
+        "overlay_opacity": 25,
+        "margin_top": 0,
+        "margin_bottom": 0,
+        "padding_top": 0,
+        "padding_bottom": 0
+      }
+    },
     "image_with_text_zep9A9": {
       "type": "image-with-text",
       "blocks": {
@@ -832,6 +854,7 @@
     "identity_copy_hp",
     "beanagram_stories_hp",
     "scrolling_marquee_hp",
+    "bean_cinematic_video_hp",
     "image_with_text_zep9A9",
     "collection_showcase_tabs_nQm96R",
     "image_with_text_nFqPww",
