@@ -1,7 +1,7 @@
 {% comment %}
-  SECTION: CLEAN HERO BANNER
+  SECTION: CLEAN HERO BANNER 2 (No Transitions)
   - Full width autoplay hero using the same image blocks.
-  - Editorial Bean Identity treatment with restrained motion.
+  - Editorial Bean Identity treatment with static premium images.
 {% endcomment %}
 
 {% liquid
@@ -76,27 +76,39 @@
     position: relative;
     overflow: hidden;
     background: #0b0b0b;
+    padding-bottom: {{ desktop_ratio }} !important;
+    min-height: 62rem !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .desktop-only,
+  .mobile-only {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+    transition: none !important;
   }
 
   .clean-img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: cover !important;
     display: block;
     position: absolute;
     top: 0; left: 0;
-    transform: scale(1.02);
-    filter: saturate(0.85) contrast(1.08);
-    transition: none;
-  }
-
-  .js-transitions .clean-img {
-    transition: transform 6s ease, filter 0.6s ease;
+    transform: none !important;
+    transition: none !important;
+    filter: saturate(0.85) contrast(1.08) !important;
   }
 
   .clean-hero-slide.is-active .clean-img {
-    transform: scale(1.08);
-    filter: saturate(0.92) contrast(1.12);
+    transform: none !important;
+    transition: none !important;
+    filter: saturate(0.92) contrast(1.12) !important;
   }
 
   /* CONTENT OVERLAY */
@@ -333,15 +345,17 @@
 
   /* RESPONSIVE VISIBILITY & RATIOS */
   @media (min-width: 768px) {
-    .mobile-only { display: none; }
-    .desktop-only { display: block; }
+    .mobile-only { display: none !important; }
+    .desktop-only { display: block !important; }
   }
 
   /* Base Desktop & Tablet */
   @media (min-width: 768px) {
     .clean-image-wrapper {
-      padding-bottom: {{ desktop_ratio }};
-      min-height: 62rem;
+      padding-bottom: {{ desktop_ratio }} !important;
+      min-height: 62rem !important;
+      transform: none !important;
+      transition: none !important;
     }
     .hero-content-overlay {
       pointer-events: none;
@@ -403,49 +417,63 @@
 
   /* MOBILE (below 768px) — Stacked Editorial Layout */
   @media (max-width: 767px) {
-    .desktop-only { display: none; }
-    .mobile-only { display: block; }
+    .desktop-only { display: none !important; }
+    .mobile-only { display: block !important; }
 
     .clean-hero-slide {
-      display: flex;
-      flex-direction: column;
+      display: block !important;
+      position: relative !important;
     }
 
     .clean-image-wrapper {
-      padding-bottom: {{ mobile_ratio }};
-      min-height: 32rem;
-      max-height: {% if section.settings.mobile_image_scaling == 'contain' %}none{% else %}65vh{% endif %};
-      width: 100%;
-      position: relative;
+      padding-bottom: {{ mobile_ratio }} !important;
+      min-height: 32rem !important;
+      max-height: {% if section.settings.mobile_image_scaling == 'contain' %}none{% else %}65vh{% endif %} !important;
+      width: 100% !important;
+      position: relative !important;
+      transform: none !important;
+      transition: none !important;
     }
 
     .clean-img {
-      object-position: 65% center;
-      object-fit: {{ section.settings.mobile_image_scaling | default: 'cover' }};
-      transition: none; /* prevent aggressive motion/scaling on mobile */
-    }
-
-    .clean-hero-slide.is-active .clean-img {
-      transform: scale(1.02); /* very subtle premium feel without excessive motion/cropping */
+      object-position: 65% center !important;
+      object-fit: {{ section.settings.mobile_image_scaling | default: 'cover' }} !important;
+      transform: none !important;
+      transition: none !important;
     }
 
     .hero-overlay-mask {
-      background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.4) 100%);
-      opacity: 0.5; /* soft cinematic feel, keep beans fully visible */
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 50%, rgba(0, 0, 0, 0.85) 100%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.45) 0%, transparent 100%) !important;
+      opacity: 0.8 !important; /* soft cinematic feel, keep beans fully visible */
+      transform: none !important;
+      transition: none !important;
     }
 
     .hero-bottom-blend {
-      display: none; /* stack layout doesn't blend into absolute text */
+      display: block !important;
+      height: 40% !important;
+      background: linear-gradient(to bottom, transparent, rgba(11, 11, 11, 0.9) 70%, #0b0b0b 100%) !important;
+      pointer-events: none !important;
+      z-index: 4 !important;
     }
 
     .hero-content-overlay {
-      position: relative;
-      width: 100%;
-      height: auto;
-      padding: 3rem 2rem 6.5rem;
-      background: #0b0b0b;
-      justify-content: flex-start;
-      pointer-events: auto;
+      position: absolute !important;
+      top: 0 !important;
+      left: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      padding: 3rem 2rem 5.5rem !important;
+      background: transparent !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-end !important;
+      align-items: flex-start !important;
+      pointer-events: auto !important;
+      z-index: 5 !important;
+      color: {{ section.settings.text_color }} !important;
     }
 
     .hero-headline {
@@ -461,7 +489,7 @@
       line-height: 1.4;
       max-width: 100%;
       margin: 1rem 0 2.5rem;
-      color: rgba(245, 245, 245, 0.75);
+      color: rgba(245, 245, 245, 0.9) !important;
     }
 
     .hero-buttons {
@@ -715,7 +743,7 @@
 
 {% schema %}
 {
-  "name": "Clean Hero (Structural)",
+  "name": "Clean Hero 2",
   "settings": [
     {
       "type": "header",
@@ -886,7 +914,7 @@
   ],
   "presets": [
     {
-      "name": "Clean Hero (Structural)",
+      "name": "Clean Hero 2",
       "blocks": [{ "type": "slide" }]
     }
   ]

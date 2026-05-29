@@ -15,6 +15,7 @@
     },
     "hero_banner_clean_NxXFFK": {
       "type": "hero-banner-clean",
+      "disabled": true,
       "blocks": {
         "slide_CdDEz3": {
           "type": "slide",
@@ -121,6 +122,127 @@
         "slide_TCRdPB"
       ],
       "name": "Clean Hero (Auto-Play)",
+      "settings": {
+        "section_width": "full-width",
+        "desktop_ratio": "56.25%",
+        "mobile_ratio": "adapt",
+        "mobile_image_scaling": "contain",
+        "content_alignment": "center",
+        "text_color": "#ffffff",
+        "overlay_opacity": 30,
+        "speed": 5,
+        "show_dots": true,
+        "bg_color": "#f4f4f4"
+      }
+    },
+    "hero_banner_2_NxXFFK": {
+      "type": "hero-banner-2",
+      "blocks": {
+        "slide_CdDEz3": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/hero1.png",
+            "image_m": "shopify://shop_images/Bean_Hero_1_Mobile.png",
+            "headline": "Wear who you are",
+            "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop the Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_Y7r4GX": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/hero2.png",
+            "image_m": "shopify://shop_images/Bean_Hero_2_Mobile.png",
+            "headline": "Wear who you are",
+            "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop the Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_cJBTmD": {
+          "type": "slide",
+          "settings": {
+            "image_d": "shopify://shop_images/hero3.png",
+            "image_m": "shopify://shop_images/Bean_Hero_3_Mobile.png",
+            "headline": "Wear who you are",
+            "subline": "A personality-driven apparel universe built for every mood, every edge, and every version of you.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop the Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_t83Cix": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_d": "shopify://shop_images/c71vxsc5hegbuebo1xn8.webp",
+            "image_m": "shopify://shop_images/j0gzjnobkywhn5kb1i7o.webp",
+            "headline": "Wear who you are",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Meet the Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_ryDiLg": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_d": "shopify://shop_images/Bean_I_3.webp",
+            "image_m": "shopify://shop_images/personality_1.webp",
+            "headline": "Insert Brand Tagline Here",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find Your Bean",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop All Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_h7miCW": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_d": "shopify://shop_images/ve6gux28jgisnjr93r6v.webp",
+            "image_m": "shopify://shop_images/lf3jun3jqhpmlzhgcjwr.webp",
+            "headline": "Insert Brand Tagline Here",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find Your Bean2",
+            "button_1_link": "/pages/which-bean-are-you",
+            "button_2_label": "Shop All Beans",
+            "button_2_link": "/collections/all"
+          }
+        },
+        "slide_TCRdPB": {
+          "type": "slide",
+          "disabled": true,
+          "settings": {
+            "image_d": "shopify://shop_images/Bean_I_1.png",
+            "headline": "Wear who you are",
+            "subline": "Insert supporting sub-line copy here.",
+            "button_1_label": "Find your Bean",
+            "button_1_link": "",
+            "button_2_label": "Meet the Beans",
+            "button_2_link": ""
+          }
+        }
+      },
+      "block_order": [
+        "slide_CdDEz3",
+        "slide_Y7r4GX",
+        "slide_cJBTmD",
+        "slide_t83Cix",
+        "slide_ryDiLg",
+        "slide_h7miCW",
+        "slide_TCRdPB"
+      ],
+      "name": "Clean Hero 2 (No Transitions)",
       "settings": {
         "section_width": "full-width",
         "desktop_ratio": "56.25%",
@@ -703,6 +825,7 @@
   "order": [
     "bean_narrative_inject",
     "hero_banner_clean_NxXFFK",
+    "hero_banner_2_NxXFFK",
     "quiz_entry_prompt_hp",
     "most_popular_products_fJfFYg",
     "collection_slider_yzYUYt",
