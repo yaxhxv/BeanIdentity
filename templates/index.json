@@ -609,6 +609,9 @@
         "video": "shopify://files/videos/BeanIdentityMovie.mov",
         "video_filename": "BeanIdentityMovie",
         "video_url": "",
+        "show_doodles": false,
+        "video_padding": 16,
+        "show_controls": true,
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "text_first",
@@ -621,8 +624,8 @@
         "color_scheme": "",
         "bg_color": "#ede7e3",
         "text_color": "#2b2b2b",
-        "padding_top": 36,
-        "padding_bottom": 16
+        "padding_top": 100,
+        "padding_bottom": 100
       }
     },
     "collection_showcase_tabs_nQm96R": {

@@ -46,6 +46,46 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
   border: 1px solid rgba(11,11,11,0.08);
   overflow: hidden;
   opacity: 1 !important;
+  --video-padding: {{ section.settings.video_padding }}px;
+  position: relative;
+  
+  /* Premium Margin and Spacing additions for video cards */
+  {% if section.settings.video != blank or section.settings.video_filename != blank or section.settings.video_url != blank %}
+    background: rgba(255, 255, 255, 0.22) !important;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    align-self: center; /* Prevents card from stretching */
+  {% endif %}
+}
+
+{% if section.settings.video != blank or section.settings.video_filename != blank or section.settings.video_url != blank %}
+  @media screen and (min-width: 750px) {
+    .section-{{ section.id }}-padding .image-with-text__media {
+      margin: 2.4rem;
+      width: calc(100% - 4.8rem) !important;
+    }
+    .section-{{ section.id }}-padding .image-with-text__media-item {
+      align-self: center; /* Prevents grid column from stretching vertically */
+    }
+  }
+  @media screen and (max-width: 749px) {
+    .section-{{ section.id }}-padding .image-with-text__media {
+      margin: 1.6rem;
+      width: calc(100% - 3.2rem) !important;
+    }
+  }
+{% endif %}
+
+.section-{{ section.id }}-padding .image-with-text__video {
+  position: absolute;
+  top: var(--video-padding);
+  left: var(--video-padding);
+  width: calc(100% - (var(--video-padding) * 2));
+  height: calc(100% - (var(--video-padding) * 2));
+  object-fit: cover;
+  border-radius: max(0px, calc(2.6rem - var(--video-padding)));
+  transition: transform 0.4s ease;
 }
 
 .section-{{ section.id }}-padding .image-with-text__content {
@@ -107,22 +147,24 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 -%}
 
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
-  <img
-    src="{{ 'JellyDoodle2.png' | file_url }}"
-    alt=""
-    aria-hidden="true"
-    loading="lazy"
-    class="iwt-jelly-doodle"
-    style="position:absolute; top: -3rem; right: -4rem; width: clamp(160px, 20vw, 280px); height: auto; opacity: 0.78; transform: rotate(15deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;"
-  >
-  <img
-    src="{{ 'VanillaDoodle2.png' | file_url }}"
-    alt=""
-    aria-hidden="true"
-    loading="lazy"
-    class="iwt-vanilla-doodle"
-    style="position:absolute; bottom: -2rem; left: -3rem; width: clamp(180px, 24vw, 320px); height: auto; opacity: 0.75; transform: rotate(-12deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 46% 54% 52% 48% / 54% 46% 54% 46%;"
-  >
+  {%- if section.settings.show_doodles -%}
+    <img
+      src="{{ 'JellyDoodle2.png' | file_url }}"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      class="iwt-jelly-doodle"
+      style="position:absolute; top: -3rem; right: -4rem; width: clamp(160px, 20vw, 280px); height: auto; opacity: 0.78; transform: rotate(15deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 52% 48% 50% 50% / 40% 42% 58% 60%;"
+    >
+    <img
+      src="{{ 'VanillaDoodle2.png' | file_url }}"
+      alt=""
+      aria-hidden="true"
+      loading="lazy"
+      class="iwt-vanilla-doodle"
+      style="position:absolute; bottom: -2rem; left: -3rem; width: clamp(180px, 24vw, 320px); height: auto; opacity: 0.75; transform: rotate(-12deg); pointer-events: none; z-index: 0; mix-blend-mode: multiply; border-radius: 46% 54% 52% 48% / 54% 46% 54% 46%;"
+    >
+  {%- endif -%}
   <div class="page-width">
     <div class="image-with-text image-with-text--{{ section.settings.content_layout }} isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == section.settings.section_color_scheme and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
       <div class="image-with-text__grid grid grid--gapless grid--1-col grid--{% if section.settings.desktop_image_width == 'medium' %}2-col-tablet{% else %}3-col-tablet{% endif %}{% if section.settings.layout == 'text_first' %} image-with-text__grid--reverse{% endif %}">
@@ -164,17 +206,30 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 
             {%- if video_src != blank -%}
               <video
+                id="Video-{{ section.id }}"
                 autoplay
                 loop
                 muted
                 playsinline
                 class="image-with-text__video"
-                style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; object-fit: cover;"
                 aria-label="{{ section.settings.image.alt | default: 'Bean Identity brand movie' | escape }}"
               >
                 <source src="{{ video_src }}" type="video/mp4">
                 Your browser does not support the video tag.
               </video>
+
+              {%- if section.settings.show_controls -%}
+                <div class="iwt-video-controls">
+                  <button id="PlayBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Pause Video" type="button">
+                    <svg id="PauseIcon-{{ section.id }}" class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    <svg id="PlayIcon-{{ section.id }}" class="icon-play" viewBox="0 0 24 24" style="display: none; transform: translateX(1px);"><path d="M8 5v14l11-7z"/></svg>
+                  </button>
+                  <button id="MuteBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Unmute Video" type="button">
+                    <svg id="MutedIcon-{{ section.id }}" class="icon-muted" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.03c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    <svg id="UnmutedIcon-{{ section.id }}" class="icon-unmuted" viewBox="0 0 24 24" style="display: none;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                  </button>
+                </div>
+              {%- endif -%}
             {%- elsif section.settings.image != blank -%}
               {%- if section.settings.image_behavior == 'ambient' or section.settings.image_behavior == 'zoom-in' -%}
                 {%- assign widths = '198, 432, 642, 900, 1284, 1800' -%}
@@ -247,6 +302,114 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
   </div>
 </div>
 
+{%- if section.settings.show_controls and video_src != blank -%}
+  <style>
+    .iwt-video-controls {
+      position: absolute;
+      bottom: calc(var(--video-padding) + 1.6rem);
+      right: calc(var(--video-padding) + 1.6rem);
+      z-index: 5;
+      display: flex;
+      gap: 1.2rem;
+      pointer-events: auto;
+      margin: 0.4rem;
+    }
+
+    .iwt-ctrl-btn {
+      width: 4.2rem !important;
+      height: 4.2rem !important;
+      padding: 1.1rem !important;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.28) !important;
+      background: rgba(0, 0, 0, 0.4) !important;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      color: #ffffff !important;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .iwt-ctrl-btn svg {
+      width: 100% !important;
+      height: 100% !important;
+      display: block;
+    }
+
+    .iwt-ctrl-btn:hover {
+      background: rgba(255, 255, 255, 0.95) !important;
+      color: #000000 !important;
+      border-color: #ffffff !important;
+      transform: scale(1.08);
+    }
+  </style>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const sectionId = "{{ section.id }}";
+      const video = document.getElementById(`Video-${sectionId}`);
+      const playBtn = document.getElementById(`PlayBtn-${sectionId}`);
+      const muteBtn = document.getElementById(`MuteBtn-${sectionId}`);
+      
+      const pauseIcon = document.getElementById(`PauseIcon-${sectionId}`);
+      const playIcon = document.getElementById(`PlayIcon-${sectionId}`);
+      const mutedIcon = document.getElementById(`MutedIcon-${sectionId}`);
+      const unmutedIcon = document.getElementById(`UnmutedIcon-${sectionId}`);
+
+      if (!video) return;
+
+      function updatePlayUI(isPaused) {
+        if (!playBtn) return;
+        if (isPaused) {
+          pauseIcon.style.display = 'none';
+          playIcon.style.display = 'block';
+        } else {
+          pauseIcon.style.display = 'block';
+          playIcon.style.display = 'none';
+        }
+      }
+
+      function updateMuteUI(isMuted) {
+        if (!muteBtn) return;
+        if (isMuted) {
+          mutedIcon.style.display = 'block';
+          unmutedIcon.style.display = 'none';
+        } else {
+          mutedIcon.style.display = 'none';
+          unmutedIcon.style.display = 'block';
+        }
+      }
+
+      updateMuteUI(video.muted);
+
+      if (playBtn) {
+        playBtn.addEventListener('click', function() {
+          if (video.paused) {
+            video.play().then(() => updatePlayUI(false)).catch(err => console.log(err));
+          } else {
+            video.pause();
+            updatePlayUI(true);
+          }
+        });
+      }
+
+      if (muteBtn) {
+        muteBtn.addEventListener('click', function() {
+          video.muted = !video.muted;
+          updateMuteUI(video.muted);
+        });
+      }
+
+      video.addEventListener('play', () => updatePlayUI(false));
+      video.addEventListener('pause', () => updatePlayUI(true));
+      video.addEventListener('volumechange', () => updateMuteUI(video.muted));
+    });
+  </script>
+{%- endif -%}
+
 {% schema %}
 {
   "name": "t:sections.image-with-text.name",
@@ -275,6 +438,28 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
       "type": "text",
       "id": "video_url",
       "label": "Direct Video URL"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_doodles",
+      "label": "Show Background Doodle Illustrations",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "video_padding",
+      "label": "Inner Spacing Around Video",
+      "min": 0,
+      "max": 48,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "checkbox",
+      "id": "show_controls",
+      "label": "Show Glassmorphism Mute/Pause Controls",
+      "default": true
     },
     {
       "type": "select",
