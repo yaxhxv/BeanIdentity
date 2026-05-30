@@ -178,7 +178,7 @@ d The anchor - you keep things calm, grounded & moving Green 3, Coffee 1
 e The connector - you get everyone talking & make the group
 feel like a team
 Jelly 3, Vanilla 1
-14. Your inner monologue at 2am looks like:
+14. Your inner monologue at 2 am looks like:
 a Replaying every social interaction you had in the last week Coffee 3, Jelly 1
 b Planning something you’re not sure you’ll actually do Vanilla 3, Coffee 1
 

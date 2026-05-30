@@ -167,7 +167,7 @@
   .bean-quiz__question-title {
     max-width: 28ch;
     font-size: clamp(2.2rem, 4vw, 3rem);
-    text-transform: lowercase;
+    text-transform: none;
     line-height: 1.1;
   }
 
@@ -846,7 +846,7 @@
             <div class="bean-quiz__welcome-pillars">
               <span class="bean-quiz__welcome-pill">15 questions</span>
               <span class="bean-quiz__welcome-pill">5 min</span>
-              <span class="bean-quiz__welcome-pill">1 bean match</span>
+              <span class="bean-quiz__welcome-pill">Perfect bean match</span>
             </div>
             {% comment %}
               <img
@@ -861,12 +861,16 @@
         </div>
 
         <div class="bean-quiz__screen" data-quiz-screen="1" data-step="1">
-          <h2 class="bean-quiz__question-title">When you walk into a party you weren’t really planning to attend, your 1st instinct is:</h2>
+          <h2 class="bean-quiz__question-title">
+            When you walk into a party you weren’t really planning to attend, your 1st instinct is:
+          </h2>
           <p class="bean-quiz__question-copy">Choose the option that feels most natural to you right now.</p>
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,green:1">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">Find the quietest corner & observe before deciding to whether actually exist there</span>
+              <span class="bean-quiz__option-text"
+                >Find the quietest corner & observe before deciding to whether actually exist there</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:2,jelly:2">
               <span class="bean-quiz__option-index">B</span>
@@ -874,15 +878,21 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,chilli:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">Go straight to the drinks, start a random conversation, and somehow end up being the life of the party</span>
+              <span class="bean-quiz__option-text"
+                >Go straight to the drinks, start a random conversation, and somehow end up being the life of the party</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:3,coffee:1">
               <span class="bean-quiz__option-index">D</span>
-              <span class="bean-quiz__option-text">Feel mildly overwhelmed but breathe through it, talk to one or two people intentionally</span>
+              <span class="bean-quiz__option-text"
+                >Feel mildly overwhelmed but breathe through it, talk to one or two people intentionally</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,jelly:1">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">Walk in like you own it, say something mildly controversial, and see who laughs</span>
+              <span class="bean-quiz__option-text"
+                >Walk in like you own it, say something mildly controversial, and see who laughs</span
+              >
             </button>
           </div>
         </div>
@@ -897,19 +907,27 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:2,chilli:2">
               <span class="bean-quiz__option-index">B</span>
-              <span class="bean-quiz__option-text">Send them a voice note rant about how much you love them & want to fight whatever hurt them</span>
+              <span class="bean-quiz__option-text"
+                >Send them a voice note rant about how much you love them & want to fight whatever hurt them</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,green:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">Research their problem obsessively & come back with a 5-point plan</span>
+              <span class="bean-quiz__option-text"
+                >Research their problem obsessively & come back with a 5-point plan</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:2,jelly:2">
               <span class="bean-quiz__option-index">D</span>
-              <span class="bean-quiz__option-text">Distract them–plan something exciting, make them laugh, shift the energy</span>
+              <span class="bean-quiz__option-text"
+                >Distract them–plan something exciting, make them laugh, shift the energy</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,green:1">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">Tell them exactly what you think, even if it’s hard to hear, because that’s real love</span>
+              <span class="bean-quiz__option-text"
+                >Tell them exactly what you think, even if it’s hard to hear, because that’s real love</span
+              >
             </button>
           </div>
         </div>
@@ -920,11 +938,15 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,vanilla:1">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">Full of half-finished thoughts, observations, & ideas you’ll “definitely come back to”</span>
+              <span class="bean-quiz__option-text"
+                >Full of half-finished thoughts, observations, & ideas you’ll “definitely come back to”</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:2,jelly:2">
               <span class="bean-quiz__option-index">B</span>
-              <span class="bean-quiz__option-text">Vibes, quotes, random plans & screenshots with zero organisation</span>
+              <span class="bean-quiz__option-text"
+                >Vibes, quotes, random plans & screenshots with zero organisation</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:2,coffee:2">
               <span class="bean-quiz__option-index">C</span>
@@ -982,11 +1004,15 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,vanilla:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">Being with people you love, probably too loud, probably eating something good</span>
+              <span class="bean-quiz__option-text"
+                >Being with people you love, probably too loud, probably eating something good</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:2,coffee:2">
               <span class="bean-quiz__option-index">D</span>
-              <span class="bean-quiz__option-text">Finally doing something you’ve been putting off – you’ll feel peaceful after</span>
+              <span class="bean-quiz__option-text"
+                >Finally doing something you’ve been putting off – you’ll feel peaceful after</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,vanilla:1">
               <span class="bean-quiz__option-index">E</span>
@@ -1001,7 +1027,9 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,green:1">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">Research it until you feel sick & make a spreadsheet no one asked for</span>
+              <span class="bean-quiz__option-text"
+                >Research it until you feel sick & make a spreadsheet no one asked for</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:3,chilli:1">
               <span class="bean-quiz__option-index">B</span>
@@ -1055,7 +1083,9 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:2,green:2">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">Quietly trying to understand everyone’s position before saying anything</span>
+              <span class="bean-quiz__option-text"
+                >Quietly trying to understand everyone’s position before saying anything</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,vanilla:1">
               <span class="bean-quiz__option-index">B</span>
@@ -1063,7 +1093,9 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,vanilla:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">Try to lighten the mood – sometimes humour is the safest bridge</span>
+              <span class="bean-quiz__option-text"
+                >Try to lighten the mood – sometimes humour is the safest bridge</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:3,coffee:1">
               <span class="bean-quiz__option-index">D</span>
@@ -1082,7 +1114,9 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,green:1">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">“I don’t hate people. I just find them exhausting in large doses”</span>
+              <span class="bean-quiz__option-text"
+                >“I don’t hate people. I just find them exhausting in large doses”</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:3,jelly:1">
               <span class="bean-quiz__option-index">B</span>
@@ -1090,15 +1124,21 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,coffee:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">“I will not apologise for being too much. That’s not my problem”</span>
+              <span class="bean-quiz__option-text"
+                >“I will not apologise for being too much. That’s not my problem”</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:3,coffee:1">
               <span class="bean-quiz__option-index">D</span>
-              <span class="bean-quiz__option-text">“Everyone is going through something. Be gentler than you think you need to be”</span>
+              <span class="bean-quiz__option-text"
+                >“Everyone is going through something. Be gentler than you think you need to be”</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,vanilla:1">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">“If I like you, you will know. If I love you, the whole world will know”</span>
+              <span class="bean-quiz__option-text"
+                >“If I like you, you will know. If I love you, the whole world will know”</span
+              >
             </button>
           </div>
         </div>
@@ -1109,23 +1149,33 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:2,chilli:2">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">You care more than you admit, but you’d die before you’d admit it</span>
+              <span class="bean-quiz__option-text"
+                >You care more than you admit, but you’d die before you’d admit it</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:2,green:2">
               <span class="bean-quiz__option-index">B</span>
-              <span class="bean-quiz__option-text">You want to be liked but you won’t pretend to be someone you’re not</span>
+              <span class="bean-quiz__option-text"
+                >You want to be liked but you won’t pretend to be someone you’re not</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,vanilla:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">You genuinely love when people get you–it feels like a little win</span>
+              <span class="bean-quiz__option-text"
+                >You genuinely love when people get you–it feels like a little win</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,coffee:1">
               <span class="bean-quiz__option-index">D</span>
-              <span class="bean-quiz__option-text">You’re pretty indifferent. People will think what they want to think</span>
+              <span class="bean-quiz__option-text"
+                >You’re pretty indifferent. People will think what they want to think</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:2,coffee:2">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">You care deeply but channel it into just being as authentic as possible</span>
+              <span class="bean-quiz__option-text"
+                >You care deeply but channel it into just being as authentic as possible</span
+              >
             </button>
           </div>
         </div>
@@ -1163,11 +1213,15 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:2,chilli:2">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">You follow them if they make sense. If they don’t, you quietly route around them</span>
+              <span class="bean-quiz__option-text"
+                >You follow them if they make sense. If they don’t, you quietly route around them</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,green:1">
               <span class="bean-quiz__option-index">B</span>
-              <span class="bean-quiz__option-text">You find them mildly insulting unless they are genuinely necessary</span>
+              <span class="bean-quiz__option-text"
+                >You find them mildly insulting unless they are genuinely necessary</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:2,jelly:2">
               <span class="bean-quiz__option-index">C</span>
@@ -1179,7 +1233,9 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,jelly:1">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">Rules are just “suggestions from people who couldn’t handle your energy”</span>
+              <span class="bean-quiz__option-text"
+                >Rules are just “suggestions from people who couldn’t handle your energy”</span
+              >
             </button>
           </div>
         </div>
@@ -1190,15 +1246,21 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,green:1">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">The researcher - you go deep, come back with more than anyone asked for</span>
+              <span class="bean-quiz__option-text"
+                >The researcher - you go deep, come back with more than anyone asked for</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:2,vanilla:2">
               <span class="bean-quiz__option-index">B</span>
-              <span class="bean-quiz__option-text">The hype person - morale, energy, keeping it fun even when it’s boring</span>
+              <span class="bean-quiz__option-text"
+                >The hype person - morale, energy, keeping it fun even when it’s boring</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:2,vanilla:2">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">The wildcard - you bring the unexpected idea that somehow works</span>
+              <span class="bean-quiz__option-text"
+                >The wildcard - you bring the unexpected idea that somehow works</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:3,coffee:1">
               <span class="bean-quiz__option-index">D</span>
@@ -1206,13 +1268,15 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,vanilla:1">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">The connector - you get everyone talking & make the group feel like a team</span>
+              <span class="bean-quiz__option-text"
+                >The connector - you get everyone talking & make the group feel like a team</span
+              >
             </button>
           </div>
         </div>
 
         <div class="bean-quiz__screen" data-quiz-screen="14" data-step="14">
-          <h2 class="bean-quiz__question-title">Your inner monologue at 2am looks like:</h2>
+          <h2 class="bean-quiz__question-title">Your inner monologue at 2 am looks like:</h2>
           <p class="bean-quiz__question-copy">Choose the option that feels most natural to you right now.</p>
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,jelly:1">
@@ -1225,7 +1289,9 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:3,coffee:1">
               <span class="bean-quiz__option-index">C</span>
-              <span class="bean-quiz__option-text">Processing someone else’s feelings with more care than your own</span>
+              <span class="bean-quiz__option-text"
+                >Processing someone else’s feelings with more care than your own</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:2,coffee:2">
               <span class="bean-quiz__option-index">D</span>
@@ -1244,11 +1310,15 @@
           <div class="bean-quiz__options">
             <button class="bean-quiz__option" type="button" data-weights="coffee:3,green:1">
               <span class="bean-quiz__option-index">A</span>
-              <span class="bean-quiz__option-text">Quietly, deeply, through details they never noticed you noticed</span>
+              <span class="bean-quiz__option-text"
+                >Quietly, deeply, through details they never noticed you noticed</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="jelly:3,vanilla:1">
               <span class="bean-quiz__option-index">B</span>
-              <span class="bean-quiz__option-text">Loudly, expressively, with enthusiasm that might embarrass them slightly</span>
+              <span class="bean-quiz__option-text"
+                >Loudly, expressively, with enthusiasm that might embarrass them slightly</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="chilli:3,coffee:1">
               <span class="bean-quiz__option-index">C</span>
@@ -1256,11 +1326,15 @@
             </button>
             <button class="bean-quiz__option" type="button" data-weights="green:3,vanilla:1">
               <span class="bean-quiz__option-index">D</span>
-              <span class="bean-quiz__option-text">By showing up– consistently, reliably, without needing to make it a big thing</span>
+              <span class="bean-quiz__option-text"
+                >By showing up– consistently, reliably, without needing to make it a big thing</span
+              >
             </button>
             <button class="bean-quiz__option" type="button" data-weights="vanilla:3,jelly:1">
               <span class="bean-quiz__option-index">E</span>
-              <span class="bean-quiz__option-text">Through experience– adventures, plans, new things, dragging them into life</span>
+              <span class="bean-quiz__option-text"
+                >Through experience– adventures, plans, new things, dragging them into life</span
+              >
             </button>
           </div>
         </div>
@@ -1410,11 +1484,16 @@
         direction: 'Editorial, grounded, and quietly sharp with deeper contrast.',
         ctaCopy: 'Go straight into the Coffee Bean drop for the clearest fit.',
         gif: "{{ 'coffee_bean_gif.gif' | file_url }}",
-        coreIdentity: "You live a few steps behind the surface. You see patterns in people’s behaviour before they see them in themselves. Conversations with you feel like finally being understood. You’re not antisocial — you’re selective.",
-        stressBehaviour: "Withdrawal, over-analysis, rumination spirals. You replay conversations looking for what you missed. You go quiet when you need help most.",
-        hiddenTrait: "You are far funnier than people expect. Your humour is dry, precise, perfectly timed — and devastating.",
-        misunderstood: "That you’re cold, or uninterested. You’re neither. You’re just watching. When you finally speak, it means something.",
-        compatibility: "You balance beautifully with Jelly Bean energy (they externalize what you internalize) and Green Bean (they hold space for your spirals)."
+        coreIdentity:
+          'You live a few steps behind the surface. You see patterns in people’s behaviour before they see them in themselves. Conversations with you feel like finally being understood. You’re not antisocial — you’re selective.',
+        stressBehaviour:
+          'Withdrawal, over-analysis, rumination spirals. You replay conversations looking for what you missed. You go quiet when you need help most.',
+        hiddenTrait:
+          'You are far funnier than people expect. Your humour is dry, precise, perfectly timed — and devastating.',
+        misunderstood:
+          'That you’re cold, or uninterested. You’re neither. You’re just watching. When you finally speak, it means something.',
+        compatibility:
+          'You balance beautifully with Jelly Bean energy (they externalize what you internalize) and Green Bean (they hold space for your spirals).',
       },
       chilli: {
         name: 'Chilli Bean',
@@ -1435,11 +1514,16 @@
         direction: 'Charged, bold, and cleanly aggressive without losing clarity.',
         ctaCopy: 'Open the Chilli Bean page when you want the loudest match.',
         gif: "{{ 'chilli_bean_gif.gif' | file_url }}",
-        coreIdentity: "You don't filter, and you don't perform. You lead with instinct, heat, and impact. If someone needs a reality check or a wild adventure, they come to you. You choose honest conflict over fake comfort.",
-        stressBehaviour: "Hot-headedness, impatience, and overload. You get loud or completely route around rules when they feel restrictive.",
-        hiddenTrait: "You have a surprisingly soft heart. You protect the people you love with a fierce, uncompromising loyalty.",
-        misunderstood: "That you're angry or intentionally combative. You're not. You're just completely, unapologetically real.",
-        compatibility: "You pair beautifully with Green Bean's calm energy (they ground your fire) and Coffee Bean (who values your absolute honesty)."
+        coreIdentity:
+          "You don't filter, and you don't perform. You lead with instinct, heat, and impact. If someone needs a reality check or a wild adventure, they come to you. You choose honest conflict over fake comfort.",
+        stressBehaviour:
+          'Hot-headedness, impatience, and overload. You get loud or completely route around rules when they feel restrictive.',
+        hiddenTrait:
+          'You have a surprisingly soft heart. You protect the people you love with a fierce, uncompromising loyalty.',
+        misunderstood:
+          "That you're angry or intentionally combative. You're not. You're just completely, unapologetically real.",
+        compatibility:
+          "You pair beautifully with Green Bean's calm energy (they ground your fire) and Coffee Bean (who values your absolute honesty).",
       },
       vanilla: {
         name: 'Vanilla Bean',
@@ -1460,11 +1544,15 @@
         direction: 'Smooth, mellow, and elevated with softer warmth.',
         ctaCopy: 'Step into the Vanilla Bean page for the cleanest soft-luxury lane.',
         gif: "{{ 'vanilla_bean_gif.gif' | file_url }}",
-        coreIdentity: "You are not shallow — you are expansive. You collect experiences the way others collect things. Boredom feels like a small death. You make ordinary moments feel like something worth remembering.",
-        stressBehaviour: "Escape mode. You plan trips, start new projects, move your furniture — anything to feel like forward motion. Sitting with discomfort is your hardest skill.",
-        hiddenTrait: "You carry anxiety that no one sees. The optimism is real, but it also works overtime to outrun a fear of things being still.",
-        misunderstood: "That you’re not serious, or that your enthusiasm is performative. It isn’t. You are exactly this alive.",
-        compatibility: "You need Coffee Bean’s depth to slow you down, and Green Bean’s stillness to help you land."
+        coreIdentity:
+          'You are not shallow — you are expansive. You collect experiences the way others collect things. Boredom feels like a small death. You make ordinary moments feel like something worth remembering.',
+        stressBehaviour:
+          'Escape mode. You plan trips, start new projects, move your furniture — anything to feel like forward motion. Sitting with discomfort is your hardest skill.',
+        hiddenTrait:
+          'You carry anxiety that no one sees. The optimism is real, but it also works overtime to outrun a fear of things being still.',
+        misunderstood:
+          'That you’re not serious, or that your enthusiasm is performative. It isn’t. You are exactly this alive.',
+        compatibility: 'You need Coffee Bean’s depth to slow you down, and Green Bean’s stillness to help you land.',
       },
       jelly: {
         name: 'Jelly Bean',
@@ -1486,11 +1574,16 @@
         direction: 'Bright, digital, and playful with a cleaner cyan atmosphere.',
         ctaCopy: 'Jump to the Jelly Bean page for the most animated version of your match.',
         gif: "{{ 'jelly_bean_gif.gif' | file_url }}",
-        coreIdentity: "You are a natural connector. You remember birthdays, inside jokes, and the name of someone’s dog. Relationships are your primary language. You don’t just want to be liked — you genuinely love people, loudly and without apology.",
-        stressBehaviour: "Over-extension. You take on everyone’s emotional labour until you’ve got nothing left. You perform okayness long after you stopped being okay.",
-        hiddenTrait: "You crave depth. Beneath the social ease is someone who wants to be truly, completely known — and worries they’re only loved for being fun.",
-        misunderstood: "That you’re all surface. You are not. The expressiveness is real, but so is the person underneath it who thinks about everything.",
-        compatibility: "You ground beautifully with Coffee Bean (who sees past the performance) and Green Bean (who holds you without needing you to be 'on')."
+        coreIdentity:
+          'You are a natural connector. You remember birthdays, inside jokes, and the name of someone’s dog. Relationships are your primary language. You don’t just want to be liked — you genuinely love people, loudly and without apology.',
+        stressBehaviour:
+          'Over-extension. You take on everyone’s emotional labour until you’ve got nothing left. You perform okayness long after you stopped being okay.',
+        hiddenTrait:
+          'You crave depth. Beneath the social ease is someone who wants to be truly, completely known — and worries they’re only loved for being fun.',
+        misunderstood:
+          'That you’re all surface. You are not. The expressiveness is real, but so is the person underneath it who thinks about everything.',
+        compatibility:
+          "You ground beautifully with Coffee Bean (who sees past the performance) and Green Bean (who holds you without needing you to be 'on').",
       },
       green: {
         name: 'Green Bean',
@@ -1511,11 +1604,16 @@
         direction: 'Clean, restorative, and bright with a softer natural wash.',
         ctaCopy: 'Open the Green Bean page when you want the calmest version of your result.',
         gif: "{{ 'green_bean_gif.gif' | file_url }}",
-        coreIdentity: "You are the anchor. You carry peace, emotional intelligence, and clean, grounding energy. People feel lighter just by being in your presence. You choose mindful presence over noisy action.",
-        stressBehaviour: "Over-absorption. You take on the weight of everyone else's emotions and problems until you are completely drained.",
-        hiddenTrait: "You have incredibly sharp instincts. You read a room or a person instantly, even if you keep your observations to yourself.",
-        misunderstood: "That you're passive or have no opinion. You do — you just don't feel the need to shout to be heard.",
-        compatibility: "You pair beautifully with Chilli Bean (you ground their chaos) and Vanilla Bean (they drag you into spontaneous experiences)."
+        coreIdentity:
+          'You are the anchor. You carry peace, emotional intelligence, and clean, grounding energy. People feel lighter just by being in your presence. You choose mindful presence over noisy action.',
+        stressBehaviour:
+          "Over-absorption. You take on the weight of everyone else's emotions and problems until you are completely drained.",
+        hiddenTrait:
+          'You have incredibly sharp instincts. You read a room or a person instantly, even if you keep your observations to yourself.',
+        misunderstood:
+          "That you're passive or have no opinion. You do — you just don't feel the need to shout to be heard.",
+        compatibility:
+          'You pair beautifully with Chilli Bean (you ground their chaos) and Vanilla Bean (they drag you into spontaneous experiences).',
       },
     };
 
@@ -1677,7 +1775,7 @@
         // Display labels as- “You are 60% Chilli Bean, 25% Coffee Bean...”
         const sortedDisplay = [...sorted];
         const labelText = sortedDisplay.map(([key, pct]) => `${pct}% ${archetypes[key].name}`).join(', ');
-        
+
         const textWrapper = document.createElement('div');
         textWrapper.className = 'bean-quiz__blend-text';
         textWrapper.innerHTML = `You are: <strong>${labelText}</strong>`;

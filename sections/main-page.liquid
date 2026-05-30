@@ -12,14 +12,105 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  .our-story-content {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1.6rem, 1.8vw, 1.85rem);
+    line-height: 1.7;
+    color: rgba(var(--color-foreground), 0.75);
+    max-width: 72rem;
+    margin: 4rem auto 0;
+    text-align: left;
+  }
+  .our-story-content p {
+    margin-bottom: 2.8rem;
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: storyFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+  .our-story-content p:nth-child(1) { animation-delay: 0.1s; }
+  .our-story-content p:nth-child(2) { animation-delay: 0.3s; }
+  .our-story-content p:nth-child(3) { animation-delay: 0.5s; }
+  .our-story-content p:nth-child(4) { animation-delay: 0.7s; }
+  .our-story-content .story-signoff { animation-delay: 0.9s; }
+
+  @keyframes storyFadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .our-story-content .story-highlight {
+    font-size: clamp(1.8rem, 2vw, 2.1rem);
+    font-weight: 700;
+    color: #c6a969;
+    margin-top: 3.6rem;
+    letter-spacing: 0.02em;
+  }
+
+  .our-story-content .story-signoff {
+    margin-top: 4.8rem;
+    border-top: 1px solid rgba(var(--color-foreground), 0.08);
+    padding-top: 2.4rem;
+    font-family: var(--font-heading-family);
+    opacity: 0;
+    transform: translateY(2rem);
+    animation: storyFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  .our-story-content .story-signoff strong {
+    font-size: 1.8rem;
+    color: rgb(var(--color-foreground));
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+
+  .our-story-content .story-signoff span {
+    font-size: 1.4rem;
+    color: #c6a969;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
 {%- endstyle -%}
 
 <div class="page-width page-width--narrow section-{{ section.id }}-padding">
   <h1 class="main-page-title page-title h0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-    {{ page.title | escape }}
+    {%- if page.handle == 'contact' or page.handle == 'about-us' -%}
+      Our Story
+    {%- else -%}
+      {{ page.title | escape }}
+    {%- endif -%}
   </h1>
   <div class="rte{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
-    {{ page.content }}
+    {%- if page.handle == 'contact' or page.handle == 'about-us' -%}
+      <div class="our-story-content">
+        <p>
+          Bean Identity was built on the belief that identity is deeply personal, but belonging should feel natural. In
+          a world that constantly asks people to fit in or explain themselves, we wanted to create a space that feels
+          more honest - a space where individuality is celebrated, connection feels effortless, and people can simply
+          exist as they are.
+        </p>
+        <p>
+          For us, this brand has always been about more than clothing. It’s about recognition. The quiet comfort of
+          finding people who understand your energy, your choices, and your way of moving through the world, even
+          without words.
+        </p>
+        <p>
+          Every piece, every bean, and every story is rooted in self-expression, authenticity, and community. Whether
+          you’re confidently owning who you are or still discovering parts of yourself along the way, Bean Identity is a
+          reminder that there’s no one right way to belong.
+        </p>
+        <p class="story-highlight">And we’re glad you’re here.</p>
+        <div class="story-signoff">
+          <strong>Founders</strong><br>
+          <span>Bean Identity</span>
+        </div>
+      </div>
+    {%- else -%}
+      {{ page.content }}
+    {%- endif -%}
   </div>
 </div>
 

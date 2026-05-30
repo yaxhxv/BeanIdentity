@@ -969,10 +969,10 @@
     <!-- NEW GORGEOUS BEAN STORY CONTENT -->
     <div class="bean-story-modal-content">
       <h3 class="bean-story-headline">What's your bean story?</h3>
-      
+
       <div class="bean-story-body">
         <p>Every bean has a story. And we want to hear yours.</p>
-        <p>Tell us which bean are you? And what made you so sure?</p>
+        <p>Tell us which bean you are? And what made you so sure.</p>
         <p>And the best ones will make it to our wall.</p>
       </div>
 
@@ -981,7 +981,16 @@
         <a href="mailto:Support@beanidentity.com" class="bean-story-email-link">Support@beanidentity.com</a>
         <br>
         <button type="button" class="bean-story-copy-btn" id="copy-email-btn">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg
+            width="14"
+            height="14"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
             <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
             <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
           </svg>
@@ -989,140 +998,139 @@
         </button>
       </div>
 
-      <div class="bean-story-brief">
-        Keep it real. Keep it you. <span>That's the only brief.</span>
-      </div>
+      <div class="bean-story-brief">Keep it real. Keep it you. <span>That's the only brief.</span></div>
 
       <p class="bean-story-fineprint">
-        Selected stories will be featured on the Bean Identity website and social media.<br>
+        Selected stories will be featured on the Bean Identity website and <br>
+        social media.<br>
         By writing to us you give us permission to share your story.<br>
         We'll always credit you :)
       </p>
     </div>
 
     {% comment %}
-    <!-- ORIGINAL BACKEND INTEGRATION FORM - COMMENTED OUT BUT PRESERVED -->
-    <div class="story-modal-form-wrapper">
-      <h3 class="story-modal-title">SHARE YOUR BEAN STORY</h3>
-      <p class="story-modal-subtitle">
-        Meet the real people wearing their true identities. Show the world who you are.
-      </p>
-
-      <form id="story-submission-form" class="story-form-scroll" enctype="multipart/form-data">
-        <div class="form-row">
-          <div class="form-group">
-            <label for="story-name">FULL NAME *</label>
-            <input type="text" id="story-name" name="name" required placeholder="Enter your full name">
-          </div>
-          <div class="form-group">
-            <label for="story-email">EMAIL ADDRESS *</label>
-            <input type="email" id="story-email" name="email" required placeholder="Enter your email">
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group">
-            <label for="story-handle">INSTAGRAM HANDLE <span class="label-optional">(OPTIONAL)</span></label>
-            <input type="text" id="story-handle" name="handle" placeholder="e.g. alex_driven">
-          </div>
-          <div class="form-group">
-            <label>WHICH BEAN ARE YOU? *</label>
-            <div class="bean-pills-container">
-              <label class="bean-pill-label coffee">
-                <input type="radio" name="beanType" value="coffee" checked>
-                <span>Coffee</span>
-              </label>
-              <label class="bean-pill-label chilli">
-                <input type="radio" name="beanType" value="chilli">
-                <span>Chilli</span>
-              </label>
-              <label class="bean-pill-label vanilla">
-                <input type="radio" name="beanType" value="vanilla">
-                <span>Vanilla</span>
-              </label>
-              <label class="bean-pill-label jelly">
-                <input type="radio" name="beanType" value="jelly">
-                <span>Jelly</span>
-              </label>
-              <label class="bean-pill-label green">
-                <input type="radio" name="beanType" value="green">
-                <span>Green</span>
-              </label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group">
-          <div class="label-wrapper">
-            <label for="story-text">YOUR STORY *</label>
-            <span id="word-counter" class="word-counter">0 / 150 words</span>
-          </div>
-          <textarea
-            id="story-text"
-            name="story"
-            required
-            placeholder="Describe how your bean identity changed how you express yourself every day..."
-            rows="4"
-          ></textarea>
-        </div>
-
-        <!-- Media Upload Zone -->
-        <div class="form-row media-upload-row">
-          <div class="form-group">
-            <label>UPLOAD PHOTOS <span class="label-optional">(UP TO 3, OPTIONAL)</span></label>
-            <div class="media-dropzone" id="images-dropzone">
-              <input type="file" id="story-images-input" accept="image/*" multiple style="display:none;">
-              <div class="dropzone-prompt">
-                <svg viewBox="0 0 24 24">
-                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                </svg>
-                <span>Add Photos</span>
-              </div>
-            </div>
-            <div class="media-previews-container" id="images-previews"></div>
-          </div>
-
-          <div class="form-group">
-            <label>UPLOAD VIDEO <span class="label-optional">(1 VIDEO, OPTIONAL)</span></label>
-            <div class="media-dropzone" id="video-dropzone">
-              <input type="file" id="story-video-input" accept="video/*" style="display:none;">
-              <div class="dropzone-prompt" id="video-dropzone-prompt">
-                <svg viewBox="0 0 24 24">
-                  <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
-                </svg>
-                <span>Add Video</span>
-              </div>
-            </div>
-            <div class="media-previews-container" id="video-preview"></div>
-          </div>
-        </div>
-
-        <button type="submit" class="story-submit-btn" id="story-submit-button">SUBMIT STORY</button>
-      </form>
-
-      <!-- Upload Progress Bar -->
-      <div id="story-upload-progress" class="upload-progress-container" style="display:none;">
-        <div class="progress-bar-wrapper">
-          <div class="progress-bar-fill" id="progress-bar-fill"></div>
-        </div>
-        <p class="progress-text" id="progress-text">Uploading your story & media...</p>
-      </div>
-
-      <!-- Success Overlay -->
-      <div id="story-success-message" class="story-success-overlay" style="display:none;">
-        <div class="success-icon-wrapper">
-          <svg viewBox="0 0 24 24">
-            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-          </svg>
-        </div>
-        <h4>STORY RECEIVED!</h4>
-        <p>
-          Thank you for sharing your true identity. Once our team approves your story, it will appear dynamically on our
-          homepage queue!
+      <!-- ORIGINAL BACKEND INTEGRATION FORM - COMMENTED OUT BUT PRESERVED -->
+      <div class="story-modal-form-wrapper">
+        <h3 class="story-modal-title">SHARE YOUR BEAN STORY</h3>
+        <p class="story-modal-subtitle">
+          Meet the real people wearing their true identities. Show the world who you are.
         </p>
-        <button type="button" class="story-success-close-btn" id="close-success-modal">CLOSE</button>
+
+        <form id="story-submission-form" class="story-form-scroll" enctype="multipart/form-data">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="story-name">FULL NAME *</label>
+              <input type="text" id="story-name" name="name" required placeholder="Enter your full name">
+            </div>
+            <div class="form-group">
+              <label for="story-email">EMAIL ADDRESS *</label>
+              <input type="email" id="story-email" name="email" required placeholder="Enter your email">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="story-handle">INSTAGRAM HANDLE <span class="label-optional">(OPTIONAL)</span></label>
+              <input type="text" id="story-handle" name="handle" placeholder="e.g. alex_driven">
+            </div>
+            <div class="form-group">
+              <label>WHICH BEAN ARE YOU? *</label>
+              <div class="bean-pills-container">
+                <label class="bean-pill-label coffee">
+                  <input type="radio" name="beanType" value="coffee" checked>
+                  <span>Coffee</span>
+                </label>
+                <label class="bean-pill-label chilli">
+                  <input type="radio" name="beanType" value="chilli">
+                  <span>Chilli</span>
+                </label>
+                <label class="bean-pill-label vanilla">
+                  <input type="radio" name="beanType" value="vanilla">
+                  <span>Vanilla</span>
+                </label>
+                <label class="bean-pill-label jelly">
+                  <input type="radio" name="beanType" value="jelly">
+                  <span>Jelly</span>
+                </label>
+                <label class="bean-pill-label green">
+                  <input type="radio" name="beanType" value="green">
+                  <span>Green</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="label-wrapper">
+              <label for="story-text">YOUR STORY *</label>
+              <span id="word-counter" class="word-counter">0 / 150 words</span>
+            </div>
+            <textarea
+              id="story-text"
+              name="story"
+              required
+              placeholder="Describe how your bean identity changed how you express yourself every day..."
+              rows="4"
+            ></textarea>
+          </div>
+
+          <!-- Media Upload Zone -->
+          <div class="form-row media-upload-row">
+            <div class="form-group">
+              <label>UPLOAD PHOTOS <span class="label-optional">(UP TO 3, OPTIONAL)</span></label>
+              <div class="media-dropzone" id="images-dropzone">
+                <input type="file" id="story-images-input" accept="image/*" multiple style="display:none;">
+                <div class="dropzone-prompt">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                  </svg>
+                  <span>Add Photos</span>
+                </div>
+              </div>
+              <div class="media-previews-container" id="images-previews"></div>
+            </div>
+
+            <div class="form-group">
+              <label>UPLOAD VIDEO <span class="label-optional">(1 VIDEO, OPTIONAL)</span></label>
+              <div class="media-dropzone" id="video-dropzone">
+                <input type="file" id="story-video-input" accept="video/*" style="display:none;">
+                <div class="dropzone-prompt" id="video-dropzone-prompt">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
+                  </svg>
+                  <span>Add Video</span>
+                </div>
+              </div>
+              <div class="media-previews-container" id="video-preview"></div>
+            </div>
+          </div>
+
+          <button type="submit" class="story-submit-btn" id="story-submit-button">SUBMIT STORY</button>
+        </form>
+
+        <!-- Upload Progress Bar -->
+        <div id="story-upload-progress" class="upload-progress-container" style="display:none;">
+          <div class="progress-bar-wrapper">
+            <div class="progress-bar-fill" id="progress-bar-fill"></div>
+          </div>
+          <p class="progress-text" id="progress-text">Uploading your story & media...</p>
+        </div>
+
+        <!-- Success Overlay -->
+        <div id="story-success-message" class="story-success-overlay" style="display:none;">
+          <div class="success-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+            </svg>
+          </div>
+          <h4>STORY RECEIVED!</h4>
+          <p>
+            Thank you for sharing your true identity. Once our team approves your story, it will appear dynamically on our
+            homepage queue!
+          </p>
+          <button type="button" class="story-success-close-btn" id="close-success-modal">CLOSE</button>
+        </div>
       </div>
-    </div>
     {% endcomment %}
   </div>
 </div>
@@ -1187,22 +1195,25 @@
     const copyBtn = document.getElementById('copy-email-btn');
     if (copyBtn) {
       copyBtn.addEventListener('click', () => {
-        navigator.clipboard.writeText('Support@beanidentity.com').then(() => {
-          const btnText = copyBtn.querySelector('span');
-          if (btnText) {
-            const originalText = btnText.textContent;
-            btnText.textContent = 'Copied!';
-            copyBtn.style.borderColor = '#388E3C';
-            copyBtn.style.color = '#388E3C';
-            setTimeout(() => {
-              btnText.textContent = originalText;
-              copyBtn.style.borderColor = '';
-              copyBtn.style.color = '';
-            }, 2000);
-          }
-        }).catch(err => {
-          console.error('Failed to copy text: ', err);
-        });
+        navigator.clipboard
+          .writeText('Support@beanidentity.com')
+          .then(() => {
+            const btnText = copyBtn.querySelector('span');
+            if (btnText) {
+              const originalText = btnText.textContent;
+              btnText.textContent = 'Copied!';
+              copyBtn.style.borderColor = '#388E3C';
+              copyBtn.style.color = '#388E3C';
+              setTimeout(() => {
+                btnText.textContent = originalText;
+                copyBtn.style.borderColor = '';
+                copyBtn.style.color = '';
+              }, 2000);
+            }
+          })
+          .catch((err) => {
+            console.error('Failed to copy text: ', err);
+          });
       });
     }
 
