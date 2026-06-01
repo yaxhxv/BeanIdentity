@@ -418,35 +418,59 @@
     color: var(--result-ink);
   }
 
-  .bean-quiz__detailed-sections {
-    display: grid;
-    gap: 2rem;
-    margin-top: 2.4rem;
-    padding-top: 2.4rem;
+  /* Dossier Table Grid Layout */
+  .bean-quiz__detailed-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 2.2rem;
     border-top: 1px solid rgba(245, 245, 245, 0.08);
   }
 
-  .bean-quiz__detail-item {
+  .bean-quiz__table-row {
     display: grid;
-    gap: 0.6rem;
+    grid-template-columns: 24rem minmax(0, 1fr);
+    border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+    transition: background-color 0.24s ease;
   }
 
-  .bean-quiz__detail-title {
+  .bean-quiz__table-row:hover {
+    background: rgba(255, 255, 255, 0.015);
+  }
+
+  .bean-quiz__table-header-cell {
+    padding: 2.2rem 2rem 2.2rem 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.05rem;
+    font-size: 1.08rem;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(245, 245, 245, 0.52);
+    color: var(--result-accent, #c6a969);
+    align-self: start;
   }
 
-  .bean-quiz__detail-desc {
-    margin: 0;
+  .bean-quiz__table-body-cell {
+    padding: 2.2rem 0;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.4rem;
-    line-height: 1.55;
-    color: var(--result-ink);
+    font-size: 1.42rem;
+    line-height: 1.6;
+    color: var(--result-ink, #f5f5f5);
     opacity: 0.88;
+  }
+
+  /* Mobile responsive collapse */
+  @media screen and (max-width: 749px) {
+    .bean-quiz__table-row {
+      grid-template-columns: 1fr;
+      padding: 1.8rem 0;
+    }
+
+    .bean-quiz__table-header-cell {
+      padding: 0 0 0.8rem;
+    }
+
+    .bean-quiz__table-body-cell {
+      padding: 0;
+    }
   }
 
   .bean-quiz__screen[data-quiz-screen='result'] {
@@ -568,6 +592,87 @@
     height: auto;
     display: block;
     /* No mix-blend-mode needed — shell background matches gif's white */
+  }
+
+  /* Sequential play carousel styles */
+  .bean-quiz__result-gif-layer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: min(100%, 32rem);
+    height: auto;
+    display: block;
+    opacity: 0;
+    z-index: 1;
+    pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .bean-quiz__result-gif-layer.is-active {
+    opacity: 1;
+    z-index: 2;
+    pointer-events: auto;
+  }
+
+  .bean-quiz__carousel-badge {
+    position: absolute;
+    bottom: 3rem; /* Floats over the bottom of the shell */
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(11, 11, 11, 0.78);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(245, 245, 245, 0.12);
+    padding: 0.8rem 1.8rem;
+    border-radius: 999px;
+    color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    z-index: 10;
+    white-space: nowrap;
+    pointer-events: none;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.4s ease;
+  }
+
+  .bean-quiz__carousel-badge.is-visible {
+    opacity: 1;
+  }
+
+  .bean-quiz__carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1.8rem;
+    z-index: 3;
+    position: relative;
+  }
+
+  .bean-quiz__carousel-dot {
+    width: 2.4rem;
+    height: 0.6rem;
+    border-radius: 999px;
+    background: rgba(245, 245, 245, 0.22);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    transition: background-color 0.3s ease, width 0.3s ease, transform 0.2s ease;
+  }
+
+  .bean-quiz__carousel-dot:hover {
+    background: rgba(245, 245, 245, 0.45);
+    transform: scaleY(1.2);
+  }
+
+  .bean-quiz__carousel-dot.is-active {
+    background: var(--result-accent, #c6a969);
+    width: 3.8rem;
   }
 
   .bean-quiz__result-illustration {
@@ -1348,15 +1453,11 @@
             </div>
 
             <div class="bean-quiz__result-visual">
-              <div class="bean-quiz__result-visual-shell">
-                <img
-                  class="bean-quiz__result-gif"
-                  src=""
-                  alt=""
-                  loading="lazy"
-                  data-result-gif
-                >
+              <div class="bean-quiz__result-visual-shell" data-result-gif-container>
+                <!-- Layers will be dynamically injected here -->
               </div>
+              <div class="bean-quiz__carousel-badge" data-carousel-badge></div>
+              <div class="bean-quiz__carousel-controls" data-carousel-controls></div>
             </div>
           </div>
 
@@ -1372,26 +1473,26 @@
               <p class="bean-quiz__result-label">Identity traits</p>
               <div class="bean-quiz__traits" data-result-traits></div>
 
-              <div class="bean-quiz__detailed-sections">
-                <div class="bean-quiz__detail-item">
-                  <strong class="bean-quiz__detail-title">Core Identity</strong>
-                  <p class="bean-quiz__detail-desc" data-detail-core-identity></p>
+              <div class="bean-quiz__detailed-table">
+                <div class="bean-quiz__table-row">
+                  <div class="bean-quiz__table-header-cell">Core Identity</div>
+                  <div class="bean-quiz__table-body-cell" data-detail-core-identity></div>
                 </div>
-                <div class="bean-quiz__detail-item">
-                  <strong class="bean-quiz__detail-title">Stress Behaviour</strong>
-                  <p class="bean-quiz__detail-desc" data-detail-stress-behaviour></p>
+                <div class="bean-quiz__table-row">
+                  <div class="bean-quiz__table-header-cell">Stress Behaviour</div>
+                  <div class="bean-quiz__table-body-cell" data-detail-stress-behaviour></div>
                 </div>
-                <div class="bean-quiz__detail-item">
-                  <strong class="bean-quiz__detail-title">Hidden Trait</strong>
-                  <p class="bean-quiz__detail-desc" data-detail-hidden-trait></p>
+                <div class="bean-quiz__table-row">
+                  <div class="bean-quiz__table-header-cell">Hidden Trait</div>
+                  <div class="bean-quiz__table-body-cell" data-detail-hidden-trait></div>
                 </div>
-                <div class="bean-quiz__detail-item">
-                  <strong class="bean-quiz__detail-title">What People Misunderstand</strong>
-                  <p class="bean-quiz__detail-desc" data-detail-misunderstood></p>
+                <div class="bean-quiz__table-row">
+                  <div class="bean-quiz__table-header-cell">What People Misunderstand</div>
+                  <div class="bean-quiz__table-body-cell" data-detail-misunderstood></div>
                 </div>
-                <div class="bean-quiz__detail-item">
-                  <strong class="bean-quiz__detail-title">Compatibility Note</strong>
-                  <p class="bean-quiz__detail-desc" data-detail-compatibility></p>
+                <div class="bean-quiz__table-row">
+                  <div class="bean-quiz__table-header-cell">Compatibility Note</div>
+                  <div class="bean-quiz__table-body-cell" data-detail-compatibility></div>
                 </div>
               </div>
             </div>
@@ -1457,7 +1558,9 @@
     const resultEnergy = root.querySelector('[data-result-energy]');
     const resultFit = root.querySelector('[data-result-fit]');
     const resultLink = root.querySelector('[data-result-link]');
-    const resultGif = root.querySelector('[data-result-gif]');
+    const gifContainer = root.querySelector('[data-result-gif-container]');
+    const carouselBadge = root.querySelector('[data-carousel-badge]');
+    const carouselControls = root.querySelector('[data-carousel-controls]');
 
     const resultDirection = root.querySelector('[data-result-direction]');
     const resultPalette = root.querySelector('[data-result-palette]');
@@ -1617,6 +1720,229 @@
       },
     };
 
+    const dualBlends = {
+      coffee_green: {
+        title: 'Coffee & Green — The Still Water',
+        coreIdentity:
+          'You process the world deeply and hold it gently. Coffee Bean gives you the analytical eye — you notice patterns, subtext, the thing beneath the thing — and Green Bean means you don’t just file that information away, you carry it with care. You are the person people come to when they need to be truly understood, not just heard. You’re not quiet because you have nothing to say. You’re quiet because you’ve learned that most things don’t need to be said out loud.',
+        stressBehaviour:
+          'You disappear inward and you over-absorb at the same time. Coffee Bean sends you into rumination spirals — replaying, re-examining, questioning your own conclusions. Green Bean means you’re also quietly carrying everyone else’s weight while this is happening. You don’t ask for help easily. You process alone until you’ve nearly processed yourself into the ground.',
+        hiddenTrait:
+          'There is a dry, precise humour underneath all that stillness that catches people completely off guard. And beneath the calm, there are opinions — strong ones — that you’ve chosen not to voice, not because you don’t feel them, but because you’ve decided the moment isn’t right. The moment is rarely right, in your opinion.',
+        misunderstood:
+          'That you’re passive, or that your stillness means agreement. It doesn’t. You’ve simply decided that most battles aren’t worth entering. The ones you do enter, you win.',
+      },
+      green_coffee: {
+        title: 'Green & Coffee — The Still Water (reversed)',
+        coreIdentity:
+          'You are present and you are deep, in that order. Green Bean is your surface — the steadiness, the emotional regulation, the ability to hold space for people without needing anything from them in that moment. Coffee Bean is what’s running underneath. You are taking in everything, processing everything, understanding the room at a level no one can see. You appear calm because you are calm. And you are calm because your inner life has learned to move very quietly at very high speed.',
+        stressBehaviour:
+          'You hold everyone else’s weight first. Green Bean prioritises the room — keeping things regulated, keeping things moving, making sure no one else falls apart. Coffee Bean is quietly building an elaborate internal model of everything that’s going wrong. By the time you attend to yourself, you’ve been running on empty for longer than you should have.',
+        hiddenTrait:
+          'There is a very specific kind of exhaustion that comes from being the stable one — and you know it intimately. You wouldn’t trade the role. But sometimes you’d like someone to ask how you’re actually doing and mean it.',
+        misunderstood:
+          'That you don’t feel things strongly. You feel everything. You’ve simply built a very good container for it.',
+      },
+      coffee_chilli: {
+        title: 'Coffee & Chilli — The Sharp Thinker',
+        coreIdentity:
+          'You’ve already thought through every angle before you open your mouth — and when you do speak, it lands without softening. Coffee Bean gives you the depth and the patience to observe before concluding. Chilli Bean means your conclusions are delivered without apology. You don’t perform diplomacy you don’t believe in. You’d rather say something true and uncomfortable than something warm and useless.',
+        stressBehaviour:
+          'You go cold before you go loud. Coffee Bean pulls you into your head — analysing, calculating, preparing. Then Chilli Bean kicks in and you say the thing you’ve been thinking, all at once, with full force. You can be cutting without meaning to be cruel. The aftermath tends to surprise you more than it surprises the other person.',
+        hiddenTrait:
+          'You are far more affected by things than you appear. The analytical distance is partly genuine and partly armour. You care deeply about being understood, and you’re quietly stung every time someone reads your directness as coldness.',
+        misunderstood:
+          'That you’re intimidating or difficult. You’re neither. You’re just honest, and in a world full of people saying things they don’t mean, that reads as threatening. You don’t understand why.',
+      },
+      chilli_coffee: {
+        title: 'Chilli & Coffee — The Sharp Thinker (reversed)',
+        coreIdentity:
+          'You lead with conviction and back it with depth. Where the Coffee-primary version observes first and speaks second, here Chilli is in front — you act, you say, you commit — and Coffee is the architecture underneath. You’ve already run the analysis before anyone else has framed the question. The boldness isn’t impulsive. It’s just that your thinking moves faster than your audience’s, and you’ve stopped waiting for everyone to catch up.',
+        stressBehaviour:
+          'You move fast and then second-guess. Chilli Bean acts immediately — decisive, direct, done. Then Coffee Bean arrives with forty follow-up questions about whether that was the right call. You don’t show this to people. Externally you look certain. Internally you’re running a full audit of everything you just said.',
+        hiddenTrait:
+          'You are a deeply careful thinker disguised as someone who doesn’t care what anyone thinks. The two coexist more comfortably than you’d expect.',
+        misunderstood:
+          'That you’re reactive. You’re not. You’re just fast. And you’ve done the thinking before the conversation even started.',
+      },
+      coffee_jelly: {
+        title: 'Coffee & Jelly — The Soft Observer',
+        coreIdentity:
+          'You watch the room and love it fiercely. Coffee Bean keeps you one step back — observing, cataloguing, understanding people before you engage with them. Jelly Bean means that underneath all that observation is genuine warmth. You’re not studying people from a distance out of detachment. You’re doing it because you find them endlessly interesting and you want to get it right before you let them in.',
+        stressBehaviour:
+          'You go quiet in public and loud in private. Jelly Bean means you need connection when things are hard — you need to process with people, to be seen. Coffee Bean means you can’t always ask for that directly. You’ll hint, or wait, or perform fine until someone notices you’re not. Then everything comes out at once.',
+        hiddenTrait:
+          'You remember everything about the people you love. Birthdays, the thing they mentioned once six months ago, the way their energy shifts when something’s wrong. You don’t always announce this. But you show up for people in ways that feel almost uncanny to them.',
+        misunderstood:
+          'That you’re aloof or hard to reach. You’re actually one of the most attentive people anyone will know. You just don’t lead with it. Getting past the observation phase to the warmth underneath is the whole experience of knowing you.',
+      },
+      jelly_coffee: {
+        title: 'Jelly & Coffee — The Soft Observer (reversed)',
+        coreIdentity:
+          'You are warmer than you are readable. Jelly Bean is how you show up — expressive, connected, genuinely lit up by the people around you. Coffee Bean is what’s happening underneath. You are processing everything, noticing everything, filing it all away. People think they know you because you’re so present and warm. But there is a whole inner landscape that almost no one gets access to, and the gap between your public warmth and your private depth is where your real self lives.',
+        stressBehaviour:
+          'You perform fine until you absolutely cannot. Jelly Bean keeps the social face running — laughing, engaging, deflecting with humour. Coffee Bean is running parallel commentary the entire time, over-analysing the situation and finding seventeen things to worry about in the subtext. By the time you admit you’re not okay, you’ve been not okay for quite a while.',
+        hiddenTrait:
+          'You are one of the most observant people in any room. You notice things about people that they haven’t told anyone. You use this to love them better, not to hold power over them. Most people will never know how carefully they’ve been seen.',
+        misunderstood:
+          'That what you show is all there is. They’ve met the warmth. They haven’t met the depth. Both are entirely real.',
+      },
+      coffee_vanilla: {
+        title: 'Coffee & Vanilla — The Restless Mind',
+        coreIdentity:
+          'You think in adventures and dream in systems. Coffee Bean pulls you inward — into ideas, patterns, the long slow process of understanding something properly. Vanilla Bean pulls you outward — into new experiences, new places, the intoxicating feeling of what’s next. You live in the productive tension between going deep and going everywhere. Your best ideas happen in motion. Your most uncomfortable moments happen when you’re forced to be still.',
+        stressBehaviour:
+          'You either overthink or over-escape, and sometimes both at once. Coffee Bean spirals inward — replaying, catastrophising, building elaborate mental models of everything that could go wrong. Then Vanilla Bean kicks in and you book a trip, start a new project, or rearrange your entire life to create forward momentum. Neither of these is actually processing the thing.',
+        hiddenTrait:
+          'You carry more anxiety than your energy suggests. The motion isn’t always enthusiasm — sometimes it’s avoidance with better branding. When you do slow down long enough to sit with something, you surprise yourself with the depth of what you feel.',
+        misunderstood:
+          'That you’re scattered or that you don’t follow through. You follow through on the things that genuinely matter to you. You’ve just learned to tell the difference between ideas worth pursuing and ideas that were only exciting at 2am.',
+      },
+      vanilla_coffee: {
+        title: 'Vanilla & Coffee — The Restless Mind (reversed)',
+        coreIdentity:
+          'You are curious about everything and understand more than you show. Vanilla Bean is the visible layer — optimistic, open, energised by what’s possible. Coffee Bean is the processing layer underneath — you don’t just collect experiences, you turn them into insight. You seem easygoing until someone spends real time with you and realises you’ve been absorbing everything, running it through an internal framework, and arriving at conclusions no one else has reached yet. The lightness is real. So is the depth it’s sitting on top of.',
+        stressBehaviour:
+          'You move and overthink simultaneously. Vanilla Bean reaches for the next thing. Coffee Bean interrogates whether the next thing is the right thing. You can be in motion and in a spiral at the same time, which is a special kind of exhausting.',
+        hiddenTrait:
+          'You have a rich inner life that your outward energy doesn’t suggest. Some of your best thinking happens in places and moments that look, from the outside, like you’re just having fun.',
+        misunderstood:
+          'That you’re not serious. You’re deeply serious about the things that matter to you. You’ve just decided that seriousness doesn’t have to look serious.',
+      },
+      vanilla_jelly: {
+        title: 'Vanilla & Jelly — The Electric Optimist',
+        coreIdentity:
+          'You are forward motion and human connection, running in parallel all the time. Vanilla Bean means you are genuinely lit up by what’s possible — new experiences, new ideas, the feeling of something beginning. Jelly Bean means you want people with you for all of it. You don’t just want the adventure. You want the group chat, the shared memory, the story you’ll all be telling in five years. Life through your eyes looks like an invitation everyone should accept.',
+        stressBehaviour:
+          'You overcommit and underprocess. Vanilla Bean keeps adding things to the calendar — new plans, new projects, new anything to keep the energy moving. Jelly Bean keeps adding people to the situation, which means everyone else’s emotions are now also your problem. You are running on fumes long before you admit it. Slowing down feels like failure. It isn’t.',
+        hiddenTrait:
+          'You feel things more quietly than you show. The optimism is completely genuine, but it also does a lot of work covering over the moments when things feel uncertain or hard. The people who know you best are the ones who’ve seen you when the energy drops.',
+        misunderstood:
+          'That you’re not serious, or that your enthusiasm is a performance. Neither is true. You are exactly as alive as you appear. You’ve just chosen — consciously — to lead with what’s good.',
+      },
+      jelly_vanilla: {
+        title: 'Jelly & Vanilla — The Electric Optimist (reversed)',
+        coreIdentity:
+          'You lead with people and stay for the adventure. Where Vanilla-primary is about the experience first, here connection is the engine — you want the adventure because of who you get to share it with. Jelly Bean means your energy is fundamentally relational. Vanilla Bean means you keep finding new things to pull people toward. You are the reason your group does things. You are the calendar, the group chat, the person who makes everyone’s life more interesting just by being in it.',
+        stressBehaviour:
+          'You need people around you to regulate, but you’re too depleted to explain why. You reach out constantly without ever saying what’s actually wrong. The people who love you learn to read between the lines. The ones who don’t sometimes miss it entirely.',
+        hiddenTrait:
+          'You are more introspective than you look. The expressiveness is real, but there’s a quieter self underneath who thinks about things deeply when no one’s watching.',
+        misunderstood:
+          'That you need constant stimulation or that you can’t be alone. You can. You’ve just discovered that almost everything is better with the right people in it.',
+      },
+      vanilla_chilli: {
+        title: 'Vanilla & Chilli — The Live Wire',
+        coreIdentity:
+          'You move fast and you don’t apologise for it. Vanilla Bean gives you the optimism and the hunger for new experiences — you genuinely believe things will work out, so you go. Chilli Bean means you go on your own terms, with your own rules, and without shrinking yourself to make others comfortable. You are magnetic precisely because you are completely, unapologetically yourself in motion. People don’t always know how to keep up with you. That’s fine with you.',
+        stressBehaviour:
+          'You act first and feel later. Vanilla Bean channels stress into escape or acceleration. Chilli Bean channels it into bluntness or impulsive decisions that feel completely logical in the moment. You can make irreversible choices very quickly when you’re overwhelmed. The reflection comes later, usually at 2am, usually too late to undo anything.',
+        hiddenTrait:
+          'Underneath the momentum is a genuine sensitivity to being misunderstood. You don’t need everyone to like you. But you do need the people who matter to actually see you, not just the version of you that’s always moving. You rarely say this out loud.',
+        misunderstood:
+          'That you’re reckless or impulsive without substance. You’re not. You’ve just done the calculation faster than most people and decided the risk is worth it. You’re usually right.',
+      },
+      chilli_vanilla: {
+        title: 'Chilli & Vanilla — The Live Wire (reversed)',
+        coreIdentity:
+          'You are conviction in motion. Chilli Bean is your centre of gravity — you know who you are, you know what you stand for, and you have no interest in pretending otherwise. Vanilla Bean means you express that selfhood expansively, through experience, through action, through a refusal to stay still. You don’t just live by your values. You live them loudly, in new places, with new people, at high speed. People find you both inspiring and slightly exhausting, often at the same time.',
+        stressBehaviour:
+          'You accelerate into the wrong things. Chilli Bean doubles down on whatever position you’ve taken. Vanilla Bean adds more to the plate — more plans, more projects, more stimulation. The combination means you are very busy doing very much, and none of it is actually addressing what’s wrong.',
+        hiddenTrait:
+          'You have a genuine tenderness that the boldness doesn’t advertise. When you love something or someone, you love them with real loyalty. It’s just not the first thing anyone sees.',
+        misunderstood:
+          'That you’re running from something. You’re not. You’re running toward everything. There’s a difference, and it matters to you that people understand it.',
+      },
+      vanilla_green: {
+        title: 'Vanilla & Green — The Open Road',
+        coreIdentity:
+          'You explore with intention and land in things fully. Vanilla Bean draws you toward everything new — you’re optimistic, spontaneous, energised by possibility in a way that’s completely genuine. Green Bean means you don’t just move through experiences, you actually inhabit them. You’re present in a way that most energetic people aren’t. You make the unknown feel welcoming, which is why people follow your lead without quite knowing why they trust you so quickly.',
+        stressBehaviour:
+          'You get very still or very busy, with very little in between. Vanilla Bean wants to move — to plan, to escape, to find the next thing. Green Bean wants to regulate — to breathe, to process, to not do anything until you know what you actually feel. These two impulses fight each other and sometimes leave you stuck in place doing neither.',
+        hiddenTrait:
+          'You have a quality of stillness in motion that’s hard to explain — you can be doing five things and somehow be completely present for all of them. People around you feel more grounded for having been near you, even when you were technically the one leading the chaos.',
+        misunderstood:
+          'That you’re either too dreamy to be grounded or too grounded to be fun. You are both. That’s the whole point of you.',
+      },
+      green_vanilla: {
+        title: 'Green & Vanilla — The Open Road (reversed)',
+        coreIdentity:
+          'You move slowly and you go far. Green Bean keeps you grounded — present, regulated, unhurried. Vanilla Bean means that presence isn’t passive. You are genuinely curious, genuinely hungry for new experiences, genuinely open to what’s next. You explore more deliberately than most Vanilla types — you don’t just chase experiences, you metabolise them. Every place you go, every thing you try, every person you meet becomes part of how you understand the world.',
+        stressBehaviour:
+          'You get stuck between the need to regulate and the need to escape. Green Bean says sit with it. Vanilla Bean says move. You often compromise by moving very slowly in a direction you haven’t fully chosen yet.',
+        hiddenTrait:
+          'You have a capacity for joy in ordinary things that most people have to work hard to access. You’ve never quite lost the ability to find something genuinely interesting in almost any situation.',
+        misunderstood:
+          'That you’re passive or that you need to be pushed. You don’t. You move on your own timeline, which is different from not moving.',
+      },
+      chilli_jelly: {
+        title: 'Chilli & Jelly — The Charismatic Storm',
+        coreIdentity:
+          'You are a force of nature who genuinely loves people. Chilli Bean gives you the honesty, the edge, the complete refusal to be anything other than exactly yourself. Jelly Bean means that edge is wrapped in warmth and delivered with enough charisma that people don’t just accept it — they appreciate it. You can tell someone a hard truth and somehow make them feel loved in the process. That is a genuinely rare combination and people sense it even if they can’t name it.',
+        stressBehaviour:
+          'You go big and then crash. Chilli Bean under pressure becomes impulsive — sharp exits, unfiltered honesty at the wrong moment, burning bridges you’ll want later. Jelly Bean under pressure extends itself too far — taking on everyone’s emotional weight, performing fine, needing to be needed. The combination means you can be the loudest person in the crisis and the most depleted person the next day.',
+        hiddenTrait:
+          'You are deeply sensitive to rejection, which almost no one would guess. The boldness is real, but so is the quiet flinch when someone doesn’t receive you the way you meant. You rarely show this. You redirect it into energy and keep going.',
+        misunderstood:
+          'That you’re a lot. You are — but “a lot” in your case means a lot of honesty, a lot of warmth, a lot of presence, a lot of realness. People who find that overwhelming usually just haven’t met someone this alive before.',
+      },
+      jelly_chilli: {
+        title: 'Jelly & Chilli — The Charismatic Storm (reversed)',
+        coreIdentity:
+          'You connect first and speak truth second — but the truth always comes. Jelly Bean is your entry point — you warm people up, you make them feel seen, you earn a place in the room before you say anything difficult. Then Chilli Bean delivers the honesty, and by then people trust you enough to hear it. You have figured out, consciously or not, exactly how to make truth land softly without making it any less true.',
+        stressBehaviour:
+          'You extend yourself too far and then explode a little. Jelly Bean keeps taking on more — more people, more problems, more emotional labour — because saying no feels like a kind of betrayal. Chilli Bean eventually hits a limit and the no comes out all at once, with more force than anyone was expecting. Then you feel guilty, which sends you straight back to Jelly Bean.',
+        hiddenTrait:
+          'You have a much stronger sense of personal principle than your social ease suggests. There are things you will not do and lines you will not cross, and if someone doesn’t know that about you yet, it’s only because they haven’t found one yet.',
+        misunderstood:
+          'That you’re a people-pleaser. You’re not. You’re people-focused. There’s a difference. One compromises. The other invests.',
+      },
+      chilli_green: {
+        title: 'Chilli & Green — The Quiet Revolutionary',
+        coreIdentity:
+          'You see what’s wrong and you say it — but you say it with emotional intelligence rather than just heat. Chilli Bean gives you the conviction, the refusal to pretend, the willingness to name what others are politely stepping around. Green Bean means you carry that honesty with care. You’re not blunt for the sake of it. You’re blunt because you genuinely believe people deserve the truth, and because you’ve thought carefully enough about the situation to deliver it without cruelty.',
+        stressBehaviour:
+          'You become very still and then very direct. Green Bean holds the regulation for as long as it can — breathing, processing, giving people the benefit of the doubt. Chilli Bean eventually overrides it with precision. When you finally say the thing, it is the right thing, said at the right moment, with full intention. Which somehow makes it land harder than if you’d just reacted immediately.',
+        hiddenTrait:
+          'You have a quiet idealism underneath the realism. You call things out because you believe things can be better. You wouldn’t bother otherwise. Most people who seem cynical are actually just disappointed optimists. You’re one of them.',
+        misunderstood:
+          'That you’re intimidating or that you’re always looking for a fight. You’re not. You’re just one of the few people who takes integrity seriously enough to act on it. Once people understand that, they tend to trust you with everything.',
+      },
+      green_chilli: {
+        title: 'Green & Chilli — The Quiet Revolutionary (reversed)',
+        coreIdentity:
+          'You are peaceful until something matters, and then you are immovable. Green Bean is what people see first — grounded, emotionally intelligent, the one who keeps things calm when others can’t. Chilli Bean is what they eventually discover. You have lines. Strong ones. And when something crosses them, the response is not a reaction — it’s a conclusion. Considered, clear, and final. You’ve been patient with this situation for a long time. Everyone will know when you’ve decided you’re done being patient.',
+        stressBehaviour:
+          'You regulate for as long as possible and then you’re done. Green Bean holds the calm long past when most people would have broken. Then Chilli Bean arrives, and what comes out is not hot — it’s cold. Precise. Measured. Which is somehow more unsettling than anger.',
+        hiddenTrait:
+          'You have strong opinions about almost everything. You’ve simply chosen which ones are worth saying out loud. The ones you keep to yourself are usually the most interesting.',
+        misunderstood:
+          "That's because you’re calm, you’re also neutral. You are not neutral. You have a very clear sense of right and wrong. You’ve just learned that timing is everything.",
+      },
+      jelly_green: {
+        title: 'Jelly & Green — The Warm Anchor',
+        coreIdentity:
+          'You hold people while making them laugh. Jelly Bean makes you the person people gravitate toward — expressive, magnetic, genuinely warm, the one who makes everyone feel included without trying. Green Bean means that warmth runs deep. You’re not just fun, you’re safe. People tell you things they don’t tell anyone else because you combine lightness with steadiness in a way that makes honesty feel easy. You are the emotional centre of most rooms you’re in, and usually the last to know it.',
+        stressBehaviour:
+          'You absorb and perform at the same time. Jelly Bean keeps the social face running — you’re still engaging, still warm, still holding the room. Green Bean is quietly taking on every heavy thing everyone around you is carrying. You are doing this while also dealing with your own thing. You won’t say so. Everyone assumes you’re fine because you always seem fine.',
+        hiddenTrait:
+          'You have a capacity for grief that matches your capacity for joy. When things genuinely hurt, they hurt fully. You don’t half-feel anything, in either direction. Most people only see the joy side.',
+        misunderstood:
+          'That you’re the support person and therefore don’t need support yourself. You do. You just rarely ask for it in a way that makes it obvious.',
+      },
+      green_jelly: {
+        title: 'Green & Jelly — The Warm Anchor (reversed)',
+        coreIdentity:
+          'You ground people and delight them in equal measure. Green Bean is the foundation — you are emotionally steady, reliably present, the person who shows up without needing to make it a performance. Jelly Bean is the warmth and the lightness that makes all that steadiness feel joyful rather than heavy. You are not the serious support person and also not just the fun one. You are both at the same time, and that combination is the reason people feel genuinely safe with you.',
+        stressBehaviour:
+          'You withdraw slightly and nobody notices immediately because you’re still so warm on the surface. Green Bean keeps you regulated and present. Jelly Bean keeps you engaging. But something is quieter. The people who know you well can tell.',
+        hiddenTrait:
+          'You find a lot of things genuinely funny that you keep to yourself. Your inner monologue is significantly more chaotic and entertaining than your outer presentation suggests.',
+        misunderstood:
+          'That your warmth is effortless. It isn’t. You’ve done a lot of internal work to show up the way you do. You just don’t need credit for it.',
+      },
+    };
+
     const state = {
       current: 'welcome',
       totalSteps: 15,
@@ -1628,6 +1954,12 @@
         jelly: 0,
         green: 0,
       },
+      carouselInterval: null,
+      carouselIndex: 0,
+      carouselIsPlaying: true,
+      carouselManualPaused: false,
+      carouselLayers: [],
+      carouselDots: [],
     };
 
     function updateProgress() {
@@ -1678,51 +2010,9 @@
       const data = archetypes[beanKey];
       if (!data) return;
 
-      root.style.setProperty('--result-accent', data.accent);
-      root.style.setProperty('--result-ink', data.ink);
-      root.style.setProperty('--result-bg', data.bg);
-      root.style.setProperty('--result-bg-strong', data.bgStrong);
-      root.style.setProperty('--result-glow', data.glow);
-      root.style.setProperty('--result-border', data.border);
-      root.style.setProperty('--result-panel', data.panel);
-      root.style.setProperty('--result-panel-alt', data.panelAlt);
-      resultName.textContent = data.name;
-      resultDescription.textContent = data.description;
-      resultEnergy.textContent = data.energy;
-      resultFit.textContent = data.fit;
-      resultLink.href = data.collection;
-      resultDirection.textContent = data.direction;
-      resultPalette.textContent = data.palette;
-      resultCtaCopy.textContent = data.ctaCopy;
-      resultGif.src = data.gif;
-      resultGif.alt = data.name;
-      resultTraits.innerHTML = '';
-
-      data.traits.forEach((trait) => {
-        const item = document.createElement('span');
-        item.className = 'bean-quiz__trait';
-        item.textContent = trait;
-        resultTraits.appendChild(item);
-      });
-
-      // Render new detailed sections
-      const coreIdEl = root.querySelector('[data-detail-core-identity]');
-      const stressEl = root.querySelector('[data-detail-stress-behaviour]');
-      const hiddenEl = root.querySelector('[data-detail-hidden-trait]');
-      const misunderstoodEl = root.querySelector('[data-detail-misunderstood]');
-      const compatibilityEl = root.querySelector('[data-detail-compatibility]');
-
-      if (coreIdEl) coreIdEl.textContent = data.coreIdentity || '';
-      if (stressEl) stressEl.textContent = data.stressBehaviour || '';
-      if (hiddenEl) hiddenEl.textContent = data.hiddenTrait || '';
-      if (misunderstoodEl) misunderstoodEl.textContent = data.misunderstood || '';
-      if (compatibilityEl) compatibilityEl.textContent = data.compatibility || '';
-
-      // 1. Calculate raw scores
+      // 1. Calculate raw scores and sort percentages at the very start
       const rawScores = state.scores;
       const total = Object.values(rawScores).reduce((a, b) => a + b, 0) || 1;
-
-      // 2. Round percentages
       const percents = {};
       let sum = 0;
       let maxKey = 'coffee';
@@ -1738,26 +2028,106 @@
         }
       }
 
-      // 3. Balance to exactly 100%
+      // Balance to exactly 100%
       const diff = 100 - sum;
       if (diff !== 0) {
         percents[maxKey] += diff;
       }
 
-      // 4. Sort percentages
+      // Sort percentages (highest first)
       const sorted = Object.entries(percents).sort((a, b) => b[1] - a[1]);
       const primary = sorted[0]; // [key, %]
       const secondary = sorted[1]; // [key, %]
 
-      // 5. Determine Classification
+      // Set styles based on winning bean
+      root.style.setProperty('--result-accent', data.accent);
+      root.style.setProperty('--result-ink', data.ink);
+      root.style.setProperty('--result-bg', data.bg);
+      root.style.setProperty('--result-bg-strong', data.bgStrong);
+      root.style.setProperty('--result-glow', data.glow);
+      root.style.setProperty('--result-border', data.border);
+      root.style.setProperty('--result-panel', data.panel);
+      root.style.setProperty('--result-panel-alt', data.panelAlt);
+      // Check Dual Blend trigger (Primary >= 40% and Gap <= 8%)
+      const primaryPct = primary[1];
+      const secondaryPct = secondary[1];
+      const gap = primaryPct - secondaryPct;
+      const isDualBlend = primaryPct >= 40 && gap <= 8;
+
       let classification = '';
-      if (primary[1] - secondary[1] <= 5) {
-        classification = `True Blend: ${archetypes[primary[0]].name} & ${archetypes[secondary[0]].name}`;
-      } else if (primary[1] > 50) {
-        classification = `Dominant Archetype: ${archetypes[primary[0]].name}`;
+      let activeTitle = data.name;
+      let activeDesc = data.description;
+
+      // Render new detailed sections
+      const coreIdEl = root.querySelector('[data-detail-core-identity]');
+      const stressEl = root.querySelector('[data-detail-stress-behaviour]');
+      const hiddenEl = root.querySelector('[data-detail-hidden-trait]');
+      const misunderstoodEl = root.querySelector('[data-detail-misunderstood]');
+      const compatibilityEl = root.querySelector('[data-detail-compatibility]');
+
+      if (isDualBlend) {
+        const blendKey = `${primary[0]}_${secondary[0]}`;
+        const blendData = dualBlends[blendKey];
+        if (blendData) {
+          classification = `Dual Blend`;
+          activeTitle = blendData.title;
+          activeDesc = `You represent a perfect harmony between the characteristics of the ${
+            archetypes[primary[0]].name
+          } and the ${archetypes[secondary[0]].name}.`;
+
+          if (coreIdEl) coreIdEl.textContent = blendData.coreIdentity;
+          if (stressEl) stressEl.textContent = blendData.stressBehaviour;
+          if (hiddenEl) hiddenEl.textContent = blendData.hiddenTrait;
+          if (misunderstoodEl) misunderstoodEl.textContent = blendData.misunderstood;
+          if (compatibilityEl) {
+            compatibilityEl.textContent = `As a Dual Blend, you carry a balanced mix of both ${
+              archetypes[primary[0]].name
+            } and ${
+              archetypes[secondary[0]].name
+            } characteristics. You pair beautifully with partners who respect both your depth and your fire.`;
+          }
+        } else {
+          // Fallback if blend data is not found
+          classification = `Dual Blend: ${archetypes[primary[0]].name} & ${archetypes[secondary[0]].name}`;
+          if (coreIdEl) coreIdEl.textContent = data.coreIdentity || '';
+          if (stressEl) stressEl.textContent = data.stressBehaviour || '';
+          if (hiddenEl) hiddenEl.textContent = data.hiddenTrait || '';
+          if (misunderstoodEl) misunderstoodEl.textContent = data.misunderstood || '';
+          if (compatibilityEl) compatibilityEl.textContent = data.compatibility || '';
+        }
       } else {
-        classification = `Dual Blend: ${archetypes[primary[0]].name} + ${archetypes[secondary[0]].name}`;
+        // Standard Single Archetype Logic
+        if (primaryPct - secondaryPct <= 5) {
+          classification = `True Blend: ${archetypes[primary[0]].name} & ${archetypes[secondary[0]].name}`;
+        } else if (primaryPct > 50) {
+          classification = `Dominant Archetype: ${archetypes[primary[0]].name}`;
+        } else {
+          classification = `True Blend: ${archetypes[primary[0]].name} + ${archetypes[secondary[0]].name}`;
+        }
+
+        if (coreIdEl) coreIdEl.textContent = data.coreIdentity || '';
+        if (stressEl) stressEl.textContent = data.stressBehaviour || '';
+        if (hiddenEl) hiddenEl.textContent = data.hiddenTrait || '';
+        if (misunderstoodEl) misunderstoodEl.textContent = data.misunderstood || '';
+        if (compatibilityEl) compatibilityEl.textContent = data.compatibility || '';
       }
+
+      resultName.textContent = activeTitle;
+      resultDescription.textContent = activeDesc;
+      resultEnergy.textContent = data.energy;
+      resultFit.textContent = data.fit;
+      resultLink.href = data.collection;
+      resultDirection.textContent = data.direction;
+      resultPalette.textContent = data.palette;
+      resultCtaCopy.textContent = data.ctaCopy;
+      resultTraits.innerHTML = '';
+
+      data.traits.forEach((trait) => {
+        const item = document.createElement('span');
+        item.className = 'bean-quiz__trait';
+        item.textContent = trait;
+        resultTraits.appendChild(item);
+      });
 
       // Render classification
       const classificationEl = root.querySelector('[data-blend-classification]');
@@ -1788,6 +2158,121 @@
             segment.style.width = pct + '%';
             segment.style.backgroundColor = archetypes[key].accent;
             blendBar.appendChild(segment);
+          }
+        });
+      }
+
+      // --- Carousel Engine Implementation ---
+      if (gifContainer && carouselControls && carouselBadge) {
+        gifContainer.innerHTML = '';
+        carouselControls.innerHTML = '';
+
+        // Clear any existing carousel interval
+        if (state.carouselInterval) {
+          clearInterval(state.carouselInterval);
+          state.carouselInterval = null;
+        }
+
+        // Filter out beans with 0% score
+        const activeBeans = sorted.filter(([key, pct]) => pct > 0);
+        state.carouselIndex = 0;
+        state.carouselIsPlaying = true;
+        state.carouselManualPaused = false;
+        state.carouselLayers = [];
+        state.carouselDots = [];
+
+        // Add badge overlay class
+        carouselBadge.classList.add('is-visible');
+
+        // Create layered GIF elements & navigation dots
+        activeBeans.forEach(([key, pct], index) => {
+          const archData = archetypes[key];
+          const img = document.createElement('img');
+          img.className = 'bean-quiz__result-gif-layer';
+          img.src = archData.gif;
+          img.alt = archData.name;
+          img.loading = 'lazy';
+          if (index === 0) img.classList.add('is-active');
+          gifContainer.appendChild(img);
+
+          state.carouselLayers.push({
+            element: img,
+            key: key,
+            pct: pct,
+            name: archData.name,
+          });
+
+          // Create navigation dot
+          const dot = document.createElement('button');
+          dot.className = 'bean-quiz__carousel-dot';
+          dot.type = 'button';
+          dot.ariaLabel = `Go to ${archData.name} (${pct}%)`;
+          if (index === 0) dot.classList.add('is-active');
+
+          dot.addEventListener('click', () => {
+            state.carouselManualPaused = true;
+            pauseCarousel();
+            goToIndex(index);
+          });
+
+          carouselControls.appendChild(dot);
+          state.carouselDots.push(dot);
+        });
+
+        const updateBadge = (name, pct) => {
+          carouselBadge.textContent = `${name} • ${pct}%`;
+        };
+
+        const goToIndex = (idx) => {
+          state.carouselLayers.forEach((layer, i) => {
+            layer.element.classList.toggle('is-active', i === idx);
+          });
+          state.carouselDots.forEach((dot, i) => {
+            dot.classList.toggle('is-active', i === idx);
+          });
+          const activeLayer = state.carouselLayers[idx];
+          if (activeLayer) {
+            updateBadge(activeLayer.name, activeLayer.pct);
+          }
+          state.carouselIndex = idx;
+        };
+
+        // Initialize badge with the first active bean
+        if (state.carouselLayers[0]) {
+          updateBadge(state.carouselLayers[0].name, state.carouselLayers[0].pct);
+        }
+
+        const nextSlide = () => {
+          if (activeBeans.length <= 1) return;
+          const nextIdx = (state.carouselIndex + 1) % activeBeans.length;
+          goToIndex(nextIdx);
+        };
+
+        const startCarousel = () => {
+          if (activeBeans.length <= 1) return;
+          state.carouselInterval = setInterval(nextSlide, 3500);
+        };
+
+        const pauseCarousel = () => {
+          if (state.carouselInterval) {
+            clearInterval(state.carouselInterval);
+            state.carouselInterval = null;
+          }
+        };
+
+        // Start autoplay if there's more than one active bean
+        startCarousel();
+
+        // Pause on hover, resume on mouse leave (unless manually clicked)
+        gifContainer.addEventListener('mouseenter', () => {
+          if (!state.carouselManualPaused) {
+            pauseCarousel();
+          }
+        });
+
+        gifContainer.addEventListener('mouseleave', () => {
+          if (!state.carouselManualPaused) {
+            startCarousel();
           }
         });
       }
@@ -1872,6 +2357,25 @@
         jelly: 0,
         green: 0,
       };
+
+      // Carousel state cleanup
+      if (state.carouselInterval) {
+        clearInterval(state.carouselInterval);
+        state.carouselInterval = null;
+      }
+      state.carouselLayers = [];
+      state.carouselDots = [];
+      state.carouselIndex = 0;
+      state.carouselIsPlaying = true;
+      state.carouselManualPaused = false;
+
+      // Carousel DOM cleanup
+      if (gifContainer) gifContainer.innerHTML = '';
+      if (carouselBadge) {
+        carouselBadge.innerHTML = '';
+        carouselBadge.classList.remove('is-visible');
+      }
+      if (carouselControls) carouselControls.innerHTML = '';
 
       root.querySelectorAll('.bean-quiz__option').forEach((option) => {
         option.classList.remove('is-selected');
