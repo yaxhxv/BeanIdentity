@@ -569,6 +569,7 @@
     display: grid;
     place-items: center;
     width: min(100%, 36rem); /* flush 36rem */
+    min-height: 32rem;
     aspect-ratio: 1 / 1;
     border-radius: 3rem;
     border: none;
@@ -626,6 +627,27 @@
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     margin-top: 0.5rem;
+  }
+
+  .bean-quiz__result-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 0 0 1.2rem;
+    color: var(--result-accent, #c6a969);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+  }
+
+  .bean-quiz__result-label::before {
+    content: '';
+    width: 3.2rem;
+    height: 1px;
+    background: currentColor;
+    opacity: 0.7;
   }
 
   .bean-quiz__blend-classification {
@@ -728,7 +750,7 @@
     display: flex;
     flex-wrap: wrap;
     gap: 1.2rem;
-    margin-top: 2.4rem;
+    margin-top: 3.2rem;
     justify-content: center;
   }
 
@@ -758,7 +780,8 @@
   }
 
   @media screen and (max-width: 749px) {
-    .bean-quiz__detailed-table {
+    .bean-quiz__detailed-table,
+    .bean-quiz__result-bridge {
       grid-template-columns: 1fr;
       margin-top: 2.4rem;
     }
@@ -854,16 +877,44 @@
     opacity: 0.95;
     filter: drop-shadow(0 1.2rem 2rem rgba(0, 0, 0, 0.18));
   }
+  .bean-quiz__result-bridge {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 1.8rem;
+  }
+
+  .bean-quiz__bridge-card {
+    padding: 1.8rem;
+    border: 1px solid var(--result-border);
+    background: var(--result-panel);
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.24s ease, background-color 0.24s ease;
+  }
+
+  .bean-quiz__bridge-card:hover {
+    transform: translateY(-0.2rem);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .bean-quiz__bridge-card strong {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: rgba(245, 245, 245, 0.5);
+    color: var(--result-accent, #c6a969);
   }
 
   .bean-quiz__bridge-card span {
-    font-size: 1.3rem;
-    line-height: 1.45;
-    color: var(--result-ink);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.48rem;
+    line-height: 1.6;
+    color: var(--result-ink, #f5f5f5);
+    opacity: 0.88;
   }
 
   .bean-quiz__button--secondary {
@@ -881,8 +932,7 @@
   @media screen and (max-width: 989px) {
     .bean-quiz-page__hero,
     .bean-quiz__result-card,
-    .bean-quiz__result-hero,
-    .bean-quiz__result-bridge {
+    .bean-quiz__result-hero {
       grid-template-columns: 1fr;
     }
 
@@ -1498,10 +1548,10 @@
               <p class="bean-quiz__result-kicker">Your match</p>
               <h2 class="bean-quiz__result-title" data-result-name></h2>
               <p class="bean-quiz__result-copy" data-result-description></p>
-              
+
               <!-- Identity trait pills directly below description -->
               <div class="bean-quiz__traits" data-result-traits></div>
-              
+
               <!-- Blend breakdown inline in the copy block -->
               <div class="bean-quiz__blend-breakdown">
                 <p class="bean-quiz__result-label">Your Bean Blend</p>
