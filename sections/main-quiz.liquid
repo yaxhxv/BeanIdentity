@@ -504,15 +504,15 @@
     position: relative;
     z-index: 1;
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(24rem, 0.9fr);
-    gap: 2.4rem;
-    align-items: center;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.2rem;
+    align-items: start;
   }
 
   .bean-quiz__result-copy-block {
-    display: grid;
-    gap: 1rem;
-    align-content: start;
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
   }
 
   .bean-quiz__result-kicker {
@@ -536,41 +536,44 @@
     opacity: 0.7;
   }
 
-  .bean-quiz__result-title,
-  .bean-quiz__result-copy,
-  .bean-quiz__result-label,
-  .bean-quiz__result-stat span,
-  .bean-quiz__trait {
-    position: relative;
-    z-index: 1;
-  }
-
   .bean-quiz__result-title {
+    margin: 0;
+    font-family: var(--font-heading-family);
+    font-weight: 900;
+    text-transform: uppercase;
     color: var(--result-ink);
+    letter-spacing: 0;
+    line-height: 0.92;
+    font-size: clamp(4rem, 7vw, 7rem);
   }
 
   .bean-quiz__result-copy {
+    margin: 0;
     max-width: 52rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.42rem;
+    line-height: 1.48;
     color: var(--result-copy-soft);
   }
 
   .bean-quiz__result-visual {
     position: relative;
-    display: grid;
-    place-items: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
   }
 
   .bean-quiz__result-visual-shell {
     position: relative;
     display: grid;
     place-items: center;
-    width: min(100%, 34rem);
+    width: min(100%, 36rem); /* flush 36rem */
     aspect-ratio: 1 / 1;
     border-radius: 3rem;
     border: none;
     background: #ffffff;
     overflow: visible;
-    /* Fade the white shell to transparent at edges */
     -webkit-mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 38%, transparent 72%);
     mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 38%, transparent 72%);
   }
@@ -591,7 +594,174 @@
     width: min(100%, 32rem);
     height: auto;
     display: block;
-    /* No mix-blend-mode needed — shell background matches gif's white */
+  }
+
+  .bean-quiz__traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    margin-top: 0.5rem;
+  }
+
+  .bean-quiz__trait {
+    display: inline-flex;
+    align-items: center;
+    min-height: 3.4rem;
+    padding: 0 1.3rem;
+    border: 1px solid rgba(245, 245, 245, 0.12);
+    background: rgba(255, 255, 255, 0.08);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.02rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--result-ink);
+  }
+
+  .bean-quiz__blend-breakdown {
+    padding: 2.2rem;
+    border: 1px solid var(--result-border);
+    background: var(--result-panel);
+    border-radius: 2.6rem;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    margin-top: 0.5rem;
+  }
+
+  .bean-quiz__blend-classification {
+    font-family: var(--font-heading-family);
+    font-size: clamp(2rem, 3.5vw, 3.2rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    color: var(--result-accent);
+    margin-bottom: 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .bean-quiz__blend-bar {
+    display: flex;
+    height: 1.6rem;
+    border-radius: 999px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.06);
+    margin: 1.6rem 0;
+  }
+
+  .bean-quiz__blend-segment {
+    height: 100%;
+    transition: width 0.6s ease;
+  }
+
+  .bean-quiz__blend-labels {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.5;
+  }
+
+  .bean-quiz__blend-text {
+    color: var(--result-copy-soft);
+  }
+
+  .bean-quiz__blend-text strong {
+    color: var(--result-ink);
+  }
+
+  /* Expand max-width of quiz container on bigger screens */
+  @media screen and (min-width: 1200px) {
+    .bean-quiz {
+      max-width: 120rem; /* expanded width for bigger screens */
+    }
+  }
+
+  /* Dossier Card Grid - default 3 columns (tablets) */
+  .bean-quiz__detailed-table {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.2rem;
+    margin-top: 3rem;
+  }
+
+  /* 4 columns in a row on bigger screens */
+  @media screen and (min-width: 1200px) {
+    .bean-quiz__detailed-table {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .bean-quiz__table-card {
+    padding: 1.8rem;
+    border: 1px solid var(--result-border);
+    background: var(--result-panel);
+    border-radius: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    transition: transform 0.24s ease, background-color 0.24s ease;
+  }
+
+  .bean-quiz__table-card:hover {
+    transform: translateY(-0.2rem);
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  .bean-quiz__table-header-cell {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--result-accent, #c6a969);
+  }
+
+  .bean-quiz__table-body-cell {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.48rem;
+    line-height: 1.6;
+    color: var(--result-ink, #f5f5f5);
+    opacity: 0.88;
+  }
+
+  .bean-quiz__result-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    margin-top: 2.4rem;
+    justify-content: center;
+  }
+
+  .bean-quiz__button--secondary {
+    border-color: rgba(245, 245, 245, 0.22);
+    background: transparent;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz__button--secondary:hover {
+    background: #f5f5f5;
+    border-color: #f5f5f5;
+    color: #0b0b0b;
+  }
+
+  @media screen and (max-width: 989px) {
+    .bean-quiz__result-hero {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+      text-align: center;
+      justify-items: center;
+    }
+
+    .bean-quiz__result-visual-shell {
+      width: min(100%, 32rem);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .bean-quiz__detailed-table {
+      grid-template-columns: 1fr;
+      margin-top: 2.4rem;
+    }
   }
 
   /* Sequential play carousel styles */
@@ -684,130 +854,6 @@
     opacity: 0.95;
     filter: drop-shadow(0 1.2rem 2rem rgba(0, 0, 0, 0.18));
   }
-
-  .bean-quiz__result-copy-wrap,
-  .bean-quiz__result-meta {
-    padding: 2.2rem;
-    border: 1px solid var(--result-border);
-    background: var(--result-panel);
-    border-radius: 2.2rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
-
-  .bean-quiz__result-label {
-    display: inline-block;
-    margin: 0 0 1.2rem;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.02rem;
-    font-weight: 800;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--result-accent, #c6a969);
-  }
-
-  .bean-quiz__traits {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.8rem;
-    margin-top: 1.8rem;
-  }
-
-  .bean-quiz__trait {
-    display: inline-flex;
-    align-items: center;
-    min-height: 3.4rem;
-    padding: 0 1.3rem;
-    border: 1px solid rgba(245, 245, 245, 0.12);
-    background: rgba(255, 255, 255, 0.08);
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.02rem;
-    font-weight: 800;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    color: var(--result-ink);
-  }
-
-  .bean-quiz__result-stat + .bean-quiz__result-stat {
-    margin-top: 1.8rem;
-    padding-top: 1.8rem;
-    border-top: 1px solid rgba(245, 245, 245, 0.08);
-  }
-
-  .bean-quiz__result-stat strong,
-  .bean-quiz__result-stat span {
-    display: block;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .bean-quiz__result-stat strong {
-    margin-bottom: 0.5rem;
-    font-size: 1.06rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: rgba(245, 245, 245, 0.52);
-  }
-
-  .bean-quiz__result-stat span {
-    font-size: 1.55rem;
-    line-height: 1.6;
-    color: var(--result-ink);
-  }
-
-  .bean-quiz__result-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    margin-top: 2.4rem;
-  }
-
-  .bean-quiz__result-bridge {
-    display: none;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.2rem;
-    margin-top: 2rem;
-  }
-
-  .bean-quiz__bridge-card {
-    padding: 1.6rem 1.5rem;
-    border: 1px solid var(--result-border);
-    border-radius: 1.8rem;
-    background: var(--result-panel-alt);
-  }
-
-  @media screen and (max-width: 989px) {
-    .bean-quiz__result-card {
-      grid-template-columns: 1fr;
-    }
-    .bean-quiz__result-hero {
-      grid-template-columns: 1fr;
-      text-align: center;
-      justify-items: center;
-    }
-    .bean-quiz__result-copy {
-      margin-inline: auto;
-    }
-    .bean-quiz__result-bridge {
-      grid-template-columns: 1fr;
-    }
-    .bean-quiz__result-visual-shell {
-      width: min(100%, 28rem);
-    }
-    .bean-quiz__result-actions {
-      justify-content: center;
-    }
-  }
-
-  .bean-quiz__bridge-card strong,
-  .bean-quiz__bridge-card span {
-    display: block;
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .bean-quiz__bridge-card strong {
-    margin-bottom: 0.5rem;
-    font-size: 0.95rem;
     font-weight: 800;
     letter-spacing: 0.16em;
     text-transform: uppercase;
@@ -1445,13 +1491,27 @@
         </div>
 
         <div class="bean-quiz__screen" data-quiz-screen="result">
+          <!-- 1. Result Hero Grid -->
           <div class="bean-quiz__result-hero">
+            <!-- Left Column: Copy, Traits & Blend -->
             <div class="bean-quiz__result-copy-block">
               <p class="bean-quiz__result-kicker">Your match</p>
               <h2 class="bean-quiz__result-title" data-result-name></h2>
               <p class="bean-quiz__result-copy" data-result-description></p>
+              
+              <!-- Identity trait pills directly below description -->
+              <div class="bean-quiz__traits" data-result-traits></div>
+              
+              <!-- Blend breakdown inline in the copy block -->
+              <div class="bean-quiz__blend-breakdown">
+                <p class="bean-quiz__result-label">Your Bean Blend</p>
+                <div class="bean-quiz__blend-classification" data-blend-classification></div>
+                <div class="bean-quiz__blend-bar" data-blend-bar></div>
+                <div class="bean-quiz__blend-labels" data-blend-labels></div>
+              </div>
             </div>
 
+            <!-- Right Column: GIFs, Badge, Controls -->
             <div class="bean-quiz__result-visual">
               <div class="bean-quiz__result-visual-shell" data-result-gif-container>
                 <!-- Layers will be dynamically injected here -->
@@ -1461,54 +1521,39 @@
             </div>
           </div>
 
-          <div class="bean-quiz__blend-breakdown">
-            <p class="bean-quiz__result-label">Your Bean Blend</p>
-            <div class="bean-quiz__blend-classification" data-blend-classification></div>
-            <div class="bean-quiz__blend-bar" data-blend-bar></div>
-            <div class="bean-quiz__blend-labels" data-blend-labels></div>
-          </div>
-
-          <div class="bean-quiz__result-card">
-            <div class="bean-quiz__result-copy-wrap">
-              <p class="bean-quiz__result-label">Identity traits</p>
-              <div class="bean-quiz__traits" data-result-traits></div>
-
-              <div class="bean-quiz__detailed-table">
-                <div class="bean-quiz__table-row">
-                  <div class="bean-quiz__table-header-cell">Core Identity</div>
-                  <div class="bean-quiz__table-body-cell" data-detail-core-identity></div>
-                </div>
-                <div class="bean-quiz__table-row">
-                  <div class="bean-quiz__table-header-cell">Stress Behaviour</div>
-                  <div class="bean-quiz__table-body-cell" data-detail-stress-behaviour></div>
-                </div>
-                <div class="bean-quiz__table-row">
-                  <div class="bean-quiz__table-header-cell">Hidden Trait</div>
-                  <div class="bean-quiz__table-body-cell" data-detail-hidden-trait></div>
-                </div>
-                <div class="bean-quiz__table-row">
-                  <div class="bean-quiz__table-header-cell">What People Misunderstand</div>
-                  <div class="bean-quiz__table-body-cell" data-detail-misunderstood></div>
-                </div>
-                <div class="bean-quiz__table-row">
-                  <div class="bean-quiz__table-header-cell">Compatibility Note</div>
-                  <div class="bean-quiz__table-body-cell" data-detail-compatibility></div>
-                </div>
-              </div>
+          <!-- 2. Dossier 3-Column Grid -->
+          <div class="bean-quiz__detailed-table">
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Core Identity</div>
+              <div class="bean-quiz__table-body-cell" data-detail-core-identity></div>
             </div>
-
-            <div class="bean-quiz__result-meta">
-              <div class="bean-quiz__result-stat">
-                <strong>Energy</strong>
-                <span data-result-energy></span>
-              </div>
-              <div class="bean-quiz__result-stat">
-                <strong>Why it fits</strong>
-                <span data-result-fit></span>
-              </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Stress Behaviour</div>
+              <div class="bean-quiz__table-body-cell" data-detail-stress-behaviour></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Hidden Trait</div>
+              <div class="bean-quiz__table-body-cell" data-detail-hidden-trait></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">What People Misunderstand</div>
+              <div class="bean-quiz__table-body-cell" data-detail-misunderstood></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Compatibility Note</div>
+              <div class="bean-quiz__table-body-cell" data-detail-compatibility></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Energy</div>
+              <div class="bean-quiz__table-body-cell" data-result-energy></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Why it fits</div>
+              <div class="bean-quiz__table-body-cell" data-result-fit></div>
             </div>
           </div>
 
+          <!-- Hidden bridge fallback -->
           <div class="bean-quiz__result-bridge">
             <div class="bean-quiz__bridge-card">
               <strong>Visual direction</strong>
