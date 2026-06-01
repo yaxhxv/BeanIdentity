@@ -2502,6 +2502,209 @@
       });
     });
 
+    // ==========================================
+    // Permutation Tester Debug Utility
+    // ==========================================
+    if (window.location.search.includes('debug=true') || window.location.search.includes('test=true')) {
+      const debugStyle = document.createElement('style');
+      debugStyle.textContent = `
+        .bean-quiz-debug-trigger {
+          position: fixed;
+          bottom: 2rem;
+          right: 2rem;
+          z-index: 99999;
+          background: rgba(11, 11, 11, 0.85);
+          backdrop-filter: blur(12px);
+          -webkit-backdrop-filter: blur(12px);
+          border: 1px solid rgba(198, 169, 105, 0.3);
+          color: #c6a969;
+          padding: 1.2rem 2rem;
+          border-radius: 999px;
+          font-family: 'Poppins', sans-serif;
+          font-size: 1.2rem;
+          font-weight: 800;
+          letter-spacing: 0.08em;
+          text-transform: uppercase;
+          cursor: pointer;
+          display: flex;
+          align-items: center;
+          gap: 0.8rem;
+          box-shadow: 0 1rem 3rem rgba(0,0,0,0.5);
+          transition: all 0.28s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .bean-quiz-debug-trigger:hover {
+          transform: translateY(-0.2rem) scale(1.05);
+          border-color: #c6a969;
+          background: #c6a969;
+          color: #0b0b0b;
+        }
+        .bean-quiz-debug-panel {
+          position: fixed;
+          bottom: 6.5rem;
+          right: 2rem;
+          z-index: 99998;
+          width: 34rem;
+          background: rgba(15, 15, 15, 0.94);
+          backdrop-filter: blur(20px);
+          -webkit-backdrop-filter: blur(20px);
+          border: 1px solid rgba(245, 245, 245, 0.1);
+          border-radius: 2.2rem;
+          padding: 2.2rem;
+          box-shadow: 0 2rem 5rem rgba(0,0,0,0.6);
+          font-family: 'Poppins', sans-serif;
+          transform: translateY(2rem) scale(0.95);
+          opacity: 0;
+          pointer-events: none;
+          transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        .bean-quiz-debug-panel.is-open {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+          pointer-events: auto;
+        }
+        .bean-quiz-debug-title {
+          margin: 0 0 1.6rem;
+          font-size: 1.35rem;
+          font-weight: 800;
+          letter-spacing: 0.1em;
+          text-transform: uppercase;
+          color: #f5f5f5;
+          border-bottom: 1px solid rgba(245, 245, 245, 0.08);
+          padding-bottom: 0.8rem;
+        }
+        .bean-quiz-debug-label {
+          display: block;
+          margin-bottom: 0.8rem;
+          font-size: 1.05rem;
+          font-weight: 800;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+          color: rgba(245, 245, 245, 0.6);
+        }
+        .bean-quiz-debug-select {
+          width: 100%;
+          background: rgba(255, 255, 255, 0.05);
+          border: 1px solid rgba(245, 245, 245, 0.15);
+          color: #f5f5f5;
+          padding: 1.2rem;
+          border-radius: 1.2rem;
+          font-size: 1.25rem;
+          font-family: 'Poppins', sans-serif;
+          margin-bottom: 1.8rem;
+          cursor: pointer;
+          outline: none;
+        }
+        .bean-quiz-debug-select option {
+          background: #111111;
+          color: #f5f5f5;
+        }
+        .bean-quiz-debug-btn {
+          width: 100%;
+          min-height: 4.8rem;
+          background: #c6a969;
+          border: 1px solid #c6a969;
+          color: #0b0b0b;
+          border-radius: 999px;
+          font-size: 1.15rem;
+          font-weight: 900;
+          text-transform: uppercase;
+          letter-spacing: 0.08em;
+          cursor: pointer;
+          transition: all 0.24s ease;
+        }
+        .bean-quiz-debug-btn:hover {
+          background: #f5f5f5;
+          border-color: #f5f5f5;
+        }
+      `;
+      document.head.appendChild(debugStyle);
+
+      const trigger = document.createElement('button');
+      trigger.className = 'bean-quiz-debug-trigger';
+      trigger.type = 'button';
+      trigger.innerHTML = '⚙️ Result Tester';
+      document.body.appendChild(trigger);
+
+      const panel = document.createElement('div');
+      panel.className = 'bean-quiz-debug-panel';
+      panel.innerHTML = `
+        <h3 class="bean-quiz-debug-title">⚙️ Permutation Tester</h3>
+        <label class="bean-quiz-debug-label" for="debug-outcome-select">Select Outcome Profile</label>
+        <select id="debug-outcome-select" class="bean-quiz-debug-select">
+          <optgroup label="Single Dominant Archetypes">
+            <option value="coffee">Coffee Bean</option>
+            <option value="chilli">Chilli Bean</option>
+            <option value="vanilla">Vanilla Bean</option>
+            <option value="jelly">Jelly Bean</option>
+            <option value="green">Green Bean</option>
+          </optgroup>
+          <optgroup label="Dual Blend Permutations (20 Profiles)">
+            <option value="coffee_green">Coffee & Green — The Still Water</option>
+            <option value="green_coffee">Green & Coffee — Reversed Still Water</option>
+            <option value="coffee_chilli">Coffee & Chilli — The Sharp Thinker</option>
+            <option value="chilli_coffee">Chilli & Coffee — Reversed Sharp Thinker</option>
+            <option value="coffee_jelly">Coffee & Jelly — The Soft Observer</option>
+            <option value="jelly_coffee">Jelly & Coffee — Reversed Soft Observer</option>
+            <option value="coffee_vanilla">Coffee & Vanilla — The Restless Mind</option>
+            <option value="vanilla_coffee">Vanilla & Coffee — Reversed Restless Mind</option>
+            <option value="vanilla_jelly">Vanilla & Jelly — The Electric Optimist</option>
+            <option value="jelly_vanilla">Jelly & Vanilla — Reversed Electric Optimist</option>
+            <option value="vanilla_chilli">Vanilla & Chilli — The Live Wire</option>
+            <option value="chilli_vanilla">Chilli & Vanilla — Reversed Live Wire</option>
+            <option value="vanilla_green">Vanilla & Green — The Open Road</option>
+            <option value="green_vanilla">Green & Vanilla — Reversed Open Road</option>
+            <option value="chilli_jelly">Chilli & Jelly — The Charismatic Storm</option>
+            <option value="jelly_chilli">Jelly & Chilli — Reversed Charismatic Storm</option>
+            <option value="chilli_green">Chilli & Green — The Quiet Revolutionary</option>
+            <option value="green_chilli">Green & Chilli — Reversed Quiet Revolutionary</option>
+            <option value="jelly_green">Jelly & Green — The Warm Anchor</option>
+            <option value="green_jelly">Green & Jelly — Reversed Warm Anchor</option>
+          </optgroup>
+        </select>
+        <button type="button" id="debug-simulate-btn" class="bean-quiz-debug-btn">Simulate Result</button>
+      `;
+      document.body.appendChild(panel);
+
+      trigger.addEventListener('click', () => {
+        panel.classList.toggle('is-open');
+      });
+
+      document.getElementById('debug-simulate-btn').addEventListener('click', () => {
+        const value = document.getElementById('debug-outcome-select').value;
+        panel.classList.remove('is-open');
+
+        // Reset scores
+        for (const key in state.scores) {
+          state.scores[key] = 0;
+        }
+
+        if (value.includes('_')) {
+          // Dual Blend
+          const [primary, secondary] = value.split('_');
+          state.scores[primary] = 45;
+          state.scores[secondary] = 38;
+          // Set others to small values
+          const others = Object.keys(state.scores).filter((k) => k !== primary && k !== secondary);
+          others.forEach((key, i) => {
+            state.scores[key] = 5 + i;
+          });
+
+          renderResult(primary);
+        } else {
+          // Single Archetype
+          state.scores[value] = 70;
+          const others = Object.keys(state.scores).filter((k) => k !== value);
+          others.forEach((key, i) => {
+            state.scores[key] = 7 + i;
+          });
+
+          renderResult(value);
+        }
+
+        showScreen('result');
+      });
+    }
+
     showScreen('welcome');
   })();
 </script>
