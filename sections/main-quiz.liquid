@@ -367,8 +367,6 @@
     margin-top: 2.8rem;
   }
 
-
-
   /* Dossier Table Grid Layout */
   .bean-quiz__detailed-table {
     width: 100%;
@@ -571,26 +569,34 @@
   }
 
   .bean-quiz__blend-breakdown {
-    padding: 1.4rem 1.8rem;
+    padding: 1.8rem 2.2rem;
     border: 1px solid var(--result-border);
     background: var(--result-panel);
-    border-radius: 2rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-    margin-top: 0.8rem;
+    border-radius: 2.2rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    margin-top: 1.2rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .bean-quiz__blend-breakdown:hover {
+    border-color: rgba(245, 245, 245, 0.2);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.22);
   }
 
   .bean-quiz__result-label {
     display: inline-flex;
     align-items: center;
-    gap: 1rem;
+    gap: 1.2rem;
     margin: 0 0 1.2rem;
     color: var(--result-accent, #c6a969);
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.02rem;
-    font-weight: 800;
-    letter-spacing: 0.22em;
+    font-family: var(--bean-heading-font);
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
     text-transform: uppercase;
+    line-height: 1;
   }
 
   .bean-quiz__result-label::before {
@@ -598,31 +604,32 @@
     width: 3.2rem;
     height: 1px;
     background: currentColor;
-    opacity: 0.7;
+    opacity: 0.5;
   }
 
   .bean-quiz__blend-classification {
-    font-family: var(--font-heading-family);
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 900;
+    font-family: var(--bean-heading-font);
+    font-size: clamp(2rem, 3.2vw, 2.8rem);
+    font-weight: 700;
     text-transform: uppercase;
-    color: var(--result-accent);
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.05em;
+    color: var(--result-ink, #f5f5f5);
+    margin-bottom: 1.4rem;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
 
   .bean-quiz__blend-donut-layout {
     display: grid;
     grid-template-columns: auto 1fr;
-    gap: 1.8rem;
+    gap: 2.4rem;
     align-items: center;
-    margin-top: 1.2rem;
+    margin-top: 1.4rem;
   }
 
   .bean-quiz__blend-donut-visual {
     position: relative;
-    width: 90px;
-    height: 90px;
+    width: 110px;
+    height: 110px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -644,38 +651,85 @@
     fill: none;
     stroke-width: 8;
     stroke-linecap: round;
-    transition: stroke-dashoffset 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94), stroke-width 0.3s ease, opacity 0.3s ease,
+      filter 0.3s ease;
+    cursor: pointer;
+  }
+
+  .bean-quiz__blend-donut-segment.is-hovered {
+    stroke-width: 11;
+    filter: drop-shadow(0 0 5px currentColor);
+    z-index: 10;
+  }
+
+  .bean-quiz__blend-donut-segment.is-dimmed {
+    opacity: 0.35;
   }
 
   .bean-quiz__blend-donut-center-label {
     position: absolute;
-    font-family: var(--font-heading-family);
-    font-size: 1.6rem;
-    font-weight: 900;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    text-align: center;
+    pointer-events: none;
+  }
+
+  .bean-quiz__blend-donut-center-number {
+    font-family: var(--bean-heading-font);
+    font-size: 2rem;
+    font-weight: 700;
     color: var(--result-ink, #f5f5f5);
+    letter-spacing: -0.02em;
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+
+  .bean-quiz__blend-donut-center-sub {
+    font-family: var(--bean-body-font);
+    font-size: 0.8rem;
+    font-weight: 700;
     text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(245, 245, 245, 0.45);
+    margin-top: 0.2rem;
+    transition: color 0.25s ease;
   }
 
   .bean-quiz__blend-donut-legend {
     display: flex;
     flex-direction: column;
-    gap: 0.8rem;
+    gap: 0.6rem;
   }
 
   .bean-quiz__legend-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.2rem;
+    font-family: var(--bean-body-font);
+    font-size: 1.25rem;
     line-height: 1.2;
+    padding: 0.6rem 1rem;
+    border-radius: 0.8rem;
+    transition: background-color 0.24s ease, opacity 0.24s ease, transform 0.24s ease;
+    cursor: pointer;
+  }
+
+  .bean-quiz__legend-item.is-hovered {
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateX(4px);
+  }
+
+  .bean-quiz__legend-item.is-dimmed {
+    opacity: 0.35;
   }
 
   .bean-quiz__legend-label {
     display: inline-flex;
     align-items: center;
-    gap: 0.6rem;
-    font-weight: 700;
+    gap: 0.8rem;
+    font-weight: 600;
     color: var(--result-ink, #f5f5f5);
     letter-spacing: 0.02em;
     text-transform: uppercase;
@@ -687,12 +741,31 @@
     height: 0.8rem;
     border-radius: 50%;
     display: inline-block;
+    transition: transform 0.24s ease;
+  }
+
+  .bean-quiz__legend-item:hover .bean-quiz__legend-dot,
+  .bean-quiz__legend-item.is-hovered .bean-quiz__legend-dot {
+    transform: scale(1.3);
   }
 
   .bean-quiz__legend-pct {
-    font-weight: 800;
-    color: var(--result-accent, #c6a969);
-    font-size: 1.2rem;
+    font-family: var(--bean-heading-font);
+    font-weight: 700;
+    color: white;
+    font-size: 1.25rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .bean-quiz__blend-donut-layout {
+      grid-template-columns: 1fr;
+      justify-items: center;
+      gap: 2rem;
+    }
+    .bean-quiz__blend-donut-legend {
+      width: 100%;
+      max-width: 32rem;
+    }
   }
 
   /* Expand max-width of quiz container on bigger screens */
@@ -896,7 +969,6 @@
     opacity: 0.95;
     filter: drop-shadow(0 1.2rem 2rem rgba(0, 0, 0, 0.18));
   }
-
 
   .bean-quiz__button--secondary {
     border-color: rgba(245, 245, 245, 0.22);
@@ -2232,10 +2304,20 @@
         bgCircle.setAttribute('class', 'bean-quiz__blend-donut-circle-bg');
         svg.appendChild(bgCircle);
 
-        // Center label (winning bean percentage)
+        // Center label (winning bean percentage + label)
         const centerLabel = document.createElement('div');
         centerLabel.className = 'bean-quiz__blend-donut-center-label';
-        centerLabel.textContent = `${sortedDisplay[0][1]}%`;
+
+        const numberSpan = document.createElement('span');
+        numberSpan.className = 'bean-quiz__blend-donut-center-number';
+        numberSpan.textContent = `${sortedDisplay[0][1]}%`;
+
+        const subSpan = document.createElement('span');
+        subSpan.className = 'bean-quiz__blend-donut-center-sub';
+        subSpan.textContent = 'Primary';
+
+        centerLabel.appendChild(numberSpan);
+        centerLabel.appendChild(subSpan);
 
         // Right Column: Legend item list
         const legendCol = document.createElement('div');
@@ -2256,7 +2338,9 @@
             segment.setAttribute('cy', '50');
             segment.setAttribute('r', '40');
             segment.setAttribute('class', 'bean-quiz__blend-donut-segment');
+            segment.setAttribute('data-bean-key', key);
             segment.style.stroke = archetypes[key].accent;
+            segment.style.currentColor = archetypes[key].accent;
             segment.setAttribute('stroke-dasharray', `${segmentLength} ${circumference}`);
             segment.setAttribute('stroke-dashoffset', segmentLength);
             segment.setAttribute('transform', `rotate(${startAngle} 50 50)`);
@@ -2266,6 +2350,7 @@
             // Create Legend Item
             const legendItem = document.createElement('div');
             legendItem.className = 'bean-quiz__legend-item';
+            legendItem.setAttribute('data-bean-key', key);
 
             const nameSpan = document.createElement('span');
             nameSpan.className = 'bean-quiz__legend-label';
@@ -2273,7 +2358,7 @@
             const dot = document.createElement('span');
             dot.className = 'bean-quiz__legend-dot';
             dot.style.backgroundColor = archetypes[key].accent;
-            dot.style.boxShadow = `0 0 6px ${archetypes[key].accent}`;
+            dot.style.boxShadow = `0 0 8px ${archetypes[key].accent}`;
 
             nameSpan.appendChild(dot);
             nameSpan.appendChild(document.createTextNode(` ${archetypes[key].name}`));
@@ -2285,6 +2370,54 @@
             legendItem.appendChild(nameSpan);
             legendItem.appendChild(pctSpan);
             legendCol.appendChild(legendItem);
+
+            // Set up hover interactive effects
+            const handleEnter = () => {
+              // Highlight this segment, dim others
+              svg.querySelectorAll('.bean-quiz__blend-donut-segment').forEach((s) => {
+                if (s.getAttribute('data-bean-key') === key) {
+                  s.classList.add('is-hovered');
+                } else {
+                  s.classList.add('is-dimmed');
+                }
+              });
+
+              // Highlight legend item, dim others
+              legendCol.querySelectorAll('.bean-quiz__legend-item').forEach((li) => {
+                if (li.getAttribute('data-bean-key') === key) {
+                  li.classList.add('is-hovered');
+                } else {
+                  li.classList.add('is-dimmed');
+                }
+              });
+
+              // Update center label text with hovered details
+              numberSpan.textContent = `${pct}%`;
+              subSpan.textContent = archetypes[key].name.replace(' Bean', '');
+              subSpan.style.color = archetypes[key].accent;
+            };
+
+            const handleLeave = () => {
+              // Remove active styles from all segments
+              svg.querySelectorAll('.bean-quiz__blend-donut-segment').forEach((s) => {
+                s.classList.remove('is-hovered', 'is-dimmed');
+              });
+
+              // Remove active styles from legend items
+              legendCol.querySelectorAll('.bean-quiz__legend-item').forEach((li) => {
+                li.classList.remove('is-hovered', 'is-dimmed');
+              });
+
+              // Revert center label to default (primary match)
+              numberSpan.textContent = `${sortedDisplay[0][1]}%`;
+              subSpan.textContent = 'Primary';
+              subSpan.style.color = '';
+            };
+
+            segment.addEventListener('mouseenter', handleEnter);
+            segment.addEventListener('mouseleave', handleLeave);
+            legendItem.addEventListener('mouseenter', handleEnter);
+            legendItem.addEventListener('mouseleave', handleLeave);
 
             // Animate segment growing
             setTimeout(() => {
