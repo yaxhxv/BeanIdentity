@@ -60,6 +60,20 @@
       }
     {% endif %}
   {% endif %}
+
+  .footer-block__newsletter .footer-block__heading {
+    margin-bottom: 0.8rem;
+  }
+  .footer-block__subheading {
+    font-size: 1.4rem;
+    line-height: 1.5;
+    margin-top: 0;
+    margin-bottom: 2rem;
+    opacity: 0.85;
+  }
+  .footer .newsletter-form__message--success {
+    color: #c6a969 !important; /* Brand Gold color for high visibility on dark footer */
+  }
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -202,9 +216,8 @@
         >
           {%- if section.settings.newsletter_enable -%}
             <div class="footer-block__newsletter">
-              {%- if section.settings.newsletter_heading != blank -%}
-                <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
-              {%- endif -%}
+              <h2 class="footer-block__heading inline-richtext">Find out what's brewing in your bean world</h2>
+              <p class="footer-block__subheading">Be the first to get fresh drops and personality insights, straight to your inbox</p>
               {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
                 <input type="hidden" name="contact[tags]" value="newsletter">
                 <div class="newsletter-form__field-wrapper">
