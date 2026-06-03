@@ -367,56 +367,7 @@
     margin-top: 2.8rem;
   }
 
-  .bean-quiz__blend-breakdown {
-    margin-top: 2.8rem;
-    padding: 2.2rem;
-    border: 1px solid var(--result-border);
-    background: var(--result-panel);
-    border-radius: 2.6rem;
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
-  }
 
-  .bean-quiz__blend-classification {
-    font-family: var(--font-heading-family);
-    font-size: clamp(2rem, 3.5vw, 3.2rem);
-    font-weight: 900;
-    text-transform: uppercase;
-    color: var(--result-accent);
-    margin-bottom: 0.8rem;
-    letter-spacing: 0.05em;
-  }
-
-  .bean-quiz__blend-bar {
-    display: flex;
-    height: 1.6rem;
-    border-radius: 999px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
-    margin: 1.6rem 0;
-  }
-
-  .bean-quiz__blend-segment {
-    height: 100%;
-    transition: width 0.6s ease;
-  }
-
-  .bean-quiz__blend-labels {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.35rem;
-    line-height: 1.5;
-  }
-
-  .bean-quiz__blend-text {
-    color: var(--result-copy-soft);
-  }
-
-  .bean-quiz__blend-text strong {
-    color: var(--result-ink);
-  }
 
   /* Dossier Table Grid Layout */
   .bean-quiz__detailed-table {
@@ -620,13 +571,13 @@
   }
 
   .bean-quiz__blend-breakdown {
-    padding: 2.2rem;
+    padding: 1.4rem 1.8rem;
     border: 1px solid var(--result-border);
     background: var(--result-panel);
-    border-radius: 2.6rem;
+    border-radius: 2rem;
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
-    margin-top: 0.5rem;
+    margin-top: 0.8rem;
   }
 
   .bean-quiz__result-label {
@@ -660,35 +611,88 @@
     letter-spacing: 0.05em;
   }
 
-  .bean-quiz__blend-bar {
-    display: flex;
-    height: 1.6rem;
-    border-radius: 999px;
-    overflow: hidden;
-    background: rgba(255, 255, 255, 0.06);
-    margin: 1.6rem 0;
+  .bean-quiz__blend-donut-layout {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 1.8rem;
+    align-items: center;
+    margin-top: 1.2rem;
   }
 
-  .bean-quiz__blend-segment {
+  .bean-quiz__blend-donut-visual {
+    position: relative;
+    width: 90px;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .bean-quiz__blend-donut-svg {
+    transform: rotate(-90deg);
+    width: 100%;
     height: 100%;
-    transition: width 0.6s ease;
   }
 
-  .bean-quiz__blend-labels {
+  .bean-quiz__blend-donut-circle-bg {
+    fill: none;
+    stroke: rgba(255, 255, 255, 0.05);
+    stroke-width: 8;
+  }
+
+  .bean-quiz__blend-donut-segment {
+    fill: none;
+    stroke-width: 8;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 1.2s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .bean-quiz__blend-donut-center-label {
+    position: absolute;
+    font-family: var(--font-heading-family);
+    font-size: 1.6rem;
+    font-weight: 900;
+    color: var(--result-ink, #f5f5f5);
+    text-transform: uppercase;
+  }
+
+  .bean-quiz__blend-donut-legend {
     display: flex;
-    flex-wrap: wrap;
-    gap: 1.2rem;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  .bean-quiz__legend-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.35rem;
-    line-height: 1.5;
+    font-size: 1.2rem;
+    line-height: 1.2;
   }
 
-  .bean-quiz__blend-text {
-    color: var(--result-copy-soft);
+  .bean-quiz__legend-label {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-weight: 700;
+    color: var(--result-ink, #f5f5f5);
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
+    font-size: 1.1rem;
   }
 
-  .bean-quiz__blend-text strong {
-    color: var(--result-ink);
+  .bean-quiz__legend-dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .bean-quiz__legend-pct {
+    font-weight: 800;
+    color: var(--result-accent, #c6a969);
+    font-size: 1.2rem;
   }
 
   /* Expand max-width of quiz container on bigger screens */
@@ -1533,8 +1537,7 @@
               <div class="bean-quiz__blend-breakdown">
                 <p class="bean-quiz__result-label">Your Bean Blend</p>
                 <div class="bean-quiz__blend-classification" data-blend-classification></div>
-                <div class="bean-quiz__blend-bar" data-blend-bar></div>
-                <div class="bean-quiz__blend-labels" data-blend-labels></div>
+                <div class="bean-quiz__blend-list" data-blend-list></div>
               </div>
             </div>
 
@@ -2196,31 +2199,103 @@
         classificationEl.textContent = classification;
       }
 
-      // Render Blend Bar & Labels
-      const blendBar = root.querySelector('[data-blend-bar]');
-      const blendLabels = root.querySelector('[data-blend-labels]');
-      if (blendBar && blendLabels) {
-        blendBar.innerHTML = '';
-        blendLabels.innerHTML = '';
+      // Render Blend List & SVG Donut Chart
+      const blendList = root.querySelector('[data-blend-list]');
+      if (blendList) {
+        blendList.innerHTML = '';
 
-        // Display labels as- “You are 60% Chilli Bean, 25% Coffee Bean...”
         const sortedDisplay = [...sorted];
-        const labelText = sortedDisplay.map(([key, pct]) => `${pct}% ${archetypes[key].name}`).join(', ');
 
-        const textWrapper = document.createElement('div');
-        textWrapper.className = 'bean-quiz__blend-text';
-        textWrapper.innerHTML = `You are: <strong>${labelText}</strong>`;
-        blendLabels.appendChild(textWrapper);
+        // Create the 2-column layout container
+        const donutLayout = document.createElement('div');
+        donutLayout.className = 'bean-quiz__blend-donut-layout';
+
+        // Left Column: SVG Donut Visual
+        const visualCol = document.createElement('div');
+        visualCol.className = 'bean-quiz__blend-donut-visual';
+
+        // Create the SVG element
+        const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+        svg.setAttribute('viewBox', '0 0 100 100');
+        svg.setAttribute('class', 'bean-quiz__blend-donut-svg');
+
+        // Circle background track
+        const bgCircle = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+        bgCircle.setAttribute('cx', '50');
+        bgCircle.setAttribute('cy', '50');
+        bgCircle.setAttribute('r', '40');
+        bgCircle.setAttribute('class', 'bean-quiz__blend-donut-circle-bg');
+        svg.appendChild(bgCircle);
+
+        // Center label (winning bean percentage)
+        const centerLabel = document.createElement('div');
+        centerLabel.className = 'bean-quiz__blend-donut-center-label';
+        centerLabel.textContent = `${sortedDisplay[0][1]}%`;
+
+        // Right Column: Legend item list
+        const legendCol = document.createElement('div');
+        legendCol.className = 'bean-quiz__blend-donut-legend';
+
+        let accumulatedPct = 0;
+        const circumference = 2 * Math.PI * 40; // ~251.327
 
         sortedDisplay.forEach(([key, pct]) => {
           if (pct > 0) {
-            const segment = document.createElement('div');
-            segment.className = 'bean-quiz__blend-segment';
-            segment.style.width = pct + '%';
-            segment.style.backgroundColor = archetypes[key].accent;
-            blendBar.appendChild(segment);
+            const pctFraction = pct / 100;
+            const segmentLength = circumference * pctFraction;
+            const startAngle = (accumulatedPct / 100) * 360;
+
+            // Create SVG segment circle
+            const segment = document.createElementNS('http://www.w3.org/2000/svg', 'circle');
+            segment.setAttribute('cx', '50');
+            segment.setAttribute('cy', '50');
+            segment.setAttribute('r', '40');
+            segment.setAttribute('class', 'bean-quiz__blend-donut-segment');
+            segment.style.stroke = archetypes[key].accent;
+            segment.setAttribute('stroke-dasharray', `${segmentLength} ${circumference}`);
+            segment.setAttribute('stroke-dashoffset', segmentLength);
+            segment.setAttribute('transform', `rotate(${startAngle} 50 50)`);
+
+            svg.appendChild(segment);
+
+            // Create Legend Item
+            const legendItem = document.createElement('div');
+            legendItem.className = 'bean-quiz__legend-item';
+
+            const nameSpan = document.createElement('span');
+            nameSpan.className = 'bean-quiz__legend-label';
+
+            const dot = document.createElement('span');
+            dot.className = 'bean-quiz__legend-dot';
+            dot.style.backgroundColor = archetypes[key].accent;
+            dot.style.boxShadow = `0 0 6px ${archetypes[key].accent}`;
+
+            nameSpan.appendChild(dot);
+            nameSpan.appendChild(document.createTextNode(` ${archetypes[key].name}`));
+
+            const pctSpan = document.createElement('span');
+            pctSpan.className = 'bean-quiz__legend-pct';
+            pctSpan.textContent = `${pct}%`;
+
+            legendItem.appendChild(nameSpan);
+            legendItem.appendChild(pctSpan);
+            legendCol.appendChild(legendItem);
+
+            // Animate segment growing
+            setTimeout(() => {
+              segment.setAttribute('stroke-dashoffset', '0');
+            }, 50);
+
+            accumulatedPct += pct;
           }
         });
+
+        visualCol.appendChild(svg);
+        visualCol.appendChild(centerLabel);
+
+        donutLayout.appendChild(visualCol);
+        donutLayout.appendChild(legendCol);
+        blendList.appendChild(donutLayout);
       }
 
       // --- Carousel Engine Implementation ---
