@@ -706,10 +706,22 @@
     margin-top: 3rem;
   }
 
+  /* Center the 10th item (last card) in 3-column layout */
+  .bean-quiz__detailed-table > :nth-child(10) {
+    grid-column: 2;
+  }
+
   /* 4 columns in a row on bigger screens */
   @media screen and (min-width: 1200px) {
     .bean-quiz__detailed-table {
       grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    /* Center the 9th and 10th items (last 2 cards) in 4-column layout */
+    .bean-quiz__detailed-table > :nth-child(9) {
+      grid-column: 2;
+    }
+    .bean-quiz__detailed-table > :nth-child(10) {
+      grid-column: 3;
     }
   }
 
@@ -780,10 +792,13 @@
   }
 
   @media screen and (max-width: 749px) {
-    .bean-quiz__detailed-table,
-    .bean-quiz__result-bridge {
+    .bean-quiz__detailed-table {
       grid-template-columns: 1fr;
       margin-top: 2.4rem;
+    }
+    .bean-quiz__detailed-table > :nth-child(9),
+    .bean-quiz__detailed-table > :nth-child(10) {
+      grid-column: auto;
     }
   }
 
@@ -877,45 +892,7 @@
     opacity: 0.95;
     filter: drop-shadow(0 1.2rem 2rem rgba(0, 0, 0, 0.18));
   }
-  .bean-quiz__result-bridge {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1.2rem;
-    margin-top: 1.8rem;
-  }
 
-  .bean-quiz__bridge-card {
-    padding: 1.8rem;
-    border: 1px solid var(--result-border);
-    background: var(--result-panel);
-    border-radius: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-    transition: transform 0.24s ease, background-color 0.24s ease;
-  }
-
-  .bean-quiz__bridge-card:hover {
-    transform: translateY(-0.2rem);
-    background: rgba(255, 255, 255, 0.06);
-  }
-
-  .bean-quiz__bridge-card strong {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.15rem;
-    font-weight: 800;
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--result-accent, #c6a969);
-  }
-
-  .bean-quiz__bridge-card span {
-    font-family: 'Poppins', sans-serif;
-    font-size: 1.48rem;
-    line-height: 1.6;
-    color: var(--result-ink, #f5f5f5);
-    opacity: 0.88;
-  }
 
   .bean-quiz__button--secondary {
     border-color: rgba(245, 245, 245, 0.22);
@@ -1571,7 +1548,7 @@
             </div>
           </div>
 
-          <!-- 2. Dossier 3-Column Grid -->
+          <!-- 2. Dossier Grid -->
           <div class="bean-quiz__detailed-table">
             <div class="bean-quiz__table-card">
               <div class="bean-quiz__table-header-cell">Core Identity</div>
@@ -1601,21 +1578,17 @@
               <div class="bean-quiz__table-header-cell">Why it fits</div>
               <div class="bean-quiz__table-body-cell" data-result-fit></div>
             </div>
-          </div>
-
-          <!-- Hidden bridge fallback -->
-          <div class="bean-quiz__result-bridge">
-            <div class="bean-quiz__bridge-card">
-              <strong>Visual direction</strong>
-              <span data-result-direction></span>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Visual direction</div>
+              <div class="bean-quiz__table-body-cell" data-result-direction></div>
             </div>
-            <div class="bean-quiz__bridge-card">
-              <strong>Color mood</strong>
-              <span data-result-palette></span>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Color mood</div>
+              <div class="bean-quiz__table-body-cell" data-result-palette></div>
             </div>
-            <div class="bean-quiz__bridge-card">
-              <strong>Best next move</strong>
-              <span data-result-cta-copy></span>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Best next move</div>
+              <div class="bean-quiz__table-body-cell" data-result-cta-copy></div>
             </div>
           </div>
 
@@ -2086,26 +2059,7 @@
       updateProgress();
     }
 
-    function getWinningBean() {
-      const tieOrder = ['coffee', 'vanilla', 'chilli', 'jelly', 'green'];
-      let winner = tieOrder[0];
-      let max = -1;
-
-      tieOrder.forEach((bean) => {
-        if (state.scores[bean] > max) {
-          max = state.scores[bean];
-          winner = bean;
-        }
-      });
-
-      return winner;
-    }
-
-    function renderResult(beanKey) {
-      const data = archetypes[beanKey];
-      if (!data) return;
-
-      // 1. Calculate raw scores and sort percentages at the very start
+    function calculatePercentages() {
       const rawScores = state.scores;
       const total = Object.values(rawScores).reduce((a, b) => a + b, 0) || 1;
       const percents = {};
@@ -2130,7 +2084,19 @@
       }
 
       // Sort percentages (highest first)
-      const sorted = Object.entries(percents).sort((a, b) => b[1] - a[1]);
+      return Object.entries(percents).sort((a, b) => b[1] - a[1]);
+    }
+
+    function getWinningBean() {
+      const sorted = calculatePercentages();
+      return sorted[0][0];
+    }
+
+    function renderResult(beanKey) {
+      const data = archetypes[beanKey];
+      if (!data) return;
+
+      const sorted = calculatePercentages();
       const primary = sorted[0]; // [key, %]
       const secondary = sorted[1]; // [key, %]
 
