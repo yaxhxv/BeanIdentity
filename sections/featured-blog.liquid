@@ -4,31 +4,86 @@
 {{ 'section-featured-blog.css' | asset_url | stylesheet_tag }}
 
 {%- style -%}
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
-    {% if section.settings.bg_color != blank %}
-      background-color: {{ section.settings.bg_color }};
-    {% endif %}
+  #shopify-section-{{ section.id }} .blog {
+    position: relative;
+    margin: 2rem 1rem;
+    padding: calc({{ section.settings.padding_top | times: 0.75 | round: 0 }}px + 2rem) 1.5rem calc({{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px + 2rem);
+    border-radius: 2.8rem 2.8rem 3.6rem 3.4rem / 2rem 2rem 2.8rem 2.6rem;
+    box-shadow: 0 2.8rem 6rem rgba(43, 43, 43, 0.08);
+    overflow: hidden;
+    background: {% if section.settings.bg_color != blank %}{{ section.settings.bg_color }}{% else %}linear-gradient(180deg, #f5f5f5 0%, #ede7e3 100%){% endif %};
+    color: {% if section.settings.text_color != blank %}{{ section.settings.text_color }}{% else %}#0b0b0b{% endif %};
   }
 
-  {% if section.settings.bg_color != blank %}
-    .blog {
-      background-color: transparent !important;
-    }
-    {% if section.settings.text_color != blank %}
-      .section-{{ section.id }}-padding .blog__title,
-      .section-{{ section.id }}-padding .article-card__info {
-        color: {{ section.settings.text_color }};
-      }
-    {% endif %}
-  {% endif %}
+  .section-{{ section.id }}-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
 
   @media screen and (min-width: 750px) {
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
+    #shopify-section-{{ section.id }} .blog {
+      margin: 3rem 1.6rem;
+      padding: calc({{ section.settings.padding_top }}px + 3rem) 2rem calc({{ section.settings.padding_bottom }}px + 3rem);
+      border-radius: 4.4rem 4.4rem 5.2rem 5.6rem / 3rem 3rem 4rem 4.2rem;
     }
+  }
+
+  #shopify-section-{{ section.id }} .blog__title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.2rem, 6vw, 8rem);
+    margin-bottom: 0.6rem;
+    color: inherit;
+    line-height: 0.86;
+    text-transform: uppercase;
+    letter-spacing: 0;
+    font-weight: 900;
+    text-align: center;
+  }
+
+  #shopify-section-{{ section.id }} .title-wrapper-with-link {
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 3rem;
+  }
+
+  /* Card custom styles */
+  #shopify-section-{{ section.id }} .article-card-wrapper {
+    height: 100%;
+  }
+
+  #shopify-section-{{ section.id }} .article-card {
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    border: 1px solid rgba(11, 11, 11, 0.08) !important;
+    background: #ffffff !important;
+    transition: transform 0.35s ease, box-shadow 0.35s ease !important;
+  }
+
+  #shopify-section-{{ section.id }} .article-card:hover {
+    transform: translateY(-6px) !important;
+    box-shadow: 0 2rem 4rem rgba(0, 0, 0, 0.1) !important;
+  }
+
+  #shopify-section-{{ section.id }} .article-card__image-wrapper {
+    border-radius: 12px 12px 0 0 !important;
+    overflow: hidden !important;
+  }
+
+  #shopify-section-{{ section.id }} .card__content {
+    background: #ffffff !important;
+    color: #0b0b0b !important;
+    padding: 1.5rem !important;
+  }
+
+  #shopify-section-{{ section.id }} .card__heading a {
+    color: #0b0b0b !important;
+    font-weight: 700 !important;
+  }
+
+  #shopify-section-{{ section.id }} .article-card__excerpt {
+    color: #555555 !important;
+    font-size: 1.35rem !important;
+    line-height: 1.5 !important;
   }
 {%- endstyle -%}
 
@@ -50,8 +105,8 @@
     endif
   endif
 -%}
-<div class="blog color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading == blank %} no-heading{% endif %}">
-  <div class="page-width-desktop isolate{% if posts_displayed < 3 %} page-width-tablet{% endif %} section-{{ section.id }}-padding{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
+<div class="blog color-{{ section.settings.color_scheme }} gradient{% if section.settings.heading == blank %} no-heading{% endif %}{% if section.settings.bg_color == '#EDE7E3' or section.settings.bg_color == '#ede7e3' %} texture-grain{% endif %}">
+  <div class="page-width-desktop isolate{% if posts_displayed < 3 %} page-width-tablet{% endif %} section-{{ section.id }}-padding">
     {%- unless section.settings.heading == blank -%}
       <div class="title-wrapper-with-link{% if posts_displayed > 2 %} title-wrapper--self-padded-tablet-down{% else %} title-wrapper--self-padded-mobile{% endif %} title-wrapper--no-top-margin">
         <h2
