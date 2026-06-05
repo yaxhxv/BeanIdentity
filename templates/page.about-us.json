@@ -13,7 +13,11 @@
       "type": "main-page",
       "settings": {
         "padding_top": 28,
-        "padding_bottom": 28
+        "padding_bottom": 28,
+        "video": "shopify://files/videos/BeanIdentityMovie.mov",
+        "video_filename": "BeanIdentityMovie",
+        "video_url": "",
+        "show_controls": true
       }
     }
   },
