@@ -536,6 +536,7 @@
     },
     "bean_cinematic_video_hp": {
       "type": "bean-cinematic-video",
+      "disabled": true,
       "settings": {
         "video_desktop": "shopify://files/videos/BeanIdentityMovie.mov",
         "video_alt": "Bean Identity brand movie - BeanIdentityMovie",
