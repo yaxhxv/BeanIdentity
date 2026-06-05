@@ -184,30 +184,52 @@
                             Shop by Category
                           </button>
                           <ul class="menu-drawer__menu list-menu" role="list" tabindex="-1">
-                            <li>
-                              <a
-                                href="/collections/t-shirts"
-                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
-                              >
-                                T-shirt
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="/collections/hoodies"
-                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
-                              >
-                                Hoodie
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="/collections/caps"
-                                class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
-                              >
-                                Caps
-                              </a>
-                            </li>
+                            {%- assign category_menu = linklists[section.settings.category_menu_handle] -%}
+                            {%- if category_menu != blank and category_menu.links.size > 0 -%}
+                              {%- for link in category_menu.links -%}
+                                <li>
+                                  <a
+                                    href="{{ link.url }}"
+                                    class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                  >
+                                    {{ link.title | escape }}
+                                  </a>
+                                </li>
+                              {%- endfor -%}
+                            {%- else -%}
+                              <li>
+                                <a
+                                  href="/collections/t-shirts"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  T-shirt
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  href="/collections/hoodies"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Hoodie
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  href="/collections/caps"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Caps
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  href="/collections/pride-collection"
+                                  class="menu-drawer__menu-item link link--text list-menu__item focus-inset"
+                                >
+                                  Pride Collection
+                                </a>
+                              </li>
+                            {%- endif -%}
                           </ul>
                         </div>
                       </div>

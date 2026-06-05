@@ -133,30 +133,52 @@
                 role="list"
                 tabindex="-1"
               >
-                <li>
-                  <a
-                    href="/collections/t-shirts"
-                    class="header__menu-item list-menu__item link link--text focus-inset caption-large"
-                  >
-                    T-shirt
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/collections/hoodies"
-                    class="header__menu-item list-menu__item link link--text focus-inset caption-large"
-                  >
-                    Hoodie
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="/collections/caps"
-                    class="header__menu-item list-menu__item link link--text focus-inset caption-large"
-                  >
-                    Caps
-                  </a>
-                </li>
+                {%- assign category_menu = linklists[section.settings.category_menu_handle] -%}
+                {%- if category_menu != blank and category_menu.links.size > 0 -%}
+                  {%- for link in category_menu.links -%}
+                    <li>
+                      <a
+                        href="{{ link.url }}"
+                        class="header__menu-item list-menu__item link link--text focus-inset caption-large"
+                      >
+                        {{ link.title | escape }}
+                      </a>
+                    </li>
+                  {%- endfor -%}
+                {%- else -%}
+                  <li>
+                    <a
+                      href="/collections/t-shirts"
+                      class="header__menu-item list-menu__item link link--text focus-inset caption-large"
+                    >
+                      T-shirt
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/collections/hoodies"
+                      class="header__menu-item list-menu__item link link--text focus-inset caption-large"
+                    >
+                      Hoodie
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/collections/caps"
+                      class="header__menu-item list-menu__item link link--text focus-inset caption-large"
+                    >
+                      Caps
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="/collections/pride-collection"
+                      class="header__menu-item list-menu__item link link--text focus-inset caption-large"
+                    >
+                      Pride Collection
+                    </a>
+                  </li>
+                {%- endif -%}
               </ul>
             </details>
           </header-menu>

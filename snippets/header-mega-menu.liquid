@@ -121,30 +121,52 @@
                   class="mega-menu__list page-width mega-menu__list--condensed"
                   role="list"
                 >
-                  <li>
-                    <a
-                      href="/collections/t-shirts"
-                      class="mega-menu__link mega-menu__link--level-2 link"
-                    >
-                      T-shirt
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/collections/hoodies"
-                      class="mega-menu__link mega-menu__link--level-2 link"
-                    >
-                      Hoodie
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="/collections/caps"
-                      class="mega-menu__link mega-menu__link--level-2 link"
-                    >
-                      Caps
-                    </a>
-                  </li>
+                  {%- assign category_menu = linklists[section.settings.category_menu_handle] -%}
+                  {%- if category_menu != blank and category_menu.links.size > 0 -%}
+                    {%- for link in category_menu.links -%}
+                      <li>
+                        <a
+                          href="{{ link.url }}"
+                          class="mega-menu__link mega-menu__link--level-2 link"
+                        >
+                          {{ link.title | escape }}
+                        </a>
+                      </li>
+                    {%- endfor -%}
+                  {%- else -%}
+                    <li>
+                      <a
+                        href="/collections/t-shirts"
+                        class="mega-menu__link mega-menu__link--level-2 link"
+                      >
+                        T-shirt
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/collections/hoodies"
+                        class="mega-menu__link mega-menu__link--level-2 link"
+                      >
+                        Hoodie
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/collections/caps"
+                        class="mega-menu__link mega-menu__link--level-2 link"
+                      >
+                        Caps
+                      </a>
+                    </li>
+                    <li>
+                      <a
+                        href="/collections/pride-collection"
+                        class="mega-menu__link mega-menu__link--level-2 link"
+                      >
+                        Pride Collection
+                      </a>
+                    </li>
+                  {%- endif -%}
                 </ul>
               </div>
             </details>
