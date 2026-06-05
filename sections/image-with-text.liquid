@@ -219,15 +219,28 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
               </video>
 
               {%- if section.settings.show_controls -%}
-                <div class="iwt-video-controls">
-                  <button id="PlayBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Pause Video" type="button">
-                    <svg id="PauseIcon-{{ section.id }}" class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
-                    <svg id="PlayIcon-{{ section.id }}" class="icon-play" viewBox="0 0 24 24" style="display: none; transform: translateX(1px);"><path d="M8 5v14l11-7z"/></svg>
-                  </button>
-                  <button id="MuteBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Unmute Video" type="button">
-                    <svg id="MutedIcon-{{ section.id }}" class="icon-muted" viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.03c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
-                    <svg id="UnmutedIcon-{{ section.id }}" class="icon-unmuted" viewBox="0 0 24 24" style="display: none;"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
-                  </button>
+                <div class="iwt-video-controls-container">
+                  <div class="iwt-video-controls-bar">
+                    <button id="PlayBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Pause Video" type="button">
+                      <svg id="PauseIcon-{{ section.id }}" class="icon-pause" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                      <svg id="PlayIcon-{{ section.id }}" class="icon-play" viewBox="0 0 24 24" style="display: none; transform: translateX(1px);"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+                    </button>
+                    
+                    <span id="TimeDisplay-{{ section.id }}" class="iwt-time-display">0:00 / 0:00</span>
+                    
+                    <div class="iwt-seek-bar-container">
+                      <input id="SeekBar-{{ section.id }}" class="iwt-seek-bar" type="range" min="0" max="100" value="0" step="0.1" aria-label="Seek video">
+                    </div>
+                    
+                    <button id="MuteBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Unmute Video" type="button">
+                      <svg id="MutedIcon-{{ section.id }}" class="icon-muted" viewBox="0 0 24 24"><path fill="currentColor" d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.03c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73 4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                      <svg id="UnmutedIcon-{{ section.id }}" class="icon-unmuted" viewBox="0 0 24 24" style="display: none;"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+                    </button>
+                    
+                    <button id="FullscreenBtn-{{ section.id }}" class="iwt-ctrl-btn" aria-label="Toggle Fullscreen" type="button">
+                      <svg class="icon-fullscreen" viewBox="0 0 24 24"><path fill="currentColor" d="M7 14H5v5h5v-2H7v-3zm-2-4h2V7h3V5H5v5zm12 7h-3v2h5v-5h-2v3zM14 5v2h3v3h2V5h-5z"/></svg>
+                    </button>
+                  </div>
                 </div>
               {%- endif -%}
             {%- elsif section.settings.image != blank -%}
@@ -304,46 +317,206 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
 
 {%- if section.settings.show_controls and video_src != blank -%}
   <style>
-    .iwt-video-controls {
+    .iwt-video-controls-container {
       position: absolute;
-      bottom: calc(var(--video-padding) + 1.6rem);
-      right: calc(var(--video-padding) + 1.6rem);
+      bottom: var(--video-padding);
+      left: var(--video-padding);
+      width: calc(100% - (var(--video-padding) * 2));
       z-index: 5;
+      padding: 1.2rem;
+      box-sizing: border-box;
+      pointer-events: none;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                  transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    .image-with-text__media:hover .iwt-video-controls-container,
+    .image-with-text__media.show-controls .iwt-video-controls-container {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .iwt-video-controls-bar {
       display: flex;
-      gap: 1.2rem;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1.2rem;
+      border-radius: 1.2rem;
+      background: rgba(18, 18, 18, 0.65);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       pointer-events: auto;
-      margin: 0.4rem;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
     .iwt-ctrl-btn {
-      width: 4.2rem !important;
-      height: 4.2rem !important;
-      padding: 1.1rem !important;
+      width: 3.6rem !important;
+      height: 3.6rem !important;
+      padding: 0.8rem !important;
       border-radius: 50%;
-      border: 1px solid rgba(255, 255, 255, 0.28) !important;
-      background: rgba(0, 0, 0, 0.4) !important;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      background: rgba(255, 255, 255, 0.1) !important;
       color: #ffffff !important;
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      transition: all 0.32s cubic-bezier(0.22, 1, 0.36, 1);
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      flex-shrink: 0;
+      box-shadow: none !important;
     }
 
     .iwt-ctrl-btn svg {
-      width: 100% !important;
-      height: 100% !important;
+      width: 1.8rem !important;
+      height: 1.8rem !important;
       display: block;
     }
 
     .iwt-ctrl-btn:hover {
-      background: rgba(255, 255, 255, 0.95) !important;
+      background: #ffffff !important;
       color: #000000 !important;
       border-color: #ffffff !important;
       transform: scale(1.08);
+    }
+
+    .iwt-time-display {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.9);
+      min-width: 7.5rem;
+      text-align: center;
+      user-select: none;
+      flex-shrink: 0;
+      letter-spacing: 0.05em;
+    }
+
+    .iwt-seek-bar-container {
+      flex-grow: 1;
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+
+    .iwt-seek-bar {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 4px;
+      border-radius: 2px;
+      background: rgba(255, 255, 255, 0.25);
+      cursor: pointer;
+      outline: none;
+      margin: 0;
+      transition: height 0.2s ease;
+      background-image: linear-gradient(to right, #c6a969 0%, rgba(255, 255, 255, 0.25) 0%);
+      background-repeat: no-repeat;
+    }
+
+    .iwt-seek-bar-container:hover .iwt-seek-bar {
+      height: 6px;
+    }
+
+    .iwt-seek-bar::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 12px;
+      width: 12px;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .iwt-seek-bar-container:hover .iwt-seek-bar::-webkit-slider-thumb {
+      transform: scale(1.25);
+      background: #c6a969;
+    }
+
+    .iwt-seek-bar::-moz-range-thumb {
+      height: 12px;
+      width: 12px;
+      border: none;
+      border-radius: 50%;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+      transition: transform 0.15s ease, background-color 0.15s ease;
+    }
+
+    .iwt-seek-bar-container:hover .iwt-seek-bar::-moz-range-thumb {
+      transform: scale(1.25);
+      background: #c6a969;
+    }
+
+    /* Fullscreen styling overrides for container and layout */
+    .image-with-text__media:fullscreen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      padding-bottom: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border: none !important;
+      background: #000000 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-with-text__media:fullscreen .image-with-text__video {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      border-radius: 0 !important;
+    }
+
+    .image-with-text__media:fullscreen .iwt-video-controls-container {
+      bottom: 2rem !important;
+      left: 2rem !important;
+      width: calc(100% - 4rem) !important;
+    }
+
+    /* Safari Fullscreen fallback styling */
+    .image-with-text__media:-webkit-full-screen {
+      width: 100vw !important;
+      height: 100vh !important;
+      max-width: none !important;
+      max-height: none !important;
+      padding-bottom: 0 !important;
+      margin: 0 !important;
+      border-radius: 0 !important;
+      border: none !important;
+      background: #000000 !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .image-with-text__media:-webkit-full-screen .image-with-text__video {
+      position: relative;
+      top: 0;
+      left: 0;
+      width: 100% !important;
+      height: 100% !important;
+      max-width: 100% !important;
+      max-height: 100% !important;
+      object-fit: contain !important;
+      border-radius: 0 !important;
+    }
+
+    .image-with-text__media:-webkit-full-screen .iwt-video-controls-container {
+      bottom: 2rem !important;
+      left: 2rem !important;
+      width: calc(100% - 4rem) !important;
     }
   </style>
 
@@ -353,6 +526,9 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
       const video = document.getElementById(`Video-${sectionId}`);
       const playBtn = document.getElementById(`PlayBtn-${sectionId}`);
       const muteBtn = document.getElementById(`MuteBtn-${sectionId}`);
+      const seekBar = document.getElementById(`SeekBar-${sectionId}`);
+      const timeDisplay = document.getElementById(`TimeDisplay-${sectionId}`);
+      const fullscreenBtn = document.getElementById(`FullscreenBtn-${sectionId}`);
       
       const pauseIcon = document.getElementById(`PauseIcon-${sectionId}`);
       const playIcon = document.getElementById(`PlayIcon-${sectionId}`);
@@ -360,6 +536,10 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
       const unmutedIcon = document.getElementById(`UnmutedIcon-${sectionId}`);
 
       if (!video) return;
+
+      const mediaContainer = video.parentElement;
+      let hideTimeout = null;
+      let isSeeking = false;
 
       function updatePlayUI(isPaused) {
         if (!playBtn) return;
@@ -383,10 +563,78 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
         }
       }
 
+      function formatTime(seconds) {
+        if (isNaN(seconds) || !isFinite(seconds)) return '0:00';
+        const mins = Math.floor(seconds / 60);
+        const secs = Math.floor(seconds % 60);
+        return `${mins}:${secs < 10 ? '0' : ''}${secs}`;
+      }
+
+      function updateSeekBar() {
+        if (!video.duration || isSeeking) return;
+        const percentage = (video.currentTime / video.duration) * 100;
+        if (seekBar) {
+          seekBar.value = percentage;
+          seekBar.style.backgroundImage = `linear-gradient(to right, #c6a969 ${percentage}%, rgba(255, 255, 255, 0.25) ${percentage}%)`;
+        }
+        if (timeDisplay) {
+          timeDisplay.textContent = `${formatTime(video.currentTime)} / ${formatTime(video.duration)}`;
+        }
+      }
+
+      function showControls() {
+        mediaContainer.classList.add('show-controls');
+        mediaContainer.style.cursor = 'default';
+        
+        if (hideTimeout) clearTimeout(hideTimeout);
+        
+        if (!video.paused) {
+          hideTimeout = setTimeout(() => {
+            mediaContainer.classList.remove('show-controls');
+            if (document.fullscreenElement || document.webkitFullscreenElement) {
+              mediaContainer.style.cursor = 'none';
+            }
+          }, 3000);
+        }
+      }
+
+      // Initialize UI
       updateMuteUI(video.muted);
+      if (video.duration) {
+        updateSeekBar();
+      }
+
+      // Hover / show-hide behavior
+      mediaContainer.addEventListener('mousemove', showControls);
+      mediaContainer.addEventListener('mouseenter', showControls);
+      
+      mediaContainer.addEventListener('click', function(e) {
+        if (!e.target.closest('.iwt-video-controls-container')) {
+          if (mediaContainer.classList.contains('show-controls')) {
+            mediaContainer.classList.remove('show-controls');
+            if (hideTimeout) clearTimeout(hideTimeout);
+          } else {
+            showControls();
+          }
+        }
+      });
+
+      // Desktop direct click play/pause
+      video.addEventListener('click', function(e) {
+        if (window.matchMedia("(pointer: coarse)").matches) {
+          return; // Let container click show/hide controls on mobile
+        }
+        e.stopPropagation();
+        if (video.paused) {
+          video.play().catch(err => console.log(err));
+        } else {
+          video.pause();
+        }
+      });
 
       if (playBtn) {
-        playBtn.addEventListener('click', function() {
+        playBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
           if (video.paused) {
             video.play().then(() => updatePlayUI(false)).catch(err => console.log(err));
           } else {
@@ -397,14 +645,58 @@ padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px
       }
 
       if (muteBtn) {
-        muteBtn.addEventListener('click', function() {
+        muteBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
           video.muted = !video.muted;
           updateMuteUI(video.muted);
         });
       }
 
-      video.addEventListener('play', () => updatePlayUI(false));
-      video.addEventListener('pause', () => updatePlayUI(true));
+      if (seekBar) {
+        seekBar.addEventListener('input', function() {
+          isSeeking = true;
+          const time = (seekBar.value / 100) * video.duration;
+          if (timeDisplay) {
+            timeDisplay.textContent = `${formatTime(time)} / ${formatTime(video.duration)}`;
+          }
+          seekBar.style.backgroundImage = `linear-gradient(to right, #c6a969 ${seekBar.value}%, rgba(255, 255, 255, 0.25) ${seekBar.value}%)`;
+        });
+
+        seekBar.addEventListener('change', function() {
+          video.currentTime = (seekBar.value / 100) * video.duration;
+          isSeeking = false;
+        });
+      }
+
+      if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', function(e) {
+          e.stopPropagation();
+          if (!document.fullscreenElement && !document.webkitFullscreenElement) {
+            if (mediaContainer.requestFullscreen) {
+              mediaContainer.requestFullscreen();
+            } else if (mediaContainer.webkitRequestFullscreen) {
+              mediaContainer.webkitRequestFullscreen();
+            }
+          } else {
+            if (document.exitFullscreen) {
+              document.exitFullscreen();
+            } else if (document.webkitExitFullscreen) {
+              document.webkitExitFullscreen();
+            }
+          }
+        });
+      }
+
+      video.addEventListener('loadedmetadata', updateSeekBar);
+      video.addEventListener('timeupdate', updateSeekBar);
+      video.addEventListener('play', () => {
+        updatePlayUI(false);
+        showControls();
+      });
+      video.addEventListener('pause', () => {
+        updatePlayUI(true);
+        showControls();
+      });
       video.addEventListener('volumechange', () => updateMuteUI(video.muted));
     });
   </script>
