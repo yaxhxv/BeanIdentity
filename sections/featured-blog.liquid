@@ -69,10 +69,14 @@
     overflow: hidden !important;
   }
 
-  #shopify-section-{{ section.id }} .card__content {
+  #shopify-section-{{ section.id }} .article-card > .card__content {
     background: #ffffff !important;
     color: #0b0b0b !important;
     padding: 1.5rem !important;
+  }
+
+  #shopify-section-{{ section.id }} .article-card .card__inner .card__content {
+    background: transparent !important;
   }
 
   #shopify-section-{{ section.id }} .card__heading a {
