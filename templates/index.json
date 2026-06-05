@@ -838,7 +838,6 @@
     },
     "featured_blog_bhD3VW": {
       "type": "featured-blog",
-      "disabled": true,
       "name": "Blog Posts",
       "settings": {
         "blog": "news",
