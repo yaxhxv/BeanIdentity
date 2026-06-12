@@ -1211,8 +1211,8 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    // CONFIGURABLE BACKEND URL FROM THEME SCHEMAS
-    const BACKEND_URL = '{{ section.settings.backend_api_url }}';
+    // CONFIGURABLE BACKEND URL (Reads from global theme window.beanBackendUrl, falls back to schema setting)
+    const BACKEND_URL = window.beanBackendUrl || '{{ section.settings.backend_api_url }}' || 'https://beanidentitybackend.onrender.com';
 
     // Authentication Key State
     let adminSecretKey = localStorage.getItem('bean_admin_secret') || '';
@@ -1620,7 +1620,7 @@
       "type": "text",
       "id": "backend_api_url",
       "label": "Express Backend API Base URL",
-      "default": "http://localhost:5000",
+      "default": "https://beanidentitybackend.onrender.com",
       "info": "The full base URL of your hosted Express backend service (e.g. http://localhost:5000 or https://api.yourdomain.com)"
     }
   ]

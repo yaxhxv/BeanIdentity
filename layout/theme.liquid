@@ -16,7 +16,10 @@
     {%- endunless -%}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Bangers&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Caprasimo&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;500;600;800&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@800&family=Bangers&family=Bona+Nova:ital,wght@0,400;0,700;1,400&family=Caprasimo&family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:wght@400;700;900&family=Poppins:wght@400;500;600;800&family=Space+Grotesk:wght@500;700&display=swap"
+      rel="stylesheet"
+    >
 
     <title>
       {{ page_title }}
@@ -345,6 +348,10 @@
     </ul>
 
     <script>
+      // Backend API Single Source of Truth
+      window.beanBackendUrl = 'http://localhost:5000';
+      {% comment %} window.beanBackendUrl = 'https://beanidentitybackend.onrender.com'; {% endcomment %}
+
       window.shopUrl = '{{ request.origin }}';
       window.routes = {
         cart_add_url: '{{ routes.cart_add_url }}',

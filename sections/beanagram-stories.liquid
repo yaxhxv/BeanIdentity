@@ -1137,7 +1137,7 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
-    const BACKEND_URL = 'http://localhost:5000';
+    const BACKEND_URL = window.beanBackendUrl || 'https://beanidentitybackend.onrender.com';
 
     // Elements
     const openModalBtn = document.getElementById('open-story-modal');
