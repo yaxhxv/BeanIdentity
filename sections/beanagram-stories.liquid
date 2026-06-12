@@ -966,7 +966,8 @@
   <div class="story-modal-container">
     <button type="button" class="story-modal-close" id="close-story-modal">&times;</button>
 
-    <!-- NEW GORGEOUS BEAN STORY CONTENT -->
+    <!-- NEW GORGEOUS BEAN STORY CONTENT - COMMENTED OUT AS FORM IS ACTIVE -->
+    {% comment %}
     <div class="bean-story-modal-content">
       <h3 class="bean-story-headline">What's your bean story?</h3>
 
@@ -1007,131 +1008,130 @@
         We'll always credit you :)
       </p>
     </div>
+    {% endcomment %}
 
-    {% comment %}
-      <!-- ORIGINAL BACKEND INTEGRATION FORM - COMMENTED OUT BUT PRESERVED -->
-      <div class="story-modal-form-wrapper">
-        <h3 class="story-modal-title">SHARE YOUR BEAN STORY</h3>
-        <p class="story-modal-subtitle">
-          Meet the real people wearing their true identities. Show the world who you are.
-        </p>
+    <!-- ORIGINAL BACKEND INTEGRATION FORM - RESTORED -->
+    <div class="story-modal-form-wrapper">
+      <h3 class="story-modal-title">SHARE YOUR BEAN STORY</h3>
+      <p class="story-modal-subtitle">
+        Meet the real people wearing their true identities. Show the world who you are.
+      </p>
 
-        <form id="story-submission-form" class="story-form-scroll" enctype="multipart/form-data">
-          <div class="form-row">
-            <div class="form-group">
-              <label for="story-name">FULL NAME *</label>
-              <input type="text" id="story-name" name="name" required placeholder="Enter your full name">
-            </div>
-            <div class="form-group">
-              <label for="story-email">EMAIL ADDRESS *</label>
-              <input type="email" id="story-email" name="email" required placeholder="Enter your email">
+      <form id="story-submission-form" class="story-form-scroll" enctype="multipart/form-data">
+        <div class="form-row">
+          <div class="form-group">
+            <label for="story-name">FULL NAME *</label>
+            <input type="text" id="story-name" name="name" required placeholder="Enter your full name">
+          </div>
+          <div class="form-group">
+            <label for="story-email">EMAIL ADDRESS *</label>
+            <input type="email" id="story-email" name="email" required placeholder="Enter your email">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="story-handle">INSTAGRAM HANDLE <span class="label-optional">(OPTIONAL)</span></label>
+            <input type="text" id="story-handle" name="handle" placeholder="e.g. alex_driven">
+          </div>
+          <div class="form-group">
+            <label>WHICH BEAN ARE YOU? *</label>
+            <div class="bean-pills-container">
+              <label class="bean-pill-label coffee">
+                <input type="radio" name="beanType" value="coffee" checked>
+                <span>Coffee</span>
+              </label>
+              <label class="bean-pill-label chilli">
+                <input type="radio" name="beanType" value="chilli">
+                <span>Chilli</span>
+              </label>
+              <label class="bean-pill-label vanilla">
+                <input type="radio" name="beanType" value="vanilla">
+                <span>Vanilla</span>
+              </label>
+              <label class="bean-pill-label jelly">
+                <input type="radio" name="beanType" value="jelly">
+                <span>Jelly</span>
+              </label>
+              <label class="bean-pill-label green">
+                <input type="radio" name="beanType" value="green">
+                <span>Green</span>
+              </label>
             </div>
           </div>
+        </div>
 
-          <div class="form-row">
-            <div class="form-group">
-              <label for="story-handle">INSTAGRAM HANDLE <span class="label-optional">(OPTIONAL)</span></label>
-              <input type="text" id="story-handle" name="handle" placeholder="e.g. alex_driven">
-            </div>
-            <div class="form-group">
-              <label>WHICH BEAN ARE YOU? *</label>
-              <div class="bean-pills-container">
-                <label class="bean-pill-label coffee">
-                  <input type="radio" name="beanType" value="coffee" checked>
-                  <span>Coffee</span>
-                </label>
-                <label class="bean-pill-label chilli">
-                  <input type="radio" name="beanType" value="chilli">
-                  <span>Chilli</span>
-                </label>
-                <label class="bean-pill-label vanilla">
-                  <input type="radio" name="beanType" value="vanilla">
-                  <span>Vanilla</span>
-                </label>
-                <label class="bean-pill-label jelly">
-                  <input type="radio" name="beanType" value="jelly">
-                  <span>Jelly</span>
-                </label>
-                <label class="bean-pill-label green">
-                  <input type="radio" name="beanType" value="green">
-                  <span>Green</span>
-                </label>
+        <div class="form-group">
+          <div class="label-wrapper">
+            <label for="story-text">YOUR STORY *</label>
+            <span id="word-counter" class="word-counter">0 / 150 words</span>
+          </div>
+          <textarea
+            id="story-text"
+            name="story"
+            required
+            placeholder="Describe how your bean identity changed how you express yourself every day..."
+            rows="4"
+          ></textarea>
+        </div>
+
+        <!-- Media Upload Zone -->
+        <div class="form-row media-upload-row">
+          <div class="form-group">
+            <label>UPLOAD PHOTOS <span class="label-optional">(UP TO 3, OPTIONAL)</span></label>
+            <div class="media-dropzone" id="images-dropzone">
+              <input type="file" id="story-images-input" accept="image/*" multiple style="display:none;">
+              <div class="dropzone-prompt">
+                <svg viewBox="0 0 24 24">
+                  <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
+                </svg>
+                <span>Add Photos</span>
               </div>
             </div>
+            <div class="media-previews-container" id="images-previews"></div>
           </div>
 
           <div class="form-group">
-            <div class="label-wrapper">
-              <label for="story-text">YOUR STORY *</label>
-              <span id="word-counter" class="word-counter">0 / 150 words</span>
-            </div>
-            <textarea
-              id="story-text"
-              name="story"
-              required
-              placeholder="Describe how your bean identity changed how you express yourself every day..."
-              rows="4"
-            ></textarea>
-          </div>
-
-          <!-- Media Upload Zone -->
-          <div class="form-row media-upload-row">
-            <div class="form-group">
-              <label>UPLOAD PHOTOS <span class="label-optional">(UP TO 3, OPTIONAL)</span></label>
-              <div class="media-dropzone" id="images-dropzone">
-                <input type="file" id="story-images-input" accept="image/*" multiple style="display:none;">
-                <div class="dropzone-prompt">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/>
-                  </svg>
-                  <span>Add Photos</span>
-                </div>
+            <label>UPLOAD VIDEO <span class="label-optional">(1 VIDEO, OPTIONAL)</span></label>
+            <div class="media-dropzone" id="video-dropzone">
+              <input type="file" id="story-video-input" accept="video/*" style="display:none;">
+              <div class="dropzone-prompt" id="video-dropzone-prompt">
+                <svg viewBox="0 0 24 24">
+                  <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
+                </svg>
+                <span>Add Video</span>
               </div>
-              <div class="media-previews-container" id="images-previews"></div>
             </div>
-
-            <div class="form-group">
-              <label>UPLOAD VIDEO <span class="label-optional">(1 VIDEO, OPTIONAL)</span></label>
-              <div class="media-dropzone" id="video-dropzone">
-                <input type="file" id="story-video-input" accept="video/*" style="display:none;">
-                <div class="dropzone-prompt" id="video-dropzone-prompt">
-                  <svg viewBox="0 0 24 24">
-                    <path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 16H5V8h9v8z"/>
-                  </svg>
-                  <span>Add Video</span>
-                </div>
-              </div>
-              <div class="media-previews-container" id="video-preview"></div>
-            </div>
+            <div class="media-previews-container" id="video-preview"></div>
           </div>
-
-          <button type="submit" class="story-submit-btn" id="story-submit-button">SUBMIT STORY</button>
-        </form>
-
-        <!-- Upload Progress Bar -->
-        <div id="story-upload-progress" class="upload-progress-container" style="display:none;">
-          <div class="progress-bar-wrapper">
-            <div class="progress-bar-fill" id="progress-bar-fill"></div>
-          </div>
-          <p class="progress-text" id="progress-text">Uploading your story & media...</p>
         </div>
 
-        <!-- Success Overlay -->
-        <div id="story-success-message" class="story-success-overlay" style="display:none;">
-          <div class="success-icon-wrapper">
-            <svg viewBox="0 0 24 24">
-              <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
-            </svg>
-          </div>
-          <h4>STORY RECEIVED!</h4>
-          <p>
-            Thank you for sharing your true identity. Once our team approves your story, it will appear dynamically on our
-            homepage queue!
-          </p>
-          <button type="button" class="story-success-close-btn" id="close-success-modal">CLOSE</button>
+        <button type="submit" class="story-submit-btn" id="story-submit-button">SUBMIT STORY</button>
+      </form>
+
+      <!-- Upload Progress Bar -->
+      <div id="story-upload-progress" class="upload-progress-container" style="display:none;">
+        <div class="progress-bar-wrapper">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
         </div>
+        <p class="progress-text" id="progress-text">Uploading your story & media...</p>
       </div>
-    {% endcomment %}
+
+      <!-- Success Overlay -->
+      <div id="story-success-message" class="story-success-overlay" style="display:none;">
+        <div class="success-icon-wrapper">
+          <svg viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+          </svg>
+        </div>
+        <h4>STORY RECEIVED!</h4>
+        <p>
+          Thank you for sharing your true identity. Once our team approves your story, it will appear dynamically on our
+          homepage queue!
+        </p>
+        <button type="button" class="story-success-close-btn" id="close-success-modal">CLOSE</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -1163,10 +1163,8 @@
     const videoPrompt = document.getElementById('video-dropzone-prompt');
 
     // State (Commented out backend form state variables to prevent unused vars warning, but preserved)
-    /*
     let selectedImages = [];
     let selectedVideo = null;
-    */
 
     // 1. OPEN / CLOSE MODAL
     if (openModalBtn) {
@@ -1180,7 +1178,7 @@
     const closeModal = () => {
       modalOverlay.classList.remove('open');
       document.body.style.overflow = '';
-      // resetForm(); // Commented out to avoid errors since form is disabled
+      resetForm(); // Commented out to avoid errors since form is disabled
     };
 
     if (closeModalBtn) closeModalBtn.addEventListener('click', closeModal);
@@ -1217,10 +1215,6 @@
       });
     }
 
-    /* =========================================================================
-       ORIGINAL BACKEND API INTEGRATION - COMMENTED OUT BUT FULLY PRESERVED
-       =========================================================================
-       
     // 2. DYNAMIC THEME ACCENTS BASED ON RADIO SELECTION
     const accentColors = {
       coffee: { hex: '#A67C52', rgb: '166, 124, 82' },
@@ -1533,7 +1527,7 @@
     };
 
     loadApprovedStories();
-    ========================================================================= */
+
   });
 </script>
 
