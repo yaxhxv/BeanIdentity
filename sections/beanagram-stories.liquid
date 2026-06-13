@@ -905,7 +905,7 @@
 
   /* Premium Single Story Displayer Styling */
   .beanagram-displayer-wrapper {
-    max-width: 960px;
+    max-width: 1240px;
     margin: 4rem auto;
     position: relative;
     padding: 0 1rem;
@@ -1002,7 +1002,7 @@
   }
 
   .beanagram-single-card__text {
-    flex: 1 1 50%;
+    flex: 1 1 40%;
     padding: 4.5rem;
     display: flex;
     flex-direction: column;
@@ -1024,7 +1024,7 @@
   }
 
   .beanagram-single-card__media {
-    flex: 1 1 50%;
+    flex: 1 1 60%;
     position: relative;
     background: rgba(18, 18, 18, 0.6);
     display: flex;
@@ -1108,36 +1108,61 @@
     transform: scale(1.25);
   }
 
+  /* Grid display for images showing all at once */
+  .beanagram-media-images-grid {
+    display: flex;
+    gap: 1.6rem;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .beanagram-media-images-grid img {
+    width: clamp(9rem, 16vw, 13rem);
+    height: clamp(9rem, 16vw, 13rem);
+    object-fit: cover;
+    border-radius: 1.4rem;
+    border: 2px solid rgba(var(--active-accent-rgb, 198, 169, 105), 0.35);
+    box-shadow: 0 1rem 2.5rem rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .beanagram-media-images-grid img:hover {
+    transform: scale(1.06);
+    border-color: var(--active-accent);
+  }
+
   /* Gallery layout when both images and video are present */
   .beanagram-media-gallery {
     display: flex;
     flex-direction: column;
-    gap: 1.8rem;
+    gap: 2rem;
     width: 100%;
     height: 100%;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
   }
 
   .beanagram-media-gallery .beanagram-media-video {
-    height: 62%;
     width: 100%;
+    height: auto;
+    max-height: 28rem;
+    display: flex;
+    justify-content: center;
   }
 
   .beanagram-media-gallery .beanagram-media-video video {
+    max-width: 100%;
+    max-height: 28rem;
+    height: auto;
+    width: auto;
     border-radius: 1.4rem;
   }
 
-  .beanagram-media-gallery .beanagram-media-slider {
-    height: 34%;
-    width: 100%;
-  }
-
-  .beanagram-media-gallery .beanagram-media-slider img {
-    border-radius: 1.4rem;
-  }
-
-  .beanagram-media-gallery .slider-dots {
-    bottom: 0.8rem;
+  .beanagram-media-gallery .beanagram-media-images-grid {
+    height: auto;
+    margin-top: 0.5rem;
   }
 
   /* Mobile Responsive Stacking */
@@ -1165,7 +1190,7 @@
 
     .beanagram-single-card__media.has-gallery {
       aspect-ratio: auto;
-      height: 38rem;
+      height: 42rem;
     }
     
     .beanagram-single-card__text {
@@ -1189,6 +1214,65 @@
     .mobile-tap-overlay.right {
       right: 0;
     }
+  }
+
+  .beanagram-media-images-grid img {
+    cursor: zoom-in;
+  }
+
+  /* Lightbox Overlay Styling */
+  .lightbox-overlay {
+    position: fixed;
+    z-index: 100000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    transition: opacity 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .lightbox-overlay.open {
+    opacity: 1;
+  }
+
+  .lightbox-content {
+    max-width: 90%;
+    max-height: 90%;
+    object-fit: contain;
+    border-radius: 1.6rem;
+    box-shadow: 0 2rem 6rem rgba(0, 0, 0, 0.8);
+    transform: scale(0.94);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+  }
+
+  .lightbox-overlay.open .lightbox-content {
+    transform: scale(1);
+  }
+
+  .lightbox-close {
+    position: absolute;
+    top: 3rem;
+    right: 4rem;
+    color: #f1f1f1;
+    font-size: 4.5rem;
+    font-weight: 300;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+    z-index: 100001;
+  }
+
+  .lightbox-close:hover {
+    color: var(--active-accent);
+    transform: scale(1.1);
   }
 {%- endstyle -%}
 
@@ -1234,7 +1318,7 @@
         <div class="beanagram-card__header">
           <div class="beanagram-card__avatar">
             {%- if block.settings.image != blank -%}
-              {{ block.settings.image | image_url: width: 100 | image_tag: loading: 'lazy' }}
+              {{ block.settings.image | image_url: width: 100 | image_tag: loading: 'lazy', class: 'lightbox-trigger', style: 'cursor: zoom-in;' }}
             {%- else -%}
               <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#eee;">
                 <svg class="beanagram-card__icon" viewBox="0 0 24 24">
@@ -1436,6 +1520,12 @@
       </div>
     </div>
   </div>
+</div>
+
+<!-- Lightbox modal for enlarging images -->
+<div id="beanagram-lightbox" class="lightbox-overlay" style="display: none;">
+  <span class="lightbox-close" id="lightbox-close-btn">&times;</span>
+  <img class="lightbox-content" id="lightbox-img" alt="Enlarged media preview">
 </div>
 
 <script>
@@ -1904,19 +1994,12 @@
         mediaHtml = `
           <div class="beanagram-media-gallery">
             <div class="beanagram-media-video">
-              <video id="story-video-player" src="${getFullMediaUrl(story.media.video)}" autoplay muted playsinline></video>
+              <video id="story-video-player" src="${getFullMediaUrl(story.media.video)}" autoplay muted playsinline controls></video>
             </div>
-            <div class="beanagram-media-slider" id="story-image-slider">
-              ${story.media.images.map((img, i) => `
-                <img src="${getFullMediaUrl(img)}" class="${i === 0 ? 'active' : ''}" data-idx="${i}" alt="Story media ${i + 1}">
+            <div class="beanagram-media-images-grid">
+              ${story.media.images.map((img) => `
+                <img src="${getFullMediaUrl(img)}" alt="Story image" class="lightbox-trigger">
               `).join('')}
-              ${story.media.images.length > 1 ? `
-                <div class="slider-dots">
-                  ${story.media.images.map((_, i) => `
-                    <span class="slider-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>
-                  `).join('')}
-                </div>
-              ` : ''}
             </div>
           </div>
         `;
@@ -1924,22 +2007,15 @@
         isVideo = true;
         mediaHtml = `
           <div class="beanagram-media-video">
-            <video id="story-video-player" src="${getFullMediaUrl(story.media.video)}" autoplay muted playsinline></video>
+            <video id="story-video-player" src="${getFullMediaUrl(story.media.video)}" autoplay muted playsinline controls></video>
           </div>
         `;
       } else if (hasImages) {
         mediaHtml = `
-          <div class="beanagram-media-slider" id="story-image-slider">
-            ${story.media.images.map((img, i) => `
-              <img src="${getFullMediaUrl(img)}" class="${i === 0 ? 'active' : ''}" data-idx="${i}" alt="Story media ${i + 1}">
+          <div class="beanagram-media-images-grid">
+            ${story.media.images.map((img) => `
+              <img src="${getFullMediaUrl(img)}" alt="Story image" class="lightbox-trigger">
             `).join('')}
-            ${story.media.images.length > 1 ? `
-              <div class="slider-dots">
-                ${story.media.images.map((_, i) => `
-                  <span class="slider-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>
-                `).join('')}
-              </div>
-            ` : ''}
           </div>
         `;
       } else {
@@ -2000,11 +2076,6 @@
       if (tapLeft) tapLeft.addEventListener('click', prevStory);
       if (tapRight) tapRight.addEventListener('click', nextStory);
 
-      // Multiple Images Slideshow logic inside the slide
-      if (story.media.images && story.media.images.length > 1) {
-        initImageSlider();
-      }
-
       // Autoplay / Video management
       if (isVideo) {
         const video = document.getElementById('story-video-player');
@@ -2049,14 +2120,7 @@
     const startVideoProgressTracker = (video) => {
       clearInterval(progressInterval);
       progressInterval = setInterval(() => {
-        if (isStoryHovered) {
-          if (!video.paused) video.pause();
-          return; // Pause on hover
-        } else {
-          if (video.paused) video.play().catch(() => {});
-        }
-
-        if (video.duration) {
+        if (video.duration && !video.paused) {
           currentProgress = (video.currentTime / video.duration) * 100;
           updateProgressBars();
         }
@@ -2129,22 +2193,71 @@
       if (nextBtn) nextBtn.addEventListener('click', nextStory);
 
       if (displayerFrame) {
-        // Pause on mouseenter
+        // Pause on mouseenter (static card timer only)
         displayerFrame.addEventListener('mouseenter', () => {
           isStoryHovered = true;
-          const video = document.getElementById('story-video-player');
-          if (video) video.pause();
         });
 
         // Resume on mouseleave
         displayerFrame.addEventListener('mouseleave', () => {
           isStoryHovered = false;
-          const video = document.getElementById('story-video-player');
-          if (video) video.play().catch(() => {});
         });
       }
     };
 
+    const initLightbox = () => {
+      const lightbox = document.getElementById('beanagram-lightbox');
+      const lightboxImg = document.getElementById('lightbox-img');
+      const lightboxClose = document.getElementById('lightbox-close-btn');
+
+      if (!lightbox || !lightboxImg || !lightboxClose) return;
+
+      const openLightbox = (src) => {
+        // Pause active story autoplay and video when lightbox is open
+        isStoryHovered = true;
+        const video = document.getElementById('story-video-player');
+        if (video && !video.paused) {
+          video.pause();
+          video.dataset.hoverPaused = 'true';
+        }
+
+        lightboxImg.src = src;
+        lightbox.style.display = 'flex';
+        setTimeout(() => {
+          lightbox.classList.add('open');
+        }, 10);
+      };
+
+      const closeLightbox = () => {
+        lightbox.classList.remove('open');
+        setTimeout(() => {
+          lightbox.style.display = 'none';
+          // Resume story autoplay when lightbox is closed
+          isStoryHovered = false;
+          const video = document.getElementById('story-video-player');
+          if (video && video.dataset.hoverPaused === 'true') {
+            video.play().catch(() => {});
+            delete video.dataset.hoverPaused;
+          }
+        }, 300);
+      };
+
+      // Event delegation for lightbox triggers on the entire document (handles static & dynamic images)
+      document.addEventListener('click', (e) => {
+        if (e.target.classList.contains('lightbox-trigger')) {
+          openLightbox(e.target.src);
+        }
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) {
+          closeLightbox();
+        }
+      });
+    };
+
+    initLightbox();
     loadApprovedStories();
 
   });
