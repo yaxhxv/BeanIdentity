@@ -1039,6 +1039,126 @@
       padding: 3.2rem 2.4rem;
     }
   }
+
+  /* Google Drive Connection Card Styling */
+  .gdrive-connection-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 3rem;
+    margin-bottom: 3.2rem;
+    padding: 2.4rem 3.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 2.4rem;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.03), transparent), rgba(0, 0, 0, 0.2);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+  }
+
+  .gdrive-status-info {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+  }
+
+  .gdrive-icon {
+    width: 4.2rem;
+    height: 4.2rem;
+    fill: #4285F4;
+    flex-shrink: 0;
+  }
+
+  .gdrive-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    text-align: left;
+  }
+
+  .gdrive-text h4 {
+    margin: 0;
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: #FFF;
+  }
+
+  .gdrive-status-text {
+    margin: 0;
+    font-size: 1.35rem;
+    color: var(--text-muted);
+  }
+
+  .gdrive-status-text.connected {
+    color: var(--accent-green);
+  }
+
+  .gdrive-status-text.disconnected {
+    color: var(--text-muted);
+  }
+
+  .gdrive-status-text.error {
+    color: var(--accent-red);
+  }
+
+  .gdrive-email-highlight {
+    font-weight: 700;
+    color: #FFF;
+  }
+
+  .gdrive-actions {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .gdrive-btn {
+    padding: 1.2rem 2.8rem;
+    border-radius: 1.2rem;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .gdrive-btn.connect {
+    background: #4285F4;
+    border: 1px solid #4285F4;
+    color: #FFF;
+  }
+
+  .gdrive-btn.connect:hover {
+    background: #357ae8;
+    border-color: #357ae8;
+    box-shadow: 0 0.8rem 2rem rgba(66, 133, 244, 0.25);
+  }
+
+  .gdrive-btn.disconnect {
+    background: transparent;
+    border: 1px solid rgba(211, 47, 47, 0.5);
+    color: var(--accent-red);
+  }
+
+  .gdrive-btn.disconnect:hover {
+    background: var(--accent-red);
+    color: #FFF;
+    border-color: var(--accent-red);
+    box-shadow: 0 0.8rem 2rem rgba(211, 47, 47, 0.25);
+  }
+
+  @media screen and (max-width: 768px) {
+    .gdrive-connection-card {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 2rem;
+      padding: 2.2rem;
+    }
+    .gdrive-actions {
+      justify-content: flex-start;
+    }
+  }
 {%- endstyle -%}
 
 <div id="AdminPortal-{{ section.id }}">
@@ -1134,6 +1254,23 @@
               <span class="metric-num" id="stories-approved-badge">0</span>
               <span class="metric-lbl">Active Approved</span>
             </div>
+          </div>
+        </div>
+
+        <!-- Google Drive Cloud Storage Settings -->
+        <div class="gdrive-connection-card">
+          <div class="gdrive-status-info">
+            <svg class="gdrive-icon" viewBox="0 0 24 24">
+              <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM19 18H6c-2.21 0-4-1.79-4-4 0-2.05 1.53-3.76 3.56-3.97l1.07-.11.5-.95C8.08 7.14 9.94 6 12 6c2.62 0 4.88 1.86 5.39 4.43l.3 1.5 1.53.11c1.56.1 2.78 1.41 2.78 2.96 0 1.65-1.35 3-3 3z"/>
+            </svg>
+            <div class="gdrive-text">
+              <h4>Google Drive Storage Provider</h4>
+              <p id="gdrive-status-text" class="gdrive-status-text disconnected">Checking storage connection...</p>
+            </div>
+          </div>
+          <div class="gdrive-actions">
+            <button type="button" id="gdrive-connect-btn" class="gdrive-btn connect" style="display: none;">Connect Account</button>
+            <button type="button" id="gdrive-disconnect-btn" class="gdrive-btn disconnect" style="display: none;">Disconnect Storage</button>
           </div>
         </div>
 
@@ -1284,6 +1421,7 @@
       // Initialize Dashboard data
       loadModuleData(activeTab);
       updateStatsBadges();
+      checkGoogleDriveStatus();
     };
 
     authForm.addEventListener('submit', async (e) => {
@@ -1308,6 +1446,119 @@
       adminSecretKey = '';
       showAuthGate();
     });
+
+    // ==========================================================================
+    // GOOGLE DRIVE CLOUD STORAGE CONTROLLER
+    // ==========================================================================
+    const checkGoogleDriveStatus = async () => {
+      if (!adminSecretKey) return;
+      try {
+        const statusText = document.getElementById('gdrive-status-text');
+        const connectBtn = document.getElementById('gdrive-connect-btn');
+        const disconnectBtn = document.getElementById('gdrive-disconnect-btn');
+
+        if (!statusText || !connectBtn || !disconnectBtn) return;
+
+        const response = await fetch(`${BACKEND_URL}/api/stories/admin/google/status`, {
+          headers: { 'x-admin-key': adminSecretKey },
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.isConnected) {
+            statusText.innerHTML = `Connected to <span class="gdrive-email-highlight">${data.email}</span>`;
+            statusText.className = 'gdrive-status-text connected';
+            connectBtn.style.display = 'none';
+            disconnectBtn.style.display = 'inline-block';
+          } else {
+            statusText.textContent = 'Not connected. Story submissions will be unavailable.';
+            statusText.className = 'gdrive-status-text disconnected';
+            connectBtn.style.display = 'inline-block';
+            disconnectBtn.style.display = 'none';
+          }
+        } else {
+          statusText.textContent = 'Error fetching Google Drive connection status.';
+          statusText.className = 'gdrive-status-text error';
+          connectBtn.style.display = 'inline-block';
+          disconnectBtn.style.display = 'none';
+        }
+      } catch (err) {
+        console.error('Failed to get Google Drive status:', err);
+      }
+    };
+
+    const initGoogleDriveListeners = () => {
+      const connectBtn = document.getElementById('gdrive-connect-btn');
+      const disconnectBtn = document.getElementById('gdrive-disconnect-btn');
+
+      if (connectBtn) {
+        connectBtn.addEventListener('click', async () => {
+          if (!adminSecretKey) return;
+          try {
+            const response = await fetch(`${BACKEND_URL}/api/stories/admin/google/auth-url`, {
+              headers: { 'x-admin-key': adminSecretKey },
+            });
+
+            if (response.ok) {
+              const data = await response.json();
+              if (data.authUrl) {
+                window.location.href = data.authUrl;
+              } else {
+                alert('Failed to obtain Google auth URL.');
+              }
+            } else {
+              const err = await response.json();
+              alert(`Error: ${err.error || 'Failed to initialize Google Drive connection.'}`);
+            }
+          } catch (e) {
+            console.error(e);
+            alert('Network error during Google Drive authentication.');
+          }
+        });
+      }
+
+      if (disconnectBtn) {
+        disconnectBtn.addEventListener('click', async () => {
+          if (!confirm('Are you sure you want to disconnect Google Drive? Story submissions will fail without connected storage.')) {
+            return;
+          }
+          try {
+            const response = await fetch(`${BACKEND_URL}/api/stories/admin/google/disconnect`, {
+              method: 'POST',
+              headers: { 'x-admin-key': adminSecretKey },
+            });
+
+            if (response.ok) {
+              alert('Google Drive disconnected.');
+              checkGoogleDriveStatus();
+            } else {
+              alert('Failed to disconnect Google Drive.');
+            }
+          } catch (e) {
+            console.error(e);
+            alert('Network error during disconnection.');
+          }
+        });
+      }
+
+      // Check query parameters for callback status
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.has('googleDriveConnect')) {
+        const status = urlParams.get('googleDriveConnect');
+        if (status === 'success') {
+          alert('Google Drive storage linked successfully!');
+        } else {
+          const reason = urlParams.get('reason') || 'Unknown error';
+          alert(`Failed to link Google Drive: ${reason}`);
+        }
+        // Clean up URL query parameters
+        const cleanUrl = window.location.pathname;
+        window.history.replaceState({}, document.title, cleanUrl);
+      }
+    };
+
+    // Run callback query parameter check immediately on load
+    initGoogleDriveListeners();
 
     // ==========================================================================
     // SINGLE PAGE APPLICATION (SPA) TAB ROUTER
