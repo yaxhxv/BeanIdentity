@@ -1159,6 +1159,45 @@
       justify-content: flex-start;
     }
   }
+
+  /* Publish / Unpublish Actions & Badges */
+  .card-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 0.4rem 1.1rem;
+    border-radius: 999px;
+    background: rgba(76, 175, 80, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(76, 175, 80, 0.2);
+    margin-top: 0.4rem;
+  }
+
+  .card-btn.publish {
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+  }
+
+  .card-btn.publish:hover {
+    background: var(--accent-gold);
+    color: #000;
+    box-shadow: 0 1rem 2rem rgba(198, 169, 105, 0.15);
+  }
+
+  .card-btn.unpublish {
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-muted);
+  }
+
+  .card-btn.unpublish:hover {
+    border-color: #FFF;
+    color: #FFF;
+    background: rgba(255, 255, 255, 0.05);
+  }
 {%- endstyle -%}
 
 <div id="AdminPortal-{{ section.id }}">
@@ -1613,6 +1652,14 @@
       return colors[type] || '#A67C52';
     };
 
+    const getFullMediaUrl = (url) => {
+      if (!url) return '';
+      if (url.startsWith('http') || url.startsWith('//')) {
+        return url;
+      }
+      return `${BACKEND_URL}${url}`;
+    };
+
     // Update pending & approved count stats badges
     const updateStatsBadges = async () => {
       if (!adminSecretKey) return;
@@ -1698,7 +1745,7 @@
               mediaMarkup += `
               <div class="card-image-slider">
                 ${story.media.images
-                  .map((img) => `<img src="${img}" alt="Wearer style" onclick="window.open('${img}', '_blank')">`)
+                  .map((img) => `<img src="${getFullMediaUrl(img)}" alt="Wearer style" onclick="window.open('${getFullMediaUrl(img)}', '_blank')">`)
                   .join('')}
               </div>
             `;
@@ -1708,7 +1755,7 @@
             if (story.media.video) {
               mediaMarkup += `
               <div class="card-video-player">
-                <video src="${story.media.video}" controls muted playsinline></video>
+                <video src="${getFullMediaUrl(story.media.video)}" controls muted playsinline></video>
               </div>
             `;
             }
@@ -1728,6 +1775,10 @@
           } else if (story.status === 'approved') {
             actionsMarkup = `
             <div class="card-action-bar">
+              ${story.isPublished 
+                ? `<button type="button" class="card-btn unpublish" data-action="unpublish">UNPUBLISH</button>`
+                : `<button type="button" class="card-btn publish" data-action="publish">POST TO STOREFRONT</button>`
+              }
               <button type="button" class="card-btn reject" data-action="reject">MOVE TO REJECTED</button>
             </div>
           `;
@@ -1768,6 +1819,7 @@
                     ${handleLabel}
                     <span>•</span>
                     <span class="card-bean-badge">${story.beanType} Bean</span>
+                    ${story.isPublished ? `<span class="card-live-badge">LIVE ON HOMEPAGE</span>` : ''}
                   </div>
                 </div>
                 <div class="card-timestamp">${dateStr}</div>
@@ -1792,10 +1844,11 @@
               </div>
               <div class="card-title-meta">
                 <span class="card-user-name" title="${story.name}">${story.name}</span>
-                <div class="card-user-meta" style="margin-top: 0.2rem;">
+                 <div class="card-user-meta" style="margin-top: 0.2rem;">
                   ${handleLabel}
                   <span>•</span>
                   <span class="card-bean-badge">${story.beanType} Bean</span>
+                  ${story.isPublished ? `<span class="card-live-badge">LIVE ON HOMEPAGE</span>` : ''}
                 </div>
               </div>
               <div class="card-timestamp">${dateStr}</div>
@@ -1816,7 +1869,11 @@
             btn.addEventListener('click', async (e) => {
               const action = btn.getAttribute('data-action');
               const storyId = story._id;
-              await moderateStory(storyId, action, card);
+              if (action === 'publish' || action === 'unpublish') {
+                await togglePublishStory(storyId, action === 'publish', card);
+              } else {
+                await moderateStory(storyId, action, card);
+              }
             });
           });
         });
@@ -1855,6 +1912,29 @@
       } catch (err) {
         console.error(err);
         alert('Error connecting to server to save moderation review.');
+      }
+    };
+
+    const togglePublishStory = async (storyId, isPublished, cardElement) => {
+      try {
+        const response = await fetch(`${BACKEND_URL}/api/stories/admin/${storyId}/publish`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+            'x-admin-key': adminSecretKey,
+          },
+          body: JSON.stringify({ isPublished }),
+        });
+
+        if (response.ok) {
+          loadStories();
+        } else {
+          const result = await response.json();
+          alert(result.error || 'Failed to update publishing status.');
+        }
+      } catch (err) {
+        console.error(err);
+        alert('Error connecting to server to save publishing settings.');
       }
     };
 

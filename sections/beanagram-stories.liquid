@@ -902,6 +902,294 @@
       padding-top: 2rem;
     }
   }
+
+  /* Premium Single Story Displayer Styling */
+  .beanagram-displayer-wrapper {
+    max-width: 960px;
+    margin: 4rem auto;
+    position: relative;
+    padding: 0 1rem;
+    z-index: 10;
+  }
+
+  /* Autoplay progress bar at top of card */
+  .beanagram-progress-indicator {
+    display: flex;
+    gap: 0.6rem;
+    margin-bottom: 2.4rem;
+    padding: 0 1rem;
+  }
+
+  .beanagram-progress-segment {
+    flex: 1;
+    height: 4px;
+    background: rgba(245, 245, 245, 0.12);
+    border-radius: 2px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  .beanagram-progress-fill {
+    height: 100%;
+    width: 0%;
+    background: var(--active-accent, #C6A969);
+    transition: width 0.05s linear;
+  }
+
+  .beanagram-progress-segment.completed .beanagram-progress-fill {
+    width: 100%;
+  }
+
+  .beanagram-displayer-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+  }
+
+  /* Nav Buttons */
+  .beanagram-nav-btn {
+    width: 5.6rem;
+    height: 5.6rem;
+    border-radius: 50%;
+    background: rgba(245, 245, 245, 0.05);
+    border: 1px solid rgba(245, 245, 245, 0.12);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    color: #f5f5f5;
+    flex-shrink: 0;
+  }
+
+  .beanagram-nav-btn:hover {
+    background: var(--active-accent, #C6A969);
+    border-color: var(--active-accent, #C6A969);
+    color: #000;
+    transform: scale(1.1);
+    box-shadow: 0 0.8rem 2.4rem rgba(var(--active-accent-rgb, 198, 169, 105), 0.25);
+  }
+
+  /* Active Story Card Display Frame */
+  .beanagram-active-card-frame {
+    flex-grow: 1;
+    min-height: 48rem;
+    background: rgba(245, 245, 245, 0.02);
+    border: 1px solid rgba(245, 245, 245, 0.08);
+    border-radius: 3.2rem;
+    box-shadow: 0 2rem 5rem rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    position: relative;
+    /* Soft glowing backdrop that transitions color */
+    background:
+      linear-gradient(135deg, rgba(var(--active-accent-rgb, 198, 169, 105), 0.06), transparent 45%),
+      rgba(255, 255, 255, 0.02);
+    transition: background 0.5s ease;
+  }
+
+  /* Single card details layout */
+  .beanagram-single-card {
+    display: flex;
+    min-height: 48rem;
+    width: 100%;
+    animation: storyEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  }
+
+  @keyframes storyEnter {
+    0% { opacity: 0; transform: translateY(1.5rem); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .beanagram-single-card__text {
+    flex: 1 1 50%;
+    padding: 4.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    text-align: left;
+    border-right: 1px solid rgba(245, 245, 245, 0.06);
+    position: relative;
+  }
+
+  .testimonial-quote-icon {
+    font-size: 10rem;
+    font-family: Georgia, serif;
+    position: absolute;
+    top: 2rem;
+    right: 3rem;
+    color: rgba(var(--active-accent-rgb, 198, 169, 105), 0.08);
+    user-select: none;
+    line-height: 1;
+  }
+
+  .beanagram-single-card__media {
+    flex: 1 1 50%;
+    position: relative;
+    background: rgba(18, 18, 18, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3.5rem;
+    overflow: hidden;
+  }
+
+  /* Image Slide style */
+  .beanagram-media-slider {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .beanagram-media-slider img {
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 2rem;
+    border: 2px solid rgba(var(--active-accent-rgb, 198, 169, 105), 0.35);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.45);
+    opacity: 0;
+    transition: opacity 0.5s ease;
+  }
+
+  .beanagram-media-slider img.active {
+    opacity: 1;
+  }
+
+  .beanagram-media-video {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+  }
+
+  .beanagram-media-video video {
+    max-width: 100%;
+    max-height: 100%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 2rem;
+    border: 2px solid rgba(var(--active-accent-rgb, 198, 169, 105), 0.35);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.45);
+    background: #000;
+  }
+
+  /* Custom navigation dots for multiple images inside a slide */
+  .slider-dots {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.8rem;
+    z-index: 5;
+  }
+
+  .slider-dot {
+    width: 0.8rem;
+    height: 0.8rem;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .slider-dot.active {
+    background: #fff;
+    transform: scale(1.25);
+  }
+
+  /* Gallery layout when both images and video are present */
+  .beanagram-media-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    width: 100%;
+    height: 100%;
+    justify-content: space-between;
+  }
+
+  .beanagram-media-gallery .beanagram-media-video {
+    height: 62%;
+    width: 100%;
+  }
+
+  .beanagram-media-gallery .beanagram-media-video video {
+    border-radius: 1.4rem;
+  }
+
+  .beanagram-media-gallery .beanagram-media-slider {
+    height: 34%;
+    width: 100%;
+  }
+
+  .beanagram-media-gallery .beanagram-media-slider img {
+    border-radius: 1.4rem;
+  }
+
+  .beanagram-media-gallery .slider-dots {
+    bottom: 0.8rem;
+  }
+
+  /* Mobile Responsive Stacking */
+  @media screen and (max-width: 768px) {
+    .beanagram-displayer-content {
+      flex-direction: column;
+      gap: 2rem;
+    }
+    
+    .beanagram-nav-btn {
+      display: none; /* Hide desktop nav buttons on mobile */
+    }
+    
+    .beanagram-single-card {
+      flex-direction: column;
+      min-height: auto;
+    }
+
+    .beanagram-single-card__media {
+      flex: none;
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      border-bottom: 1px solid rgba(245, 245, 245, 0.06);
+    }
+
+    .beanagram-single-card__media.has-gallery {
+      aspect-ratio: auto;
+      height: 38rem;
+    }
+    
+    .beanagram-single-card__text {
+      flex: none;
+      padding: 3rem;
+      border-right: none;
+    }
+
+    /* Floating navigation overlays for mobile tap control */
+    .mobile-tap-overlay {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 50%;
+      z-index: 8;
+      cursor: pointer;
+    }
+    .mobile-tap-overlay.left {
+      left: 0;
+    }
+    .mobile-tap-overlay.right {
+      right: 0;
+    }
+  }
 {%- endstyle -%}
 
 <div id="Beanagram-{{ section.id }}" class="beanagram-stories">
@@ -910,7 +1198,22 @@
     <p class="beanagram-subtitle">{{ section.settings.subtitle }}</p>
   </div>
 
-  <div class="beanagram-track">
+  <!-- Single Story Displayer (JS-enabled slideshow) -->
+  <div class="beanagram-displayer-wrapper" style="display: none;">
+    <div class="beanagram-progress-indicator" id="beanagram-progress-indicator"></div>
+    <div class="beanagram-displayer-content">
+      <button type="button" class="beanagram-nav-btn prev" id="beanagram-prev-btn" aria-label="Previous Story">
+        <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
+      </button>
+      <div class="beanagram-active-card-frame" id="beanagram-active-card-frame"></div>
+      <button type="button" class="beanagram-nav-btn next" id="beanagram-next-btn" aria-label="Next Story">
+        <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- Fallback static track (shown on load, hidden by JS) -->
+  <div class="beanagram-track" id="beanagram-static-track">
     {%- for block in section.blocks -%}
       {%- liquid
         assign bean_color = '#121212'
@@ -1427,7 +1730,7 @@
       updateThemeAccent('coffee');
     };
 
-    // 7. DYNAMIC STORIES QUEUE LOADER (5 APPROVED AT A TIME)
+    // 7. DYNAMIC STORIES QUEUE LOADER (SINGLE CARD AUTOPLAY SYSTEM)
     const getBeanBadgeColor = (type) => {
       const colors = {
         coffee: '#A67C52',
@@ -1439,90 +1742,406 @@
       return colors[type] || '#A67C52';
     };
 
-    const loadApprovedStories = async () => {
-      const track = document.querySelector('.beanagram-track');
-      if (!track) return;
+    const getBeanBadgeColorRGB = (type) => {
+      const colors = {
+        coffee: '166, 124, 82',
+        chilli: '211, 47, 47',
+        vanilla: '255, 249, 196',
+        jelly: '240, 98, 146',
+        green: '56, 142, 60',
+      };
+      return colors[type] || '166, 124, 82';
+    };
 
+    const getFullMediaUrl = (url) => {
+      if (!url) return '';
+      if (url.startsWith('http') || url.startsWith('//')) {
+        return url;
+      }
+      return `${BACKEND_URL}${url}`;
+    };
+
+    // State Variables
+    let currentStories = [];
+    let currentStoryIndex = 0;
+    let progressInterval = null;
+    let currentProgress = 0;
+    const progressDuration = 8000; // 8 seconds for static slides
+    const tickRate = 50; // Update progress every 50ms
+    let isStoryHovered = false;
+
+    // Elements
+    const staticTrack = document.getElementById('beanagram-static-track');
+    const displayerWrapper = document.querySelector('.beanagram-displayer-wrapper');
+    const displayerFrame = document.getElementById('beanagram-active-card-frame');
+    const prevBtn = document.getElementById('beanagram-prev-btn');
+    const nextBtn = document.getElementById('beanagram-next-btn');
+    const progressIndicator = document.getElementById('beanagram-progress-indicator');
+
+    const loadApprovedStories = async () => {
       try {
         const response = await fetch(`${BACKEND_URL}/api/stories/approved`);
-        if (!response.ok) return; // Fallback to Liquid static blocks
+        if (response.ok) {
+          const apiStories = await response.json();
+          if (apiStories && apiStories.length > 0) {
+            currentStories = apiStories;
+          }
+        }
+      } catch (err) {
+        console.warn('Could not load stories from backend, using DOM fallback...', err);
+      }
 
-        const stories = await response.json();
-        if (!stories || stories.length === 0) return; // Keep Liquid blocks if queue is empty
+      // Fallback: If currentStories is empty, parse from static Liquid cards
+      if (currentStories.length === 0 && staticTrack) {
+        const cards = staticTrack.querySelectorAll('.beanagram-card');
+        cards.forEach(card => {
+          const handleEl = card.querySelector('.beanagram-card__handle');
+          const badgeEl = card.querySelector('.beanagram-card__bean-badge');
+          const storyEl = card.querySelector('.beanagram-card__story');
+          const avatarImg = card.querySelector('.beanagram-card__avatar img');
 
-        // Clear carousel track
-        track.innerHTML = '';
-
-        stories.forEach((story) => {
-          const beanColor = getBeanBadgeColor(story.beanType);
-
-          // Setup Media Markup
-          let mediaMarkup = '';
-
-          // Slider images markup
-          if (story.media && story.media.images && story.media.images.length > 0) {
-            mediaMarkup += `
-            <div class="story-card-images">
-              ${story.media.images.map((img) => `<img src="${img}" alt="Customer styling wearing apparel">`).join('')}
-            </div>
-          `;
+          // Extract beanType from badge text
+          let beanType = 'coffee';
+          if (badgeEl) {
+            const txt = badgeEl.textContent.toLowerCase();
+            if (txt.includes('chilli')) beanType = 'chilli';
+            else if (txt.includes('vanilla')) beanType = 'vanilla';
+            else if (txt.includes('jelly')) beanType = 'jelly';
+            else if (txt.includes('green')) beanType = 'green';
           }
 
-          // Video player markup
-          if (story.media && story.media.video) {
-            mediaMarkup += `
-            <div class="story-card-video">
-              <video src="${story.media.video}" controls muted playsinline></video>
+          // Extract images
+          const images = [];
+          if (avatarImg) images.push(avatarImg.getAttribute('src'));
+
+          // Check if there are other images
+          const blockImgs = card.querySelectorAll('.story-card-images img');
+          blockImgs.forEach(img => images.push(img.getAttribute('src')));
+
+          // Check if video exists
+          const videoEl = card.querySelector('.story-card-video video');
+          const videoUrl = videoEl ? videoEl.getAttribute('src') : '';
+
+          currentStories.push({
+            name: handleEl ? handleEl.textContent.replace('@', '') : 'Member',
+            handle: handleEl ? handleEl.textContent.replace('@', '') : 'username',
+            beanType: beanType,
+            story: storyEl ? storyEl.textContent.replace(/^"|"$/g, '') : '',
+            media: {
+              images: images,
+              video: videoUrl
+            }
+          });
+        });
+      }
+
+      if (currentStories.length > 0) {
+        // Initialize single-story view
+        if (staticTrack) staticTrack.style.display = 'none';
+        if (displayerWrapper) displayerWrapper.style.display = 'block';
+
+        initProgressIndicator();
+        renderActiveStory();
+        initStoryListeners();
+      }
+    };
+
+    const initProgressIndicator = () => {
+      if (!progressIndicator) return;
+      progressIndicator.innerHTML = '';
+      currentStories.forEach((_, idx) => {
+        const segment = document.createElement('div');
+        segment.className = 'beanagram-progress-segment';
+        segment.innerHTML = `<div class="beanagram-progress-fill" id="progress-fill-${idx}"></div>`;
+        progressIndicator.appendChild(segment);
+      });
+    };
+
+    const updateProgressBars = () => {
+      if (!progressIndicator) return;
+      currentStories.forEach((_, idx) => {
+        const fill = document.getElementById(`progress-fill-${idx}`);
+        const segment = fill.parentElement;
+        if (!fill) return;
+
+        if (idx < currentStoryIndex) {
+          fill.style.width = '100%';
+          segment.classList.add('completed');
+        } else if (idx > currentStoryIndex) {
+          fill.style.width = '0%';
+          segment.classList.remove('completed');
+        } else {
+          fill.style.width = `${currentProgress}%`;
+          segment.classList.remove('completed');
+        }
+      });
+    };
+
+    const renderActiveStory = () => {
+      if (currentStories.length === 0 || !displayerFrame) return;
+
+      const story = currentStories[currentStoryIndex];
+      const beanColor = getBeanBadgeColor(story.beanType);
+      const beanColorRGB = getBeanBadgeColorRGB(story.beanType);
+
+      // Set active accent variables
+      document.documentElement.style.setProperty('--active-accent', beanColor);
+      document.documentElement.style.setProperty('--active-accent-rgb', beanColorRGB);
+
+      // Reset timers
+      clearInterval(progressInterval);
+      currentProgress = 0;
+
+      // Handle media rendering
+      let mediaHtml = '';
+      let isVideo = false;
+
+      const hasVideo = !!story.media.video;
+      const hasImages = story.media.images && story.media.images.length > 0;
+
+      if (hasVideo && hasImages) {
+        isVideo = true;
+        mediaHtml = `
+          <div class="beanagram-media-gallery">
+            <div class="beanagram-media-video">
+              <video id="story-video-player" src="${getFullMediaUrl(story.media.video)}" autoplay muted playsinline></video>
             </div>
-          `;
-          }
-
-          const card = document.createElement('div');
-          card.className = 'beanagram-card';
-          card.setAttribute('style', `--bean-accent: ${beanColor};`);
-
-          // Handle instagram handle fallback
-          const handleLabel = story.handle ? `@${story.handle}` : story.name;
-
-          card.innerHTML = `
-          <div class="beanagram-card__header">
-            <div class="beanagram-card__avatar">
-              ${
-                story.media && story.media.images && story.media.images.length > 0
-                  ? `
-                <img src="${story.media.images[0]}" alt="${story.name}">
-              `
-                  : `
-                <div style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; background:#222;">
-                  <svg class="beanagram-card__icon" viewBox="0 0 24 24" style="fill: ${beanColor};">
-                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
-                  </svg>
+            <div class="beanagram-media-slider" id="story-image-slider">
+              ${story.media.images.map((img, i) => `
+                <img src="${getFullMediaUrl(img)}" class="${i === 0 ? 'active' : ''}" data-idx="${i}" alt="Story media ${i + 1}">
+              `).join('')}
+              ${story.media.images.length > 1 ? `
+                <div class="slider-dots">
+                  ${story.media.images.map((_, i) => `
+                    <span class="slider-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>
+                  `).join('')}
                 </div>
-              `
-              }
+              ` : ''}
             </div>
-            <div class="beanagram-card__user-info">
-              <span class="beanagram-card__handle">${handleLabel}</span>
-              <span class="beanagram-card__bean-badge" style="color: ${beanColor};">${story.beanType} Bean</span>
-            </div>
-          </div>
-          <p class="beanagram-card__story">"${story.story}"</p>
-          ${mediaMarkup}
-          <div class="beanagram-card__footer">
-            <svg class="beanagram-card__icon" viewBox="0 0 24 24" style="fill: ${beanColor};">
-              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-            </svg>
-            Authenticated Identity
           </div>
         `;
+      } else if (hasVideo) {
+        isVideo = true;
+        mediaHtml = `
+          <div class="beanagram-media-video">
+            <video id="story-video-player" src="${getFullMediaUrl(story.media.video)}" autoplay muted playsinline></video>
+          </div>
+        `;
+      } else if (hasImages) {
+        mediaHtml = `
+          <div class="beanagram-media-slider" id="story-image-slider">
+            ${story.media.images.map((img, i) => `
+              <img src="${getFullMediaUrl(img)}" class="${i === 0 ? 'active' : ''}" data-idx="${i}" alt="Story media ${i + 1}">
+            `).join('')}
+            ${story.media.images.length > 1 ? `
+              <div class="slider-dots">
+                ${story.media.images.map((_, i) => `
+                  <span class="slider-dot ${i === 0 ? 'active' : ''}" data-idx="${i}"></span>
+                `).join('')}
+              </div>
+            ` : ''}
+          </div>
+        `;
+      } else {
+        // Fallback placeholder image
+        mediaHtml = `
+          <div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #111;">
+            <svg class="beanagram-card__icon" viewBox="0 0 24 24" style="width: 6rem; height: 6rem; fill: ${beanColor};">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
+        `;
+      }
 
-          track.appendChild(card);
+      const handleLabel = story.handle ? `@${story.handle}` : story.name;
+
+      displayerFrame.innerHTML = `
+        <div class="beanagram-single-card" style="--bean-accent: ${beanColor};">
+          <!-- Mobile Tap Overlays -->
+          <div class="mobile-tap-overlay left" id="mobile-tap-left"></div>
+          <div class="mobile-tap-overlay right" id="mobile-tap-right"></div>
+
+          <div class="beanagram-single-card__text">
+            <div class="testimonial-quote-icon">“</div>
+            <div>
+              <div class="beanagram-card__header">
+                <div class="beanagram-card__avatar" style="border-color: ${beanColor};">
+                  ${
+                    story.media.images && story.media.images.length > 0
+                      ? `<img src="${getFullMediaUrl(story.media.images[0])}" alt="${story.name}">`
+                      : `<svg class="beanagram-card__icon" viewBox="0 0 24 24" style="fill: ${beanColor};"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>`
+                  }
+                </div>
+                <div class="beanagram-card__user-info">
+                  <span class="beanagram-card__handle">${handleLabel}</span>
+                  <span class="beanagram-card__bean-badge" style="color: ${beanColor};">${story.beanType} Bean</span>
+                </div>
+              </div>
+              <p class="beanagram-card__story">"${story.story}"</p>
+            </div>
+
+            <div class="beanagram-card__footer">
+              <svg class="beanagram-card__icon" viewBox="0 0 24 24" style="fill: ${beanColor};">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              Authenticated Identity
+            </div>
+          </div>
+
+          <div class="beanagram-single-card__media ${hasVideo && hasImages ? 'has-gallery' : ''}">
+            ${mediaHtml}
+          </div>
+        </div>
+      `;
+
+      // Set up mobile tap controls
+      const tapLeft = document.getElementById('mobile-tap-left');
+      const tapRight = document.getElementById('mobile-tap-right');
+      if (tapLeft) tapLeft.addEventListener('click', prevStory);
+      if (tapRight) tapRight.addEventListener('click', nextStory);
+
+      // Multiple Images Slideshow logic inside the slide
+      if (story.media.images && story.media.images.length > 1) {
+        initImageSlider();
+      }
+
+      // Autoplay / Video management
+      if (isVideo) {
+        const video = document.getElementById('story-video-player');
+        if (video) {
+          video.addEventListener('loadedmetadata', () => {
+            // Video drives the progress
+            startVideoProgressTracker(video);
+          });
+          video.addEventListener('ended', () => {
+            nextStory();
+          });
+          // Handle play failures (browser restrictions)
+          video.play().catch(e => {
+            console.warn('Autoplay prevented, fallback to standard timer', e);
+            startStaticProgressTracker();
+          });
+        }
+      } else {
+        startStaticProgressTracker();
+      }
+    };
+
+    const startStaticProgressTracker = () => {
+      clearInterval(progressInterval);
+      const totalSteps = progressDuration / tickRate;
+      let steps = 0;
+
+      progressInterval = setInterval(() => {
+        if (isStoryHovered) return; // Pause on hover
+
+        steps++;
+        currentProgress = (steps / totalSteps) * 100;
+        updateProgressBars();
+
+        if (steps >= totalSteps) {
+          clearInterval(progressInterval);
+          nextStory();
+        }
+      }, tickRate);
+    };
+
+    const startVideoProgressTracker = (video) => {
+      clearInterval(progressInterval);
+      progressInterval = setInterval(() => {
+        if (isStoryHovered) {
+          if (!video.paused) video.pause();
+          return; // Pause on hover
+        } else {
+          if (video.paused) video.play().catch(() => {});
+        }
+
+        if (video.duration) {
+          currentProgress = (video.currentTime / video.duration) * 100;
+          updateProgressBars();
+        }
+      }, tickRate);
+    };
+
+    const initImageSlider = () => {
+      const slider = document.getElementById('story-image-slider');
+      const imgs = slider.querySelectorAll('img');
+      const dots = slider.querySelectorAll('.slider-dot');
+      let imgIdx = 0;
+      let imgInterval = null;
+
+      const rotateImages = () => {
+        if (isStoryHovered) return; // Pause on hover
+        imgs[imgIdx].classList.remove('active');
+        dots[imgIdx].classList.remove('active');
+        imgIdx = (imgIdx + 1) % imgs.length;
+        imgs[imgIdx].classList.add('active');
+        dots[imgIdx].classList.add('active');
+      };
+
+      // Cycle images inside the slide
+      const cycleDuration = progressDuration / imgs.length;
+      imgInterval = setInterval(rotateImages, cycleDuration);
+
+      // Store interval on the slider element
+      slider.dataset.intervalId = imgInterval;
+
+      dots.forEach(dot => {
+        dot.addEventListener('click', (e) => {
+          e.stopPropagation();
+          clearInterval(imgInterval);
+          const targetIdx = parseInt(dot.getAttribute('data-idx'));
+          imgs[imgIdx].classList.remove('active');
+          dots[imgIdx].classList.remove('active');
+          imgIdx = targetIdx;
+          imgs[imgIdx].classList.add('active');
+          dots[imgIdx].classList.add('active');
         });
-      } catch (err) {
-        console.warn(
-          'Could not dynamically load approved stories from backend queue. Falling back to default static Liquid cards.',
-          err
-        );
+      });
+    };
+
+    const nextStory = () => {
+      cleanupActiveMedia();
+      currentStoryIndex = (currentStoryIndex + 1) % currentStories.length;
+      renderActiveStory();
+    };
+
+    const prevStory = () => {
+      cleanupActiveMedia();
+      currentStoryIndex = (currentStoryIndex - 1 + currentStories.length) % currentStories.length;
+      renderActiveStory();
+    };
+
+    const cleanupActiveMedia = () => {
+      clearInterval(progressInterval);
+      const slider = document.getElementById('story-image-slider');
+      if (slider && slider.dataset.intervalId) {
+        clearInterval(parseInt(slider.dataset.intervalId));
+      }
+      const video = document.getElementById('story-video-player');
+      if (video) {
+        video.pause();
+      }
+    };
+
+    const initStoryListeners = () => {
+      if (prevBtn) prevBtn.addEventListener('click', prevStory);
+      if (nextBtn) nextBtn.addEventListener('click', nextStory);
+
+      if (displayerFrame) {
+        // Pause on mouseenter
+        displayerFrame.addEventListener('mouseenter', () => {
+          isStoryHovered = true;
+          const video = document.getElementById('story-video-player');
+          if (video) video.pause();
+        });
+
+        // Resume on mouseleave
+        displayerFrame.addEventListener('mouseleave', () => {
+          isStoryHovered = false;
+          const video = document.getElementById('story-video-player');
+          if (video) video.play().catch(() => {});
+        });
       }
     };
 
