@@ -1198,6 +1198,172 @@
     color: #FFF;
     background: rgba(255, 255, 255, 0.05);
   }
+
+  /* Quiz Analytics Dashboard Styles */
+  .quiz-dashboard-layout {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 3.2rem;
+    margin-top: 3.2rem;
+  }
+  @media screen and (max-width: 1024px) {
+    .quiz-dashboard-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+  .analytics-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 2.4rem;
+    padding: 2.8rem;
+    box-shadow: 0 15px 45px rgba(0, 0, 0, 0.2);
+  }
+  .analytics-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+    margin-top: 1.6rem;
+  }
+  .analytics-table th, .analytics-table td {
+    padding: 1.6rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    font-family: 'Poppins', sans-serif;
+  }
+  .analytics-table th {
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    letter-spacing: 0.08em;
+  }
+  .analytics-table td {
+    font-size: 1.35rem;
+    color: var(--text-main);
+  }
+  .analytics-table tr:hover {
+    background: rgba(255, 255, 255, 0.015);
+  }
+  .quiz-search-box {
+    padding: 1rem 1.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    border-radius: 1.2rem;
+    color: #FFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    outline: none;
+    width: 28rem;
+    transition: border-color 0.28s ease, background-color 0.28s ease;
+  }
+  .quiz-search-box:focus {
+    border-color: var(--accent-gold);
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .quiz-pagination-controls {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 1.5rem;
+    margin-top: 2.4rem;
+  }
+  .quiz-page-btn {
+    padding: 0.8rem 1.6rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    border-radius: 1rem;
+    color: #FFF;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.24s ease;
+    outline: none;
+  }
+  .quiz-page-btn:hover:not(:disabled) {
+    border-color: var(--accent-gold);
+    background: rgba(198, 169, 105, 0.15);
+    color: var(--accent-gold);
+  }
+  .quiz-page-btn:disabled {
+    opacity: 0.35;
+    cursor: not-allowed;
+  }
+  .funnel-bar-row {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+  .funnel-bar-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.25rem;
+    font-family: 'Poppins', sans-serif;
+    color: var(--text-muted);
+  }
+  .funnel-bar-outer {
+    width: 100%;
+    height: 1.6rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 999px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .funnel-bar-inner {
+    height: 100%;
+    background: linear-gradient(90deg, #8d6b3d 0%, #c6a969 100%);
+    border-radius: 999px;
+    transition: width 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .archetype-row-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.2rem 1.6rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    border-radius: 1.2rem;
+    transition: transform 0.2s ease, border-color 0.2s ease;
+  }
+  .archetype-row-item:hover {
+    transform: translateX(4px);
+    border-color: rgba(198, 169, 105, 0.2);
+  }
+  .archetype-row-left {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+  }
+  .archetype-row-dot {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 50%;
+  }
+  .archetype-row-name {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: #FFF;
+  }
+  .archetype-row-count {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+  }
+  .participant-match-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    padding: 0.4rem 1rem;
+    border-radius: 999px;
+    border: 1px solid currentColor;
+  }
 {%- endstyle -%}
 
 <div id="AdminPortal-{{ section.id }}">
@@ -1250,6 +1416,13 @@
             <path d="M21 6H3c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h18c1.1 0 2-.9 2-2V8c0-1.1-.9-2-2-2zm0 10H3V8h18v8zM6 9h2v6H6zm10 0h2v6h-2z"/>
           </svg>
           <span>Sizing Sync</span>
+        </button>
+
+        <button type="button" class="menu-item" data-tab="quiz">
+          <svg viewBox="0 0 24 24" class="menu-icon">
+            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/>
+          </svg>
+          <span>Quiz Analytics</span>
         </button>
       </nav>
 
@@ -1381,6 +1554,92 @@
           <button type="button" class="placeholder-action-btn">Initialize Connection Settings</button>
         </div>
       </section>
+
+      <!-- MODULE D: QUIZ PARTICIPATION ANALYTICS -->
+      <section id="tab-quiz" class="tab-view">
+        <div class="view-header">
+          <div class="view-heading-group">
+            <span class="view-eyebrow">Participation Insights</span>
+            <h1>QUIZ PARTICIPATION ANALYTICS</h1>
+            <p>
+              Analyze quiz page traffic, entry referrals, drop-off rates, and final customer personality matches.
+            </p>
+          </div>
+
+          <div class="metrics-row">
+            <div class="metric-card">
+              <span class="metric-num" id="quiz-traffic-badge">0</span>
+              <span class="metric-lbl">Total Views</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num" id="quiz-referrals-badge">0</span>
+              <span class="metric-lbl">Link Clicks</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num" id="quiz-completed-badge">0</span>
+              <span class="metric-lbl">Completions</span>
+            </div>
+            <div class="metric-card">
+              <span class="metric-num" id="quiz-rate-badge">0.0%</span>
+              <span class="metric-lbl">Completion Rate</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="quiz-dashboard-layout">
+          <!-- Funnel Progress Card -->
+          <div class="analytics-card">
+            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #FFF; margin-top: 0; margin-bottom: 2.4rem; letter-spacing: -0.01em; text-transform: uppercase;">At-Least Question Progress (Funnel)</h3>
+            <div id="funnel-container" style="display: flex; flex-direction: column; gap: 1.4rem;">
+              <div class="loading-state">Loading funnel data...</div>
+            </div>
+          </div>
+
+          <!-- Archetypes Breakdown Card -->
+          <div class="analytics-card">
+            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #FFF; margin-top: 0; margin-bottom: 2.4rem; letter-spacing: -0.01em; text-transform: uppercase;">Outcomes Distribution</h3>
+            <div id="outcomes-container" style="display: flex; flex-direction: column; gap: 1.2rem;">
+              <div class="loading-state">Loading outcomes data...</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Participants Table Card -->
+        <div class="analytics-card" style="margin-top: 3.2rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 2rem; margin-bottom: 2.4rem;">
+            <h3 style="font-family: var(--font-heading); font-size: 2rem; color: #FFF; margin: 0; letter-spacing: -0.01em; text-transform: uppercase;">Quiz Participants</h3>
+            <input type="text" id="quiz-search-input" class="quiz-search-box" placeholder="Search by name or email...">
+          </div>
+          <div style="overflow-x: auto;">
+            <table class="analytics-table">
+              <thead>
+                <tr>
+                  <th style="text-align: left; width: 25%;">Participant</th>
+                  <th style="text-align: left; width: 30%;">Email</th>
+                  <th style="text-align: center; width: 15%;">Furthest Step</th>
+                  <th style="text-align: left; width: 18%;">Winning Match</th>
+                  <th style="text-align: left; width: 12%;">Last Activity</th>
+                </tr>
+              </thead>
+              <tbody id="quiz-participants-tbody">
+                <tr>
+                  <td colspan="5" class="loading-state" style="text-align: center; padding: 4rem 0;">Loading participants...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <!-- Pagination Controls -->
+          <div class="quiz-pagination-controls">
+            <button type="button" id="quiz-prev-page-btn" class="quiz-page-btn" disabled>
+              &larr; Previous
+            </button>
+            <span id="quiz-page-info" style="font-family: 'Poppins', sans-serif; font-size: 1.3rem; color: var(--text-muted); font-weight: 700;">Page 1 of 1</span>
+            <button type="button" id="quiz-next-page-btn" class="quiz-page-btn" disabled>
+              Next &rarr;
+            </button>
+          </div>
+        </div>
+      </section>
     </main>
   </div>
 </div>
@@ -1413,6 +1672,12 @@
     // State Management
     let activeTab = 'stories';
     let activeStoriesSubTab = 'pending';
+
+    // Quiz Pagination & Search State
+    let quizCurrentPage = 1;
+    let quizTotalPages = 1;
+    let quizSearchQuery = '';
+    const quizPageLimit = 20;
 
     // ==========================================================================
     // AUTHENTICATION CONTROLLER (GATEKEEPER)
@@ -1622,8 +1887,52 @@
     const loadModuleData = (tabName) => {
       if (tabName === 'stories') {
         loadStories();
+      } else if (tabName === 'quiz') {
+        quizCurrentPage = 1;
+        quizSearchQuery = '';
+        const searchInput = document.getElementById('quiz-search-input');
+        if (searchInput) {
+          searchInput.value = '';
+        }
+        loadQuizAnalytics(quizCurrentPage, quizSearchQuery);
       }
     };
+
+    // Live search for Quiz Participants
+    const searchInput = document.getElementById('quiz-search-input');
+    let searchDebounceTimeout = null;
+    if (searchInput) {
+      searchInput.addEventListener('input', (e) => {
+        clearTimeout(searchDebounceTimeout);
+        searchDebounceTimeout = setTimeout(() => {
+          quizSearchQuery = e.target.value.trim();
+          quizCurrentPage = 1;
+          loadQuizAnalytics(quizCurrentPage, quizSearchQuery);
+        }, 300);
+      });
+    }
+
+    // Pagination Button Click Listeners
+    const prevPageBtn = document.getElementById('quiz-prev-page-btn');
+    const nextPageBtn = document.getElementById('quiz-next-page-btn');
+
+    if (prevPageBtn) {
+      prevPageBtn.addEventListener('click', () => {
+        if (quizCurrentPage > 1) {
+          quizCurrentPage--;
+          loadQuizAnalytics(quizCurrentPage, quizSearchQuery);
+        }
+      });
+    }
+
+    if (nextPageBtn) {
+      nextPageBtn.addEventListener('click', () => {
+        if (quizCurrentPage < quizTotalPages) {
+          quizCurrentPage++;
+          loadQuizAnalytics(quizCurrentPage, quizSearchQuery);
+        }
+      });
+    }
 
     // ==========================================================================
     // STORIES MODULE CONTROLLER (MODERATION BOARD)
@@ -1935,6 +2244,208 @@
       } catch (err) {
         console.error(err);
         alert('Error connecting to server to save publishing settings.');
+      }
+    };
+
+    // ==========================================================================
+    // QUIZ ANALYTICS MODULE CONTROLLER
+    // ==========================================================================
+    const escapeHtml = (str) => {
+      if (!str) return '';
+      return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+    };
+
+    const getArchetypeInfo = (key) => {
+      const archetypeMeta = {
+        coffee: { name: 'Coffee Bean', color: '#8B5E3C' },
+        chilli: { name: 'Chilli Bean', color: '#E63946' },
+        vanilla: { name: 'Vanilla Bean', color: '#D4A85A' },
+        jelly: { name: 'Jelly Bean', color: '#2BB3C0' },
+        green: { name: 'Green Bean', color: '#5BBF3A' },
+      };
+
+      if (archetypeMeta[key]) return archetypeMeta[key];
+      if (key && key.includes('_')) {
+        const parts = key.split('_');
+        const p1 = archetypeMeta[parts[0]];
+        const p2 = archetypeMeta[parts[1]];
+        if (p1 && p2) {
+          return {
+            name: `${p1.name.replace(' Bean', '')} & ${p2.name.replace(' Bean', '')} Blend`,
+            color: p1.color
+          };
+        }
+      }
+      return { name: (key || '').toUpperCase(), color: '#c6a969' };
+    };
+
+    const renderQuizParticipants = (list) => {
+      const tbody = document.getElementById('quiz-participants-tbody');
+      if (!tbody) return;
+
+      if (!list || list.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="5" class="loading-state" style="text-align: center; padding: 4rem 0;">No participants found.</td></tr>';
+        return;
+      }
+
+      let html = '';
+      list.forEach((p) => {
+        const date = new Date(p.updatedAt).toLocaleDateString(undefined, {
+          month: 'short',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit',
+        });
+
+        let stepText = '';
+        if (p.furthestStep === 0) stepText = 'Intro (Welcome)';
+        else if (p.furthestStep === 16) stepText = 'Completed (15/15)';
+        else stepText = `Question ${p.furthestStep} / 15`;
+
+        let matchHtml = '';
+        if (p.isCompleted && p.winningArchetype) {
+          const info = getArchetypeInfo(p.winningArchetype);
+          matchHtml = `<span class="participant-match-badge" style="color: ${info.color};">${info.name}</span>`;
+        } else {
+          matchHtml = `<span style="color: var(--text-muted); font-style: italic;">Incomplete</span>`;
+        }
+
+        html += `
+          <tr>
+            <td style="font-weight: 700; color: #FFF;">${escapeHtml(p.name)}</td>
+            <td>${escapeHtml(p.email)}</td>
+            <td style="text-align: center;">${stepText}</td>
+            <td>${matchHtml}</td>
+            <td>${date}</td>
+          </tr>
+        `;
+      });
+      tbody.innerHTML = html;
+    };
+
+    const loadQuizAnalytics = async (page = 1, search = '') => {
+      try {
+        const trafficBadge = document.getElementById('quiz-traffic-badge');
+        const referralsBadge = document.getElementById('quiz-referrals-badge');
+        const completedBadge = document.getElementById('quiz-completed-badge');
+        const rateBadge = document.getElementById('quiz-rate-badge');
+        const funnelContainer = document.getElementById('funnel-container');
+        const outcomesContainer = document.getElementById('outcomes-container');
+        const tbody = document.getElementById('quiz-participants-tbody');
+        const prevPageBtn = document.getElementById('quiz-prev-page-btn');
+        const nextPageBtn = document.getElementById('quiz-next-page-btn');
+        const pageInfoSpan = document.getElementById('quiz-page-info');
+
+        if (!trafficBadge || !funnelContainer || !outcomesContainer || !tbody) return;
+
+        funnelContainer.innerHTML = '<div class="loading-state">Loading funnel data...</div>';
+        outcomesContainer.innerHTML = '<div class="loading-state">Loading outcomes data...</div>';
+        tbody.innerHTML = '<tr><td colspan="5" class="loading-state" style="text-align: center; padding: 4rem 0;">Loading participants...</td></tr>';
+
+        // Construct query parameters
+        const url = new URL(`${BACKEND_URL}/api/quiz/admin/analytics`);
+        url.searchParams.set('page', page);
+        url.searchParams.set('limit', quizPageLimit);
+        if (search) {
+          url.searchParams.set('search', search);
+        }
+
+        const response = await fetch(url.toString(), {
+          headers: {
+            'x-admin-key': adminSecretKey,
+          },
+        });
+
+        if (!response.ok) {
+          const errData = await response.json();
+          const errMsg = errData.error || 'Failed to fetch quiz analytics.';
+          funnelContainer.innerHTML = `<div class="error-state">${errMsg}</div>`;
+          outcomesContainer.innerHTML = `<div class="error-state">${errMsg}</div>`;
+          tbody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: var(--accent-red); padding: 4rem 0;">${errMsg}</td></tr>`;
+          return;
+        }
+
+        const data = await response.json();
+
+        // Render Stats Badges
+        trafficBadge.textContent = data.totalTraffic;
+        referralsBadge.textContent = data.referralClicks;
+        completedBadge.textContent = data.completedCount;
+        rateBadge.textContent = `${data.completionRate}%`;
+
+        // Render Completion Funnel
+        const totalViews = data.funnel[0] || 1;
+        let funnelHtml = '';
+        for (let i = 0; i <= 16; i++) {
+          const count = data.funnel[i] || 0;
+          const pct = totalViews > 0 ? ((count / totalViews) * 100).toFixed(1) : '0.0';
+          let label = '';
+          if (i === 0) label = 'Welcome / Start Page';
+          else if (i === 16) label = 'Completions (Results Screen)';
+          else label = `Question ${i} Completed`;
+
+          funnelHtml += `
+            <div class="funnel-bar-row">
+              <div class="funnel-bar-meta">
+                <span style="font-weight: 700; color: #FFF;">${label}</span>
+                <span>${count} users (${pct}%)</span>
+              </div>
+              <div class="funnel-bar-outer">
+                <div class="funnel-bar-inner" style="width: ${pct}%;"></div>
+              </div>
+            </div>
+          `;
+        }
+        funnelContainer.innerHTML = funnelHtml;
+
+        // Render Outcomes Breakdown
+        const items = Object.entries(data.archetypeDistribution);
+        if (items.length === 0) {
+          outcomesContainer.innerHTML = '<div class="loading-state">No completed archetype matches yet.</div>';
+        } else {
+          let outcomesHtml = '';
+          items.forEach(([key, count]) => {
+            const info = getArchetypeInfo(key);
+            outcomesHtml += `
+              <div class="archetype-row-item">
+                <div class="archetype-row-left">
+                  <span class="archetype-row-dot" style="background-color: ${info.color}; box-shadow: 0 0 10px ${info.color};"></span>
+                  <span class="archetype-row-name">${info.name}</span>
+                </div>
+                <span class="archetype-row-count">${count}</span>
+              </div>
+            `;
+          });
+          outcomesContainer.innerHTML = outcomesHtml;
+        }
+
+        // Save list and render table
+        window.quizParticipantsList = data.participants;
+        renderQuizParticipants(window.quizParticipantsList);
+
+        // Update Pagination State
+        quizCurrentPage = data.pagination.page;
+        quizTotalPages = data.pagination.pages;
+
+        if (pageInfoSpan) {
+          pageInfoSpan.textContent = `Page ${quizCurrentPage} of ${quizTotalPages}`;
+        }
+        if (prevPageBtn) {
+          prevPageBtn.disabled = quizCurrentPage <= 1;
+        }
+        if (nextPageBtn) {
+          nextPageBtn.disabled = quizCurrentPage >= quizTotalPages;
+        }
+
+      } catch (err) {
+        console.error('Failed to load quiz analytics:', err);
+        funnelContainer.innerHTML = '<div class="error-state">Error loading funnel data.</div>';
+        outcomesContainer.innerHTML = '<div class="error-state">Error loading outcomes data.</div>';
+        tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: var(--accent-red); padding: 4rem 0;">Error fetching analytics.</td></tr>';
       }
     };
 
