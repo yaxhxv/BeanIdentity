@@ -1491,6 +1491,57 @@
       height: 120px;
     }
   }
+
+  /* Quiz Entry Form Styles */
+  .bean-quiz__screen[data-quiz-screen='entry-gate'].is-active {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(18rem, 0.9fr);
+    gap: 2rem;
+    align-items: center;
+  }
+  .bean-quiz__form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    max-width: 42rem;
+    margin-top: 2rem;
+  }
+  .bean-quiz__form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .bean-quiz__form-label {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(245, 245, 245, 0.6);
+  }
+  .bean-quiz__form-input {
+    width: 100%;
+    padding: 1.4rem 1.8rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    color: #f5f5f5;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    outline: none;
+    border-radius: 1.2rem;
+    transition: border-color 0.28s ease, background 0.28s ease;
+  }
+  .bean-quiz__form-input:focus {
+    border-color: #c6a969;
+    background: rgba(255, 255, 255, 0.06);
+  }
+  .bean-quiz__form-error {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    color: #E63946;
+    margin-top: 0.4rem;
+    display: none;
+  }
 {%- endstyle -%}
 
 <section
@@ -1552,6 +1603,34 @@
                 loading="lazy"
               >
             {% endcomment %}
+          </div>
+        </div>
+
+        <div class="bean-quiz__screen" data-quiz-screen="entry-gate">
+          <div class="bean-quiz__welcome-copy">
+            <h2 class="bean-quiz__intro-title">Initialize Scan</h2>
+            <p class="bean-quiz__intro-copy">
+              Please enter your details to begin the archetype scan. This allows us to save your custom personality dossier.
+            </p>
+            <form id="quiz-entry-form" class="bean-quiz__form" novalidate>
+              <div class="bean-quiz__form-group">
+                <label class="bean-quiz__form-label" for="quiz-user-name">Your Name</label>
+                <input class="bean-quiz__form-input" type="text" id="quiz-user-name" required placeholder="e.g. John Doe">
+                <span class="bean-quiz__form-error" id="quiz-name-error">Please enter your name.</span>
+              </div>
+              <div class="bean-quiz__form-group">
+                <label class="bean-quiz__form-label" for="quiz-user-email">Email Address</label>
+                <input class="bean-quiz__form-input" type="email" id="quiz-user-email" required placeholder="e.g. john@example.com">
+                <span class="bean-quiz__form-error" id="quiz-email-error">Please enter a valid email address.</span>
+              </div>
+              <button class="bean-quiz__button" type="submit" style="margin-top: 2rem;">Begin Quiz</button>
+            </form>
+          </div>
+          <div class="bean-quiz__welcome-side">
+            <div class="bean-quiz__welcome-pillars">
+              <span class="bean-quiz__welcome-pill">Details Secure</span>
+              <span class="bean-quiz__welcome-pill">No Spam</span>
+            </div>
           </div>
         </div>
 
@@ -2230,6 +2309,29 @@
     const root = document.querySelector('[data-quiz-root]');
     if (!root) return;
 
+    const getBackendUrl = () => window.beanBackendUrl || 'https://beanidentitybackend.onrender.com';
+
+    // Logged-in customer context injected from Liquid
+    const customer = {
+      isLoggedIn: {% if customer %}true{% else %}false{% endif %},
+      name: {% if customer %}{{ customer.name | json }}{% else %}null{% endif %},
+      email: {% if customer %}{{ customer.email | json }}{% else %}null{% endif %}
+    };
+
+    // Entry Form Elements
+    const entryForm = root.querySelector('#quiz-entry-form');
+    const nameInput = root.querySelector('#quiz-user-name');
+    const emailInput = root.querySelector('#quiz-user-email');
+    const nameError = root.querySelector('#quiz-name-error');
+    const emailError = root.querySelector('#quiz-email-error');
+
+    if (nameInput) {
+      nameInput.value = localStorage.getItem('quiz_user_name') || '';
+    }
+    if (emailInput) {
+      emailInput.value = localStorage.getItem('quiz_user_email') || '';
+    }
+
     const screens = Array.from(root.querySelectorAll('[data-quiz-screen]'));
     const progressBar = root.querySelector('[data-quiz-progress]');
     const stepCount = root.querySelector('[data-quiz-count]');
@@ -2666,13 +2768,87 @@
       carouselDots: [],
       shareUrl: '',
       winningProfile: null,
+      sessionId: null,
+      userName: '',
+      userEmail: '',
     };
 
+    async function initQuizSession(name, email) {
+      state.userName = name;
+      state.userEmail = email;
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const referredByResult = urlParams.get('result') || null;
+
+      try {
+        const response = await fetch(`${getBackendUrl()}/api/quiz/session`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            name,
+            email,
+            referredByResult
+          })
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          state.sessionId = data.sessionId;
+          return true;
+        } else {
+          console.error('Failed to initialize quiz session on backend:', response.statusText);
+        }
+      } catch (err) {
+        console.error('Network error during quiz session init:', err);
+      }
+      return false;
+    }
+
+    async function trackProgress(step) {
+      if (!state.sessionId) return;
+      try {
+        await fetch(`${getBackendUrl()}/api/quiz/session/${state.sessionId}/progress`, {
+          method: 'PUT',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            step,
+            answers: state.answers,
+            scores: state.scores
+          })
+        });
+      } catch (err) {
+        console.error('Error tracking progress:', err);
+      }
+    }
+
+    async function trackCompletion(winner) {
+      if (!state.sessionId) return;
+      try {
+        await fetch(`${getBackendUrl()}/api/quiz/session/${state.sessionId}/complete`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({
+            winningArchetype: winner,
+            answers: state.answers,
+            scores: state.scores
+          })
+        });
+      } catch (err) {
+        console.error('Error tracking completion:', err);
+      }
+    }
+
     function updateProgress() {
-      if (state.current === 'welcome') {
+      if (state.current === 'welcome' || state.current === 'entry-gate') {
         progressBar.style.width = '0%';
         stepCount.textContent = 'Intro';
-        backButton.hidden = true;
+        backButton.hidden = state.current === 'welcome';
         return;
       }
 
@@ -3144,6 +3320,7 @@
       }
 
       localStorage.setItem('bean_identity_result', beanKey);
+      trackCompletion(beanKey);
     }
 
     function parseWeights(weightStr) {
@@ -3176,6 +3353,8 @@
         state.scores[bean] = (state.scores[bean] || 0) + currentWeights[bean];
       }
 
+      trackProgress(step);
+
       optionButton
         .closest('[data-quiz-screen]')
         .querySelectorAll('.bean-quiz__option')
@@ -3205,11 +3384,20 @@
         return;
       }
 
+      if (state.current === 'entry-gate') {
+        showScreen('welcome');
+        return;
+      }
+
       const step = Number(state.current);
       if (step > 1) {
         showScreen(String(step - 1));
       } else {
-        showScreen('welcome');
+        if (customer.isLoggedIn) {
+          showScreen('welcome');
+        } else {
+          showScreen('entry-gate');
+        }
       }
     }
 
@@ -3223,6 +3411,13 @@
         jelly: 0,
         green: 0,
       };
+      state.sessionId = null;
+      state.userName = '';
+      state.userEmail = '';
+      if (nameInput) nameInput.value = localStorage.getItem('quiz_user_name') || '';
+      if (emailInput) emailInput.value = localStorage.getItem('quiz_user_email') || '';
+      if (nameError) nameError.style.display = 'none';
+      if (emailError) emailError.style.display = 'none';
 
       // Carousel state cleanup
       if (state.carouselInterval) {
@@ -3529,10 +3724,66 @@
     }
 
     startButtons.forEach((startButton) => {
-      startButton.addEventListener('click', function () {
-        showScreen('1');
+      startButton.addEventListener('click', async function () {
+        if (customer.isLoggedIn) {
+          const origText = startButton.textContent;
+          startButton.textContent = 'Initializing...';
+          startButton.disabled = true;
+
+          await initQuizSession(customer.name, customer.email);
+
+          startButton.textContent = origText;
+          startButton.disabled = false;
+          showScreen('1');
+        } else {
+          showScreen('entry-gate');
+        }
       });
     });
+
+    if (entryForm) {
+      entryForm.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const name = nameInput.value.trim();
+        const email = emailInput.value.trim();
+
+        let valid = true;
+
+        if (!name) {
+          nameError.style.display = 'block';
+          valid = false;
+        } else {
+          nameError.style.display = 'none';
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!email || !emailRegex.test(email)) {
+          emailError.style.display = 'block';
+          valid = false;
+        } else {
+          emailError.style.display = 'none';
+        }
+
+        if (!valid) return;
+
+        // Save entered details in local storage so they persist for future sessions
+        localStorage.setItem('quiz_user_name', name);
+        localStorage.setItem('quiz_user_email', email);
+
+        const submitBtn = entryForm.querySelector('button[type="submit"]');
+        const origText = submitBtn.textContent;
+        submitBtn.textContent = 'Initializing...';
+        submitBtn.disabled = true;
+
+        await initQuizSession(name, email);
+
+        submitBtn.textContent = origText;
+        submitBtn.disabled = false;
+
+        showScreen('1');
+      });
+    }
 
     if (backButton) {
       backButton.addEventListener('click', goBack);
