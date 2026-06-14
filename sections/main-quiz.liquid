@@ -2771,14 +2771,18 @@
       sessionId: null,
       userName: '',
       userEmail: '',
+      referredByResult: null,
     };
+
+    // Extract referral result parameter on page load before URL parameters are stripped
+    const urlParamsOnLoad = new URLSearchParams(window.location.search);
+    state.referredByResult = urlParamsOnLoad.get('result') || null;
 
     async function initQuizSession(name, email) {
       state.userName = name;
       state.userEmail = email;
 
-      const urlParams = new URLSearchParams(window.location.search);
-      const referredByResult = urlParams.get('result') || null;
+      const referredByResult = state.referredByResult;
 
       try {
         const response = await fetch(`${getBackendUrl()}/api/quiz/session`, {
