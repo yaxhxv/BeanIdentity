@@ -3,6 +3,7 @@
   assign og_url = canonical_url | default: request.origin
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
+  assign og_image_url = blank
 
   if request.page_type == 'product'
     assign og_type = 'product'
@@ -10,6 +11,44 @@
     assign og_type = 'article'
   elsif request.page_type == 'password'
     assign og_url = request.origin
+  endif
+
+  if canonical_url contains 'result='
+    assign shared_result = canonical_url | split: 'result=' | last | split: '&' | first | strip
+    case shared_result
+      when 'coffee'
+        assign og_title = "I got the Coffee Bean archetype! ☕"
+        assign og_description = "Curious, Grounded, Precise. I move with thought, restraint, and depth."
+        assign og_image_name = 'bean-coffee-1.png'
+      when 'chilli'
+        assign og_title = "I got the Chilli Bean archetype! 🔥"
+        assign og_description = "Bold, Fiery, Unfiltered. I lead with instinct, heat, and impact."
+        assign og_image_name = 'bean-chilli-1.png'
+      when 'vanilla'
+        assign og_title = "I got the Vanilla Bean archetype! ✨"
+        assign og_description = "Smooth, Stylish, Fluid. I have range, rhythm, and a polished way of moving."
+        assign og_image_name = 'bean-vanilla-1.png'
+      when 'jelly'
+        assign og_title = "I got the Jelly Bean archetype! 🍬"
+        assign og_description = "Playful, Social, Magnetic. Switched on, socially alive, and naturally expressive."
+        assign og_image_name = 'bean-jelly-1.png'
+      when 'green'
+        assign og_title = "I got the Green Bean archetype! 🌿"
+        assign og_description = "Fresh, Grounded, Open. Lightness without losing shape. Clean, calm, and lived in."
+        assign og_image_name = 'bean-green-1.png'
+      else
+        if shared_result contains '_'
+          assign parts = shared_result | split: '_'
+          assign first_part = parts[0]
+          assign second_part = parts[1]
+          assign og_title = "I got a Dual Blend: " | append: first_part | capitalize | append: " & " | append: second_part | capitalize | append: " Bean!"
+          assign og_description = "A perfect harmony of characteristics. Take the quiz to discover your unique Bean Blend."
+          assign og_image_name = 'bean-' | append: first_part | append: '-1.png'
+        endif
+    endcase
+    if og_image_name != blank
+      assign og_image_url = og_image_name | asset_url
+    endif
   endif
 %}
 
@@ -19,7 +58,10 @@
 <meta property="og:type" content="{{ og_type }}">
 <meta property="og:description" content="{{ og_description | escape }}">
 
-{%- if page_image -%}
+{%- if og_image_url != blank -%}
+  <meta property="og:image" content="http:{{ og_image_url }}">
+  <meta property="og:image:secure_url" content="https:{{ og_image_url }}">
+{%- elsif page_image -%}
   <meta property="og:image" content="http:{{ page_image | image_url }}">
   <meta property="og:image:secure_url" content="https:{{ page_image | image_url }}">
   <meta property="og:image:width" content="{{ page_image.width }}">

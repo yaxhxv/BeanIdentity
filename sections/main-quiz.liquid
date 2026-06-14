@@ -1057,6 +1057,440 @@
       width: 100%;
     }
   }
+
+  /* Social Media Sharing Section CSS */
+  .bean-quiz__share-section {
+    margin-top: 3.2rem;
+    padding: 2.2rem 2.8rem;
+    border: 1px solid var(--result-border, rgba(245, 245, 245, 0.08));
+    background: var(--result-panel, rgba(255, 255, 255, 0.03));
+    border-radius: 2.2rem;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+    text-align: center;
+  }
+
+  .bean-quiz__share-title {
+    margin: 0 0 1.6rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--result-accent, #c6a969);
+  }
+
+  .bean-quiz__share-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+  }
+
+  .bean-quiz__share-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    min-height: 4.8rem;
+    padding: 0 2rem;
+    border-radius: 999px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    text-decoration: none;
+    cursor: pointer;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    color: var(--result-ink, #f5f5f5);
+    transition: transform 0.24s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                background-color 0.24s ease,
+                border-color 0.24s ease,
+                box-shadow 0.24s ease;
+    position: relative;
+  }
+
+  .bean-quiz__share-btn svg {
+    flex-shrink: 0;
+    transition: transform 0.24s ease;
+  }
+
+  .bean-quiz__share-btn:hover {
+    transform: translateY(-0.2rem);
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--result-accent, #c6a969);
+    box-shadow: 0 0.8rem 2rem rgba(0, 0, 0, 0.18);
+  }
+
+  .bean-quiz__share-btn:hover svg {
+    transform: scale(1.1);
+  }
+
+  /* Specific network brand accents on hover */
+  .bean-quiz__share-btn--twitter:hover {
+    border-color: #1da1f2;
+    color: #1da1f2;
+    background: rgba(29, 161, 242, 0.06);
+  }
+  .bean-quiz__share-btn--facebook:hover {
+    border-color: #1877f2;
+    color: #1877f2;
+    background: rgba(24, 119, 242, 0.06);
+  }
+  .bean-quiz__share-btn--whatsapp:hover {
+    border-color: #25d366;
+    color: #25d366;
+    background: rgba(37, 211, 102, 0.06);
+  }
+  .bean-quiz__share-btn--instagram:hover {
+    border-color: #e1306c;
+    color: #e1306c;
+    background: rgba(225, 48, 108, 0.06);
+  }
+
+  /* Copy Button Tooltip */
+  .bean-quiz__share-btn--copy {
+    position: relative;
+  }
+
+  .bean-quiz__share-btn--copy .copied-tooltip {
+    position: absolute;
+    bottom: 120%;
+    left: 50%;
+    transform: translateX(-50%) translateY(0.4rem);
+    background: #000;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: 0.6rem;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    box-shadow: 0 0.8rem 2rem rgba(0,0,0,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.24s ease, transform 0.24s ease;
+    white-space: nowrap;
+    border: 1px solid var(--result-accent, #c6a969);
+  }
+
+  .bean-quiz__share-btn--copy.is-copied .copied-tooltip {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+
+  /* Referred Visitor Banner Styles */
+  .bean-quiz__referred-banner {
+    margin-bottom: 2.2rem;
+    border: 1px solid rgba(198, 169, 105, 0.22);
+    background: rgba(198, 169, 105, 0.06);
+    border-radius: 2rem;
+    padding: 2rem 2.4rem;
+    box-shadow: 0 1rem 3rem rgba(0, 0, 0, 0.15);
+    border-left: 4px solid #c6a969;
+    text-align: left;
+  }
+
+  .bean-quiz__referred-badge {
+    display: inline-block;
+    padding: 0.4rem 1rem;
+    background: #c6a969;
+    color: #0b0b0b;
+    border-radius: 999px;
+    font-size: 0.9rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 1rem;
+  }
+
+  .bean-quiz__referred-title {
+    margin: 0 0 0.6rem;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2rem, 3.5vw, 2.4rem);
+    font-weight: 900;
+    line-height: 1.1;
+    color: #f5f5f5;
+  }
+
+  .bean-quiz__referred-title span {
+    color: #c6a969;
+    text-transform: uppercase;
+  }
+
+  .bean-quiz__referred-desc {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.55;
+    color: rgba(245, 245, 245, 0.72);
+  }
+
+  /* Instagram Modal Dialog CSS */
+  .bean-quiz__insta-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+
+  .bean-quiz__insta-modal:not([hidden]) {
+    display: flex;
+  }
+
+  .bean-quiz__insta-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: opacity 0.3s ease;
+  }
+
+  .bean-quiz__insta-content {
+    position: relative;
+    background: #101010;
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    border-top: 4px solid var(--result-accent, #c6a969);
+    border-radius: 2.8rem;
+    width: 100%;
+    max-width: 600px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4rem 10rem rgba(0, 0, 0, 0.6);
+    padding: 3.6rem;
+    z-index: 2;
+    color: #f5f5f5;
+    animation: instaModalFadeUp 0.4s cubic-bezier(0.25, 1, 0.5, 1) both;
+  }
+
+  .bean-quiz__insta-close-btn {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    background: none;
+    border: none;
+    font-size: 3rem;
+    color: rgba(245, 245, 245, 0.4);
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s ease, transform 0.2s ease;
+  }
+
+  .bean-quiz__insta-close-btn:hover {
+    color: #f5f5f5;
+    transform: rotate(90deg);
+  }
+
+  .bean-quiz__insta-header {
+    text-align: center;
+    margin-bottom: 2.8rem;
+  }
+
+  .bean-quiz__insta-badge {
+    display: inline-block;
+    padding: 0.4rem 1.2rem;
+    border-radius: 999px;
+    font-size: 0.95rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--result-accent, #c6a969);
+    background: rgba(198, 169, 105, 0.08);
+    border: 1px solid rgba(198, 169, 105, 0.15);
+    margin-bottom: 1.2rem;
+  }
+
+  .bean-quiz__insta-title {
+    margin: 0 0 0.8rem;
+    font-family: var(--font-heading-family);
+    font-size: clamp(2.2rem, 4vw, 2.8rem);
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+  }
+
+  .bean-quiz__insta-subtitle {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.5;
+    color: rgba(245, 245, 245, 0.6);
+  }
+
+  .bean-quiz__insta-options {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.8rem;
+  }
+
+  .bean-quiz__insta-option-card {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(245, 245, 245, 0.06);
+    border-radius: 2rem;
+    padding: 1.8rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.6rem;
+  }
+
+  .bean-quiz__insta-preview-placeholder {
+    width: 100%;
+    background: radial-gradient(circle at center, var(--result-glow, rgba(198,169,105,0.18)), transparent), rgba(0,0,0,0.6);
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    border-radius: 1.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: rgba(245, 245, 245, 0.45);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.15rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .bean-quiz__insta-preview--story {
+    aspect-ratio: 9 / 16;
+    height: 180px;
+  }
+
+  .bean-quiz__insta-preview--feed {
+    aspect-ratio: 1 / 1;
+    height: 180px;
+  }
+
+  .preview-card-ratio {
+    position: relative;
+    z-index: 1;
+  }
+
+  .bean-quiz__insta-preview-placeholder::before {
+    content: '★';
+    position: absolute;
+    font-size: 10rem;
+    color: var(--result-accent, #c6a969);
+    opacity: 0.08;
+    line-height: 1;
+  }
+
+  .bean-quiz__insta-download-btn {
+    width: 100%;
+    margin-top: 0;
+    min-height: 4.6rem;
+    font-size: 1.02rem;
+    padding: 0 1.5rem;
+  }
+
+  .bean-quiz__insta-instructions {
+    border-top: 1px solid rgba(245, 245, 245, 0.08);
+    padding-top: 2rem;
+  }
+
+  .bean-quiz__insta-instructions h5 {
+    margin: 0 0 1.2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--result-accent, #c6a969);
+    letter-spacing: 0.05em;
+  }
+
+  .bean-quiz__insta-instructions ol {
+    margin: 0 0 2rem;
+    padding-left: 2rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1.6;
+    color: rgba(245, 245, 245, 0.8);
+  }
+
+  .bean-quiz__insta-instructions li {
+    margin-bottom: 0.8rem;
+  }
+
+  .bean-quiz__insta-instructions li strong {
+    color: #ffffff;
+  }
+
+  .bean-quiz__insta-link-copy {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 1rem;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(245, 245, 245, 0.1);
+    border-radius: 1.2rem;
+    padding: 0.6rem 0.6rem 0.6rem 1.6rem;
+    align-items: center;
+  }
+
+  .bean-quiz__insta-link-input {
+    background: none;
+    border: none;
+    color: rgba(245, 245, 245, 0.6);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.25rem;
+    outline: none;
+    width: 100%;
+    cursor: default;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .bean-quiz__insta-copy-btn {
+    min-height: 3.8rem;
+    padding: 0 1.8rem;
+    background: var(--result-accent, #c6a969);
+    border: none;
+    color: #0b0b0b;
+    border-radius: 0.8rem;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background-color 0.2s ease, transform 0.1s ease;
+  }
+
+  .bean-quiz__insta-copy-btn:hover {
+    background: #ffffff;
+  }
+
+  .bean-quiz__insta-copy-btn:active {
+    transform: scale(0.96);
+  }
+
+  @media screen and (max-width: 749px) {
+    .bean-quiz__insta-content {
+      padding: 2.8rem 2rem;
+      border-radius: 2.2rem;
+    }
+    
+    .bean-quiz__insta-options {
+      grid-template-columns: 1fr;
+      gap: 1.6rem;
+    }
+
+    .bean-quiz__insta-preview-placeholder {
+      height: 120px;
+    }
+  }
 {%- endstyle -%}
 
 <section
@@ -1089,8 +1523,15 @@
       <div class="bean-quiz__panel">
         <div class="bean-quiz__screen is-active" data-quiz-screen="welcome">
           <div class="bean-quiz__welcome-copy">
+            <!-- Referred Welcome Banner (shown dynamically if result query param is present) -->
+            <div class="bean-quiz__referred-banner" data-referred-banner hidden>
+              <span class="bean-quiz__referred-badge">Shared Match</span>
+              <h3 class="bean-quiz__referred-title">Your friend matched with the <span data-referred-match-name></span>!</h3>
+              <p class="bean-quiz__referred-desc" data-referred-match-desc></p>
+            </div>
+
             {% comment %} <h2 class="bean-quiz__intro-title">Find the bean that wears like you.</h2> {% endcomment %}
-            <p class="bean-quiz__intro-copy">
+            <p class="bean-quiz__intro-copy" data-welcome-copy>
               Pick the option that feels most instinctive each time. Do not overthink it. The strongest matches usually
               happen fast.
             </p>
@@ -1678,6 +2119,101 @@
               Retake quiz
             </button>
           </div>
+
+          <!-- Social Media Sharing Block -->
+          <div class="bean-quiz__share-section">
+            <p class="bean-quiz__share-title">Share Your Identity</p>
+            <div class="bean-quiz__share-buttons">
+              <!-- Twitter / X -->
+              <a class="bean-quiz__share-btn bean-quiz__share-btn--twitter" href="#" target="_blank" data-share-twitter aria-label="Share on X (Twitter)">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                </svg>
+                <span>X</span>
+              </a>
+              <!-- Facebook -->
+              <a class="bean-quiz__share-btn bean-quiz__share-btn--facebook" href="#" target="_blank" data-share-facebook aria-label="Share on Facebook">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c4.56-.93 8-4.96 8-9.85z"/>
+                </svg>
+                <span>Share</span>
+              </a>
+              <!-- WhatsApp -->
+              <a class="bean-quiz__share-btn bean-quiz__share-btn--whatsapp" href="#" target="_blank" data-share-whatsapp aria-label="Share on WhatsApp">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946C.057 5.291 5.349 0 11.859 0c3.15 0 6.11 1.229 8.337 3.459a11.785 11.785 0 0 1 3.456 8.349c-.002 6.545-5.3 11.84-11.808 11.84h-.002c-1.996 0-3.957-.507-5.69-1.472L0 24zm6.59-4.846c1.62.962 3.208 1.47 5.269 1.472 5.485 0 9.948-4.468 9.95-9.95.002-2.656-1.03-5.153-2.903-7.027A9.888 9.888 0 0 0 11.857 1.05C6.37 1.05 1.908 5.518 1.906 11c-.001 2.012.525 3.977 1.522 5.711l-.991 3.616 3.71-.973zm12.174-6.864c-.294-.147-1.743-.86-2.012-.958-.268-.098-.463-.147-.658.147-.195.294-.755.958-.926 1.154-.171.195-.341.22-.635.073a9.006 9.006 0 0 1-2.585-1.595 9.902 9.902 0 0 1-1.789-2.227c-.171-.294-.018-.452.129-.597.133-.13.294-.342.44-.514.147-.171.195-.293.293-.489.098-.195.049-.366-.024-.513-.073-.147-.658-1.587-.902-2.173-.238-.573-.48-.494-.658-.503-.171-.008-.366-.01-.561-.01-.195 0-.512.073-.78.366-.268.293-1.024 1.001-1.024 2.441 0 1.439 1.049 2.83 1.195 3.025.147.195 2.064 3.15 5.001 4.417.699.301 1.244.482 1.67.618.702.223 1.34.192 1.845.116.563-.085 1.743-.712 1.987-1.401.244-.689.244-1.28.171-1.401-.073-.122-.268-.195-.561-.342z"/>
+                </svg>
+                <span>WhatsApp</span>
+              </a>
+              <!-- Instagram -->
+              <button class="bean-quiz__share-btn bean-quiz__share-btn--instagram" type="button" data-share-instagram aria-label="Share on Instagram">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.051.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 1 0 0 12.324 6.162 6.162 0 0 0 0-12.324zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm6.406-11.845a1.44 1.44 0 1 0 0 2.881 1.44 1.44 0 0 0 0-2.881z"/>
+                </svg>
+                <span>Instagram</span>
+              </button>
+              <!-- Copy Link -->
+              <button class="bean-quiz__share-btn bean-quiz__share-btn--copy" type="button" data-share-copy aria-label="Copy quiz results link">
+                <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+                  <path d="M19 21H8V7h11m0-2H8a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h11a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2m-3-4H4a2 2 0 0 0-2 2v14h2V3h12V1z"/>
+                </svg>
+                <span class="copy-text">Copy Link</span>
+                <span class="copied-tooltip">Link Copied!</span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Instagram Share Modal Popup -->
+        <div class="bean-quiz__insta-modal" data-insta-modal hidden>
+          <div class="bean-quiz__insta-overlay" data-insta-close></div>
+          <div class="bean-quiz__insta-content">
+            <button class="bean-quiz__insta-close-btn" type="button" data-insta-close aria-label="Close modal">&times;</button>
+            
+            <div class="bean-quiz__insta-header">
+              <span class="bean-quiz__insta-badge">Instagram Share</span>
+              <h4 class="bean-quiz__insta-title">Share Your Identity Card</h4>
+              <p class="bean-quiz__insta-subtitle">Download your customized high-resolution card to share directly to your Instagram Story or Post!</p>
+            </div>
+
+            <!-- Preview Canvas Area (Hidden, used to generate card) -->
+            <canvas id="ShareCanvas" style="display: none;"></canvas>
+
+            <div class="bean-quiz__insta-options">
+              <div class="bean-quiz__insta-option-card">
+                <div class="bean-quiz__insta-preview-placeholder bean-quiz__insta-preview--story">
+                  <div class="preview-card-ratio">9:16 Story Card</div>
+                </div>
+                <button class="bean-quiz__button bean-quiz__insta-download-btn" type="button" data-download-story>
+                  Download Story Card
+                </button>
+              </div>
+
+              <div class="bean-quiz__insta-option-card">
+                <div class="bean-quiz__insta-preview-placeholder bean-quiz__insta-preview--feed">
+                  <div class="preview-card-ratio">1:1 Feed Post</div>
+                </div>
+                <button class="bean-quiz__button bean-quiz__insta-download-btn" type="button" data-download-feed>
+                  Download Post Card
+                </button>
+              </div>
+            </div>
+
+            <div class="bean-quiz__insta-instructions">
+              <h5>How to post:</h5>
+              <ol>
+                <li>Download your preferred card image above.</li>
+                <li>Open Instagram and create a new Story or Post.</li>
+                <li>Select the downloaded image from your gallery.</li>
+                <li>For Stories, add a <strong>Link Sticker</strong> with the link below to let friends take the quiz!</li>
+              </ol>
+              
+              <div class="bean-quiz__insta-link-copy">
+                <input type="text" class="bean-quiz__insta-link-input" data-insta-link-val readonly>
+                <button type="button" class="bean-quiz__insta-copy-btn" data-insta-copy-btn>Copy Link</button>
+              </div>
+            </div>
+          </div>
         </div>
 
         <div class="bean-quiz__footer">
@@ -1713,6 +2249,26 @@
     const resultDirection = root.querySelector('[data-result-direction]');
     const resultPalette = root.querySelector('[data-result-palette]');
     const resultCtaCopy = root.querySelector('[data-result-cta-copy]');
+
+    // Social Sharing & Referred Visitor Elements
+    const referredBanner = root.querySelector('[data-referred-banner]');
+    const referredMatchName = root.querySelector('[data-referred-match-name]');
+    const referredMatchDesc = root.querySelector('[data-referred-match-desc]');
+    const welcomeCopy = root.querySelector('[data-welcome-copy]');
+    const shareTwitter = root.querySelector('[data-share-twitter]');
+    const shareFacebook = root.querySelector('[data-share-facebook]');
+    const shareWhatsApp = root.querySelector('[data-share-whatsapp]');
+    const shareInstagram = root.querySelector('[data-share-instagram]');
+    const shareCopy = root.querySelector('[data-share-copy]');
+    
+    // Instagram Modal Elements
+    const instaModal = root.querySelector('[data-insta-modal]');
+    const instaCloseBtns = Array.from(root.querySelectorAll('[data-insta-close]'));
+    const downloadStoryBtn = root.querySelector('[data-download-story]');
+    const downloadFeedBtn = root.querySelector('[data-download-feed]');
+    const instaLinkInput = root.querySelector('[data-insta-link-val]');
+    const instaCopyBtn = root.querySelector('[data-insta-copy-btn]');
+    const shareCanvas = root.querySelector('#ShareCanvas');
 
     const archetypes = {
       coffee: {
@@ -2108,6 +2664,8 @@
       carouselManualPaused: false,
       carouselLayers: [],
       carouselDots: [],
+      shareUrl: '',
+      winningProfile: null,
     };
 
     function updateProgress() {
@@ -2551,6 +3109,40 @@
         });
       }
 
+      // Compute dynamic share URL & message
+      const currentUrl = new URL(window.location.href);
+      currentUrl.searchParams.delete('result'); // Remove existing result
+      const resultKey = isDualBlend ? `${primary[0]}_${secondary[0]}` : beanKey;
+      currentUrl.searchParams.set('result', resultKey);
+      state.shareUrl = currentUrl.toString();
+
+      // Store winning details in state for canvas generation
+      state.winningProfile = {
+        key: resultKey,
+        title: activeTitle,
+        desc: activeDesc,
+        traits: data.traits,
+        accent: data.accent,
+        ink: data.ink
+      };
+
+      const shareText = isDualBlend 
+        ? `I am a Dual Blend: ${activeTitle}! 🌊 Which bean are you? Take the quiz to find out:`
+        : `I got the ${activeTitle} archetype! ☕ Which bean are you? Take the quiz to find out:`;
+
+      if (shareTwitter) {
+        shareTwitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(state.shareUrl)}`;
+      }
+      if (shareFacebook) {
+        shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(state.shareUrl)}`;
+      }
+      if (shareWhatsApp) {
+        shareWhatsApp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + state.shareUrl)}`;
+      }
+      if (instaLinkInput) {
+        instaLinkInput.value = state.shareUrl;
+      }
+
       localStorage.setItem('bean_identity_result', beanKey);
     }
 
@@ -2656,6 +3248,284 @@
       });
 
       showScreen('welcome');
+    }
+
+    // Wrap text helper for canvas drawing
+    function wrapText(ctx, text, x, y, maxWidth, lineHeight) {
+      const words = text.split(' ');
+      let line = '';
+      let currentY = y;
+      for (let n = 0; n < words.length; n++) {
+        let testLine = line + words[n] + ' ';
+        let metrics = ctx.measureText(testLine);
+        let testWidth = metrics.width;
+        if (testWidth > maxWidth && n > 0) {
+          ctx.fillText(line, x, currentY);
+          line = words[n] + ' ';
+          currentY += lineHeight;
+        } else {
+          line = testLine;
+        }
+      }
+      ctx.fillText(line, x, currentY);
+      return currentY;
+    }
+
+    // HEX to RGB color helper
+    function hexToRgb(hex) {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+      } : null;
+    }
+
+    // Canvas drawing matching brand aesthetics
+    function generateShareCard(isStory, callback) {
+      const profile = state.winningProfile;
+      if (!profile) return;
+
+      const width = 1080;
+      const height = isStory ? 1920 : 1080;
+      
+      const canvas = shareCanvas;
+      if (!canvas) return;
+      canvas.width = width;
+      canvas.height = height;
+      const ctx = canvas.getContext('2d');
+
+      // 1. Draw Background
+      ctx.fillStyle = '#080808';
+      ctx.fillRect(0, 0, width, height);
+
+      // Radial Glow matching archetype accent
+      const gradient = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, width * 0.7);
+      const rgb = hexToRgb(profile.accent || '#c6a969');
+      const rgbaGlow = rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)` : 'rgba(198, 169, 105, 0.15)';
+      gradient.addColorStop(0, rgbaGlow);
+      gradient.addColorStop(1, 'rgba(8, 8, 8, 0)');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+
+      // 2. Draw Grid Lines (sleek brand aesthetics)
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+      ctx.lineWidth = 1;
+      const gridSize = 80;
+      for (let x = 0; x < width; x += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(x, 0);
+        ctx.lineTo(x, height);
+        ctx.stroke();
+      }
+      for (let y = 0; y < height; y += gridSize) {
+        ctx.beginPath();
+        ctx.moveTo(0, y);
+        ctx.lineTo(width, y);
+        ctx.stroke();
+      }
+
+      // 3. Draw Outer Inset Border Card
+      ctx.strokeStyle = profile.accent || '#c6a969';
+      ctx.lineWidth = 2;
+      ctx.globalAlpha = 0.35;
+      const margin = isStory ? 50 : 40;
+      ctx.strokeRect(margin, margin, width - margin * 2, height - margin * 2);
+      ctx.globalAlpha = 1.0;
+
+      // 4. Header: Brand Logo
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 28px "Poppins", sans-serif';
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+      ctx.fillText('BEAN IDENTITY', width / 2, isStory ? 180 : 120);
+
+      // Underline decoration
+      ctx.strokeStyle = profile.accent || '#c6a969';
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.moveTo(width / 2 - 60, isStory ? 210 : 145);
+      ctx.lineTo(width / 2 + 60, isStory ? 210 : 145);
+      ctx.stroke();
+
+      // 5. Match kicker
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.font = '800 16px "Poppins", sans-serif';
+      ctx.fillText('MY PERSONALITY MATCH', width / 2, isStory ? 360 : 230);
+
+      // 6. Match Title
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 68px "Poppins", sans-serif';
+      const titleY = isStory ? 440 : 310;
+      if (profile.title.length > 20) {
+        ctx.font = '900 50px "Poppins", sans-serif';
+      }
+      ctx.fillText(profile.title.toUpperCase(), width / 2, titleY);
+
+      // 7. Traits
+      ctx.fillStyle = profile.accent || '#c6a969';
+      ctx.font = '800 20px "Poppins", sans-serif';
+      const traitsText = profile.traits.join('  ★  ').toUpperCase();
+      ctx.fillText(traitsText, width / 2, isStory ? 530 : 380);
+
+      // 8. Description
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+      ctx.font = '500 24px "Poppins", sans-serif';
+      const descMaxWidth = width - (isStory ? 240 : 180);
+      const descLineHeight = 38;
+      const descStartY = isStory ? 640 : 450;
+      wrapText(ctx, profile.desc, width / 2, descStartY, descMaxWidth, descLineHeight);
+
+      // 9. Donut Chart
+      const donutCenterY = isStory ? 1160 : 720;
+      const donutRadius = isStory ? 160 : 110;
+      const donutThickness = isStory ? 24 : 16;
+      ctx.lineWidth = donutThickness;
+      ctx.lineCap = 'round';
+
+      // Circle track
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+      ctx.beginPath();
+      ctx.arc(width / 2, donutCenterY, donutRadius, 0, Math.PI * 2);
+      ctx.stroke();
+
+      // Draw Segments based on scores
+      const sortedDisplay = calculatePercentages();
+      let accumulatedAngle = -Math.PI / 2;
+      sortedDisplay.forEach(([key, pct]) => {
+        if (pct > 0) {
+          const angleRange = (pct / 100) * Math.PI * 2;
+          ctx.strokeStyle = archetypes[key].accent;
+          ctx.beginPath();
+          ctx.arc(width / 2, donutCenterY, donutRadius, accumulatedAngle, accumulatedAngle + angleRange);
+          ctx.stroke();
+          accumulatedAngle += angleRange;
+        }
+      });
+
+      // Donut Inner Text
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 48px "Poppins", sans-serif';
+      ctx.fillText(`${sortedDisplay[0][1]}%`, width / 2, donutCenterY - 10);
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+      ctx.font = '800 14px "Poppins", sans-serif';
+      ctx.fillText('PRIMARY', width / 2, donutCenterY + 25);
+
+      // 10. Footer CTA
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+      ctx.font = '800 15px "Poppins", sans-serif';
+      ctx.fillText('FIND YOUR BEAN IDENTITY', width / 2, isStory ? 1680 : 940);
+
+      ctx.fillStyle = profile.accent || '#c6a969';
+      ctx.font = '800 20px "Poppins", sans-serif';
+      ctx.fillText((window.location.host + window.location.pathname).toUpperCase(), width / 2, isStory ? 1730 : 980);
+
+      // Callback
+      const dataUrl = canvas.toDataURL('image/png');
+      if (callback) callback(dataUrl);
+    }
+
+    // Modal visibility handlers
+    function openInstaModal() {
+      if (!instaModal) return;
+      
+      // Dynamically override modal styling colors based on winning profile
+      const profile = state.winningProfile;
+      if (profile) {
+        instaModal.style.setProperty('--result-accent', profile.accent);
+        instaModal.style.setProperty('--result-ink', profile.ink);
+      }
+
+      instaModal.removeAttribute('hidden');
+      
+      if (instaLinkInput) {
+        instaLinkInput.value = state.shareUrl;
+      }
+
+      // Generate preview canvases and display
+      generateShareCard(true, (dataUrl) => {
+        const preview = instaModal.querySelector('.bean-quiz__insta-preview--story');
+        if (preview) {
+          preview.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" alt="Story Card Preview">`;
+        }
+      });
+
+      generateShareCard(false, (dataUrl) => {
+        const preview = instaModal.querySelector('.bean-quiz__insta-preview--feed');
+        if (preview) {
+          preview.innerHTML = `<img src="${dataUrl}" style="width:100%; height:100%; object-fit:cover; border-radius:inherit;" alt="Feed Card Preview">`;
+        }
+      });
+    }
+
+    function closeInstaModal() {
+      if (instaModal) {
+        instaModal.setAttribute('hidden', '');
+      }
+    }
+
+    function downloadCard(isStory) {
+      generateShareCard(isStory, (dataUrl) => {
+        const link = document.createElement('a');
+        const fileName = `${state.winningProfile.key}_bean_${isStory ? 'story' : 'post'}.png`;
+        link.download = fileName;
+        link.href = dataUrl;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      });
+    }
+
+    // URL query check on page load
+    function checkReferredVisitor() {
+      const urlParams = new URLSearchParams(window.location.search);
+      const resultParam = urlParams.get('result');
+      if (resultParam) {
+        let details = null;
+        let name = '';
+        let desc = '';
+        
+        if (resultParam.includes('_')) {
+          const parts = resultParam.split('_');
+          const primaryKey = parts[0];
+          const secondaryKey = parts[1];
+          const blendKey = `${primaryKey}_${secondaryKey}`;
+          const blendData = dualBlends[blendKey];
+          if (blendData) {
+            name = blendData.title;
+            desc = `Your friend matches as a Dual Blend! A perfect harmony of characteristics. Take the quiz to discover your unique Bean Blend.`;
+          }
+        } else if (archetypes[resultParam]) {
+          details = archetypes[resultParam];
+          name = details.name;
+          desc = `Your friend matches as a ${details.name}! ${details.description}`;
+        }
+
+        if (name && desc) {
+          if (referredBanner) {
+            referredBanner.removeAttribute('hidden');
+          }
+          if (referredMatchName) {
+            referredMatchName.textContent = name;
+          }
+          if (referredMatchDesc) {
+            referredMatchDesc.textContent = desc;
+          }
+          if (welcomeCopy) {
+            welcomeCopy.textContent = "Your friend shared their results with you! Pick the option that feels most instinctive to discover your own matching Bean archetype.";
+          }
+          
+          startButtons.forEach((startBtn) => {
+            startBtn.textContent = 'Find Your Bean Identity';
+            startBtn.addEventListener('click', () => {
+              const cleanUrl = new URL(window.location.href);
+              cleanUrl.searchParams.delete('result');
+              window.history.replaceState({}, document.title, cleanUrl.toString());
+              referredBanner.setAttribute('hidden', '');
+            }, { once: true });
+          });
+        }
+      }
     }
 
     startButtons.forEach((startButton) => {
@@ -2883,6 +3753,52 @@
         showScreen('result');
       });
     }
+
+    // Share buttons event listeners registration
+    if (shareCopy) {
+      shareCopy.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(state.shareUrl).then(() => {
+            shareCopy.classList.add('is-copied');
+            setTimeout(() => {
+              shareCopy.classList.remove('is-copied');
+            }, 2000);
+          });
+        }
+      });
+    }
+
+    if (shareInstagram) {
+      shareInstagram.addEventListener('click', openInstaModal);
+    }
+
+    instaCloseBtns.forEach(btn => {
+      btn.addEventListener('click', closeInstaModal);
+    });
+
+    if (downloadStoryBtn) {
+      downloadStoryBtn.addEventListener('click', () => downloadCard(true));
+    }
+
+    if (downloadFeedBtn) {
+      downloadFeedBtn.addEventListener('click', () => downloadCard(false));
+    }
+
+    if (instaCopyBtn && instaLinkInput) {
+      instaCopyBtn.addEventListener('click', () => {
+        if (navigator.clipboard) {
+          navigator.clipboard.writeText(instaLinkInput.value).then(() => {
+            instaCopyBtn.textContent = 'COPIED!';
+            setTimeout(() => {
+              instaCopyBtn.textContent = 'COPY LINK';
+            }, 2000);
+          });
+        }
+      });
+    }
+
+    // Check for shared results query parameter on load
+    checkReferredVisitor();
 
     showScreen('welcome');
   })();
