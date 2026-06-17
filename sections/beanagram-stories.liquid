@@ -621,6 +621,23 @@
     z-index: 10;
   }
 
+  /* Success Active State Layout Adjustments */
+  .story-modal-overlay.success-active .story-modal-title,
+  .story-modal-overlay.success-active .story-modal-subtitle,
+  .story-modal-overlay.success-active #story-submission-form,
+  .story-modal-overlay.success-active #story-upload-progress {
+    display: none !important;
+  }
+
+  .story-modal-overlay.success-active .story-success-overlay {
+    position: relative;
+    height: auto;
+    min-height: 280px;
+    background: transparent;
+    padding: 2rem 0;
+    z-index: 1;
+  }
+
   .success-icon-wrapper {
     width: 6.8rem;
     height: 6.8rem;
@@ -927,6 +944,23 @@
     border-radius: 2px;
     overflow: hidden;
     position: relative;
+    cursor: pointer;
+    transition: height 0.2s ease, background-color 0.2s ease;
+  }
+
+  /* Expand clickable hit area on mobile/desktop without changing visual height */
+  .beanagram-progress-segment::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    bottom: -10px;
+    left: 0;
+    right: 0;
+  }
+
+  .beanagram-progress-segment:hover {
+    height: 6px;
+    background: rgba(245, 245, 245, 0.24);
   }
 
   .beanagram-progress-fill {
@@ -1170,10 +1204,47 @@
     .beanagram-displayer-content {
       flex-direction: column;
       gap: 2rem;
+      position: relative;
     }
     
     .beanagram-nav-btn {
-      display: none; /* Hide desktop nav buttons on mobile */
+      display: flex; /* Show buttons on mobile */
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 15;
+      width: 4.6rem;
+      height: 4.6rem;
+      background: rgba(20, 20, 20, 0.75);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      border-radius: 50%;
+      color: #ffffff;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+      transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .beanagram-nav-btn svg {
+      width: 2.2rem;
+      height: 2.2rem;
+      fill: currentColor;
+    }
+
+    .beanagram-nav-btn:hover,
+    .beanagram-nav-btn:active {
+      background: var(--active-accent, #C6A969);
+      border-color: var(--active-accent, #C6A969);
+      color: #000000;
+      transform: translateY(-50%) scale(1.05);
+    }
+
+    .beanagram-nav-btn.prev {
+      left: 1.5rem;
+    }
+
+    .beanagram-nav-btn.next {
+      right: 1.5rem;
     }
     
     .beanagram-single-card {
@@ -1778,6 +1849,9 @@
           setTimeout(() => {
             progressContainer.style.display = 'none';
             successOverlay.style.display = 'flex';
+            if (modalOverlay) {
+              modalOverlay.classList.add('success-active');
+            }
           }, 300);
         } else {
           alert(result.error || 'Failed to submit story. Please try again.');
@@ -1802,6 +1876,9 @@
       progressContainer.style.display = 'none';
       successOverlay.style.display = 'none';
       progressFill.style.width = '0%';
+      if (modalOverlay) {
+        modalOverlay.classList.remove('success-active');
+      }
 
       selectedImages = [];
       selectedVideo = null;
@@ -1943,6 +2020,9 @@
         const segment = document.createElement('div');
         segment.className = 'beanagram-progress-segment';
         segment.innerHTML = `<div class="beanagram-progress-fill" id="progress-fill-${idx}"></div>`;
+        segment.addEventListener('click', () => {
+          goToStory(idx);
+        });
         progressIndicator.appendChild(segment);
       });
     };
@@ -2164,16 +2244,18 @@
       });
     };
 
-    const nextStory = () => {
+    const goToStory = (idx) => {
       cleanupActiveMedia();
-      currentStoryIndex = (currentStoryIndex + 1) % currentStories.length;
+      currentStoryIndex = idx;
       renderActiveStory();
     };
 
+    const nextStory = () => {
+      goToStory((currentStoryIndex + 1) % currentStories.length);
+    };
+
     const prevStory = () => {
-      cleanupActiveMedia();
-      currentStoryIndex = (currentStoryIndex - 1 + currentStories.length) % currentStories.length;
-      renderActiveStory();
+      goToStory((currentStoryIndex - 1 + currentStories.length) % currentStories.length);
     };
 
     const cleanupActiveMedia = () => {
