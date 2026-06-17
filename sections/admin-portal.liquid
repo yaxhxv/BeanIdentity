@@ -2303,8 +2303,8 @@
 
         let stepText = '';
         if (p.furthestStep === 0) stepText = 'Intro (Welcome)';
-        else if (p.furthestStep === 16) stepText = 'Completed (15/15)';
-        else stepText = `Question ${p.furthestStep} / 15`;
+        else if (p.furthestStep === 9) stepText = 'Completed (8/8)';
+        else stepText = `Question ${p.furthestStep} / 8`;
 
         let matchHtml = '';
         if (p.isCompleted && p.winningArchetype) {
@@ -2380,12 +2380,12 @@
         // Render Completion Funnel
         const totalViews = data.funnel[0] || 1;
         let funnelHtml = '';
-        for (let i = 0; i <= 16; i++) {
+        for (let i = 0; i <= 9; i++) {
           const count = data.funnel[i] || 0;
           const pct = totalViews > 0 ? ((count / totalViews) * 100).toFixed(1) : '0.0';
           let label = '';
           if (i === 0) label = 'Welcome / Start Page';
-          else if (i === 16) label = 'Completions (Results Screen)';
+          else if (i === 9) label = 'Completions (Results Screen)';
           else label = `Question ${i} Completed`;
 
           funnelHtml += `
