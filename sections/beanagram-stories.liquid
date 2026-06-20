@@ -975,7 +975,9 @@
   }
 
   .beanagram-displayer-content {
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-template-rows: auto auto;
     align-items: center;
     justify-content: center;
     gap: 3rem;
@@ -997,6 +999,23 @@
     flex-shrink: 0;
   }
 
+  .beanagram-nav-btn.prev {
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .beanagram-nav-btn.next {
+    grid-column: 3;
+    grid-row: 1;
+  }
+
+  .beanagram-displayer-content .beanagram-cta-wrapper {
+    grid-column: 2;
+    grid-row: 2;
+    justify-self: center;
+    margin-top: 4rem;
+  }
+
   .beanagram-nav-btn:hover {
     background: var(--active-accent, #C6A969);
     border-color: var(--active-accent, #C6A969);
@@ -1007,7 +1026,8 @@
 
   /* Active Story Card Display Frame */
   .beanagram-active-card-frame {
-    flex-grow: 1;
+    grid-column: 2;
+    grid-row: 1;
     min-height: 48rem;
     background: rgba(245, 245, 245, 0.02);
     border: 1px solid rgba(245, 245, 245, 0.08);
@@ -1202,16 +1222,30 @@
   /* Mobile Responsive Stacking */
   @media screen and (max-width: 768px) {
     .beanagram-displayer-content {
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto auto;
       gap: 2rem;
       position: relative;
     }
     
+    .beanagram-active-card-frame {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+      width: 100%;
+    }
+    
+    .beanagram-displayer-content .beanagram-cta-wrapper {
+      grid-column: 1 / span 2;
+      grid-row: 2;
+      justify-self: center;
+      margin-top: 1rem;
+    }
+    
     .beanagram-nav-btn {
       display: flex; /* Show buttons on mobile */
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      position: static;
+      transform: none;
       z-index: 15;
       width: 4.6rem;
       height: 4.6rem;
@@ -1223,6 +1257,7 @@
       align-items: center;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
       transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+      grid-row: 3;
     }
 
     .beanagram-nav-btn svg {
@@ -1236,15 +1271,21 @@
       background: var(--active-accent, #C6A969);
       border-color: var(--active-accent, #C6A969);
       color: #000000;
-      transform: translateY(-50%) scale(1.05);
+      transform: scale(1.05);
     }
 
     .beanagram-nav-btn.prev {
-      left: 1.5rem;
+      grid-column: 1;
+      grid-row: 3;
+      justify-self: end;
+      margin-right: 1.5rem;
     }
 
     .beanagram-nav-btn.next {
-      right: 1.5rem;
+      grid-column: 2;
+      grid-row: 3;
+      justify-self: start;
+      margin-left: 1.5rem;
     }
     
     .beanagram-single-card {
@@ -1361,6 +1402,11 @@
         <svg viewBox="0 0 24 24"><path d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg>
       </button>
       <div class="beanagram-active-card-frame" id="beanagram-active-card-frame"></div>
+      
+      <div class="beanagram-cta-wrapper displayer-cta">
+        <button type="button" class="beanagram-cta open-story-modal-trigger" id="open-story-modal-displayer">{{ section.settings.cta_label }}</button>
+      </div>
+
       <button type="button" class="beanagram-nav-btn next" id="beanagram-next-btn" aria-label="Next Story">
         <svg viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
       </button>
@@ -1414,8 +1460,8 @@
     {%- endfor -%}
   </div>
 
-  <div class="beanagram-cta-wrapper">
-    <button type="button" class="beanagram-cta" id="open-story-modal">{{ section.settings.cta_label }}</button>
+  <div class="beanagram-cta-wrapper fallback-cta">
+    <button type="button" class="beanagram-cta open-story-modal-trigger" id="open-story-modal">{{ section.settings.cta_label }}</button>
   </div>
 </div>
 
@@ -1604,7 +1650,7 @@
     const BACKEND_URL = window.beanBackendUrl || 'https://beanidentitybackend.onrender.com';
 
     // Elements
-    const openModalBtn = document.getElementById('open-story-modal');
+    const openModalBtns = document.querySelectorAll('.open-story-modal-trigger, #open-story-modal, #open-story-modal-displayer');
     const closeModalBtn = document.getElementById('close-story-modal');
     const modalOverlay = document.getElementById('story-modal');
     const storyForm = document.getElementById('story-submission-form');
@@ -1631,13 +1677,13 @@
     let selectedVideo = null;
 
     // 1. OPEN / CLOSE MODAL
-    if (openModalBtn) {
-      openModalBtn.addEventListener('click', (e) => {
+    openModalBtns.forEach((btn) => {
+      btn.addEventListener('click', (e) => {
         e.preventDefault();
         modalOverlay.classList.add('open');
         document.body.style.overflow = 'hidden';
       });
-    }
+    });
 
     const closeModal = () => {
       modalOverlay.classList.remove('open');
@@ -2005,6 +2051,11 @@
       if (currentStories.length > 0) {
         // Initialize single-story view
         if (staticTrack) staticTrack.style.display = 'none';
+        
+        // Hide fallback CTA and show displayer
+        const fallbackCta = document.querySelector('.beanagram-cta-wrapper.fallback-cta');
+        if (fallbackCta) fallbackCta.style.display = 'none';
+        
         if (displayerWrapper) displayerWrapper.style.display = 'block';
 
         initProgressIndicator();
