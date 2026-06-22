@@ -2100,6 +2100,17 @@
     const root = document.querySelector('[data-quiz-root]');
     if (!root) return;
 
+    // Inject Logo settings from Shopify admin
+    const storeLogoUrl = {% if settings.logo != blank %}{{ settings.logo | image_url: width: 500 | json }}{% else %}""{% endif %};
+    const storeLogoAspectRatio = {% if settings.logo != blank %}{{ settings.logo.aspect_ratio }}{% else %}1{% endif %};
+    
+    // Preload Logo image
+    const logoImg = new Image();
+    if (storeLogoUrl) {
+      logoImg.crossOrigin = 'anonymous';
+      logoImg.src = storeLogoUrl;
+    }
+
     const getBackendUrl = () => window.beanBackendUrl || 'https://beanidentitybackend.onrender.com';
 
     // Logged-in customer context injected from Liquid
@@ -2538,6 +2549,109 @@
         misunderstood:
           'That your warmth is effortless. It isn’t. You’ve done a lot of internal work to show up the way you do. You just don’t need credit for it.',
       },
+    };
+
+    const shareMessages = {
+      green: {
+        title: "Turns out I'm a Green Bean",
+        desc: "The calm in the chaos, and always at peace"
+      },
+      coffee: {
+        title: "Turns out I'm a Coffee Bean",
+        desc: "Thoughtful. Intentional. Always looking deeper"
+      },
+      chilli: {
+        title: "Turns out I'm a Chilli Bean",
+        desc: "Bold. Independent. Unafraid to stand out."
+      },
+      vanilla: {
+        title: "Turns out I'm a Vanilla Bean",
+        desc: "Curious. Free-spirited. Open to new adventures"
+      },
+      jelly: {
+        title: "Turns out, I'm a Jelly Bean",
+        desc: "Expressive. Vibrant. Impossible to ignore"
+      },
+      green_coffee: {
+        title: "Turns out, I'm a Green + Coffee Blend",
+        desc: "Calm on the outside. Thoughtful on the inside."
+      },
+      green_vanilla: {
+        title: "Turns out, I'm a Green + Vanilla Blend",
+        desc: "Grounded enough to stay centred. Curious enough to keep exploring."
+      },
+      green_jelly: {
+        title: "Turns out, I'm a Green + Jelly Blend",
+        desc: "Warm-hearted, easy-going, and full of life."
+      },
+      green_chilli: {
+        title: "Turns out, I'm a Green + Chilli Blend",
+        desc: "Calm by choice. Strong by nature"
+      },
+      coffee_vanilla: {
+        title: "Turns out, I'm a Coffee + Vanilla Blend",
+        desc: "Thoughtful, curious, and always evolving."
+      },
+      coffee_jelly: {
+        title: "Turns out, I'm a Coffee + Jelly Blend",
+        desc: "Deep thinker. Bright spirit."
+      },
+      coffee_chilli: {
+        title: "Turns out, I'm a Coffee + Chilli Blend",
+        desc: "Reflective. Direct. Unapologetically myself."
+      },
+      vanilla_jelly: {
+        title: "Turns out, I'm a Vanilla + Jelly Blend",
+        desc: "Spontaneous, expressive, and hard to put in a box."
+      },
+      vanilla_chilli: {
+        title: "Turns out, I'm a Vanilla + Chilli Blend",
+        desc: "Bold enough to explore. Free enough to be myself"
+      },
+      jelly_chilli: {
+        title: "Turns out, I'm a Jelly + Chilli Blend",
+        desc: "Confident. Passionate. Full of personality."
+      },
+      coffee_green: {
+        title: "Turns out, I'm a Coffee + Green Blend",
+        desc: "Thoughtful by nature. Grounded in every situation."
+      },
+      vanilla_green: {
+        title: "Turns out, I'm a Vanilla + Green Blend",
+        desc: "Curious enough to explore. Calm enough to enjoy the journey"
+      },
+      jelly_green: {
+        title: "Turns out, I'm a Jelly + Green Blend",
+        desc: "Full of life, with a calming presence"
+      },
+      chilli_green: {
+        title: "Turns out, I'm a Chilli + Green Blend",
+        desc: "Bold on the outside. Balanced at the core."
+      },
+      vanilla_coffee: {
+        title: "Turns out, I'm a Coffee + Vanilla Blend",
+        desc: "Thoughtful, curious, and always questioning what's next."
+      },
+      jelly_vanilla: {
+        title: "Turns out, I'm a Jelly + Vanilla Blend",
+        desc: "Expressive, adventurous, and always up for something new."
+      },
+      chilli_vanilla: {
+        title: "Turns out, I'm a Chilli + Vanilla Blend",
+        desc: "Bold enough to take risks. Curious enough to chase them."
+      },
+      jelly_coffee: {
+        title: "Turns out, I'm a Jelly + Coffee Blend",
+        desc: "Vibrant on the surface. Thoughtful underneath."
+      },
+      chilli_coffee: {
+        title: "Turns out, I'm a Chilli + Coffee Blend",
+        desc: "Direct in my approach. Intentional in my actions."
+      },
+      chilli_jelly: {
+        title: "Turns out, I'm a Chilli + Jelly Blend",
+        desc: "Confident, expressive, and impossible to overlook."
+      }
     };
 
     const state = {
@@ -3126,7 +3240,7 @@
       // Compute dynamic share URL & message
       const currentUrl = new URL(window.location.href);
       currentUrl.searchParams.delete('result'); // Remove existing result
-      const resultKey = isDualBlend ? `${primary[0]}_${secondary[0]}` : beanKey;
+      const resultKey = (isTrueBlend || isDualBlend) ? `${primary[0]}_${secondary[0]}` : beanKey;
       currentUrl.searchParams.set('result', resultKey);
       state.shareUrl = currentUrl.toString();
 
@@ -3137,21 +3251,26 @@
         desc: activeDesc,
         traits: data.traits,
         accent: data.accent,
-        ink: data.ink
+        ink: data.ink,
+        gif: data.gif
       };
 
-      const shareText = isDualBlend 
-        ? `I am a Dual Blend: ${activeTitle}! 🌊 Which bean are you? Take the quiz to find out:`
-        : `I got the ${activeTitle} archetype! ☕ Which bean are you? Take the quiz to find out:`;
+      const msgData = shareMessages[resultKey] || {
+        title: (isTrueBlend || isDualBlend) ? `Turns out, I'm a ${activeTitle}` : `Turns out I'm a ${activeTitle}`,
+        desc: activeDesc
+      };
+
+      const tweetText = `${msgData.title}\n${msgData.desc}\nWhat's your Bean? 👀 Take the quiz to find out:`;
+      const whatsAppText = `${msgData.title}\n${msgData.desc}\nWhat's your Bean? 👀 Take the quiz to find out:\n${state.shareUrl}`;
 
       if (shareTwitter) {
-        shareTwitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(state.shareUrl)}`;
+        shareTwitter.href = `https://twitter.com/intent/tweet?text=${encodeURIComponent(tweetText)}&url=${encodeURIComponent(state.shareUrl)}`;
       }
       if (shareFacebook) {
         shareFacebook.href = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(state.shareUrl)}`;
       }
       if (shareWhatsApp) {
-        shareWhatsApp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText + ' ' + state.shareUrl)}`;
+        shareWhatsApp.href = `https://api.whatsapp.com/send?text=${encodeURIComponent(whatsAppText)}`;
       }
       if (instaLinkInput) {
         instaLinkInput.value = state.shareUrl;
@@ -3336,134 +3455,358 @@
       canvas.height = height;
       const ctx = canvas.getContext('2d');
 
-      // 1. Draw Background
-      ctx.fillStyle = '#080808';
-      ctx.fillRect(0, 0, width, height);
+      // Load Bean Image asynchronously
+      const beanImg = new Image();
+      beanImg.crossOrigin = 'anonymous';
+      
+      let drawingDone = false;
+      const drawCanvasElements = () => {
+        if (drawingDone) return;
+        drawingDone = true;
 
-      // Radial Glow matching archetype accent
-      const gradient = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, width * 0.7);
-      const rgb = hexToRgb(profile.accent || '#c6a969');
-      const rgbaGlow = rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)` : 'rgba(198, 169, 105, 0.15)';
-      gradient.addColorStop(0, rgbaGlow);
-      gradient.addColorStop(1, 'rgba(8, 8, 8, 0)');
-      ctx.fillStyle = gradient;
-      ctx.fillRect(0, 0, width, height);
+        if (isStory) {
+          // 1. Draw Background
+          ctx.fillStyle = '#080808';
+          ctx.fillRect(0, 0, width, height);
 
-      // 2. Draw Grid Lines (sleek brand aesthetics)
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
-      ctx.lineWidth = 1;
-      const gridSize = 80;
-      for (let x = 0; x < width; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, height);
-        ctx.stroke();
-      }
-      for (let y = 0; y < height; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(width, y);
-        ctx.stroke();
-      }
+          // Radial Glow matching archetype accent
+          const gradient = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, width * 0.7);
+          const rgb = hexToRgb(profile.accent || '#c6a969');
+          const rgbaGlow = rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.12)` : 'rgba(198, 169, 105, 0.12)';
+          gradient.addColorStop(0, rgbaGlow);
+          gradient.addColorStop(1, 'rgba(8, 8, 8, 0)');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, width, height);
 
-      // 3. Draw Outer Inset Border Card
-      ctx.strokeStyle = profile.accent || '#c6a969';
-      ctx.lineWidth = 2;
-      ctx.globalAlpha = 0.35;
-      const margin = isStory ? 50 : 40;
-      ctx.strokeRect(margin, margin, width - margin * 2, height - margin * 2);
-      ctx.globalAlpha = 1.0;
+          // 2. Draw Grid Lines (sleek brand aesthetics)
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+          ctx.lineWidth = 1;
+          const gridSize = 80;
+          for (let x = 0; x < width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+          }
+          for (let y = 0; y < height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+          }
 
-      // 4. Header: Brand Logo
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '800 28px "Poppins", sans-serif';
-      ctx.textAlign = 'center';
-      ctx.textBaseline = 'middle';
-      ctx.fillText('BEAN IDENTITY', width / 2, isStory ? 180 : 120);
+          // 3. Draw Outer Inset Border Card
+          ctx.strokeStyle = profile.accent || '#c6a969';
+          ctx.lineWidth = 2;
+          ctx.globalAlpha = 0.35;
+          const margin = 50;
+          ctx.strokeRect(margin, margin, width - margin * 2, height - margin * 2);
+          ctx.globalAlpha = 1.0;
 
-      // Underline decoration
-      ctx.strokeStyle = profile.accent || '#c6a969';
-      ctx.lineWidth = 2;
-      ctx.beginPath();
-      ctx.moveTo(width / 2 - 60, isStory ? 210 : 145);
-      ctx.lineTo(width / 2 + 60, isStory ? 210 : 145);
-      ctx.stroke();
+          // 4. Header: Brand Logo
+          if (storeLogoUrl && logoImg.complete && logoImg.naturalWidth > 0) {
+            const logoHeight = 80;
+            const logoWidth = logoHeight * storeLogoAspectRatio;
+            ctx.drawImage(logoImg, (width - logoWidth) / 2, 100, logoWidth, logoHeight);
+          } else {
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '800 28px "Poppins", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('BEAN IDENTITY', width / 2, 140);
+          }
 
-      // 5. Match kicker
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-      ctx.font = '800 16px "Poppins", sans-serif';
-      ctx.fillText('MY PERSONALITY MATCH', width / 2, isStory ? 360 : 230);
-
-      // 6. Match Title
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 68px "Poppins", sans-serif';
-      const titleY = isStory ? 440 : 310;
-      if (profile.title.length > 20) {
-        ctx.font = '900 50px "Poppins", sans-serif';
-      }
-      ctx.fillText(profile.title.toUpperCase(), width / 2, titleY);
-
-      // 7. Traits
-      ctx.fillStyle = profile.accent || '#c6a969';
-      ctx.font = '800 20px "Poppins", sans-serif';
-      const traitsText = profile.traits.join('  ★  ').toUpperCase();
-      ctx.fillText(traitsText, width / 2, isStory ? 530 : 380);
-
-      // 8. Description
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
-      ctx.font = '500 24px "Poppins", sans-serif';
-      const descMaxWidth = width - (isStory ? 240 : 180);
-      const descLineHeight = 38;
-      const descStartY = isStory ? 640 : 450;
-      wrapText(ctx, profile.desc, width / 2, descStartY, descMaxWidth, descLineHeight);
-
-      // 9. Donut Chart
-      const donutCenterY = isStory ? 1160 : 720;
-      const donutRadius = isStory ? 160 : 110;
-      const donutThickness = isStory ? 24 : 16;
-      ctx.lineWidth = donutThickness;
-      ctx.lineCap = 'round';
-
-      // Circle track
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
-      ctx.beginPath();
-      ctx.arc(width / 2, donutCenterY, donutRadius, 0, Math.PI * 2);
-      ctx.stroke();
-
-      // Draw Segments based on scores
-      const sortedDisplay = calculatePercentages();
-      let accumulatedAngle = -Math.PI / 2;
-      sortedDisplay.forEach(([key, pct]) => {
-        if (pct > 0) {
-          const angleRange = (pct / 100) * Math.PI * 2;
-          ctx.strokeStyle = archetypes[key].accent;
+          // Underline decoration
+          ctx.strokeStyle = profile.accent || '#c6a969';
+          ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.arc(width / 2, donutCenterY, donutRadius, accumulatedAngle, accumulatedAngle + angleRange);
+          ctx.moveTo(width / 2 - 60, 220);
+          ctx.lineTo(width / 2 + 60, 220);
           ctx.stroke();
-          accumulatedAngle += angleRange;
+
+          // 5. Match kicker
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+          ctx.font = '800 16px "Poppins", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('MY PERSONALITY MATCH', width / 2, 320);
+
+          // 6. Match Title
+          ctx.fillStyle = '#ffffff';
+          if (profile.title.length > 20) {
+            ctx.font = '900 50px "Poppins", sans-serif';
+          } else {
+            ctx.font = '900 68px "Poppins", sans-serif';
+          }
+          ctx.fillText(profile.title.toUpperCase(), width / 2, 400);
+
+          // 7. Traits
+          ctx.fillStyle = profile.accent || '#c6a969';
+          ctx.font = '800 20px "Poppins", sans-serif';
+          const traitsText = profile.traits.join('  ★  ').toUpperCase();
+          ctx.fillText(traitsText, width / 2, 490);
+
+          // 8. Draw Bean Image
+          if (beanImg.complete && beanImg.naturalWidth > 0) {
+            const beanSize = 450;
+            const beanX = (width - beanSize) / 2;
+            const beanY = 560;
+            
+            // Radial Glow behind bean image
+            const glowGrad = ctx.createRadialGradient(
+              beanX + beanSize / 2, beanY + beanSize / 2, 10,
+              beanX + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
+            );
+            const rgbAccent = hexToRgb(profile.accent || '#c6a969');
+            const rgbaAccentGlow = rgbAccent ? `rgba(${rgbAccent.r}, ${rgbAccent.g}, ${rgbAccent.b}, 0.22)` : 'rgba(198, 169, 105, 0.22)';
+            glowGrad.addColorStop(0, rgbaAccentGlow);
+            glowGrad.addColorStop(1, 'rgba(8, 8, 8, 0)');
+            
+            ctx.fillStyle = glowGrad;
+            ctx.beginPath();
+            ctx.arc(beanX + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.drawImage(beanImg, beanX, beanY, beanSize, beanSize);
+          }
+
+          // 9. Description
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+          ctx.font = '500 24px "Poppins", sans-serif';
+          ctx.textAlign = 'center';
+          const descMaxWidth = width - 240;
+          const descLineHeight = 38;
+          wrapText(ctx, profile.desc, width / 2, 1070, descMaxWidth, descLineHeight);
+
+          // 10. Donut Chart
+          const donutCenterY = 1380;
+          const donutRadius = 120;
+          const donutThickness = 20;
+          ctx.lineWidth = donutThickness;
+          ctx.lineCap = 'round';
+
+          // Circle track
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+          ctx.beginPath();
+          ctx.arc(width / 2, donutCenterY, donutRadius, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Draw Segments based on scores
+          const sortedDisplay = calculatePercentages();
+          let accumulatedAngle = -Math.PI / 2;
+          sortedDisplay.forEach(([key, pct]) => {
+            if (pct > 0) {
+              const angleRange = (pct / 100) * Math.PI * 2;
+              ctx.strokeStyle = archetypes[key].accent;
+              ctx.beginPath();
+              ctx.arc(width / 2, donutCenterY, donutRadius, accumulatedAngle, accumulatedAngle + angleRange);
+              ctx.stroke();
+              accumulatedAngle += angleRange;
+            }
+          });
+
+          // Donut Inner Text
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '900 36px "Poppins", sans-serif';
+          ctx.fillText(`${sortedDisplay[0][1]}%`, width / 2, donutCenterY - 5);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+          ctx.font = '800 12px "Poppins", sans-serif';
+          ctx.fillText('PRIMARY', width / 2, donutCenterY + 20);
+
+          // 11. Footer CTA
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+          ctx.font = '800 15px "Poppins", sans-serif';
+          ctx.fillText('FIND YOUR BEAN IDENTITY', width / 2, 1680);
+
+          ctx.fillStyle = profile.accent || '#c6a969';
+          ctx.font = '800 20px "Poppins", sans-serif';
+          ctx.fillText((window.location.host + window.location.pathname).toUpperCase(), width / 2, 1730);
+
+        } else {
+          // Feed (1:1 Layout)
+          // 1. Draw Background
+          ctx.fillStyle = '#080808';
+          ctx.fillRect(0, 0, width, height);
+
+          // Radial Glow matching archetype accent
+          const gradient = ctx.createRadialGradient(width / 2, height / 2, 50, width / 2, height / 2, width * 0.7);
+          const rgb = hexToRgb(profile.accent || '#c6a969');
+          const rgbaGlow = rgb ? `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.12)` : 'rgba(198, 169, 105, 0.12)';
+          gradient.addColorStop(0, rgbaGlow);
+          gradient.addColorStop(1, 'rgba(8, 8, 8, 0)');
+          ctx.fillStyle = gradient;
+          ctx.fillRect(0, 0, width, height);
+
+          // 2. Draw Grid Lines
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.02)';
+          ctx.lineWidth = 1;
+          const gridSize = 80;
+          for (let x = 0; x < width; x += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(x, 0);
+            ctx.lineTo(x, height);
+            ctx.stroke();
+          }
+          for (let y = 0; y < height; y += gridSize) {
+            ctx.beginPath();
+            ctx.moveTo(0, y);
+            ctx.lineTo(width, y);
+            ctx.stroke();
+          }
+
+          // 3. Draw Outer Border
+          ctx.strokeStyle = profile.accent || '#c6a969';
+          ctx.lineWidth = 2;
+          ctx.globalAlpha = 0.35;
+          const margin = 40;
+          ctx.strokeRect(margin, margin, width - margin * 2, height - margin * 2);
+          ctx.globalAlpha = 1.0;
+
+          // 4. Header: Brand Logo
+          if (storeLogoUrl && logoImg.complete && logoImg.naturalWidth > 0) {
+            const logoHeight = 45;
+            const logoWidth = logoHeight * storeLogoAspectRatio;
+            ctx.drawImage(logoImg, (width - logoWidth) / 2, 60, logoWidth, logoHeight);
+          } else {
+            ctx.fillStyle = '#ffffff';
+            ctx.font = '800 24px "Poppins", sans-serif';
+            ctx.textAlign = 'center';
+            ctx.textBaseline = 'middle';
+            ctx.fillText('BEAN IDENTITY', width / 2, 85);
+          }
+
+          // Underline decoration
+          ctx.strokeStyle = profile.accent || '#c6a969';
+          ctx.lineWidth = 2;
+          ctx.beginPath();
+          ctx.moveTo(width / 2 - 60, 130);
+          ctx.lineTo(width / 2 + 60, 130);
+          ctx.stroke();
+
+          // Left Column Center: X = 320
+          // Right Column Center: X = 760
+
+          // 5. Match kicker
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+          ctx.font = '800 14px "Poppins", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText('MY PERSONALITY MATCH', 320, 210);
+
+          // 6. Match Title
+          ctx.fillStyle = '#ffffff';
+          if (profile.title.length > 20) {
+            ctx.font = '900 36px "Poppins", sans-serif';
+          } else {
+            ctx.font = '900 48px "Poppins", sans-serif';
+          }
+          ctx.fillText(profile.title.toUpperCase(), 320, 270);
+
+          // 7. Traits
+          ctx.fillStyle = profile.accent || '#c6a969';
+          ctx.font = '800 16px "Poppins", sans-serif';
+          const traitsText = profile.traits.join('  ★  ').toUpperCase();
+          ctx.fillText(traitsText, 320, 330);
+
+          // 8. Description
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
+          ctx.font = '500 20px "Poppins", sans-serif';
+          ctx.textAlign = 'center';
+          const descMaxWidth = 440;
+          const descLineHeight = 32;
+          wrapText(ctx, profile.desc, 320, 390, descMaxWidth, descLineHeight);
+
+          // 9. Draw Bean Image (Right Column)
+          if (beanImg.complete && beanImg.naturalWidth > 0) {
+            const beanSize = 420;
+            const beanX = 760 - beanSize / 2;
+            const beanY = 460 - beanSize / 2;
+            
+            // Radial Glow behind bean image
+            const glowGrad = ctx.createRadialGradient(
+              beanX + beanSize / 2, beanY + beanSize / 2, 10,
+              beanX + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
+            );
+            const rgbAccent = hexToRgb(profile.accent || '#c6a969');
+            const rgbaAccentGlow = rgbAccent ? `rgba(${rgbAccent.r}, ${rgbAccent.g}, ${rgbAccent.b}, 0.22)` : 'rgba(198, 169, 105, 0.22)';
+            glowGrad.addColorStop(0, rgbaAccentGlow);
+            glowGrad.addColorStop(1, 'rgba(8, 8, 8, 0)');
+            
+            ctx.fillStyle = glowGrad;
+            ctx.beginPath();
+            ctx.arc(beanX + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.drawImage(beanImg, beanX, beanY, beanSize, beanSize);
+          }
+
+          // 10. Donut Chart (Bottom Left Column)
+          const donutCenterX = 320;
+          const donutCenterY = 740;
+          const donutRadius = 90;
+          const donutThickness = 14;
+          ctx.lineWidth = donutThickness;
+          ctx.lineCap = 'round';
+
+          // Circle track
+          ctx.strokeStyle = 'rgba(255, 255, 255, 0.04)';
+          ctx.beginPath();
+          ctx.arc(donutCenterX, donutCenterY, donutRadius, 0, Math.PI * 2);
+          ctx.stroke();
+
+          // Draw Segments based on scores
+          const sortedDisplay = calculatePercentages();
+          let accumulatedAngle = -Math.PI / 2;
+          sortedDisplay.forEach(([key, pct]) => {
+            if (pct > 0) {
+              const angleRange = (pct / 100) * Math.PI * 2;
+              ctx.strokeStyle = archetypes[key].accent;
+              ctx.beginPath();
+              ctx.arc(donutCenterX, donutCenterY, donutRadius, accumulatedAngle, accumulatedAngle + angleRange);
+              ctx.stroke();
+              accumulatedAngle += angleRange;
+            }
+          });
+
+          // Donut Inner Text
+          ctx.fillStyle = '#ffffff';
+          ctx.font = '900 32px "Poppins", sans-serif';
+          ctx.fillText(`${sortedDisplay[0][1]}%`, donutCenterX, donutCenterY - 5);
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
+          ctx.font = '800 10px "Poppins", sans-serif';
+          ctx.fillText('PRIMARY', donutCenterX, donutCenterY + 18);
+
+          // 11. Footer CTA
+          ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
+          ctx.font = '800 14px "Poppins", sans-serif';
+          ctx.fillText('FIND YOUR BEAN IDENTITY', width / 2, 955);
+
+          ctx.fillStyle = profile.accent || '#c6a969';
+          ctx.font = '800 18px "Poppins", sans-serif';
+          ctx.fillText((window.location.host + window.location.pathname).toUpperCase(), width / 2, 995);
         }
-      });
 
-      // Donut Inner Text
-      ctx.fillStyle = '#ffffff';
-      ctx.font = '900 48px "Poppins", sans-serif';
-      ctx.fillText(`${sortedDisplay[0][1]}%`, width / 2, donutCenterY - 10);
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-      ctx.font = '800 14px "Poppins", sans-serif';
-      ctx.fillText('PRIMARY', width / 2, donutCenterY + 25);
+        // Trigger callback with data URL
+        const dataUrl = canvas.toDataURL('image/png');
+        if (callback) callback(dataUrl);
+      };
 
-      // 10. Footer CTA
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
-      ctx.font = '800 15px "Poppins", sans-serif';
-      ctx.fillText('FIND YOUR BEAN IDENTITY', width / 2, isStory ? 1680 : 940);
+      beanImg.onload = drawCanvasElements;
+      beanImg.onerror = () => {
+        console.error('Failed to load bean image for canvas card');
+        drawCanvasElements();
+      };
+      
+      // Load primary bean visual
+      if (profile.gif) {
+        beanImg.src = profile.gif;
+      } else {
+        // Fallback if no visual asset
+        setTimeout(drawCanvasElements, 50);
+      }
 
-      ctx.fillStyle = profile.accent || '#c6a969';
-      ctx.font = '800 20px "Poppins", sans-serif';
-      ctx.fillText((window.location.host + window.location.pathname).toUpperCase(), width / 2, isStory ? 1730 : 980);
-
-      // Callback
-      const dataUrl = canvas.toDataURL('image/png');
-      if (callback) callback(dataUrl);
+      // Safety timeout: if image takes too long, draw anyway
+      setTimeout(drawCanvasElements, 2500);
     }
 
     // Modal visibility handlers
@@ -3807,6 +4150,10 @@
             <option value="green_jelly">Green & Jelly — Reversed Warm Anchor</option>
           </optgroup>
         </select>
+        <div style="margin-bottom: 1.8rem; display: flex; align-items: center; gap: 0.8rem;">
+          <input type="checkbox" id="debug-true-blend-chk" style="width: 1.8rem; height: 1.8rem; cursor: pointer; accent-color: #c6a969;">
+          <label for="debug-true-blend-chk" style="color: rgba(245, 245, 245, 0.7); font-size: 1.1rem; cursor: pointer; user-select: none; font-weight: 500; font-family: 'Poppins', sans-serif;">Simulate as True Blend (Tie score)</label>
+        </div>
         <button type="button" id="debug-simulate-btn" class="bean-quiz-debug-btn">Simulate Result</button>
       `;
       document.body.appendChild(panel);
@@ -3817,6 +4164,7 @@
 
       document.getElementById('debug-simulate-btn').addEventListener('click', () => {
         const value = document.getElementById('debug-outcome-select').value;
+        const simulateTrueBlend = document.getElementById('debug-true-blend-chk') ? document.getElementById('debug-true-blend-chk').checked : false;
         panel.classList.remove('is-open');
 
         // Reset scores
@@ -3825,10 +4173,19 @@
         }
 
         if (value.includes('_')) {
-          // Dual Blend
+          // Dual Blend or True Blend
           const [primary, secondary] = value.split('_');
-          state.scores[primary] = 45;
-          state.scores[secondary] = 38;
+          
+          if (simulateTrueBlend) {
+            // True Blend (Tie score) - Gap of 0
+            state.scores[primary] = 40;
+            state.scores[secondary] = 40;
+          } else {
+            // Dual Blend - Gap of 2 (triggers isDualBlend under the 1-2 gap threshold)
+            state.scores[primary] = 40;
+            state.scores[secondary] = 38;
+          }
+          
           // Set others to small values
           const others = Object.keys(state.scores).filter((k) => k !== primary && k !== secondary);
           others.forEach((key, i) => {
