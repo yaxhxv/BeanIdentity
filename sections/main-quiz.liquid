@@ -3673,13 +3673,29 @@
             }
           });
 
-          // Donut Inner Text
+          // Donut Inner Text (Clean percentage centered)
           ctx.fillStyle = '#ffffff';
           ctx.font = '900 36px "Poppins", sans-serif';
-          ctx.fillText(`${sortedDisplay[0][1]}%`, width / 2, donutCenterY - 5);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-          ctx.font = '800 12px "Poppins", sans-serif';
-          ctx.fillText('PRIMARY', width / 2, donutCenterY + 20);
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(`${sortedDisplay[0][1]}%`, width / 2, donutCenterY);
+
+          // Labels below the donut
+          ctx.fillStyle = profile.accent || '#c6a969';
+          ctx.font = '800 16px "Poppins", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          let belowDonutText = '';
+          if (profile.isBlend) {
+            const primaryName = archetypes[sortedDisplay[0][0]].name.toUpperCase();
+            const primaryPct = sortedDisplay[0][1];
+            const secondaryName = archetypes[sortedDisplay[1][0]].name.toUpperCase();
+            const secondaryPct = sortedDisplay[1][1];
+            belowDonutText = `${primaryName} ${primaryPct}%  ★  ${secondaryName} ${secondaryPct}%`;
+          } else {
+            belowDonutText = archetypes[sortedDisplay[0][0]].name.toUpperCase();
+          }
+          ctx.fillText(belowDonutText, width / 2, donutCenterY + 160);
 
           // 11. Footer CTA
           ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
@@ -3877,13 +3893,29 @@
             }
           });
 
-          // Donut Inner Text
+          // Donut Inner Text (Clean percentage centered)
           ctx.fillStyle = '#ffffff';
           ctx.font = '900 32px "Poppins", sans-serif';
-          ctx.fillText(`${sortedDisplay[0][1]}%`, donutCenterX, donutCenterY - 5);
-          ctx.fillStyle = 'rgba(255, 255, 255, 0.5)';
-          ctx.font = '800 10px "Poppins", sans-serif';
-          ctx.fillText('PRIMARY', donutCenterX, donutCenterY + 18);
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          ctx.fillText(`${sortedDisplay[0][1]}%`, donutCenterX, donutCenterY);
+
+          // Labels below the donut
+          ctx.fillStyle = profile.accent || '#c6a969';
+          ctx.font = '800 13px "Poppins", sans-serif';
+          ctx.textAlign = 'center';
+          ctx.textBaseline = 'middle';
+          let belowDonutText = '';
+          if (profile.isBlend) {
+            const primaryName = archetypes[sortedDisplay[0][0]].name.toUpperCase();
+            const primaryPct = sortedDisplay[0][1];
+            const secondaryName = archetypes[sortedDisplay[1][0]].name.toUpperCase();
+            const secondaryPct = sortedDisplay[1][1];
+            belowDonutText = `${primaryName} ${primaryPct}%  ★  ${secondaryName} ${secondaryPct}%`;
+          } else {
+            belowDonutText = archetypes[sortedDisplay[0][0]].name.toUpperCase();
+          }
+          ctx.fillText(belowDonutText, donutCenterX, donutCenterY + 125);
 
           // 11. Footer CTA
           ctx.fillStyle = 'rgba(255, 255, 255, 0.4)';
