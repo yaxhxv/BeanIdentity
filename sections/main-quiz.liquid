@@ -1541,6 +1541,53 @@
     margin-top: 0.4rem;
     display: none;
   }
+  
+  @media (max-width: 767px) {
+    /* Entry Gate screen (data-quiz-screen='entry-gate') */
+    .bean-quiz__screen[data-quiz-screen='entry-gate'].is-active {
+      grid-template-columns: 1fr;
+      gap: 2.4rem;
+    }
+    .bean-quiz__screen[data-quiz-screen='entry-gate'] .bean-quiz__form {
+      gap: 2.4rem;
+    }
+    .bean-quiz__screen[data-quiz-screen='entry-gate'] .bean-quiz__welcome-side {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: flex-start;
+      background: none;
+      border: none;
+      padding: 0;
+      min-height: auto;
+    }
+    .bean-quiz__screen[data-quiz-screen='entry-gate'] .bean-quiz__welcome-pillars {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      justify-content: flex-start;
+    }
+    .bean-quiz__screen[data-quiz-screen='entry-gate'] .bean-quiz__welcome-copy {
+      width: 100%;
+    }
+    .bean-quiz__screen[data-quiz-screen='entry-gate'] .bean-quiz__button {
+      width: 100%;
+      min-height: 48px;
+    }
+
+    /* Result screen (data-quiz-screen='result') */
+    .bean-quiz__result-hero {
+      gap: 2rem;
+    }
+    .bean-quiz__result-kicker {
+      margin-top: 0;
+    }
+    .bean-quiz__result-visual {
+      margin-bottom: 1.2rem;
+      width: 100%;
+      max-width: 100%;
+    }
+  }
 {%- endstyle -%}
 
 <section
