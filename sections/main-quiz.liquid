@@ -2783,7 +2783,7 @@
       }
     }
 
-    async function trackCompletion(winner) {
+    async function trackCompletion(winner, resultType) {
       if (!state.sessionId) return;
       try {
         await fetch(`${getBackendUrl()}/api/quiz/session/${state.sessionId}/complete`, {
@@ -2793,6 +2793,7 @@
           },
           body: JSON.stringify({
             winningArchetype: winner,
+            resultType: resultType,
             answers: state.answers,
             scores: state.scores
           })
@@ -3343,8 +3344,17 @@
         instaLinkInput.value = state.shareUrl;
       }
 
-      localStorage.setItem('bean_identity_result', beanKey);
-      trackCompletion(beanKey);
+      let resultType = 'single';
+      if (isTrueBlend) {
+        resultType = 'true_blend';
+      } else if (isDualBlend) {
+        resultType = 'dual_blend';
+      } else if (primary[1] > 50) {
+        resultType = 'dominant';
+      }
+
+      localStorage.setItem('bean_identity_result', resultKey);
+      trackCompletion(resultKey, resultType);
     }
 
     function parseWeights(weightStr) {
