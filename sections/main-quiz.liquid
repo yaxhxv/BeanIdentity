@@ -1900,62 +1900,6 @@
             </div>
           </div>
 
-          <!-- 2. Dossier Grid -->
-          <div class="bean-quiz__detailed-table">
-            <!-- Row 1 -->
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Core Identity</div>
-              <div class="bean-quiz__table-body-cell" data-detail-core-identity></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Stress Behaviour</div>
-              <div class="bean-quiz__table-body-cell" data-detail-stress-behaviour></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Hidden Trait</div>
-              <div class="bean-quiz__table-body-cell" data-detail-hidden-trait></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">What People Misunderstand</div>
-              <div class="bean-quiz__table-body-cell" data-detail-misunderstood></div>
-            </div>
-
-            <!-- Row 2 -->
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Compatibility Note</div>
-              <div class="bean-quiz__table-body-cell" data-detail-compatibility></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Why it fits</div>
-              <div class="bean-quiz__table-body-cell" data-result-fit></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Color mood</div>
-              <div class="bean-quiz__table-body-cell" data-result-palette></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Visual direction</div>
-              <div class="bean-quiz__table-body-cell" data-result-direction></div>
-            </div>
-
-            <!-- Row 3 -->
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Energy</div>
-              <div class="bean-quiz__table-body-cell" data-result-energy></div>
-            </div>
-            <div class="bean-quiz__table-card">
-              <div class="bean-quiz__table-header-cell">Best next move</div>
-              <div class="bean-quiz__table-body-cell" data-result-cta-copy></div>
-            </div>
-          </div>
-
-          <div class="bean-quiz__result-actions">
-            <a class="bean-quiz__button" href="#" data-result-link>Shop your bean</a>
-            <button class="bean-quiz__button bean-quiz__button--secondary" type="button" data-quiz-restart>
-              Retake quiz
-            </button>
-          </div>
-
           <!-- Social Media Sharing Block -->
           <div class="bean-quiz__share-section">
             <p class="bean-quiz__share-title">Share Your Identity</p>
@@ -2025,6 +1969,62 @@
                 <span class="copied-tooltip">Link Copied!</span>
               </button>
             </div>
+          </div>
+
+          <!-- 2. Dossier Grid -->
+          <div class="bean-quiz__detailed-table">
+            <!-- Row 1 -->
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Core Identity</div>
+              <div class="bean-quiz__table-body-cell" data-detail-core-identity></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Stress Behaviour</div>
+              <div class="bean-quiz__table-body-cell" data-detail-stress-behaviour></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Hidden Trait</div>
+              <div class="bean-quiz__table-body-cell" data-detail-hidden-trait></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">What People Misunderstand</div>
+              <div class="bean-quiz__table-body-cell" data-detail-misunderstood></div>
+            </div>
+
+            <!-- Row 2 -->
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Compatibility Note</div>
+              <div class="bean-quiz__table-body-cell" data-detail-compatibility></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Why it fits</div>
+              <div class="bean-quiz__table-body-cell" data-result-fit></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Color mood</div>
+              <div class="bean-quiz__table-body-cell" data-result-palette></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Visual direction</div>
+              <div class="bean-quiz__table-body-cell" data-result-direction></div>
+            </div>
+
+            <!-- Row 3 -->
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Energy</div>
+              <div class="bean-quiz__table-body-cell" data-result-energy></div>
+            </div>
+            <div class="bean-quiz__table-card">
+              <div class="bean-quiz__table-header-cell">Best next move</div>
+              <div class="bean-quiz__table-body-cell" data-result-cta-copy></div>
+            </div>
+          </div>
+
+          <div class="bean-quiz__result-actions">
+            <a class="bean-quiz__button" href="#" data-result-link>Shop your bean</a>
+            <button class="bean-quiz__button bean-quiz__button--secondary" type="button" data-quiz-restart>
+              Retake quiz
+            </button>
           </div>
         </div>
 
@@ -2195,6 +2195,7 @@
         direction: 'Editorial, grounded, and quietly sharp with deeper contrast.',
         ctaCopy: 'Go straight into the Coffee Bean drop for the clearest fit.',
         gif: "{{ 'coffee_bean_gif.gif' | file_url }}",
+        staticImage: "{{ '69C0C504-64E5-4346-96A8-2D7D234015A2.webp' | file_url }}",
         coreIdentity:
           'You live a few steps behind the surface. You see patterns in people’s behaviour before they see them in themselves. Conversations with you feel like finally being understood. You’re not antisocial — you’re selective.',
         stressBehaviour:
@@ -2225,6 +2226,7 @@
         direction: 'Charged, bold, and cleanly aggressive without losing clarity.',
         ctaCopy: 'Open the Chilli Bean page when you want the loudest match.',
         gif: "{{ 'chilli_bean_gif.gif' | file_url }}",
+        staticImage: "{{ '878F49BF-A84F-4DB0-AFD7-873B3FA95B96.png' | file_url }}",
         coreIdentity:
           "You don't filter, and you don't perform. You lead with instinct, heat, and impact. If someone needs a reality check or a wild adventure, they come to you. You choose honest conflict over fake comfort.",
         stressBehaviour:
@@ -2255,6 +2257,7 @@
         direction: 'Smooth, mellow, and elevated with softer warmth.',
         ctaCopy: 'Step into the Vanilla Bean page for the cleanest soft-luxury lane.',
         gif: "{{ 'vanilla_bean_gif.gif' | file_url }}",
+        staticImage: "{{ 'C3A37D2D-2BFC-4EBC-8413-75F36868BE05.png' | file_url }}",
         coreIdentity:
           'You are not shallow — you are expansive. You collect experiences the way others collect things. Boredom feels like a small death. You make ordinary moments feel like something worth remembering.',
         stressBehaviour:
@@ -2285,6 +2288,7 @@
         direction: 'Bright, digital, and playful with a cleaner cyan atmosphere.',
         ctaCopy: 'Jump to the Jelly Bean page for the most animated version of your match.',
         gif: "{{ 'jelly_bean_gif.gif' | file_url }}",
+        staticImage: "{{ 'D5C7EF8A-B9B6-4FEC-B725-44D38D1BC3E3.png' | file_url }}",
         coreIdentity:
           'You are a natural connector. You remember birthdays, inside jokes, and the name of someone’s dog. Relationships are your primary language. You don’t just want to be liked — you genuinely love people, loudly and without apology.',
         stressBehaviour:
@@ -2315,6 +2319,7 @@
         direction: 'Clean, restorative, and bright with a softer natural wash.',
         ctaCopy: 'Open the Green Bean page when you want the calmest version of your result.',
         gif: "{{ 'green_bean_gif.gif' | file_url }}",
+        staticImage: "{{ '0C5C916D-3FDA-4D91-B677-FAE7FF78D727.png' | file_url }}",
         coreIdentity:
           'You are the anchor. You carry peace, emotional intelligence, and clean, grounding energy. People feel lighter just by being in your presence. You choose mindful presence over noisy action.',
         stressBehaviour:
@@ -2884,15 +2889,28 @@
           if (compatibilityEl) compatibilityEl.textContent = data.compatibility || '';
         }
       } else if (isDualBlend) {
-        classification = `Dual Blend: ${archetypes[sortedRaw[0][0]].name} & ${archetypes[sortedRaw[1][0]].name}`;
-        if (coreIdEl) coreIdEl.textContent = data.coreIdentity || '';
-        if (stressEl) stressEl.textContent = data.stressBehaviour || '';
-        if (hiddenEl) hiddenEl.textContent = data.hiddenTrait || '';
-        if (misunderstoodEl) misunderstoodEl.textContent = data.misunderstood || '';
-        if (compatibilityEl) {
-          compatibilityEl.textContent = `You carry a strong secondary affinity for the ${
-            archetypes[sortedRaw[1][0]].name
-          }. You pair beautifully with partners who complement your main traits.`;
+        const blendKey = `${sortedRaw[0][0]}_${sortedRaw[1][0]}`;
+        const blendData = dualBlends[blendKey];
+        if (blendData) {
+          classification = `Dual Blend: ${archetypes[sortedRaw[0][0]].name} & ${archetypes[sortedRaw[1][0]].name}`;
+          activeTitle = blendData.title;
+          activeDesc = `You carry a strong primary affinity for the ${archetypes[sortedRaw[0][0]].name} with a secondary affinity for the ${archetypes[sortedRaw[1][0]].name}.`;
+          if (coreIdEl) coreIdEl.textContent = blendData.coreIdentity;
+          if (stressEl) stressEl.textContent = blendData.stressBehaviour;
+          if (hiddenEl) hiddenEl.textContent = blendData.hiddenTrait;
+          if (misunderstoodEl) misunderstoodEl.textContent = blendData.misunderstood;
+          if (compatibilityEl) {
+            compatibilityEl.textContent = `You carry a strong secondary affinity for the ${
+              archetypes[sortedRaw[1][0]].name
+            }. You pair beautifully with partners who complement your main traits.`;
+          }
+        } else {
+          classification = `Dual Blend: ${archetypes[sortedRaw[0][0]].name} & ${archetypes[sortedRaw[1][0]].name}`;
+          if (coreIdEl) coreIdEl.textContent = data.coreIdentity || '';
+          if (stressEl) stressEl.textContent = data.stressBehaviour || '';
+          if (hiddenEl) hiddenEl.textContent = data.hiddenTrait || '';
+          if (misunderstoodEl) misunderstoodEl.textContent = data.misunderstood || '';
+          if (compatibilityEl) compatibilityEl.textContent = data.compatibility || '';
         }
       } else {
         const primaryPct = primary[1];
@@ -3247,12 +3265,17 @@
       // Store winning details in state for canvas generation
       state.winningProfile = {
         key: resultKey,
+        isBlend: isTrueBlend || isDualBlend,
+        primaryKey: sortedRaw[0][0],
+        secondaryKey: sortedRaw[1] ? sortedRaw[1][0] : null,
         title: activeTitle,
         desc: activeDesc,
         traits: data.traits,
         accent: data.accent,
         ink: data.ink,
-        gif: data.gif
+        gif: data.gif,
+        staticImage: data.staticImage,
+        secondaryStaticImage: sortedRaw[1] ? archetypes[sortedRaw[1][0]].staticImage : null
       };
 
       const msgData = shareMessages[resultKey] || {
@@ -3455,9 +3478,11 @@
       canvas.height = height;
       const ctx = canvas.getContext('2d');
 
-      // Load Bean Image asynchronously
+      // Load Bean Images asynchronously
       const beanImg = new Image();
       beanImg.crossOrigin = 'anonymous';
+      const beanImg2 = new Image();
+      beanImg2.crossOrigin = 'anonymous';
       
       let drawingDone = false;
       const drawCanvasElements = () => {
@@ -3531,28 +3556,73 @@
           ctx.textBaseline = 'middle';
           ctx.fillText('MY PERSONALITY MATCH', width / 2, 320);
 
-          // 6. Match Title
+          // 6. Match Title (Wrapped to fit)
           ctx.fillStyle = '#ffffff';
-          if (profile.title.length > 20) {
-            ctx.font = '900 50px "Poppins", sans-serif';
-          } else {
-            ctx.font = '900 68px "Poppins", sans-serif';
+          let titleFontSize = 68;
+          let titleLineHeight = 78;
+          if (profile.title.length > 25) {
+            titleFontSize = 44;
+            titleLineHeight = 54;
+          } else if (profile.title.length > 15) {
+            titleFontSize = 52;
+            titleLineHeight = 62;
           }
-          ctx.fillText(profile.title.toUpperCase(), width / 2, 400);
+          ctx.font = `900 ${titleFontSize}px "Poppins", sans-serif`;
+          const titleMaxWidth = width - 180; // 900px
+          const titleEndY = wrapText(ctx, profile.title.toUpperCase(), width / 2, 390, titleMaxWidth, titleLineHeight);
 
           // 7. Traits
           ctx.fillStyle = profile.accent || '#c6a969';
           ctx.font = '800 20px "Poppins", sans-serif';
           const traitsText = profile.traits.join('  ★  ').toUpperCase();
-          ctx.fillText(traitsText, width / 2, 490);
+          ctx.fillText(traitsText, width / 2, titleEndY + 80);
 
           // 8. Draw Bean Image
-          if (beanImg.complete && beanImg.naturalWidth > 0) {
+          if (profile.isBlend && beanImg2.complete && beanImg2.naturalWidth > 0) {
+            // Draw two beans side-by-side/overlapping
+            const beanSize = 380;
+            const beanY = 590;
+            
+            // Left Bean: Primary
+            const bean1X = width / 2 - beanSize + 60;
+            
+            const glowGrad1 = ctx.createRadialGradient(
+              bean1X + beanSize / 2, beanY + beanSize / 2, 10,
+              bean1X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
+            );
+            const rgbAccent1 = hexToRgb(profile.accent || '#c6a969');
+            const rgbaAccentGlow1 = rgbAccent1 ? `rgba(${rgbAccent1.r}, ${rgbAccent1.g}, ${rgbAccent1.b}, 0.18)` : 'rgba(198, 169, 105, 0.18)';
+            glowGrad1.addColorStop(0, rgbaAccentGlow1);
+            glowGrad1.addColorStop(1, 'rgba(8, 8, 8, 0)');
+            ctx.fillStyle = glowGrad1;
+            ctx.beginPath();
+            ctx.arc(bean1X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            // Right Bean: Secondary
+            const bean2X = width / 2 - 60;
+            const secondaryAccent = archetypes[profile.secondaryKey] ? archetypes[profile.secondaryKey].accent : '#c6a969';
+            
+            const glowGrad2 = ctx.createRadialGradient(
+              bean2X + beanSize / 2, beanY + beanSize / 2, 10,
+              bean2X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
+            );
+            const rgbAccent2 = hexToRgb(secondaryAccent);
+            const rgbaAccentGlow2 = rgbAccent2 ? `rgba(${rgbAccent2.r}, ${rgbAccent2.g}, ${rgbAccent2.b}, 0.18)` : 'rgba(198, 169, 105, 0.18)';
+            glowGrad2.addColorStop(0, rgbaAccentGlow2);
+            glowGrad2.addColorStop(1, 'rgba(8, 8, 8, 0)');
+            ctx.fillStyle = glowGrad2;
+            ctx.beginPath();
+            ctx.arc(bean2X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.drawImage(beanImg, bean1X, beanY, beanSize, beanSize);
+            ctx.drawImage(beanImg2, bean2X, beanY, beanSize, beanSize);
+          } else if (beanImg.complete && beanImg.naturalWidth > 0) {
             const beanSize = 450;
             const beanX = (width - beanSize) / 2;
             const beanY = 560;
             
-            // Radial Glow behind bean image
             const glowGrad = ctx.createRadialGradient(
               beanX + beanSize / 2, beanY + beanSize / 2, 10,
               beanX + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
@@ -3691,22 +3761,28 @@
           ctx.font = '800 14px "Poppins", sans-serif';
           ctx.textAlign = 'center';
           ctx.textBaseline = 'middle';
-          ctx.fillText('MY PERSONALITY MATCH', 320, 210);
+          ctx.fillText('MY PERSONALITY MATCH', 320, 190);
 
-          // 6. Match Title
+          // 6. Match Title (Wrapped to fit)
           ctx.fillStyle = '#ffffff';
-          if (profile.title.length > 20) {
-            ctx.font = '900 36px "Poppins", sans-serif';
-          } else {
-            ctx.font = '900 48px "Poppins", sans-serif';
+          let titleFontSize = 44;
+          let titleLineHeight = 52;
+          if (profile.title.length > 25) {
+            titleFontSize = 24;
+            titleLineHeight = 30;
+          } else if (profile.title.length > 15) {
+            titleFontSize = 32;
+            titleLineHeight = 38;
           }
-          ctx.fillText(profile.title.toUpperCase(), 320, 270);
+          ctx.font = `900 ${titleFontSize}px "Poppins", sans-serif`;
+          const titleEndY = wrapText(ctx, profile.title.toUpperCase(), 320, 245, 440, titleLineHeight);
 
           // 7. Traits
           ctx.fillStyle = profile.accent || '#c6a969';
           ctx.font = '800 16px "Poppins", sans-serif';
           const traitsText = profile.traits.join('  ★  ').toUpperCase();
-          ctx.fillText(traitsText, 320, 330);
+          const traitsY = titleEndY + 55;
+          ctx.fillText(traitsText, 320, traitsY);
 
           // 8. Description
           ctx.fillStyle = 'rgba(255, 255, 255, 0.72)';
@@ -3714,15 +3790,49 @@
           ctx.textAlign = 'center';
           const descMaxWidth = 440;
           const descLineHeight = 32;
-          wrapText(ctx, profile.desc, 320, 390, descMaxWidth, descLineHeight);
+          wrapText(ctx, profile.desc, 320, traitsY + 55, descMaxWidth, descLineHeight);
 
           // 9. Draw Bean Image (Right Column)
-          if (beanImg.complete && beanImg.naturalWidth > 0) {
+          if (profile.isBlend && beanImg2.complete && beanImg2.naturalWidth > 0) {
+            const beanSize = 320;
+            const beanY = 460 - beanSize / 2;
+            const bean1X = 510;
+            const bean2X = 690;
+            
+            const glowGrad1 = ctx.createRadialGradient(
+              bean1X + beanSize / 2, beanY + beanSize / 2, 10,
+              bean1X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
+            );
+            const rgbAccent1 = hexToRgb(profile.accent || '#c6a969');
+            const rgbaAccentGlow1 = rgbAccent1 ? `rgba(${rgbAccent1.r}, ${rgbAccent1.g}, ${rgbAccent1.b}, 0.18)` : 'rgba(198, 169, 105, 0.18)';
+            glowGrad1.addColorStop(0, rgbaAccentGlow1);
+            glowGrad1.addColorStop(1, 'rgba(8, 8, 8, 0)');
+            ctx.fillStyle = glowGrad1;
+            ctx.beginPath();
+            ctx.arc(bean1X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            const secondaryAccent = archetypes[profile.secondaryKey] ? archetypes[profile.secondaryKey].accent : '#c6a969';
+            const glowGrad2 = ctx.createRadialGradient(
+              bean2X + beanSize / 2, beanY + beanSize / 2, 10,
+              bean2X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
+            );
+            const rgbAccent2 = hexToRgb(secondaryAccent);
+            const rgbaAccentGlow2 = rgbAccent2 ? `rgba(${rgbAccent2.r}, ${rgbAccent2.g}, ${rgbAccent2.b}, 0.18)` : 'rgba(198, 169, 105, 0.18)';
+            glowGrad2.addColorStop(0, rgbaAccentGlow2);
+            glowGrad2.addColorStop(1, 'rgba(8, 8, 8, 0)');
+            ctx.fillStyle = glowGrad2;
+            ctx.beginPath();
+            ctx.arc(bean2X + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 30, 0, Math.PI * 2);
+            ctx.fill();
+            
+            ctx.drawImage(beanImg, bean1X, beanY, beanSize, beanSize);
+            ctx.drawImage(beanImg2, bean2X, beanY, beanSize, beanSize);
+          } else if (beanImg.complete && beanImg.naturalWidth > 0) {
             const beanSize = 420;
             const beanX = 760 - beanSize / 2;
             const beanY = 460 - beanSize / 2;
             
-            // Radial Glow behind bean image
             const glowGrad = ctx.createRadialGradient(
               beanX + beanSize / 2, beanY + beanSize / 2, 10,
               beanX + beanSize / 2, beanY + beanSize / 2, beanSize / 2 + 50
@@ -3791,17 +3901,40 @@
         if (callback) callback(dataUrl);
       };
 
-      beanImg.onload = drawCanvasElements;
-      beanImg.onerror = () => {
-        console.error('Failed to load bean image for canvas card');
-        drawCanvasElements();
+      let imagesToLoad = 1;
+      let imagesLoaded = 0;
+      
+      const checkAndDraw = () => {
+        imagesLoaded++;
+        if (imagesLoaded >= imagesToLoad) {
+          drawCanvasElements();
+        }
       };
       
-      // Load primary bean visual
-      if (profile.gif) {
+      beanImg.onload = checkAndDraw;
+      beanImg.onerror = () => {
+        console.error('Failed to load primary bean image');
+        checkAndDraw();
+      };
+      
+      beanImg2.onload = checkAndDraw;
+      beanImg2.onerror = () => {
+        console.error('Failed to load secondary bean image');
+        checkAndDraw();
+      };
+      
+      if (profile.isBlend && profile.secondaryStaticImage) {
+        imagesToLoad = 2;
+        beanImg.src = profile.staticImage;
+        beanImg2.src = profile.secondaryStaticImage;
+      } else if (profile.staticImage) {
+        imagesToLoad = 1;
+        beanImg.src = profile.staticImage;
+      } else if (profile.gif) {
+        imagesToLoad = 1;
         beanImg.src = profile.gif;
       } else {
-        // Fallback if no visual asset
+        imagesToLoad = 0;
         setTimeout(drawCanvasElements, 50);
       }
 
@@ -4222,6 +4355,67 @@
       });
     }
 
+    if (shareWhatsApp) {
+      shareWhatsApp.addEventListener('click', async (e) => {
+        const profile = state.winningProfile;
+        if (!profile) return;
+
+        const msgData = shareMessages[profile.key] || {
+          title: profile.title,
+          desc: profile.desc
+        };
+
+        const shareText = `${msgData.title}\n${msgData.desc}\nWhat's your Bean? 👀 Take the quiz to find out:\n${state.shareUrl}`;
+
+        // Check if Web Share API with files is supported
+        if (navigator.share && navigator.canShare) {
+          e.preventDefault();
+          
+          const textEl = shareWhatsApp.querySelector('span');
+          const origText = textEl ? textEl.textContent : 'WhatsApp';
+          if (textEl) textEl.textContent = 'Preparing card...';
+
+          try {
+            // Generate the feed card (1:1 aspect ratio) for sharing
+            generateShareCard(false, async (dataUrl) => {
+              try {
+                // Ensure image fetching has CORS safety by prepending https: if protocol relative
+                const fetchUrl = dataUrl.startsWith('//') ? `https:${dataUrl}` : dataUrl;
+                const response = await fetch(fetchUrl);
+                const blob = await response.blob();
+                const file = new File([blob], `${profile.key}_card.png`, { type: 'image/png' });
+
+                const shareData = {
+                  files: [file],
+                  title: msgData.title,
+                  text: shareText
+                };
+
+                if (navigator.canShare(shareData)) {
+                  await navigator.share(shareData);
+                } else {
+                  // Fallback to redirection
+                  window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
+                }
+              } catch (err) {
+                console.warn('Native share failed inside callback:', err);
+                window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
+              } finally {
+                if (textEl) textEl.textContent = origText;
+              }
+            });
+            return;
+          } catch (err) {
+            console.warn('Native share setup failed:', err);
+          }
+
+          if (textEl) textEl.textContent = origText;
+          // Fallback to URL redirection
+          window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`, '_blank');
+        }
+      });
+    }
+
     if (shareInstagram) {
       shareInstagram.addEventListener('click', openInstaModal);
     }
@@ -4253,6 +4447,47 @@
 
     // Check for shared results query parameter on load
     checkReferredVisitor();
+
+    // Dynamically fetch and sync slider images from homepage on load
+    async function loadSliderImages() {
+      try {
+        const response = await fetch('/');
+        if (!response.ok) return;
+        const html = await response.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const cards = doc.querySelectorAll('#shopify-section-collection_slider_yzYUYt .cc-card');
+        cards.forEach(card => {
+          const titleEl = card.querySelector('.cc-card-title');
+          const imgEl = card.querySelector('.cc-image');
+          if (titleEl && imgEl) {
+            const title = titleEl.textContent.trim().toLowerCase();
+            const src = imgEl.getAttribute('src') || imgEl.src;
+            if (title && src) {
+              let key = null;
+              if (title.includes('coffee')) key = 'coffee';
+              else if (title.includes('chilli')) key = 'chilli';
+              else if (title.includes('vanilla')) key = 'vanilla';
+              else if (title.includes('jelly')) key = 'jelly';
+              else if (title.includes('green')) key = 'green';
+              
+              if (key && archetypes[key]) {
+                let resolvedSrc = src;
+                if (resolvedSrc.startsWith('//')) {
+                  resolvedSrc = 'https:' + resolvedSrc;
+                }
+                // Strip Shopify size suffix (e.g. _600x.png) if present to get high-res image
+                resolvedSrc = resolvedSrc.replace(/_\d+x(\.(png|jpg|jpeg|webp|gif))/i, '$1');
+                archetypes[key].staticImage = resolvedSrc;
+              }
+            }
+          }
+        });
+      } catch (err) {
+        console.error('Error fetching homepage slider images:', err);
+      }
+    }
+    loadSliderImages();
 
     showScreen('welcome');
   })();
