@@ -2100,16 +2100,13 @@
     const root = document.querySelector('[data-quiz-root]');
     if (!root) return;
 
-    // Inject Logo settings from Shopify admin
-    const storeLogoUrl = {% if settings.logo != blank %}{{ settings.logo | image_url: width: 500 | json }}{% else %}""{% endif %};
-    const storeLogoAspectRatio = {% if settings.logo != blank %}{{ settings.logo.aspect_ratio }}{% else %}1{% endif %};
+    // Inject Logo settings from Shopify admin (using BeanIdentityLogoTMWhite.png from Files)
+    const storeLogoUrl = "{{ 'BeanIdentityLogoTMWhite.png' | file_url }}";
     
     // Preload Logo image
     const logoImg = new Image();
-    if (storeLogoUrl) {
-      logoImg.crossOrigin = 'anonymous';
-      logoImg.src = storeLogoUrl;
-    }
+    logoImg.crossOrigin = 'anonymous';
+    logoImg.src = storeLogoUrl;
 
     const getBackendUrl = () => window.beanBackendUrl || 'https://beanidentitybackend.onrender.com';
 
@@ -3529,10 +3526,11 @@
           ctx.globalAlpha = 1.0;
 
           // 4. Header: Brand Logo
-          if (storeLogoUrl && logoImg.complete && logoImg.naturalWidth > 0) {
-            const logoHeight = 80;
-            const logoWidth = logoHeight * storeLogoAspectRatio;
-            ctx.drawImage(logoImg, (width - logoWidth) / 2, 100, logoWidth, logoHeight);
+          if (logoImg.complete && logoImg.naturalWidth > 0) {
+            const logoAspectRatio = logoImg.naturalWidth / logoImg.naturalHeight;
+            const logoHeight = 110;
+            const logoWidth = logoHeight * logoAspectRatio;
+            ctx.drawImage(logoImg, (width - logoWidth) / 2, 90, logoWidth, logoHeight);
           } else {
             ctx.fillStyle = '#ffffff';
             ctx.font = '800 28px "Poppins", sans-serif';
@@ -3733,10 +3731,11 @@
           ctx.globalAlpha = 1.0;
 
           // 4. Header: Brand Logo
-          if (storeLogoUrl && logoImg.complete && logoImg.naturalWidth > 0) {
-            const logoHeight = 45;
-            const logoWidth = logoHeight * storeLogoAspectRatio;
-            ctx.drawImage(logoImg, (width - logoWidth) / 2, 60, logoWidth, logoHeight);
+          if (logoImg.complete && logoImg.naturalWidth > 0) {
+            const logoAspectRatio = logoImg.naturalWidth / logoImg.naturalHeight;
+            const logoHeight = 65;
+            const logoWidth = logoHeight * logoAspectRatio;
+            ctx.drawImage(logoImg, (width - logoWidth) / 2, 55, logoWidth, logoHeight);
           } else {
             ctx.fillStyle = '#ffffff';
             ctx.font = '800 24px "Poppins", sans-serif';
@@ -3749,8 +3748,8 @@
           ctx.strokeStyle = profile.accent || '#c6a969';
           ctx.lineWidth = 2;
           ctx.beginPath();
-          ctx.moveTo(width / 2 - 60, 130);
-          ctx.lineTo(width / 2 + 60, 130);
+          ctx.moveTo(width / 2 - 60, 135);
+          ctx.lineTo(width / 2 + 60, 135);
           ctx.stroke();
 
           // Left Column Center: X = 320
