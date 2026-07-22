@@ -14,6 +14,13 @@
     "announcement-bar": {
       "type": "announcement-bar",
       "blocks": {
+        "announcement_atYEPA": {
+          "type": "announcement",
+          "settings": {
+            "text": "Welcome to our store",
+            "link": ""
+          }
+        },
         "announcement_AcNtPX": {
           "type": "announcement",
           "settings": {
@@ -30,6 +37,7 @@
         }
       },
       "block_order": [
+        "announcement_atYEPA",
         "announcement_AcNtPX",
         "announcement-bar-0"
       ],
@@ -49,6 +57,7 @@
         "logo_position": "top-center",
         "mobile_logo_position": "center",
         "menu": "main-menu",
+        "category_menu_handle": "shop-by-category",
         "menu_type_desktop": "dropdown",
         "sticky_header_type": "on-scroll-up",
         "show_line_separator": true,
@@ -58,13 +67,31 @@
         "enable_language_selector": true,
         "enable_customer_avatar": true,
         "margin_bottom": 0,
-        "padding_top": 12,
-        "padding_bottom": 12
+        "padding_top": 4,
+        "padding_bottom": 4
       }
+    },
+    "custom_liquid_iYzRLy": {
+      "type": "custom-liquid",
+      "disabled": true,
+      "name": "t:sections.custom-liquid.presets.name",
+      "settings": {
+        "custom_liquid": "<style>\n  #template--27822470922611__final_cta_loop_hp {\n    padding-top: 30px !important;\n    padding-bottom: 30px !important;\n  }\n  \n  #template--27822470922611__final_cta_loop_hp .final-cta-content {\n    padding: 20px !important;\n  }\n  \n  #template--27822470922611__final_cta_loop_hp h2,\n  #template--27822470922611__final_cta_loop_hp .headline {\n    margin-bottom: 10px !important;\n    font-size: 1.5em !important;\n  }\n  \n  #template--27822470922611__final_cta_loop_hp p,\n  #template--27822470922611__final_cta_loop_hp .subline {\n    margin-bottom: 15px !important;\n    font-size: 0.95em !important;\n  }\n</style>",
+        "color_scheme": "scheme-3",
+        "padding_top": 4,
+        "padding_bottom": 4
+      }
+    },
+    "blocks_RE6PXd": {
+      "type": "_blocks",
+      "name": "Cashback announcement",
+      "settings": {}
     }
   },
   "order": [
     "announcement-bar",
-    "header"
+    "header",
+    "custom_liquid_iYzRLy",
+    "blocks_RE6PXd"
   ]
 }

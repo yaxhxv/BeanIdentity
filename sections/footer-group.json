@@ -27,6 +27,8 @@
       ],
       "settings": {
         "color_scheme": "scheme-b5592d7d-77c3-46be-9e5f-07fe7dd6fb50",
+        "bg_color": "#0f0f0f",
+        "text_color": "#ede7e3",
         "newsletter_enable": true,
         "newsletter_heading": "",
         "enable_follow_on_shop": true,
@@ -35,11 +37,9 @@
         "enable_language_selector": true,
         "payment_enable": true,
         "show_policy": true,
-        "bg_color": "#0F0F0F",
-        "text_color": "#EDE7E3",
         "margin_top": 0,
-        "padding_top": 60,
-        "padding_bottom": 40
+        "padding_top": 16,
+        "padding_bottom": 12
       }
     }
   },

@@ -245,8 +245,8 @@
       "name": "Clean Hero 2 (No Transitions)",
       "settings": {
         "section_width": "full-width",
-        "desktop_ratio": "56.25%",
-        "mobile_ratio": "adapt",
+        "desktop_ratio": "41.6%",
+        "mobile_ratio": "75%",
         "mobile_image_scaling": "contain",
         "content_alignment": "center",
         "text_color": "#ffffff",
@@ -266,10 +266,10 @@
         "text_color": "#000000",
         "button_bg": "#c6a969",
         "button_text": "#000000",
-        "padding_top": 120,
-        "padding_bottom": 80,
-        "margin_top": 40,
-        "margin_bottom": 48
+        "padding_top": 60,
+        "padding_bottom": 40,
+        "margin_top": 20,
+        "margin_bottom": 24
       }
     },
     "most_popular_products_fJfFYg": {
@@ -278,7 +278,7 @@
         "product_hLUbxF": {
           "type": "product",
           "settings": {
-            "product": "unisex-zip-hoodie-1"
+            "product": "unisex-oversized-classic-t-shirt-28"
           }
         },
         "product_3AzRWL": {
@@ -290,13 +290,13 @@
         "product_nxRBnx": {
           "type": "product",
           "settings": {
-            "product": "unisex-hoodie-2"
+            "product": "unisex-oversized-classic-t-shirt-41"
           }
         },
         "product_VcHghL": {
           "type": "product",
           "settings": {
-            "product": "unisex-oversized-classic-t-shirt-34"
+            "product": "unisex-oversized-classic-t-shirt-37"
           }
         },
         "product_zW8vXq": {
@@ -730,6 +730,9 @@
         "image": "shopify://shop_images/f94c8058-5cf6-40b7-bde4-387358ae8b68.jpg",
         "video_filename": "BeanIdentityMovie",
         "video_url": "",
+        "show_doodles": true,
+        "video_padding": 12,
+        "show_controls": true,
         "height": "adapt",
         "desktop_image_width": "medium",
         "layout": "image_first",
@@ -866,6 +869,54 @@
         "primary_btn_bg": "#c6a969",
         "primary_btn_text": "#000000"
       }
+    },
+    "1783014075411650e4": {
+      "type": "_blocks",
+      "settings": {}
+    },
+    "1783014702fdf35c7b": {
+      "type": "_blocks",
+      "blocks": {
+        "ai_gen_block_37efb88_emQQGM": {
+          "type": "ai_gen_block_37efb88",
+          "settings": {
+            "cashback_text": "Get ₹100 cashback on every purchase! Store credit will be emailed to you after your order.",
+            "cashback_font_size": 16,
+            "cashback_font_weight": "700",
+            "cashback_padding": 16,
+            "cashback_bg_color": "#c6a969",
+            "cashback_text_color": "#000000",
+            "trust_heading": "Shop with Confidence",
+            "trust_heading_size": 20,
+            "trust_heading_color": "#2b2b2b",
+            "trust_padding": 32,
+            "trust_item_spacing": 20,
+            "trust_bg_color": "#f5f3ee",
+            "show_secure_payments": true,
+            "secure_payments_label": "Secure Payments",
+            "secure_payments_desc": "100% safe & secure checkout",
+            "show_easy_returns": true,
+            "easy_returns_label": "Easy Returns",
+            "easy_returns_desc": "Hassle free returns",
+            "show_genuine_products": true,
+            "genuine_products_label": "Genuine Products",
+            "genuine_products_desc": "100% authentic & verified",
+            "icon_size": 40,
+            "icon_color": "#c6a969",
+            "trust_text_size": 16,
+            "trust_text_color": "#2b2b2b",
+            "trust_desc_size": 13,
+            "trust_desc_color": "#666666",
+            "desktop_width_percent": 100,
+            "border_radius": 8
+          },
+          "blocks": {}
+        }
+      },
+      "block_order": [
+        "ai_gen_block_37efb88_emQQGM"
+      ],
+      "settings": {}
     }
   },
   "order": [
@@ -885,6 +936,8 @@
     "slideshow_6AdwP4",
     "most_popular_products_a43Rtk",
     "featured_blog_bhD3VW",
-    "final_cta_loop_hp"
+    "final_cta_loop_hp",
+    "1783014075411650e4",
+    "1783014702fdf35c7b"
   ]
 }
