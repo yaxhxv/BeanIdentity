@@ -41,16 +41,11 @@
     .section-{{ section.id }}-padding {
       margin: 0 1rem;
       border-radius: 2.8rem 2.8rem 3.8rem 3.2rem / 2rem 2rem 2.8rem 2.4rem;
-      padding-bottom: 120px !important;
+      padding-bottom: 40px !important;
     }
 
     .cst-scene-bean {
       display: none !important;
-    }
-
-    .cst-tab-scene {
-      grid-template-columns: 1fr !important;
-      margin-bottom: 1rem !important;
     }
 
     .cst-tabs-nav {
@@ -78,26 +73,27 @@
 
   /* --- HEADER --- */
   .cst-header {
-    margin-bottom: 3.5rem;
-    padding-top: 2rem;
+    margin-bottom: 1.5rem;
+    padding-top: 1rem;
     text-align: center;
     position: relative;
   }
 
   .cst-heading {
     font-family: var(--font-heading-family);
-    font-size: clamp(3.2rem, 5.5vw, 6.4rem);
+    font-size: clamp(2.8rem, 4.5vw, 5.2rem);
     font-weight: 900;
     text-transform: none;
     line-height: 0.95;
     margin: 0;
+    padding:2rem;
     color: #0b0b0b;
   }
 
   .cst-description {
-      margin-top: 12px;
+      margin-top: 8px;
       font-family: 'Poppins', sans-serif;
-      font-size: 1.45rem;
+      font-size: 1.4rem;
       color: #2b2b2b;
       opacity: 0.8;
       max-width: 600px;
@@ -106,7 +102,7 @@
   }
 
   .cst-persona-line {
-    margin-top: 1.2rem;
+    margin-top: 0.8rem;
     font-family: 'Poppins', sans-serif;
     font-size: 1.1rem;
     letter-spacing: 0.08em;
@@ -124,8 +120,8 @@
     flex-wrap: nowrap;
     overflow-x: auto;
     gap: 1rem;
-    margin-top: 1rem;
-    margin-bottom: 3.5rem;
+    margin-top: 0.8rem;
+    margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
@@ -141,9 +137,9 @@
   .cst-tab-btn {
     background: transparent;
     border: 1px solid rgba(11,11,11,0.28);
-    padding: 12px 28px;
+    padding: 10px 24px;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.25rem;
+    font-size: 1.2rem;
     font-weight: 800;
     cursor: pointer;
     white-space: nowrap;
@@ -172,7 +168,7 @@
     display: none !important;
     animation: fadeIn 0.4s ease-out;
     position: relative;
-    padding-top: 1.6rem;
+    padding-top: 0 !important;
   }
 
   .cst-tab-content.active {
@@ -187,17 +183,11 @@
   }
 
   .cst-tab-scene {
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 2rem;
-    margin: 0 auto 3rem auto;
-    max-width: 600px;
-    z-index: 1;
+    display: none !important;
   }
 
   .cst-scene-copy {
+    display:none;
     padding: 1.6rem 2.4rem;
     background: rgba(255,255,255,0.65);
     backdrop-filter: blur(8px);

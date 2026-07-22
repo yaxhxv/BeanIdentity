@@ -266,10 +266,10 @@
         "text_color": "#000000",
         "button_bg": "#c6a969",
         "button_text": "#000000",
-        "padding_top": 32,
-        "padding_bottom": 24,
-        "margin_top": 12,
-        "margin_bottom": 16
+        "padding_top": 56,
+        "padding_bottom": 48,
+        "margin_top": 40,
+        "margin_bottom": 48
       }
     },
     "most_popular_products_fJfFYg": {
