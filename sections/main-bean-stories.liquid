@@ -1,0 +1,425 @@
+{% comment %}
+  SECTION: MAIN BEAN STORIES
+  - Dedicated page section for full community Bean Stories.
+  - Interactive bean type filtering (Coffee, Chilli, Vanilla, Jelly, Green).
+  - Uncapped full story text with media gallery and video playback.
+{% endcomment %}
+
+{{ 'section-main-page.css' | asset_url | stylesheet_tag }}
+
+{%- style -%}
+  .main-stories-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 4rem 2rem 8rem;
+    color: #f5f5f5;
+  }
+
+  .stories-hero-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    position: relative;
+  }
+
+  .stories-hero-title {
+    font-family: var(--font-heading-family);
+    font-size: clamp(3.6rem, 7vw, 7.2rem);
+    font-weight: 900;
+    margin: 0 0 1.2rem 0;
+    color: #0b0b0b;
+    line-height: 0.9;
+  }
+
+  .stories-hero-sub {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.6rem;
+    color: rgba(11,11,11,0.72);
+    max-width: 60rem;
+    margin: 0 auto;
+  }
+
+  /* Filter Pills */
+  .stories-filter-bar {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 4rem;
+  }
+
+  .filter-pill {
+    padding: 0.8rem 2rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(11, 11, 11, 0.2);
+    background: transparent;
+    color: #0b0b0b;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+  }
+
+  .filter-pill:hover,
+  .filter-pill.active {
+    background: #0b0b0b;
+    color: #f5f5f5;
+    border-color: #0b0b0b;
+  }
+
+  /* Stories Grid */
+  .stories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 3rem;
+  }
+
+  @media screen and (max-width: 749px) {
+    .stories-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .story-full-card {
+    background: #141414;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 4px solid var(--bean-accent, #c6a969);
+    border-radius: 2rem;
+    padding: 3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .story-full-card:hover {
+    transform: translateY(-0.5rem);
+    box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.4);
+  }
+
+  .story-card-top {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+
+  .story-card-avatar {
+    width: 5.4rem;
+    height: 5.4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--bean-accent, #c6a969);
+    background: #222;
+    flex-shrink: 0;
+  }
+
+  .story-card-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .story-user-handle {
+    font-weight: 800;
+    font-size: 1.7rem;
+    color: #f5f5f5;
+    margin-bottom: 0.2rem;
+    display: block;
+  }
+
+  .story-bean-badge {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--bean-accent, #c6a969);
+    letter-spacing: 0.06em;
+  }
+
+  .story-full-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.55rem;
+    line-height: 1.65;
+    color: rgba(245, 245, 245, 0.88);
+    margin-bottom: 2rem;
+  }
+
+  .story-media-gallery {
+    margin-top: auto;
+    border-radius: 1.2rem;
+    overflow: hidden;
+  }
+
+  .story-media-gallery img,
+  .story-media-gallery video {
+    width: 100%;
+    max-height: 280px;
+    object-fit: cover;
+    border-radius: 1.2rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .story-card-footer {
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    font-size: 1.2rem;
+    color: rgba(245, 245, 245, 0.45);
+    font-weight: 600;
+  }
+{%- endstyle -%}
+
+<div class="main-stories-container">
+  <div class="stories-hero-header">
+    <h1 class="stories-hero-title">{{ section.settings.title | default: 'The Bean Stories' }}</h1>
+    <p class="stories-hero-sub">{{ section.settings.subtitle | default: 'Real identity notes and stories from our community.' }}</p>
+  </div>
+
+  <div class="stories-filter-bar">
+    <button class="filter-pill active" data-filter="all">All Stories</button>
+    <button class="filter-pill" data-filter="coffee">Coffee Bean</button>
+    <button class="filter-pill" data-filter="chilli">Chilli Bean</button>
+    <button class="filter-pill" data-filter="vanilla">Vanilla Bean</button>
+    <button class="filter-pill" data-filter="jelly">Jelly Bean</button>
+    <button class="filter-pill" data-filter="green">Green Bean</button>
+  </div>
+
+  <div class="stories-grid" id="full-stories-grid">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign bean_color = '#c6a969'
+        case block.settings.bean_type
+          when 'coffee'
+            assign bean_color = '#A67C52'
+          when 'chilli'
+            assign bean_color = '#D32F2F'
+          when 'vanilla'
+            assign bean_color = '#FFF9C4'
+          when 'jelly'
+            assign bean_color = '#F06292'
+          when 'green'
+            assign bean_color = '#388E3C'
+        endcase
+      -%}
+      <div class="story-full-card" data-type="{{ block.settings.bean_type }}" style="--bean-accent: {{ bean_color }};" {{ block.shopify_attributes }}>
+        <div>
+          <div class="story-card-top">
+            <div class="story-card-avatar">
+              {%- if block.settings.image != blank -%}
+                {{ block.settings.image | image_url: width: 120 | image_tag: loading: 'lazy' }}
+              {%- else -%}
+                <div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#222;">
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="{{ bean_color }}"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+                </div>
+              {%- endif -%}
+            </div>
+            <div>
+              <span class="story-user-handle">@{{ block.settings.handle }}</span>
+              <span class="story-bean-badge">{{ block.settings.bean_type | capitalize }} Bean</span>
+            </div>
+          </div>
+          <div class="story-full-text">
+            "{{ block.settings.story }}"
+          </div>
+        </div>
+
+        <div class="story-card-footer">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="{{ bean_color }}">
+            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+          </svg>
+          Authenticated Identity Story
+        </div>
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const BACKEND_URL = window.beanBackendUrl || 'https://beanidentitybackend.onrender.com';
+    const gridEl = document.getElementById('full-stories-grid');
+    const filterBtns = document.querySelectorAll('.filter-pill');
+
+    const getBeanColor = (type) => {
+      const colors = { coffee: '#A67C52', chilli: '#D32F2F', vanilla: '#FFF9C4', jelly: '#F06292', green: '#388E3C' };
+      return colors[type] || '#C6A969';
+    };
+
+    const getFullMediaUrl = (url) => {
+      if (!url) return '';
+      return (url.startsWith('http') || url.startsWith('//')) ? url : `${BACKEND_URL}${url}`;
+    };
+
+    let allStoriesData = [];
+    let currentFilter = 'all';
+
+    const renderStories = (stories, filter = 'all') => {
+      if (!gridEl) return;
+      const filtered = filter === 'all' ? stories : stories.filter(s => (s.beanType || '').toLowerCase() === filter);
+      
+      if (filtered.length === 0) {
+        gridEl.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: rgba(245,245,245,0.6); font-size: 1.6rem; padding: 4rem 0;">No stories found for this category yet.</p>`;
+        return;
+      }
+
+      gridEl.innerHTML = filtered.map(story => {
+        const beanTypeClean = (story.beanType || 'coffee').toLowerCase();
+        const beanColor = getBeanColor(beanTypeClean);
+        const handleLabel = story.handle ? `@${story.handle}` : story.name;
+        const avatarUrl = (story.media && story.media.images && story.media.images.length > 0) 
+          ? getFullMediaUrl(story.media.images[0]) 
+          : '';
+        const videoUrl = (story.media && story.media.video) ? getFullMediaUrl(story.media.video) : '';
+        const photos = (story.media && story.media.images) ? story.media.images : [];
+
+        let mediaGalleryHtml = '';
+        if (videoUrl) {
+          mediaGalleryHtml += `<div class="story-media-gallery"><video src="${videoUrl}" controls playsinline muted></video></div>`;
+        }
+        if (photos.length > 0) {
+          mediaGalleryHtml += `<div class="story-media-gallery" style="display:flex; gap:1rem; flex-wrap:wrap; margin-top:1.5rem;">
+            ${photos.map(p => `<img src="${getFullMediaUrl(p)}" alt="Story media" style="max-height: 220px; width: auto; border-radius: 1.2rem; flex: 1 1 140px; object-fit: cover;">`).join('')}
+          </div>`;
+        }
+
+        return `
+          <div class="story-full-card" data-type="${beanTypeClean}" style="--bean-accent: ${beanColor};">
+            <div>
+              <div class="story-card-top">
+                <div class="story-card-avatar" style="border-color: ${beanColor};">
+                  ${avatarUrl ? `<img src="${avatarUrl}" alt="${story.name}">` : `<div style="width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#222;"><svg width="24" height="24" viewBox="0 0 24 24" fill="${beanColor}"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg></div>`}
+                </div>
+                <div>
+                  <span class="story-user-handle">${handleLabel}</span>
+                  <span class="story-bean-badge" style="color: ${beanColor};">${beanTypeClean.toUpperCase()} BEAN</span>
+                </div>
+              </div>
+              <div class="story-full-text">
+                "${story.story}"
+              </div>
+              ${mediaGalleryHtml}
+            </div>
+
+            <div class="story-card-footer">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="${beanColor}">
+                <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+              </svg>
+              Authenticated Identity Story
+            </div>
+          </div>
+        `;
+      }).join('');
+    };
+
+    const fetchLiveApprovedStories = async () => {
+      try {
+        const res = await fetch(`${BACKEND_URL}/api/stories/approved`);
+        if (res.ok) {
+          const apiData = await res.json();
+          if (apiData && apiData.length > 0) {
+            allStoriesData = apiData;
+            renderStories(allStoriesData, currentFilter);
+            return;
+          }
+        }
+      } catch (err) {
+        console.warn('Backend connection warning, using Liquid fallback: ', err);
+      }
+
+      // Fallback if API has no records yet: parse Liquid static cards
+      const staticCards = document.querySelectorAll('.story-full-card');
+      staticCards.forEach(card => {
+        const handleEl = card.querySelector('.story-user-handle');
+        const textEl = card.querySelector('.story-full-text');
+        const imgEl = card.querySelector('.story-card-avatar img');
+        allStoriesData.push({
+          name: handleEl ? handleEl.textContent.replace('@', '') : 'Member',
+          handle: handleEl ? handleEl.textContent.replace('@', '') : 'username',
+          beanType: card.getAttribute('data-type') || 'coffee',
+          story: textEl ? textEl.textContent.trim().replace(/^"|"$/g, '') : '',
+          media: {
+            images: imgEl ? [imgEl.getAttribute('src')] : [],
+            video: ''
+          }
+        });
+      });
+    };
+
+    fetchLiveApprovedStories();
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        currentFilter = btn.getAttribute('data-filter');
+        renderStories(allStoriesData, currentFilter);
+      });
+    });
+  });
+</script>
+
+{% schema %}
+{
+  "name": "Main Bean Stories",
+  "settings": [
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "The Bean Stories"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Real identity notes and stories from our community."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "story",
+      "name": "Story Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "handle",
+          "label": "Handle / Name",
+          "default": "username"
+        },
+        {
+          "type": "select",
+          "id": "bean_type",
+          "label": "Bean Type",
+          "options": [
+            { "value": "coffee", "label": "Coffee Bean" },
+            { "value": "chilli", "label": "Chilli Bean" },
+            { "value": "vanilla", "label": "Vanilla Bean" },
+            { "value": "jelly", "label": "Jelly Bean" },
+            { "value": "green", "label": "Green Bean" }
+          ],
+          "default": "coffee"
+        },
+        {
+          "type": "textarea",
+          "id": "story",
+          "label": "Story Content",
+          "default": "Share your story here..."
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "User Image"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Main Bean Stories"
+    }
+  ]
+}
+{% endschema %}

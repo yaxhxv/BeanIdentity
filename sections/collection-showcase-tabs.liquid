@@ -78,26 +78,26 @@
 
   /* --- HEADER --- */
   .cst-header {
-    margin-bottom: 3.2rem;
-    text-align: {{ section.settings.heading_align }};
+    margin-bottom: 3.5rem;
+    padding-top: 2rem;
+    text-align: center;
     position: relative;
   }
 
-
   .cst-heading {
     font-family: var(--font-heading-family);
-    font-size: clamp(4rem, 7vw, 8.6rem);
+    font-size: clamp(3.2rem, 5.5vw, 6.4rem);
     font-weight: 900;
-    text-transform: uppercase;
-    line-height: 0.86;
+    text-transform: none;
+    line-height: 0.95;
     margin: 0;
     color: #0b0b0b;
   }
 
   .cst-description {
-      margin-top: 10px;
+      margin-top: 12px;
       font-family: 'Poppins', sans-serif;
-      font-size: 1.5rem;
+      font-size: 1.45rem;
       color: #2b2b2b;
       opacity: 0.8;
       max-width: 600px;
@@ -106,11 +106,11 @@
   }
 
   .cst-persona-line {
-    margin-top: 1.4rem;
+    margin-top: 1.2rem;
     font-family: 'Poppins', sans-serif;
-    font-size: 1.15rem;
+    font-size: 1.1rem;
     letter-spacing: 0.08em;
-    text-transform: uppercase;
+    text-transform: none;
     color: rgba(43,43,43,0.7);
   }
 
@@ -123,12 +123,14 @@
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 0.8rem;
-    margin-bottom: 3rem;
+    gap: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 3.5rem;
     padding-bottom: 0.5rem;
     scrollbar-width: thin;
     -webkit-overflow-scrolling: touch;
-    justify-content: safe center; /* Centered, but safe from overflow clip */
+    justify-content: center;
+    align-items: center;
   }
 
   .cst-tabs-nav::-webkit-scrollbar {
@@ -142,14 +144,14 @@
     padding: 12px 28px;
     font-family: 'Poppins', sans-serif;
     font-size: 1.25rem;
-    font-weight: 900;
+    font-weight: 800;
     cursor: pointer;
     white-space: nowrap;
     transition: all 0.3s ease;
     color: #0b0b0b;
     border-radius: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
+    text-transform: none;
+    letter-spacing: 0.04em;
     position: relative;
   }
 
@@ -174,7 +176,7 @@
   }
 
   .cst-tab-content.active {
-    display: block !important; /* Block for carousel wrapper */
+    display: block !important;
   }
 
   .cst-carousel-viewport {
@@ -186,19 +188,22 @@
 
   .cst-tab-scene {
     position: relative;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) 18rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     gap: 2rem;
-    align-items: end;
-    margin-bottom: 2rem;
+    margin: 0 auto 3rem auto;
+    max-width: 600px;
     z-index: 1;
   }
 
   .cst-scene-copy {
-    padding: 1.8rem 2rem;
-    background: rgba(255,255,255,0.56);
+    padding: 1.6rem 2.4rem;
+    background: rgba(255,255,255,0.65);
     backdrop-filter: blur(8px);
-    border-left: 3px solid var(--bean-accent, rgba(198,169,105,0.9));
+    border-left: 4px solid var(--bean-accent, rgba(198,169,105,0.9));
+    border-radius: 14px;
+    text-align: center;
     transform: none;
   }
 

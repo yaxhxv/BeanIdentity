@@ -426,9 +426,9 @@
     }
 
     .clean-image-wrapper {
-      padding-bottom: {{ mobile_ratio }} !important;
-      min-height: 32rem !important;
-      max-height: {% if section.settings.mobile_image_scaling == 'contain' %}none{% else %}65vh{% endif %} !important;
+      padding-bottom: clamp(100%, 120vw, 130%) !important;
+      min-height: 44rem !important;
+      max-height: 75vh !important;
       width: 100% !important;
       position: relative !important;
       transform: none !important;
@@ -436,8 +436,8 @@
     }
 
     .clean-img {
-      object-position: 65% center !important;
-      object-fit: {{ section.settings.mobile_image_scaling | default: 'cover' }} !important;
+      object-position: center center !important;
+      object-fit: cover !important;
       transform: none !important;
       transition: none !important;
     }
