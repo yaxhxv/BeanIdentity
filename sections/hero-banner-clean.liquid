@@ -465,18 +465,21 @@
     }
 
     .hero-buttons {
-      flex-direction: column;
-      width: 100%;
-      align-items: stretch;
-      margin-top: 0;
-      gap: 1.2rem;
+      flex-direction: row !important;
+      width: auto !important;
+      max-width: 100% !important;
+      flex-wrap: wrap !important;
+      align-items: center !important;
+      margin-top: 1.8rem !important;
+      gap: 1rem !important;
     }
 
     .hero-btn {
-      width: 100%;
-      min-width: unset;
-      min-height: 5rem;
-      font-size: 1.15rem;
+      width: auto !important;
+      min-width: 14rem !important;
+      min-height: 4.4rem !important;
+      padding: 0 2rem !important;
+      font-size: 1.1rem !important;
     }
 
     .clean-image-wrapper::before {
